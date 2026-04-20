@@ -44,6 +44,12 @@ projects/
           pk-toastr.ts          ← component that renders the toast container (add once to AppComponent)
           pk-toastr.html / .css
           pk-toastr.spec.ts
+        pk-alert/
+          pk-alert.model.ts     ← AlertType, AlertInputType, AlertConfig, AlertSlot interfaces
+          pk-alert.service.ts   ← injectable service: success/warn/error/confirm/input → Promise
+          pk-alert.ts           ← modal overlay component (add once to AppComponent)
+          pk-alert.html / .css
+          pk-alert.spec.ts
   example/                 ← local dev/test app (gitignored, never published)
     src/app/
       app.ts               ← imports PkTabs, PkTab, PkToastr, PkToastrService from 'ngx-pk-ui'
@@ -175,6 +181,13 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `ToastType` | Type alias | `pk-toastr/pk-toastr.model` |
 | `PkToastrService` | Injectable service | `pk-toastr/pk-toastr.service` |
 | `PkToastr` | Component | `pk-toastr/pk-toastr` |
+| `AlertType` | Type alias | `pk-alert/pk-alert.model` |
+| `AlertInputType` | Type alias | `pk-alert/pk-alert.model` |
+| `AlertConfig` | Interface | `pk-alert/pk-alert.model` |
+| `AlertSlot` | Interface | `pk-alert/pk-alert.model` |
+| `AlertResult` | Type alias | `pk-alert/pk-alert.model` |
+| `PkAlertService` | Injectable service | `pk-alert/pk-alert.service` |
+| `PkAlert` | Component | `pk-alert/pk-alert` |
 
 ---
 
@@ -197,6 +210,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-tabs` | ✅ Built, tested (4 tests) |
 | `pk-toastr` | ✅ Built, tested (4 tests) |
+| `pk-alert` | ✅ Built, tested (13 tests) |
 | Example app (`projects/example/`) | ✅ Created, gitignored, wired to library |
 | npm published | ❌ Not yet |
 
@@ -206,3 +220,46 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - `pk-badge` — numeric/status badge overlay
 - `pk-tooltip` — hover tooltip using Angular CDK overlay (or pure CSS)
 - `pk-accordion` — collapsible panels, similar pattern to `pk-tabs` (parent + child content projection)
+
+---
+
+## pk-alert API reference
+
+Place `<pk-alert />` **once** in your root component template alongside `<pk-toastr />`.
+
+```ts
+import { PkAlertService } from 'ngx-pk-ui';
+
+@Component({ ... })
+export class MyComponent {
+  alert = inject(PkAlertService);
+
+  async examples() {
+    // Notification dialogs — resolve when user clicks OK
+    await this.alert.success('Saved successfully!');
+    await this.alert.warn('This may cause issues.');
+    await this.alert.error('Operation failed.');
+
+    // Confirm dialog — resolves true (OK) or false (Cancel)
+    const yes = await this.alert.confirm('Delete this item?', 'Confirm');
+    if (yes) { /* proceed */ }
+
+    // Input dialogs — resolve the value or null (if cancelled)
+    const name = await this.alert.input('Enter your name:', 'string', 'Name', 'Alice');
+    const age  = await this.alert.input('Enter your age:',  'number', 'Age', 25);
+    const dob  = await this.alert.input('Pick a date:',     'date');
+    const ok   = await this.alert.input('Agree to terms?',  'boolean');
+  }
+}
+```
+
+**`PkAlertService` methods:**
+| Method | Returns |
+|--------|---------|
+| `success(message, title?)` | `Promise<void>` |
+| `warn(message, title?)` | `Promise<void>` |
+| `error(message, title?)` | `Promise<void>` |
+| `confirm(message, title?, confirmLabel?, cancelLabel?)` | `Promise<boolean>` |
+| `input(message, inputType, title?, defaultValue?)` | `Promise<string\|number\|boolean\|null>` |
+
+`inputType` values: `'string'` `'number'` `'date'` `'boolean'`
