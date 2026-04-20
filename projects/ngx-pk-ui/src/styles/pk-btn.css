@@ -1,0 +1,251 @@
+/**
+ * pk-btn — Button CSS for ngx-pk-ui
+ *
+ * Variants:  pk-btn-primary (default) | pk-btn-secondary | pk-btn-success | pk-btn-error
+ * Modifiers: pk-btn-outline | pk-btn-shadow | pk-btn-sm | pk-btn-lg
+ * Group:     pk-btn-group (wraps multiple pk-btn, joined borders)
+ *
+ * Usage:
+ *   <button class="pk-btn">Primary</button>
+ *   <button class="pk-btn pk-btn-success pk-btn-outline">Outline Success</button>
+ *   <div class="pk-btn-group">
+ *     <button class="pk-btn pk-btn-secondary">Left</button>
+ *     <button class="pk-btn pk-btn-secondary">Right</button>
+ *   </div>
+ */
+
+/* ─── CSS custom properties ───────────────────────────────────────── */
+
+:root {
+  --pk-btn-primary:   #1976d2;
+  --pk-btn-primary-h: #1565c0;
+  --pk-btn-primary-a: #0d47a1;
+
+  --pk-btn-secondary:   #757575;
+  --pk-btn-secondary-h: #616161;
+  --pk-btn-secondary-a: #424242;
+
+  --pk-btn-success:   #43a047;
+  --pk-btn-success-h: #388e3c;
+  --pk-btn-success-a: #2e7d32;
+
+  --pk-btn-error:   #e53935;
+  --pk-btn-error-h: #c62828;
+  --pk-btn-error-a: #b71c1c;
+
+  --pk-btn-radius: 6px;
+  --pk-btn-font:   -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ─── Base ────────────────────────────────────────────────────────── */
+
+.pk-btn {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  /* Sizing */
+  padding: 8px 20px;
+  min-height: 38px;
+  min-width: 64px;
+
+  /* Typography */
+  font-family: var(--pk-btn-font);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-decoration: none;
+
+  /* Appearance — default to primary */
+  background-color: var(--pk-btn-primary);
+  color: #fff;
+  border: 2px solid transparent;
+  border-radius: var(--pk-btn-radius);
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+
+  /* Transition */
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+              color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.pk-btn:hover  { background-color: var(--pk-btn-primary-h); }
+.pk-btn:active { background-color: var(--pk-btn-primary-a); }
+
+.pk-btn:focus-visible {
+  outline: 3px solid rgba(25, 118, 210, 0.4);
+  outline-offset: 2px;
+}
+
+.pk-btn:disabled,
+.pk-btn[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ─── Variants ────────────────────────────────────────────────────── */
+
+.pk-btn-primary {
+  background-color: var(--pk-btn-primary);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-primary:hover  { background-color: var(--pk-btn-primary-h); }
+.pk-btn-primary:active { background-color: var(--pk-btn-primary-a); }
+.pk-btn-primary:focus-visible { outline-color: rgba(25, 118, 210, 0.45); }
+
+.pk-btn-secondary {
+  background-color: var(--pk-btn-secondary);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-secondary:hover  { background-color: var(--pk-btn-secondary-h); }
+.pk-btn-secondary:active { background-color: var(--pk-btn-secondary-a); }
+.pk-btn-secondary:focus-visible { outline-color: rgba(117, 117, 117, 0.45); }
+
+.pk-btn-success {
+  background-color: var(--pk-btn-success);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-success:hover  { background-color: var(--pk-btn-success-h); }
+.pk-btn-success:active { background-color: var(--pk-btn-success-a); }
+.pk-btn-success:focus-visible { outline-color: rgba(67, 160, 71, 0.45); }
+
+.pk-btn-error {
+  background-color: var(--pk-btn-error);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-error:hover  { background-color: var(--pk-btn-error-h); }
+.pk-btn-error:active { background-color: var(--pk-btn-error-a); }
+.pk-btn-error:focus-visible { outline-color: rgba(229, 57, 53, 0.45); }
+
+/* ─── Outline modifier ────────────────────────────────────────────── */
+
+.pk-btn.pk-btn-outline,
+.pk-btn-primary.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-primary);
+  color: var(--pk-btn-primary);
+}
+.pk-btn.pk-btn-outline:hover,
+.pk-btn-primary.pk-btn-outline:hover {
+  background-color: var(--pk-btn-primary);
+  color: #fff;
+}
+.pk-btn.pk-btn-outline:active,
+.pk-btn-primary.pk-btn-outline:active {
+  background-color: var(--pk-btn-primary-h);
+  border-color: var(--pk-btn-primary-h);
+  color: #fff;
+}
+
+.pk-btn-secondary.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-secondary);
+  color: var(--pk-btn-secondary);
+}
+.pk-btn-secondary.pk-btn-outline:hover {
+  background-color: var(--pk-btn-secondary);
+  color: #fff;
+}
+.pk-btn-secondary.pk-btn-outline:active {
+  background-color: var(--pk-btn-secondary-h);
+  border-color: var(--pk-btn-secondary-h);
+  color: #fff;
+}
+
+.pk-btn-success.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-success);
+  color: var(--pk-btn-success);
+}
+.pk-btn-success.pk-btn-outline:hover {
+  background-color: var(--pk-btn-success);
+  color: #fff;
+}
+.pk-btn-success.pk-btn-outline:active {
+  background-color: var(--pk-btn-success-h);
+  border-color: var(--pk-btn-success-h);
+  color: #fff;
+}
+
+.pk-btn-error.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-error);
+  color: var(--pk-btn-error);
+}
+.pk-btn-error.pk-btn-outline:hover {
+  background-color: var(--pk-btn-error);
+  color: #fff;
+}
+.pk-btn-error.pk-btn-outline:active {
+  background-color: var(--pk-btn-error-h);
+  border-color: var(--pk-btn-error-h);
+  color: #fff;
+}
+
+/* ─── Shadow modifier ─────────────────────────────────────────────── */
+
+.pk-btn.pk-btn-shadow {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.20), 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.pk-btn.pk-btn-shadow:hover {
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.22), 0 2px 6px rgba(0, 0, 0, 0.14);
+}
+.pk-btn.pk-btn-shadow:active {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+}
+
+/* ─── Size modifiers ──────────────────────────────────────────────── */
+
+.pk-btn-sm {
+  padding: 5px 14px;
+  min-height: 30px;
+  font-size: 12px;
+}
+
+.pk-btn-lg {
+  padding: 11px 28px;
+  min-height: 46px;
+  font-size: 16px;
+}
+
+/* ─── Button group ────────────────────────────────────────────────── */
+
+.pk-btn-group {
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.pk-btn-group > .pk-btn {
+  border-radius: 0;
+  margin-left: -2px; /* collapse shared border */
+  position: relative;
+}
+
+.pk-btn-group > .pk-btn:first-child {
+  border-radius: var(--pk-btn-radius) 0 0 var(--pk-btn-radius);
+  margin-left: 0;
+}
+
+.pk-btn-group > .pk-btn:last-child {
+  border-radius: 0 var(--pk-btn-radius) var(--pk-btn-radius) 0;
+}
+
+.pk-btn-group > .pk-btn:only-child {
+  border-radius: var(--pk-btn-radius);
+  margin-left: 0;
+}
+
+.pk-btn-group > .pk-btn:hover,
+.pk-btn-group > .pk-btn:focus-visible {
+  z-index: 1;
+}
