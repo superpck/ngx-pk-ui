@@ -50,10 +50,13 @@ projects/
           pk-alert.ts           ← modal overlay component (add once to AppComponent)
           pk-alert.html / .css
           pk-alert.spec.ts
-  src/styles/
-    pk-ui.css                   ← single entry point — imports pk-grid + pk-btn
-    pk-grid.css                 ← standalone CSS grid system (copy to dist/ngx-pk-ui/styles/)
-    pk-btn.css                  ← standalone CSS button system (copy to dist/ngx-pk-ui/styles/)
+    src/styles/
+      pk-ui.css                   ← single entry point — imports all CSS modules
+      pk-grid.css                 ← standalone CSS grid system
+      pk-btn.css                  ← standalone CSS button system
+      pk-spinner.css              ← standalone CSS spinner system
+      pk-badge.css                ← standalone CSS badge system
+      pk-card.css                 ← standalone CSS card system
   example/                 ← local dev/test app (gitignored, never published)
     src/app/
       app.ts               ← imports PkTabs, PkTab, PkToastr, PkToastrService from 'ngx-pk-ui'
@@ -217,15 +220,18 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-alert` | ✅ Built, tested (13 tests) |
 | `pk-grid` (CSS only) | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | `pk-btn` (CSS only)  | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
+| `pk-spinner` (CSS only) | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
+| `pk-badge` (CSS only)   | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-badge.css` |
+| `pk-card` (CSS only)    | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-card.css` |
 | Example app (`projects/example/`) | ✅ Created, gitignored, wired to library |
 | npm published | ❌ Not yet |
 
 ### Suggested next components
 - `pk-modal` — overlay dialog with backdrop, close-on-Escape, focus trap
-- `pk-spinner` — loading indicator with size/color inputs
-- `pk-badge` — numeric/status badge overlay
 - `pk-tooltip` — hover tooltip using Angular CDK overlay (or pure CSS)
 - `pk-accordion` — collapsible panels, similar pattern to `pk-tabs` (parent + child content projection)
+- `pk-table` — styled table with pk-table, pk-table-striped, pk-table-hover, pk-table-bordered
+- `pk-input` — styled form inputs: pk-input, pk-input-group, pk-label, pk-form-field
 
 ---
 
@@ -362,3 +368,90 @@ export class MyComponent {
 | `input(message, inputType, title?, defaultValue?)` | `Promise<string\|number\|boolean\|null>` |
 
 `inputType` values: `'string'` `'number'` `'date'` `'boolean'`
+
+---
+
+## pk-spinner CSS reference
+
+```html
+<!-- Sizes -->
+<span class="pk-spinner pk-spinner-sm"></span>
+<span class="pk-spinner"></span>           <!-- md (default) -->
+<span class="pk-spinner pk-spinner-lg"></span>
+<span class="pk-spinner pk-spinner-xl"></span>
+
+<!-- Colors -->
+<span class="pk-spinner pk-spinner-primary"></span>
+<span class="pk-spinner pk-spinner-secondary"></span>
+<span class="pk-spinner pk-spinner-success"></span>
+<span class="pk-spinner pk-spinner-error"></span>
+<span class="pk-spinner pk-spinner-white"></span>
+
+<!-- Inline (sits alongside text or inside a button) -->
+<span class="pk-spinner pk-spinner-sm pk-spinner-inline"></span>
+```
+
+| Modifier | Description |
+|----------|-------------|
+| `pk-spinner-sm` | 16px / 2px border |
+| `pk-spinner-md` | 24px / 3px border (default) |
+| `pk-spinner-lg` | 36px / 4px border |
+| `pk-spinner-xl` | 48px / 5px border |
+| `pk-spinner-inline` | `display:inline-block; vertical-align:middle` |
+| `pk-spinner-primary/secondary/success/error/white` | Color variants |
+
+---
+
+## pk-badge CSS reference
+
+```html
+<!-- Solid variants (default = primary) -->
+<span class="pk-badge">Primary</span>
+<span class="pk-badge pk-badge-success">Success</span>
+<span class="pk-badge pk-badge-warn">Warn</span>
+<span class="pk-badge pk-badge-error">Error</span>
+
+<!-- Outline -->
+<span class="pk-badge pk-badge-error pk-badge-outline">Error</span>
+
+<!-- Sizes -->
+<span class="pk-badge pk-badge-sm">3</span>
+<span class="pk-badge pk-badge-lg">New</span>
+
+<!-- Pill (rectangular, rounded ends) -->
+<span class="pk-badge pk-badge-success pk-badge-pill">v2.0.1</span>
+
+<!-- Dot (empty indicator, no text) -->
+<span class="pk-badge pk-badge-dot pk-badge-success"></span>
+```
+
+---
+
+## pk-card CSS reference
+
+```html
+<div class="pk-card">
+  <div class="pk-card-header">Title</div>
+  <div class="pk-card-body">Content</div>
+  <div class="pk-card-footer">
+    <button class="pk-btn pk-btn-primary pk-btn-sm">OK</button>
+  </div>
+</div>
+```
+
+### Color variants (colored header bg + matching border)
+```html
+<div class="pk-card pk-card-primary">...</div>
+<div class="pk-card pk-card-secondary">...</div>
+<div class="pk-card pk-card-success">...</div>
+<div class="pk-card pk-card-error">...</div>
+```
+
+### Modifiers
+| Modifier | Description |
+|----------|-------------|
+| `pk-card-shadow` | Elevated shadow |
+| `pk-card-flat` | No shadow |
+| `pk-card-outlined` | Border only, no shadow |
+
+Colors are driven by the same CSS custom properties as `pk-btn.css` (`--pk-btn-primary`, etc.).
