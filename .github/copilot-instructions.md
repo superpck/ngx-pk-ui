@@ -50,6 +50,14 @@ projects/
           pk-alert.ts           ← modal overlay component (add once to AppComponent)
           pk-alert.html / .css
           pk-alert.spec.ts
+        pk-modal/
+          pk-modal.model.ts     ← PkModalSize type alias
+          pk-modal-header.ts    ← slot component — bold header, bottom border
+          pk-modal-body.ts      ← slot component — scrollable body
+          pk-modal-footer.ts    ← slot component — right-aligned flex footer
+          pk-modal.ts           ← main component: openModal/size/blur/closeAble/customClass/customStyle/(onClose)
+          pk-modal.html / .css
+          pk-modal.spec.ts
     src/styles/
       pk-ui.css                   ← single entry point — imports all CSS modules
       pk-grid.css                 ← standalone CSS grid system
@@ -59,9 +67,11 @@ projects/
       pk-card.css                 ← standalone CSS card system
   example/                 ← local dev/test app (gitignored, never published)
     src/app/
-      app.ts               ← imports PkTabs, PkTab, PkToastr, PkToastrService from 'ngx-pk-ui'
-      app.html             ← demo page: tabs + toastr buttons
-      app.css
+      app.ts / app.html / app.css  ← shell: dark sidebar nav + RouterOutlet + PkToastr + PkAlert
+      app.routes.ts                ← lazy-loaded routes for each component/CSS section
+      pages/
+        home/           pk-tabs/   pk-toastr/   pk-alert/   pk-modal/
+        pk-grid/        pk-btn/    pk-spinner/  pk-badge/   pk-card/
 ```
 
 `dist/ngx-pk-ui/` is the build output consumed by npm. Never edit files there.
@@ -218,20 +228,23 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-tabs` | ✅ Built, tested (4 tests) |
 | `pk-toastr` | ✅ Built, tested (4 tests) |
 | `pk-alert` | ✅ Built, tested (13 tests) |
+| `pk-modal` | ✅ Built, tested (12 tests) |
 | `pk-grid` (CSS only) | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | `pk-btn` (CSS only)  | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
 | `pk-spinner` (CSS only) | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
 | `pk-badge` (CSS only)   | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-badge.css` |
 | `pk-card` (CSS only)    | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-card.css` |
-| Example app (`projects/example/`) | ✅ Created, gitignored, wired to library |
+| Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section |
 | npm published | ❌ Not yet |
 
+**Test totals: 33 / 33 passing**
+
 ### Suggested next components
-- `pk-modal` — overlay dialog with backdrop, close-on-Escape, focus trap
-- `pk-tooltip` — hover tooltip using Angular CDK overlay (or pure CSS)
-- `pk-accordion` — collapsible panels, similar pattern to `pk-tabs` (parent + child content projection)
-- `pk-table` — styled table with pk-table, pk-table-striped, pk-table-hover, pk-table-bordered
+- `pk-tooltip` — hover tooltip (pure CSS or CDK overlay)
+- `pk-accordion` — collapsible panels, similar to `pk-tabs` (content projection)
+- `pk-table` — styled table with striped, hover, bordered variants
 - `pk-input` — styled form inputs: pk-input, pk-input-group, pk-label, pk-form-field
+- `pk-select` — styled native or custom select dropdown
 
 ---
 
@@ -455,3 +468,73 @@ export class MyComponent {
 | `pk-card-outlined` | Border only, no shadow |
 
 Colors are driven by the same CSS custom properties as `pk-btn.css` (`--pk-btn-primary`, etc.).
+
+---
+
+## pk-modal API reference
+
+Place `<pk-modal>` wherever the dialog needs to appear. Use the three slot components for structure.
+
+```ts
+import { PkModal, PkModalHeader, PkModalBody, PkModalFooter } from 'ngx-pk-ui';
+import type { PkModalSize } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkModal, PkModalHeader, PkModalBody, PkModalFooter],
+  // ...
+})
+export class MyComponent {
+  showModal = false;
+}
+```
+
+```html
+<button (click)="showModal = true">Open</button>
+
+<pk-modal
+  [openModal]="showModal"
+  size="lg"
+  [blur]="true"
+  [closeAble]="true"
+  (onClose)="showModal = false"
+>
+  <pk-modal-header>Title</pk-modal-header>
+
+  <pk-modal-body>
+    <p>Any content — forms, text, tables.</p>
+  </pk-modal-body>
+
+  <pk-modal-footer>
+    <button class="pk-btn pk-btn-secondary pk-btn-outline" (click)="showModal = false">Cancel</button>
+    <button class="pk-btn pk-btn-primary" (click)="confirm()">OK</button>
+  </pk-modal-footer>
+</pk-modal>
+```
+
+### PkModal inputs / outputs
+
+| Input/Output | Type | Default | Description |
+|---|---|---|---|
+| `openModal` | `boolean` | `false` | Show / hide the modal |
+| `size` | `'sm'\|'md'\|'lg'\|'xl'\|'full'` | `'md'` | Dialog width preset |
+| `blur` | `boolean` | `true` | `backdrop-filter: blur(4px)` on overlay |
+| `closeAble` | `boolean` | `true` | Show × button; allow backdrop click to close |
+| `customClass` | `string\|null` | `null` | Extra CSS class on dialog container |
+| `customStyle` | `Record<string,string>\|null` | `null` | Inline styles on dialog container |
+| `(onClose)` | `void` | — | Emits on × click or backdrop click (when closeAble=true) |
+
+### Size presets
+
+| Size | Max-width |
+|---|---|
+| `sm` | 360px |
+| `md` | 520px (default) |
+| `lg` | 760px |
+| `xl` | 1020px |
+| `full` | 100vw × 100vh, no border-radius |
+
+### Notes
+- **Slots** — `pk-modal-header`, `pk-modal-body`, `pk-modal-footer` are standalone components; import all three in the consuming component's `imports[]`.
+- **`closeAble=false`** — hides the × button AND disables backdrop-click dismiss. You must emit `(onClose)` programmatically.
+- **Animation** — overlay fades in, dialog slides in from slightly above (pure CSS, no Angular Animations module).
+- **`customStyle`** — uses Angular's `[ngStyle]` binding; provide a `Record<string, string>` object.
