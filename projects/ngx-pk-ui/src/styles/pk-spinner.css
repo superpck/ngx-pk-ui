@@ -1,0 +1,96 @@
+/**
+ * pk-spinner — Loading spinner CSS for ngx-pk-ui
+ *
+ * Sizes:    pk-spinner-sm | pk-spinner-md (default) | pk-spinner-lg | pk-spinner-xl
+ * Display:  pk-spinner-inline (sits inline with text)
+ * Colors:   pk-spinner-primary (default) | pk-spinner-secondary
+ *           pk-spinner-success | pk-spinner-error | pk-spinner-white
+ *
+ * Usage:
+ *   <span class="pk-spinner"></span>
+ *   <span class="pk-spinner pk-spinner-lg pk-spinner-success"></span>
+ *   Loading... <span class="pk-spinner pk-spinner-sm pk-spinner-inline"></span>
+ *
+ * Accessible usage:
+ *   <span class="pk-spinner" role="status" aria-label="Loading"></span>
+ */
+
+/* ─── Keyframe ────────────────────────────────────────────────────── */
+
+@keyframes pk-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Base ────────────────────────────────────────────────────────── */
+
+.pk-spinner {
+  display: block;
+  width: 24px;   /* md default */
+  height: 24px;
+  border-radius: 50%;
+  border: 3px solid rgba(25, 118, 210, 0.2);
+  border-top-color: var(--pk-btn-primary, #1976d2);
+  animation: pk-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ─── Sizes ───────────────────────────────────────────────────────── */
+
+.pk-spinner-sm {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+.pk-spinner-md {
+  width: 24px;
+  height: 24px;
+  border-width: 3px;
+}
+
+.pk-spinner-lg {
+  width: 36px;
+  height: 36px;
+  border-width: 4px;
+}
+
+.pk-spinner-xl {
+  width: 48px;
+  height: 48px;
+  border-width: 5px;
+}
+
+/* ─── Inline ──────────────────────────────────────────────────────── */
+
+.pk-spinner-inline {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+/* ─── Color variants ──────────────────────────────────────────────── */
+
+.pk-spinner-primary {
+  border-color: rgba(25, 118, 210, 0.2);
+  border-top-color: var(--pk-btn-primary, #1976d2);
+}
+
+.pk-spinner-secondary {
+  border-color: rgba(117, 117, 117, 0.2);
+  border-top-color: var(--pk-btn-secondary, #757575);
+}
+
+.pk-spinner-success {
+  border-color: rgba(67, 160, 71, 0.2);
+  border-top-color: var(--pk-btn-success, #43a047);
+}
+
+.pk-spinner-error {
+  border-color: rgba(229, 57, 53, 0.2);
+  border-top-color: var(--pk-btn-error, #e53935);
+}
+
+.pk-spinner-white {
+  border-color: rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+}
