@@ -10,6 +10,10 @@ All library source lives under `projects/ngx-pk-ui/src/lib/`. The public API is 
 ```bash
 # Build the library (outputs to dist/ngx-pk-ui)
 ng build ngx-pk-ui
+npm run build:lib          # alias
+
+# Serve the example app (builds lib first, then opens browser)
+npm run start:example      # runs: ng build ngx-pk-ui --watch & ng serve example --open
 
 # Run all tests (Vitest, headless)
 ng test ngx-pk-ui --no-watch
@@ -24,24 +28,31 @@ npm publish dist/ngx-pk-ui
 ## Architecture
 
 ```
-projects/ngx-pk-ui/
-  src/
-    public-api.ts          ← everything exported from here is part of the public API
-    lib/
-      pk-tabs/
-        pk-tab.ts          ← child component: one tab item (used via content projection)
-        pk-tabs.ts         ← parent container: manages active tab with signals
-        pk-tabs.html / .css
-        pk-tabs.spec.ts
-      pk-toastr/
-        pk-toastr.model.ts ← Toast interface and ToastType
-        pk-toastr.service.ts ← injectable service: success/error/info/warning/dismiss/clear
-        pk-toastr.ts       ← component that renders the toast container (add once to AppComponent)
-        pk-toastr.html / .css
-        pk-toastr.spec.ts
+projects/
+  ngx-pk-ui/               ← the published library
+    src/
+      public-api.ts        ← everything exported from here is part of the public API
+      lib/
+        pk-tabs/
+          pk-tab.ts        ← child component: one tab item (used via content projection)
+          pk-tabs.ts       ← parent container: manages active tab with signals
+          pk-tabs.html / .css
+          pk-tabs.spec.ts
+        pk-toastr/
+          pk-toastr.model.ts    ← Toast interface and ToastType
+          pk-toastr.service.ts  ← injectable service: success/error/info/warning/dismiss/clear
+          pk-toastr.ts          ← component that renders the toast container (add once to AppComponent)
+          pk-toastr.html / .css
+          pk-toastr.spec.ts
+  example/                 ← local dev/test app (gitignored, never published)
+    src/app/
+      app.ts               ← imports PkTabs, PkTab, PkToastr, PkToastrService from 'ngx-pk-ui'
+      app.html             ← demo page: tabs + toastr buttons
+      app.css
 ```
 
 `dist/ngx-pk-ui/` is the build output consumed by npm. Never edit files there.
+`projects/example/` is gitignored — it is only for local visual testing.
 
 ## Key conventions
 
@@ -186,6 +197,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-tabs` | ✅ Built, tested (4 tests) |
 | `pk-toastr` | ✅ Built, tested (4 tests) |
+| Example app (`projects/example/`) | ✅ Created, gitignored, wired to library |
 | npm published | ❌ Not yet |
 
 ### Suggested next components
