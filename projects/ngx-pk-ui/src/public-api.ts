@@ -22,3 +22,7 @@ export * from './lib/pk-modal/pk-modal-header';
 export * from './lib/pk-modal/pk-modal-body';
 export * from './lib/pk-modal/pk-modal-footer';
 export * from './lib/pk-modal/pk-modal';
+
+// pk-icon
+export * from './lib/pk-icon/pk-icon.model';
+export * from './lib/pk-icon/pk-icon';

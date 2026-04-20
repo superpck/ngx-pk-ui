@@ -17,12 +17,12 @@
 }
 
 .pk-tabs__nav-item:hover:not(.pk-tabs__nav-item--disabled) {
-  color: #1976d2;
+  color: var(--pk-btn-primary, #1976d2);
 }
 
 .pk-tabs__nav-item--active {
-  color: #1976d2;
-  border-bottom-color: #1976d2;
+  color: var(--pk-btn-primary, #1976d2);
+  border-bottom-color: var(--pk-btn-primary, #1976d2);
   font-weight: 600;
 }
 

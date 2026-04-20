@@ -50,7 +50,7 @@
 }
 
 .pk-badge-warn {
-  background-color: var(--pk-btn-error, #fb8c00);
+  background-color: var(--pk-btn-warn, #fb8c00);
   border-color: transparent;
   color: #fff;
 }
@@ -78,8 +78,8 @@
 
 .pk-badge-warn.pk-badge-outline {
   background-color: transparent;
-  border-color: #fb8c00;
-  color: #fb8c00;
+  border-color: var(--pk-btn-warn, #fb8c00);
+  color: var(--pk-btn-warn, #fb8c00);
 }
 
 .pk-badge-error.pk-badge-outline {
