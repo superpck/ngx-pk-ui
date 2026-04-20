@@ -6,6 +6,9 @@
 /out-tsc
 /bazel-out
 
+# example app (local dev only)
+/projects/example/
+
 # Node
 /node_modules
 npm-debug.log

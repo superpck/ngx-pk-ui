@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "start:example": "ng build ngx-pk-ui --watch & sleep 3 && ng serve example --open",
+    "build:lib": "ng build ngx-pk-ui"
   },
   "prettier": {
     "printWidth": 100,
