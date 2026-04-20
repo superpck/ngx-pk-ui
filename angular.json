@@ -51,8 +51,7 @@
               }
             ],
             "styles": [
-              "dist/ngx-pk-ui/styles/pk-grid.css",
-              "dist/ngx-pk-ui/styles/pk-btn.css",
+              "dist/ngx-pk-ui/styles/pk-ui.css",
               "projects/example/src/styles.css"
             ]
           },

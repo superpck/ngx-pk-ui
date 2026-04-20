@@ -1,0 +1,14 @@
+/**
+ * pk-ui.css — single entry point for all ngx-pk-ui styles
+ *
+ * Import this one file to get everything:
+ *
+ *   Angular (angular.json):
+ *     "styles": ["node_modules/ngx-pk-ui/styles/pk-ui.css"]
+ *
+ *   CSS / SCSS:
+ *     @import 'ngx-pk-ui/styles/pk-ui.css';
+ */
+
+@import './pk-grid.css';
+@import './pk-btn.css';
