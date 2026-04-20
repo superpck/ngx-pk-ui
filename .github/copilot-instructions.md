@@ -50,6 +50,8 @@ projects/
           pk-alert.ts           ← modal overlay component (add once to AppComponent)
           pk-alert.html / .css
           pk-alert.spec.ts
+  src/styles/
+    pk-grid.css                 ← standalone CSS grid system (copy to dist/ngx-pk-ui/styles/)
   example/                 ← local dev/test app (gitignored, never published)
     src/app/
       app.ts               ← imports PkTabs, PkTab, PkToastr, PkToastrService from 'ngx-pk-ui'
@@ -211,6 +213,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-tabs` | ✅ Built, tested (4 tests) |
 | `pk-toastr` | ✅ Built, tested (4 tests) |
 | `pk-alert` | ✅ Built, tested (13 tests) |
+| `pk-grid` (CSS only) | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | Example app (`projects/example/`) | ✅ Created, gitignored, wired to library |
 | npm published | ❌ Not yet |
 
@@ -220,6 +223,53 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - `pk-badge` — numeric/status badge overlay
 - `pk-tooltip` — hover tooltip using Angular CDK overlay (or pure CSS)
 - `pk-accordion` — collapsible panels, similar pattern to `pk-tabs` (parent + child content projection)
+
+---
+
+## pk-grid CSS reference
+
+`pk-grid.css` is a **pure CSS file** — no Angular component needed. Include it in consumers' global styles.
+
+**In an Angular app** (`angular.json` styles array):
+```json
+"styles": ["node_modules/ngx-pk-ui/styles/pk-grid.css", "src/styles.css"]
+```
+
+**Or via CSS import:**
+```css
+@import 'ngx-pk-ui/styles/pk-grid.css';
+```
+
+### Breakpoints (mobile-first)
+| Prefix | Min-width |
+|--------|-----------|
+| `xs`   | always (< 576px) |
+| `sm`   | ≥ 576px |
+| `md`   | ≥ 768px |
+| `lg`   | ≥ 992px |
+| `xl`   | ≥ 1200px |
+
+### Class reference
+```html
+<!-- Row container -->
+<div class="pk-row">
+  <!-- Fixed (all breakpoints) -->
+  <div class="pk-col-6">50%</div>
+
+  <!-- Responsive: stack on mobile, 3-col at md, 2-col at sm -->
+  <div class="pk-col-12 pk-col-sm-6 pk-col-md-4">...</div>
+
+  <!-- Auto-width -->
+  <div class="pk-col">fills remaining</div>
+</div>
+```
+
+**Row modifiers:** `pk-row--gap-0` `pk-row--gap-sm` `pk-row--gap-lg` `pk-row--align-center` `pk-row--align-top` `pk-row--align-bottom` `pk-row--justify-between` etc.
+
+**Column classes:** `pk-col-[1-12]` · `pk-col-xs-[1-12]` · `pk-col-sm-[1-12]` · `pk-col-md-[1-12]` · `pk-col-lg-[1-12]` · `pk-col-xl-[1-12]` · `pk-col` (auto) · `pk-col-auto`
+
+### Note on example app CSS loading
+In the dev workspace, `ng-package.json` assets copies the CSS to `dist/ngx-pk-ui/styles/`. The `angular.json` for the example app references it as `dist/ngx-pk-ui/styles/pk-grid.css` (not via the `ngx-pk-ui` package alias, since CSS imports don't follow tsconfig paths).
 
 ---
 
