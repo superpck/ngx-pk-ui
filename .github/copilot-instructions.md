@@ -52,6 +52,7 @@ projects/
           pk-alert.spec.ts
   src/styles/
     pk-grid.css                 ← standalone CSS grid system (copy to dist/ngx-pk-ui/styles/)
+    pk-btn.css                  ← standalone CSS button system (copy to dist/ngx-pk-ui/styles/)
   example/                 ← local dev/test app (gitignored, never published)
     src/app/
       app.ts               ← imports PkTabs, PkTab, PkToastr, PkToastrService from 'ngx-pk-ui'
@@ -214,6 +215,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-toastr` | ✅ Built, tested (4 tests) |
 | `pk-alert` | ✅ Built, tested (13 tests) |
 | `pk-grid` (CSS only) | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
+| `pk-btn` (CSS only)  | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
 | Example app (`projects/example/`) | ✅ Created, gitignored, wired to library |
 | npm published | ❌ Not yet |
 
@@ -269,7 +271,45 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 **Column classes:** `pk-col-[1-12]` · `pk-col-xs-[1-12]` · `pk-col-sm-[1-12]` · `pk-col-md-[1-12]` · `pk-col-lg-[1-12]` · `pk-col-xl-[1-12]` · `pk-col` (auto) · `pk-col-auto`
 
 ### Note on example app CSS loading
-In the dev workspace, `ng-package.json` assets copies the CSS to `dist/ngx-pk-ui/styles/`. The `angular.json` for the example app references it as `dist/ngx-pk-ui/styles/pk-grid.css` (not via the `ngx-pk-ui` package alias, since CSS imports don't follow tsconfig paths).
+In the dev workspace, `ng-package.json` assets copies the CSS to `dist/ngx-pk-ui/styles/`. The `angular.json` for the example app references them as `dist/ngx-pk-ui/styles/pk-grid.css` and `dist/ngx-pk-ui/styles/pk-btn.css` (not via the `ngx-pk-ui` package alias, since CSS imports don't follow tsconfig paths).
+
+---
+
+## pk-btn CSS reference
+
+```json
+// angular.json styles
+"styles": ["node_modules/ngx-pk-ui/styles/pk-btn.css"]
+```
+
+### Variants (solid, default = primary)
+```html
+<button class="pk-btn">Default / Primary</button>
+<button class="pk-btn pk-btn-primary">Primary</button>
+<button class="pk-btn pk-btn-secondary">Secondary</button>
+<button class="pk-btn pk-btn-success">Success</button>
+<button class="pk-btn pk-btn-error">Error</button>
+```
+
+### Modifiers (combine with any variant)
+```html
+<button class="pk-btn pk-btn-success pk-btn-outline">Outline</button>
+<button class="pk-btn pk-btn-primary pk-btn-shadow">Shadow</button>
+<button class="pk-btn pk-btn-sm">Small</button>
+<button class="pk-btn pk-btn-lg">Large</button>
+<button class="pk-btn" disabled>Disabled</button>
+```
+
+### Button group
+```html
+<div class="pk-btn-group">
+  <button class="pk-btn pk-btn-secondary">Left</button>
+  <button class="pk-btn pk-btn-secondary">Center</button>
+  <button class="pk-btn pk-btn-secondary">Right</button>
+</div>
+```
+
+Colors are driven by CSS custom properties (`--pk-btn-primary`, etc.) so consumers can override them in `:root`.
 
 ---
 
