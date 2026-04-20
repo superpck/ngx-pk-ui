@@ -15,3 +15,10 @@ export * from './lib/pk-toastr/pk-toastr';
 export * from './lib/pk-alert/pk-alert.model';
 export * from './lib/pk-alert/pk-alert.service';
 export * from './lib/pk-alert/pk-alert';
+
+// pk-modal
+export * from './lib/pk-modal/pk-modal.model';
+export * from './lib/pk-modal/pk-modal-header';
+export * from './lib/pk-modal/pk-modal-body';
+export * from './lib/pk-modal/pk-modal-footer';
+export * from './lib/pk-modal/pk-modal';
