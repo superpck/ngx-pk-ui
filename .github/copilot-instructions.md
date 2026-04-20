@@ -71,3 +71,126 @@ projects/ngx-pk-ui/
 - The library's own `package.json` is at `projects/ngx-pk-ui/package.json`. Bump version there before publishing.
 - `peerDependencies` must stay in sync with the Angular version of the workspace (`package.json` → `@angular/core`).
 - When Angular releases a new major version, update `peerDependencies` in `projects/ngx-pk-ui/package.json` and rebuild.
+
+---
+
+## Component API reference
+
+### pk-tabs
+
+Uses **content projection** — `<pk-tab>` children are discovered via `contentChildren()`, not passed as inputs.
+
+```html
+<!-- Import both PkTabs and PkTab in the consuming component's imports[] -->
+<pk-tabs>
+  <pk-tab label="Profile">
+    <p>Profile content here</p>
+  </pk-tab>
+  <pk-tab label="Settings">
+    <p>Settings content here</p>
+  </pk-tab>
+  <pk-tab label="Disabled" [disabled]="true">
+    <p>Never shown</p>
+  </pk-tab>
+</pk-tabs>
+```
+
+**`PkTab` inputs:**
+| Input | Type | Required | Default |
+|-------|------|----------|---------|
+| `label` | `string` | ✅ | — |
+| `disabled` | `boolean` | ❌ | `false` |
+
+**`PkTabs` public API:**
+| Member | Type | Description |
+|--------|------|-------------|
+| `tabs` | `Signal<PkTab[]>` | All projected `<pk-tab>` children |
+| `activeIndex` | `WritableSignal<number>` | Index of the currently active tab |
+| `selectTab(index)` | `void` | Programmatically activate a tab |
+
+---
+
+### pk-toastr
+
+Place `<pk-toastr>` **once** in your root component template (e.g. `app.component.html`). Then inject `PkToastrService` anywhere to show notifications.
+
+```html
+<!-- app.component.html -->
+<router-outlet />
+<pk-toastr />
+```
+
+```ts
+// any component or service
+import { PkToastrService } from 'ngx-pk-ui';
+
+@Component({ ... })
+export class MyComponent {
+  toastr = inject(PkToastrService);
+
+  save() {
+    this.toastr.success('Saved!', 'Success');          // message, optional title
+    this.toastr.error('Failed', 'Error', 0);           // duration=0 means persist until dismissed
+    this.toastr.warning('Check your input');
+    this.toastr.info('Processing...', undefined, 8000); // 8-second duration
+  }
+}
+```
+
+**`PkToastrService` methods:**
+| Method | Signature |
+|--------|-----------|
+| `success` | `(message, title?, duration?) => void` |
+| `error` | `(message, title?, duration?) => void` |
+| `info` | `(message, title?, duration?) => void` |
+| `warning` | `(message, title?, duration?) => void` |
+| `dismiss` | `(id: number) => void` |
+| `clear` | `() => void` |
+| `show` | `(type, message, title?, duration?) => void` |
+
+Default `duration` is **4000 ms**. Pass `0` to keep toast until manually dismissed.
+
+---
+
+## Exported public symbols
+
+Everything in `projects/ngx-pk-ui/src/public-api.ts`:
+
+| Symbol | Kind | File |
+|--------|------|------|
+| `PkTab` | Component | `pk-tabs/pk-tab` |
+| `PkTabs` | Component | `pk-tabs/pk-tabs` |
+| `Toast` | Interface | `pk-toastr/pk-toastr.model` |
+| `ToastType` | Type alias | `pk-toastr/pk-toastr.model` |
+| `PkToastrService` | Injectable service | `pk-toastr/pk-toastr.service` |
+| `PkToastr` | Component | `pk-toastr/pk-toastr` |
+
+---
+
+## Known gotchas (discovered during initial build)
+
+- **`PkTab` must NOT be in `PkTabs.imports[]`** — Angular 21 warns "not used within the template" because `PkTab` is only consumed via `contentChildren()`, not rendered directly in the template. Keep it only in the spec's `TestHostComponent.imports[]`.
+- **No `fakeAsync` in Vitest** — Angular 21 uses Vitest as the test runner (not Karma). `fakeAsync`/`tick` from `@angular/core/testing` throw a zone error. Use `vi.useFakeTimers()` / `vi.advanceTimersByTime(ms)` / `vi.useRealTimers()` from `vitest` instead.
+- **`ng new` creates a subdirectory** — `ng new <name>` always nests files. When creating the workspace in the repo root, files need to be moved up manually.
+- **Browser flag removed** — `ng test --browsers=ChromeHeadless` fails; Vitest uses its own browser provider. Run `ng test ngx-pk-ui --no-watch` directly.
+- **`NgTemplateOutlet` must be imported** — even though it's from `@angular/common`, it is not included automatically in standalone components. Add it to `imports: [NgTemplateOutlet]` in `PkTabs`.
+
+---
+
+## Current project status
+
+| Item | State |
+|------|-------|
+| Library package name | `ngx-pk-ui` |
+| Library version | `0.0.1` |
+| Angular version | `^21.0.0` (CLI 21.0.3) |
+| `pk-tabs` | ✅ Built, tested (4 tests) |
+| `pk-toastr` | ✅ Built, tested (4 tests) |
+| npm published | ❌ Not yet |
+
+### Suggested next components
+- `pk-modal` — overlay dialog with backdrop, close-on-Escape, focus trap
+- `pk-spinner` — loading indicator with size/color inputs
+- `pk-badge` — numeric/status badge overlay
+- `pk-tooltip` — hover tooltip using Angular CDK overlay (or pure CSS)
+- `pk-accordion` — collapsible panels, similar pattern to `pk-tabs` (parent + child content projection)
