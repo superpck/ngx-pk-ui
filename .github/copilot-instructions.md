@@ -51,6 +51,7 @@ projects/
           pk-alert.html / .css
           pk-alert.spec.ts
   src/styles/
+    pk-ui.css                   ← single entry point — imports pk-grid + pk-btn
     pk-grid.css                 ← standalone CSS grid system (copy to dist/ngx-pk-ui/styles/)
     pk-btn.css                  ← standalone CSS button system (copy to dist/ngx-pk-ui/styles/)
   example/                 ← local dev/test app (gitignored, never published)
@@ -232,14 +233,22 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 
 `pk-grid.css` is a **pure CSS file** — no Angular component needed. Include it in consumers' global styles.
 
-**In an Angular app** (`angular.json` styles array):
+**In an Angular app** (`angular.json` styles array) — one file for everything:
 ```json
-"styles": ["node_modules/ngx-pk-ui/styles/pk-grid.css", "src/styles.css"]
+"styles": ["node_modules/ngx-pk-ui/styles/pk-ui.css"]
+```
+
+Or import individual files:
+```json
+"styles": [
+  "node_modules/ngx-pk-ui/styles/pk-grid.css",
+  "node_modules/ngx-pk-ui/styles/pk-btn.css"
+]
 ```
 
 **Or via CSS import:**
 ```css
-@import 'ngx-pk-ui/styles/pk-grid.css';
+@import 'ngx-pk-ui/styles/pk-ui.css';
 ```
 
 ### Breakpoints (mobile-first)
