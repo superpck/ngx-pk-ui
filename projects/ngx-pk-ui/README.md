@@ -6,7 +6,7 @@ License: MIT
 
 Repository: https://github.com/superpck/ngx-pk-ui
 
-Demo: https://superpck.github.io/ngx-pk-ui/
+Demo & Usage: https://superpck.github.io/ngx-pk-ui/
 
 Source path:
 
