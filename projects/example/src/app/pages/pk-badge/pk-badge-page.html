@@ -1,0 +1,113 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-badge</h1>
+    <p class="demo-page-desc">Status badges and pill indicators. Solid, outline, dot, and pill variants.</p>
+  </div>
+
+  <section class="demo-section">
+    <h2>Solid variants</h2>
+    <div class="demo-row">
+      <span class="pk-badge">Primary</span>
+      <span class="pk-badge pk-badge-primary">Primary</span>
+      <span class="pk-badge pk-badge-success">Success</span>
+      <span class="pk-badge pk-badge-warn">Warn</span>
+      <span class="pk-badge pk-badge-error">Error</span>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Outline</h2>
+    <div class="demo-row">
+      <span class="pk-badge pk-badge-outline">Primary</span>
+      <span class="pk-badge pk-badge-success pk-badge-outline">Success</span>
+      <span class="pk-badge pk-badge-warn pk-badge-outline">Warn</span>
+      <span class="pk-badge pk-badge-error pk-badge-outline">Error</span>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Sizes</h2>
+    <div class="demo-row" style="align-items:center">
+      <span class="pk-badge pk-badge-sm">sm</span>
+      <span class="pk-badge">default</span>
+      <span class="pk-badge pk-badge-lg">lg</span>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Pill</h2>
+    <div class="demo-row">
+      <span class="pk-badge pk-badge-pill">Default</span>
+      <span class="pk-badge pk-badge-success pk-badge-pill">v2.0.1</span>
+      <span class="pk-badge pk-badge-error pk-badge-pill pk-badge-outline">Deprecated</span>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Dot indicator</h2>
+    <div class="demo-row" style="align-items:center">
+      <span class="pk-badge pk-badge-dot pk-badge-primary"></span>
+      <span class="pk-badge pk-badge-dot pk-badge-success"></span>
+      <span class="pk-badge pk-badge-dot pk-badge-warn"></span>
+      <span class="pk-badge pk-badge-dot pk-badge-error"></span>
+      <span class="pk-badge pk-badge-dot pk-badge-error pk-badge-outline"></span>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Inline with text / button</h2>
+    <div class="demo-row" style="align-items:center">
+      <span>Notifications <span class="pk-badge pk-badge-error pk-badge-sm">9</span></span>
+      <button class="pk-btn pk-btn-primary">
+        Messages <span class="pk-badge pk-badge-warn pk-badge-sm" style="margin-left:6px">3</span>
+      </button>
+      <span>
+        <span class="pk-badge pk-badge-dot pk-badge-success"></span> Online
+      </span>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>&lt;!-- Solid variants --&gt;
+&lt;span class="pk-badge"&gt;Primary&lt;/span&gt;
+&lt;span class="pk-badge pk-badge-success"&gt;Success&lt;/span&gt;
+&lt;span class="pk-badge pk-badge-warn"&gt;Warn&lt;/span&gt;
+&lt;span class="pk-badge pk-badge-error"&gt;Error&lt;/span&gt;
+
+&lt;!-- Outline --&gt;
+&lt;span class="pk-badge pk-badge-error pk-badge-outline"&gt;Error&lt;/span&gt;
+
+&lt;!-- Sizes --&gt;
+&lt;span class="pk-badge pk-badge-sm"&gt;3&lt;/span&gt;
+&lt;span class="pk-badge pk-badge-lg"&gt;New&lt;/span&gt;
+
+&lt;!-- Pill --&gt;
+&lt;span class="pk-badge pk-badge-success pk-badge-pill"&gt;v2.0.1&lt;/span&gt;
+
+&lt;!-- Dot indicator --&gt;
+&lt;span class="pk-badge pk-badge-dot pk-badge-success"&gt;&lt;/span&gt;
+
+&lt;!-- Inline with button --&gt;
+&lt;button class="pk-btn pk-btn-primary"&gt;
+  Messages &lt;span class="pk-badge pk-badge-error pk-badge-sm"&gt;3&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>API</h2>
+    <table class="api-table">
+      <tr><th>Class</th><th>Description</th></tr>
+      <tr><td><code>pk-badge</code></td><td>Base badge (default = primary, solid)</td></tr>
+      <tr><td><code>pk-badge-primary</code></td><td>Primary color (blue)</td></tr>
+      <tr><td><code>pk-badge-success</code></td><td>Success color (green)</td></tr>
+      <tr><td><code>pk-badge-warn</code></td><td>Warning color (orange)</td></tr>
+      <tr><td><code>pk-badge-error</code></td><td>Error color (red)</td></tr>
+      <tr><td><code>pk-badge-outline</code></td><td>Transparent bg, colored border + text</td></tr>
+      <tr><td><code>pk-badge-sm</code></td><td>Small size (16px height)</td></tr>
+      <tr><td><code>pk-badge-lg</code></td><td>Large size (28px height)</td></tr>
+      <tr><td><code>pk-badge-pill</code></td><td>Rectangular with rounded ends</td></tr>
+      <tr><td><code>pk-badge-dot</code></td><td>Empty circle indicator (10px)</td></tr>
+    </table>
+  </section>
+</div>

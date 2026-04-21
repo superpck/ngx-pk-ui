@@ -1,0 +1,114 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-progress</h1>
+    <p class="demo-page-desc">Line and circle progress indicators with status, striped mode, animation, and percentage display.</p>
+  </div>
+
+  <section class="demo-section">
+    <h2>Interactive demo</h2>
+    <div class="icon-playground" style="align-items: center;">
+      <div style="flex:1; min-width: 280px; display:flex; flex-direction:column; gap:14px;">
+        <pk-progress [config]="lineConfig"></pk-progress>
+
+        <div class="icon-control-row">
+          <label>Line percent <strong>{{ linePercent() }}%</strong></label>
+          <input type="range" min="0" max="100" step="1" [value]="linePercent()" (input)="setLinePercent($event)" />
+        </div>
+
+        <div class="icon-control-row">
+          <label>Line status</label>
+          <select [value]="lineStatus()" (change)="setLineStatus($event)">
+            <option value="normal">normal</option>
+            <option value="success">success</option>
+            <option value="warning">warning</option>
+            <option value="error">error</option>
+          </select>
+        </div>
+
+        <div class="icon-control-row">
+          <label>Striped</label>
+          <input type="checkbox" [checked]="lineStriped()" (change)="setLineStriped($event)" />
+        </div>
+
+        <div class="icon-control-row">
+          <label>Animated</label>
+          <input type="checkbox" [checked]="lineAnimated()" (change)="setLineAnimated($event)" />
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; align-items:center; gap:12px; min-width:180px;">
+        <pk-progress [config]="circleConfig"></pk-progress>
+
+        <div class="icon-control-row" style="width: 220px;">
+          <label>Circle percent <strong>{{ circlePercent() }}%</strong></label>
+          <input type="range" min="0" max="100" step="1" [value]="circlePercent()" (input)="setCirclePercent($event)" />
+        </div>
+
+        <div class="icon-control-row" style="width: 220px;">
+          <label>Circle status</label>
+          <select [value]="circleStatus()" (change)="setCircleStatus($event)">
+            <option value="normal">normal</option>
+            <option value="success">success</option>
+            <option value="warning">warning</option>
+            <option value="error">error</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Quick presets</h2>
+    <div class="demo-row" style="width:100%; display:grid; grid-template-columns:1fr; gap:12px;">
+      <pk-progress [config]="{ type: 'line', percent: 20, status: 'normal', showInfo: true, strokeWidth: 8 }"></pk-progress>
+      <pk-progress [config]="{ type: 'line', percent: 45, status: 'warning', showInfo: true, strokeWidth: 8 }"></pk-progress>
+      <pk-progress [config]="{ type: 'line', percent: 100, status: 'success', showInfo: true, strokeWidth: 8 }"></pk-progress>
+      <pk-progress [config]="{ type: 'line', percent: 70, status: 'error', showInfo: true, strokeWidth: 8 }"></pk-progress>
+    </div>
+
+    <div class="demo-row" style="gap: 24px; margin-top: 14px;">
+      <pk-progress [config]="{ type: 'circle', percent: 25, status: 'normal', showInfo: true }"></pk-progress>
+      <pk-progress [config]="{ type: 'circle', percent: 60, status: 'warning', showInfo: true }"></pk-progress>
+      <pk-progress [config]="{ type: 'circle', percent: 100, status: 'success', showInfo: true }"></pk-progress>
+      <pk-progress [config]="{ type: 'circle', percent: 80, status: 'error', showInfo: true }"></pk-progress>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>import &#123; PkProgressComponent &#125; from 'ngx-pk-ui';
+import type &#123; ProgressConfig &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123;
+  imports: [PkProgressComponent],
+&#125;)
+export class AnyPage &#123;
+  progressConfig: ProgressConfig = &#123;
+    type: 'line',
+    percent: 65,
+    status: 'normal',
+    showInfo: true,
+    strokeWidth: 8,
+  &#125;;
+&#125;
+
+&lt;pk-progress [config]="progressConfig" /&gt;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>API</h2>
+    <table class="api-table">
+      <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>config.type</code></td><td><code>'line' | 'circle'</code></td><td><code>'line'</code></td><td>Progress style mode</td></tr>
+      <tr><td><code>config.percent</code></td><td><code>number</code></td><td><code>0</code></td><td>Progress percentage (0-100)</td></tr>
+      <tr><td><code>config.status</code></td><td><code>'normal' | 'success' | 'error' | 'warning'</code></td><td><code>'normal'</code></td><td>Status color/style variant</td></tr>
+      <tr><td><code>config.showInfo</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Show percent/icon text</td></tr>
+      <tr><td><code>config.strokeWidth</code></td><td><code>number</code></td><td><code>8</code></td><td>Line height or circle stroke width</td></tr>
+      <tr><td><code>config.label</code></td><td><code>string</code></td><td>—</td><td>Optional label text (line mode)</td></tr>
+      <tr><td><code>config.color</code></td><td><code>string</code></td><td>—</td><td>Custom progress color override</td></tr>
+      <tr><td><code>config.striped</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Enable striped pattern (line mode)</td></tr>
+      <tr><td><code>config.animated</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Animate stripe movement (line mode)</td></tr>
+      <tr><td><code>config.indeterminate</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Indeterminate animation (line mode)</td></tr>
+    </table>
+  </section>
+</div>

@@ -1,0 +1,107 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-spinner</h1>
+    <p class="demo-page-desc">CSS-only loading spinners. Use inline or as a block element.</p>
+  </div>
+
+  <section class="demo-section">
+    <h2>Sizes</h2>
+    <div class="demo-row" style="align-items:center">
+      <div class="spinner-demo-item">
+        <span class="pk-spinner pk-spinner-sm"></span>
+        <code>pk-spinner-sm</code>
+      </div>
+      <div class="spinner-demo-item">
+        <span class="pk-spinner pk-spinner-md"></span>
+        <code>pk-spinner-md</code>
+      </div>
+      <div class="spinner-demo-item">
+        <span class="pk-spinner pk-spinner-lg"></span>
+        <code>pk-spinner-lg</code>
+      </div>
+      <div class="spinner-demo-item">
+        <span class="pk-spinner pk-spinner-xl"></span>
+        <code>pk-spinner-xl</code>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Colors</h2>
+    <div class="demo-row" style="align-items:center">
+      <div class="spinner-demo-item">
+        <span class="pk-spinner pk-spinner-lg pk-spinner-primary"></span>
+        <code>primary</code>
+      </div>
+      <div class="spinner-demo-item">
+        <span class="pk-spinner pk-spinner-lg pk-spinner-secondary"></span>
+        <code>secondary</code>
+      </div>
+      <div class="spinner-demo-item">
+        <span class="pk-spinner pk-spinner-lg pk-spinner-success"></span>
+        <code>success</code>
+      </div>
+      <div class="spinner-demo-item">
+        <span class="pk-spinner pk-spinner-lg pk-spinner-error"></span>
+        <code>error</code>
+      </div>
+      <div class="spinner-demo-item" style="background:#333;border-radius:6px;padding:8px 12px">
+        <span class="pk-spinner pk-spinner-lg pk-spinner-white"></span>
+        <code style="color:#fff">white</code>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Inline (with text / inside button)</h2>
+    <p>Loading data <span class="pk-spinner pk-spinner-sm pk-spinner-inline"></span></p>
+    <div class="demo-row" style="margin-top:8px">
+      <button class="pk-btn pk-btn-primary" disabled>
+        Saving <span class="pk-spinner pk-spinner-sm pk-spinner-inline pk-spinner-white"></span>
+      </button>
+      <button class="pk-btn pk-btn-success" disabled>
+        Uploading <span class="pk-spinner pk-spinner-sm pk-spinner-inline pk-spinner-white"></span>
+      </button>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>&lt;!-- Block (centered) --&gt;
+&lt;span class="pk-spinner"&gt;&lt;/span&gt;
+
+&lt;!-- Sizes --&gt;
+&lt;span class="pk-spinner pk-spinner-sm"&gt;&lt;/span&gt;
+&lt;span class="pk-spinner pk-spinner-lg"&gt;&lt;/span&gt;
+&lt;span class="pk-spinner pk-spinner-xl"&gt;&lt;/span&gt;
+
+&lt;!-- Colors --&gt;
+&lt;span class="pk-spinner pk-spinner-success"&gt;&lt;/span&gt;
+&lt;span class="pk-spinner pk-spinner-error"&gt;&lt;/span&gt;
+
+&lt;!-- Inline inside text or button --&gt;
+Loading &lt;span class="pk-spinner pk-spinner-sm pk-spinner-inline"&gt;&lt;/span&gt;
+
+&lt;button class="pk-btn pk-btn-primary" disabled&gt;
+  Saving &lt;span class="pk-spinner pk-spinner-sm pk-spinner-inline pk-spinner-white"&gt;&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>API</h2>
+    <table class="api-table">
+      <tr><th>Class</th><th>Description</th></tr>
+      <tr><td><code>pk-spinner</code></td><td>Base spinner (md size, primary color)</td></tr>
+      <tr><td><code>pk-spinner-sm</code></td><td>16px / 2px border</td></tr>
+      <tr><td><code>pk-spinner-md</code></td><td>24px / 3px border (explicit md)</td></tr>
+      <tr><td><code>pk-spinner-lg</code></td><td>36px / 4px border</td></tr>
+      <tr><td><code>pk-spinner-xl</code></td><td>48px / 5px border</td></tr>
+      <tr><td><code>pk-spinner-inline</code></td><td>display:inline-block; vertical-align:middle</td></tr>
+      <tr><td><code>pk-spinner-primary</code></td><td>Blue (default)</td></tr>
+      <tr><td><code>pk-spinner-secondary</code></td><td>Grey</td></tr>
+      <tr><td><code>pk-spinner-success</code></td><td>Green</td></tr>
+      <tr><td><code>pk-spinner-error</code></td><td>Red</td></tr>
+      <tr><td><code>pk-spinner-white</code></td><td>White (for dark backgrounds)</td></tr>
+    </table>
+  </section>
+</div>

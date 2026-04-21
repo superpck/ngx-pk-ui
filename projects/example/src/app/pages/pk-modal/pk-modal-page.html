@@ -1,0 +1,193 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-modal</h1>
+    <p class="demo-page-desc">Modal dialog with content projection slots, backdrop blur, size variants, and close control.</p>
+  </div>
+
+  <!-- Basic -->
+  <section class="demo-section">
+    <h2>Basic (header / body / footer)</h2>
+    <div class="demo-row">
+      <button class="pk-btn pk-btn-primary" (click)="basicOpen.set(true)">Open modal</button>
+    </div>
+    <pk-modal [openModal]="basicOpen()" [closeAny]="true" (onClose)="basicOpen.set(false)">
+      <pk-modal-header>Modal Title</pk-modal-header>
+      <pk-modal-body>
+        <p>This is the modal body. You can put any content here — forms, tables, text.</p>
+        <p>Click the × button, the backdrop, or Cancel to close.</p>
+      </pk-modal-body>
+      <pk-modal-footer>
+        <button class="pk-btn pk-btn-secondary pk-btn-outline" (click)="basicOpen.set(false)">Cancel</button>
+        <button class="pk-btn pk-btn-primary" (click)="basicOpen.set(false)">Confirm</button>
+      </pk-modal-footer>
+    </pk-modal>
+  </section>
+
+  <!-- Theme variants -->
+  <section class="demo-section">
+    <h2>Theme variants</h2>
+    <div class="demo-row">
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="openTheme('none')">white/none</button>
+      <button class="pk-btn pk-btn-success pk-btn-sm" (click)="openTheme('success')">success</button>
+      <button class="pk-btn pk-btn-warn pk-btn-sm" (click)="openTheme('warn')">warn</button>
+      <button class="pk-btn pk-btn-error pk-btn-sm" (click)="openTheme('error')">error</button>
+      <button class="pk-btn pk-btn-sm" style="background:#0ea5e9;color:#fff" (click)="openTheme('sky')">sky</button>
+      <button class="pk-btn pk-btn-sm" style="background:#2563eb;color:#fff" (click)="openTheme('blue')">blue</button>
+      <button class="pk-btn pk-btn-sm" style="background:#64748b;color:#fff" (click)="openTheme('gray')">gray</button>
+    </div>
+    <pk-modal [openModal]="themeOpen()" [theme]="currentTheme()" [closeAny]="true" (onClose)="themeOpen.set(false)">
+      <pk-modal-header>theme="{{ currentTheme() }}"</pk-modal-header>
+      <pk-modal-body>
+        <p>This modal uses <strong>theme="{{ currentTheme() }}"</strong>.</p>
+        <p>Theme <code>white</code> and <code>none</code> keep the original style.</p>
+      </pk-modal-body>
+      <pk-modal-footer>
+        <button class="pk-btn pk-btn-primary" (click)="themeOpen.set(false)">Close</button>
+      </pk-modal-footer>
+    </pk-modal>
+  </section>
+
+  <!-- closeMarker=false, closeAny=false -->
+  <section class="demo-section">
+    <h2>closeMarker=false, closeAny=false (no close button / no backdrop dismiss)</h2>
+    <div class="demo-row">
+      <button class="pk-btn pk-btn-secondary" (click)="noCloseOpen.set(true)">Open non-dismissible</button>
+    </div>
+    <pk-modal [openModal]="noCloseOpen()" [closeAny]="false" [closeMarker]="false" (onClose)="noCloseOpen.set(false)">
+      <pk-modal-header>Non-dismissible Modal</pk-modal-header>
+      <pk-modal-body>
+        <p>The × button and backdrop click are disabled. You must use the button below to close.</p>
+      </pk-modal-body>
+      <pk-modal-footer>
+        <button class="pk-btn pk-btn-primary" (click)="noCloseOpen.set(false)">Close explicitly</button>
+      </pk-modal-footer>
+    </pk-modal>
+  </section>
+
+  <!-- blur=false -->
+  <section class="demo-section">
+    <h2>blur=false (no backdrop blur)</h2>
+    <div class="demo-row">
+      <button class="pk-btn pk-btn-secondary pk-btn-outline" (click)="noBlurOpen.set(true)">Open without blur</button>
+    </div>
+    <pk-modal [openModal]="noBlurOpen()" [closeAny]="true" [blur]="false" (onClose)="noBlurOpen.set(false)">
+      <pk-modal-header>No Blur Backdrop</pk-modal-header>
+      <pk-modal-body>The backdrop has a dimmed overlay but no blur filter.</pk-modal-body>
+      <pk-modal-footer>
+        <button class="pk-btn pk-btn-primary" (click)="noBlurOpen.set(false)">Close</button>
+      </pk-modal-footer>
+    </pk-modal>
+  </section>
+
+  <!-- Size variants -->
+  <section class="demo-section">
+    <h2>Size variants</h2>
+    <div class="demo-row">
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="openSize('xs')">xs</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="openSize('sm')">sm</button>
+      <button class="pk-btn pk-btn-primary pk-btn-sm" (click)="openSize('md')">md (default)</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="openSize('lg')">lg</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="openSize('xl')">xl</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="openSize('2xl')">2xl</button>
+      <button class="pk-btn pk-btn-error pk-btn-sm pk-btn-outline" (click)="openSize('full')">full</button>
+    </div>
+    <pk-modal [openModal]="sizeOpen()" [size]="currentSize()" (onClose)="sizeOpen.set(false)">
+      <pk-modal-header>size="{{ currentSize() }}"</pk-modal-header>
+      <pk-modal-body>This modal uses <strong>size="{{ currentSize() }}"</strong>.</pk-modal-body>
+      <pk-modal-footer>
+        <button class="pk-btn pk-btn-primary" (click)="sizeOpen.set(false)">Close</button>
+      </pk-modal-footer>
+    </pk-modal>
+  </section>
+
+  <!-- customClass / customStyle -->
+  <section class="demo-section">
+    <h2>customClass &amp; customStyle</h2>
+    <div class="demo-row">
+      <button class="pk-btn pk-btn-success" (click)="customOpen.set(true)">Open custom styled</button>
+    </div>
+    <pk-modal
+      [openModal]="customOpen()"
+      customClass="my-themed-modal"
+      [customStyle]="{'border': '2px solid #43a047'}"
+      (onClose)="customOpen.set(false)"
+    >
+      <pk-modal-header>Custom Styled Modal</pk-modal-header>
+      <pk-modal-body>
+        This modal has <code>customClass="my-themed-modal"</code> and
+        <code>[customStyle]="&#123;'border': '2px solid #43a047'&#125;"</code>.
+      </pk-modal-body>
+      <pk-modal-footer>
+        <button class="pk-btn pk-btn-success" (click)="customOpen.set(false)">Done</button>
+      </pk-modal-footer>
+    </pk-modal>
+  </section>
+
+  <!-- Installation -->
+  <section class="demo-section">
+    <h2>Installation</h2>
+    <pre class="code-block"><code>import &#123; PkModal, PkModalHeader, PkModalBody, PkModalFooter &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123;
+  imports: [PkModal, PkModalHeader, PkModalBody, PkModalFooter],
+  // ...
+&#125;)</code></pre>
+  </section>
+
+  <!-- Usage -->
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>&lt;!-- Template --&gt;
+&lt;button (click)="showModal = true"&gt;Open&lt;/button&gt;
+
+&lt;pk-modal
+  [openModal]="showModal"
+  [size]="'lg'"
+  [blur]="true"
+  [closeAny]="true"
+  (onClose)="showModal = false"
+&gt;
+  &lt;pk-modal-header&gt;Title&lt;/pk-modal-header&gt;
+
+  &lt;pk-modal-body&gt;
+    &lt;p&gt;Any content here.&lt;/p&gt;
+  &lt;/pk-modal-body&gt;
+
+  &lt;pk-modal-footer&gt;
+    &lt;button class="pk-btn pk-btn-secondary pk-btn-outline" (click)="showModal = false"&gt;Cancel&lt;/button&gt;
+    &lt;button class="pk-btn pk-btn-primary" (click)="confirm()"&gt;OK&lt;/button&gt;
+  &lt;/pk-modal-footer&gt;
+&lt;/pk-modal&gt;</code></pre>
+  </section>
+
+  <!-- API -->
+  <section class="demo-section">
+    <h2>API — PkModal inputs &amp; outputs</h2>
+    <table class="api-table">
+      <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>openModal</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show / hide the modal</td></tr>
+      <tr><td><code>size</code></td><td><code>'sm'|'md'|'lg'|'xl'|'full'</code></td><td><code>'md'</code></td><td>Dialog width preset</td></tr>
+      <tr><td><code>theme</code></td><td><code>'none'|'white'|'success'|'warn'|'error'|'sky'|'blue'|'gray'</code></td><td><code>'white'</code></td><td>Dialog visual theme. <code>white</code> and <code>none</code> preserve the original style.</td></tr>
+      <tr><td><code>blur</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Apply backdrop-filter:blur to overlay</td></tr>
+      <tr><td><code>closeAny</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Allow backdrop click to close</td></tr>
+      <tr><td><code>closeMarker</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Show × button</td></tr>
+      <tr><td><code>customClass</code></td><td><code>string | null</code></td><td><code>null</code></td><td>Extra CSS class added to the dialog container</td></tr>
+      <tr><td><code>customStyle</code></td><td><code>Record&lt;string,string&gt; | null</code></td><td><code>null</code></td><td>Inline styles applied to the dialog container</td></tr>
+      <tr><td><code>(onClose)</code></td><td><code>EventEmitter&lt;void&gt;</code></td><td>—</td><td>Emitted when × clicked or backdrop clicked (closeAble=true)</td></tr>
+    </table>
+  </section>
+
+  <section class="demo-section">
+    <h2>API — Size presets</h2>
+    <table class="api-table">
+      <tr><th>Size</th><th>Max-width</th></tr>
+      <tr><td><code>xs</code></td><td>280px</td></tr>
+      <tr><td><code>sm</code></td><td>360px</td></tr>
+      <tr><td><code>md</code></td><td>520px (default)</td></tr>
+      <tr><td><code>lg</code></td><td>760px</td></tr>
+      <tr><td><code>xl</code></td><td>1020px</td></tr>
+      <tr><td><code>2xl</code></td><td>1280px</td></tr>
+      <tr><td><code>full</code></td><td>100vw × 100vh (no border-radius)</td></tr>
+    </table>
+  </section>
+</div>

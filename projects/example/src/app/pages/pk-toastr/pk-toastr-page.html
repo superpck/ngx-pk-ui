@@ -1,0 +1,63 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-toastr</h1>
+    <p class="demo-page-desc">Non-blocking toast notifications. Inject the service anywhere — no module needed.</p>
+  </div>
+
+  <section class="demo-section">
+    <h2>Example</h2>
+    <div class="demo-row">
+      <button class="pk-btn pk-btn-success" (click)="toastr.success('Saved successfully!', 'Success')">Success</button>
+      <button class="pk-btn pk-btn-error" (click)="toastr.error('Something went wrong.', 'Error')">Error</button>
+      <button class="pk-btn pk-btn-primary" (click)="toastr.info('Processing your request…', 'Info')">Info</button>
+      <button class="pk-btn pk-btn-secondary" (click)="toastr.warning('Check your input.', 'Warning')">Warning</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-outline" (click)="toastr.success('I stay until dismissed.', 'Persist', 0)">Persist (no auto-close)</button>
+      <button class="pk-btn pk-btn-error pk-btn-outline" (click)="toastr.clear()">Clear all</button>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Installation</h2>
+    <pre class="code-block"><code>&lt;!-- Add once to your root component template --&gt;
+&lt;pk-toastr /&gt;</code></pre>
+    <pre class="code-block" style="margin-top:8px"><code>import &#123; PkToastr &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123;
+  imports: [PkToastr],
+  template: `&lt;router-outlet /&gt;&lt;pk-toastr /&gt;`,
+&#125;)</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>import &#123; PkToastrService &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123; ... &#125;)
+export class MyComponent &#123;
+  toastr = inject(PkToastrService);
+
+  save() &#123;
+    this.toastr.success('Saved!', 'Success');
+    this.toastr.error('Failed', 'Error', 0);      // duration=0 → persist
+    this.toastr.warning('Check your input');
+    this.toastr.info('Processing…', undefined, 8000);
+    this.toastr.dismiss(id);                       // remove one
+    this.toastr.clear();                           // remove all
+  &#125;
+&#125;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>API</h2>
+    <table class="api-table">
+      <tr><th>Method</th><th>Parameters</th><th>Description</th></tr>
+      <tr><td><code>success</code></td><td><code>(message, title?, duration?)</code></td><td>Green toast</td></tr>
+      <tr><td><code>error</code></td><td><code>(message, title?, duration?)</code></td><td>Red toast</td></tr>
+      <tr><td><code>info</code></td><td><code>(message, title?, duration?)</code></td><td>Blue toast</td></tr>
+      <tr><td><code>warning</code></td><td><code>(message, title?, duration?)</code></td><td>Orange toast</td></tr>
+      <tr><td><code>dismiss</code></td><td><code>(id: number)</code></td><td>Remove one toast by ID</td></tr>
+      <tr><td><code>clear</code></td><td>—</td><td>Remove all toasts</td></tr>
+    </table>
+    <p style="font-size:13px;color:#666;margin-top:8px">Default <code>duration</code> is <strong>4000ms</strong>. Pass <code>0</code> to keep until manually dismissed.</p>
+  </section>
+</div>

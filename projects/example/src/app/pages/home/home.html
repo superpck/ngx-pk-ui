@@ -1,0 +1,53 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">ngx-pk-ui</h1>
+    <p class="demo-page-desc">Angular 21 component library — signals, standalone, zero NgModules.</p>
+  </div>
+
+  <section class="demo-section">
+    <h2>Components</h2>
+    <div class="home-card-grid">
+      @for (item of componentCards; track item.label) {
+        <a [routerLink]="item.link" class="home-card">
+          <div class="home-card-name">{{ item.label }}</div>
+          <div class="home-card-desc">{{ item.description }}</div>
+        </a>
+      }
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>CSS Utilities</h2>
+    <div class="home-card-grid">
+      @for (item of utilityCards; track item.label) {
+        <a [routerLink]="item.link" class="home-card">
+          <div class="home-card-name">{{ item.label }}</div>
+          <div class="home-card-desc">{{ item.description }}</div>
+        </a>
+      }
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Popular CSS Classes</h2>
+    <div class="home-card-grid">
+      @for (item of cssClassList; track item.name) {
+        <div class="home-card">
+          <div class="home-card-name">{{ item.name }}</div>
+          <div class="home-card-desc">{{ item.description }}</div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Installation</h2>
+    <pre class="code-block"><code>npm install ngx-pk-ui</code></pre>
+    <h3 style="margin-top:16px">Add CSS (angular.json)</h3>
+    <pre class="code-block"><code>"styles": ["node_modules/ngx-pk-ui/styles/pk-ui.css"]</code></pre>
+    <h3 style="margin-top:16px">Import components</h3>
+    <pre class="code-block">
+      <code>import &#123; PkTabs, PkTab, PkToastr, PkToastrService, PkAlert, PkAlertService &#125; from 'ngx-pk-ui';</code>
+    </pre>
+  </section>
+</div>

@@ -1,0 +1,70 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-treeview</h1>
+    <p class="demo-page-desc">Hierarchical tree navigation with expand/collapse and selection modes.</p>
+  </div>
+
+  <section class="demo-section">
+    <h2>Demo</h2>
+
+    <div class="demo-row" style="margin-bottom: 12px; align-items: center; gap: 12px;">
+      <label for="selectionMode"><strong>Selection mode:</strong></label>
+      <select id="selectionMode" [value]="selectionMode()" (change)="setSelectionMode($event)">
+        <option value="none">none</option>
+        <option value="single">single</option>
+        <option value="multi">multi</option>
+      </select>
+      <div class="result-box" style="margin-top: 0;">Selected: {{ selectedCount() }}</div>
+    </div>
+
+    <div style="border:1px solid #e2e8f0; border-radius: 8px; padding: 8px 6px; max-width: 520px;">
+      <pk-treeview
+        [nodes]="treeData"
+        [selection]="selectionMode()"
+        [showSelectAll]="true"
+        [expandDepth]="1"
+        (selected)="onSelection($event)">
+      </pk-treeview>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>import &#123; PkTreeviewModule, type TreeNode &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123;
+  imports: [PkTreeviewModule],
+&#125;)
+export class AnyPage &#123;
+  data: TreeNode[] = [
+    &#123; label: 'Root', children: [&#123; label: 'Child' &#125;] &#125;
+  ];
+&#125;
+
+&lt;pk-treeview
+  [nodes]="data"
+  selection="multi"
+  [showSelectAll]="true"
+  [expandDepth]="1"
+  (selected)="onSelected($event)"
+/&gt;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>API</h2>
+
+    <table class="api-table">
+      <tr><th>Input/Output</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>nodes</code></td><td><code>TreeNode[]</code></td><td><code>[]</code></td><td>Tree data source</td></tr>
+      <tr><td><code>selection</code></td><td><code>'none' | 'single' | 'multi'</code></td><td><code>'none'</code></td><td>Selection behavior</td></tr>
+      <tr><td><code>showSelectAll</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Show select-all row in multi mode</td></tr>
+      <tr><td><code>expandDepth</code></td><td><code>number</code></td><td><code>1</code></td><td>Initial expanded depth</td></tr>
+      <tr><td><code>(selected)</code></td><td><code>EventEmitter&lt;TreeNode[]&gt;</code></td><td>—</td><td>Emits current selected nodes</td></tr>
+      <tr><td><code>(nodeToggle)</code></td><td><code>EventEmitter&lt;TreeNode&gt;</code></td><td>—</td><td>Emits when a node is expanded/collapsed</td></tr>
+    </table>
+
+    <p style="font-size:13px;color:#666;margin-top:8px">
+      <code>TreeNode</code> fields: <code>label</code>, <code>icon?</code>, <code>routerLink?</code>, <code>data?</code>, <code>children?</code>.
+    </p>
+  </section>
+</div>

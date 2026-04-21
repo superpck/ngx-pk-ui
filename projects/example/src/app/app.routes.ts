@@ -1,0 +1,23 @@
+import { Routes } from '@angular/router';
+
+export const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', loadComponent: () => import('./pages/home/home').then(m => m.Home) },
+  { path: 'pk-tabs', loadComponent: () => import('./pages/pk-tabs/pk-tabs-page').then(m => m.PkTabsPage) },
+  { path: 'pk-toastr', loadComponent: () => import('./pages/pk-toastr/pk-toastr-page').then(m => m.PkToastrPage) },
+  { path: 'pk-alert', loadComponent: () => import('./pages/pk-alert/pk-alert-page').then(m => m.PkAlertPage) },
+  { path: 'pk-modal', loadComponent: () => import('./pages/pk-modal/pk-modal-page').then(m => m.PkModalPage) },
+  { path: 'pk-icon', loadComponent: () => import('./pages/pk-icon/pk-icon-page').then(m => m.PkIconPage) },
+  { path: 'pk-datagrid', loadComponent: () => import('./pages/pk-datagrid/pk-datagrid-page').then(m => m.PkDatagridPage) },
+  { path: 'pk-datepicker', loadComponent: () => import('./pages/pk-datepicker/pk-datepicker-page').then(m => m.PkDatepickerPage) },
+  { path: 'pk-progress', loadComponent: () => import('./pages/pk-progress/pk-progress-page').then(m => m.PkProgressPage) },
+  { path: 'pk-treeview', loadComponent: () => import('./pages/pk-treeview/pk-treeview-page').then(m => m.PkTreeviewPage) },
+  { path: 'pk-select', loadComponent: () => import('./pages/pk-select/pk-select-page').then(m => m.PkSelectPage) },
+  { path: 'pk-autocomplete', loadComponent: () => import('./pages/pk-autocomplete/pk-autocomplete-page').then(m => m.PkAutocompletePage) },
+  { path: 'pk-typeahead', loadComponent: () => import('./pages/pk-typeahead/pk-typeahead-page').then(m => m.PkTypeaheadPage) },
+  { path: 'pk-grid', loadComponent: () => import('./pages/pk-grid/pk-grid-page').then(m => m.PkGridPage) },
+  { path: 'pk-btn', loadComponent: () => import('./pages/pk-btn/pk-btn-page').then(m => m.PkBtnPage) },
+  { path: 'pk-spinner', loadComponent: () => import('./pages/pk-spinner/pk-spinner-page').then(m => m.PkSpinnerPage) },
+  { path: 'pk-badge', loadComponent: () => import('./pages/pk-badge/pk-badge-page').then(m => m.PkBadgePage) },
+  { path: 'pk-card', loadComponent: () => import('./pages/pk-card/pk-card-page').then(m => m.PkCardPage) },
+];

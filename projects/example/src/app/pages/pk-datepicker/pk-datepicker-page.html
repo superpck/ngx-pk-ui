@@ -1,0 +1,131 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-datepicker</h1>
+    <p class="demo-page-desc">Date picker with locale support (TH/EN), min/max range, and clear action.</p>
+  </div>
+
+  <section class="demo-section">
+    <h2>Limit min/max date</h2>
+    <div class="demo-row" style="gap: 16px; align-items: center;">
+      <pk-datepicker [(ngModel)]="dateValue" locale="en" startOfWeek="sunday" [setNull]="true" [dateInput]="true" [minDate]="minDate"
+        [maxDate]="maxDate" [style]="'width: 200px; height: 35px;'" placeholder="Select Date"
+        (onDateChange)="onDateChange($event)"></pk-datepicker>
+
+      <div class="result-box" style="margin-top:0; min-width: 280px;">
+        Selected: {{ dateValue() ? (dateValue() | date:'yyyy-MM-dd') : 'null' }}
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Locale</h2>
+    <div class="demo-row" style="gap: 16px; align-items: center;">
+      EN:
+      <pk-datepicker [(ngModel)]="dateValue" locale="EN" [style]="'width: 190px'"
+        placeholder="EN locale"></pk-datepicker>
+
+      TH:
+      <pk-datepicker [(ngModel)]="dateValue" locale="TH" [style]="'width: 190px'"
+        placeholder="TH locale"></pk-datepicker>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>import &#123; FormsModule &#125; from '@angular/forms';
+import &#123; PkDatepickerComponent &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123;
+  imports: [FormsModule, PkDatepickerComponent],
+&#125;)
+export class AnyPage &#123;
+  dateValue: Date | null = null;
+&#125;
+
+&lt;pk-datepicker
+  [(ngModel)]="dateValue"
+  locale="TH"
+  [minDate]="minDate"
+  [maxDate]="maxDate"
+  [setNull]="true"
+/&gt;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>API</h2>
+    <table class="api-table">
+      <tr>
+        <th>Input/Output</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>[(ngModel)]</code></td>
+        <td><code>Date | null</code></td>
+        <td><code>null</code></td>
+        <td>Two-way selected date value</td>
+      </tr>
+      <tr>
+        <td><code>disabled</code></td>
+        <td><code>boolean</code></td>
+        <td><code>false</code></td>
+        <td>Disable date picker interaction</td>
+      </tr>
+      <tr>
+        <td><code>setNull</code></td>
+        <td><code>boolean</code></td>
+        <td><code>true</code></td>
+        <td>Show clear button to reset value</td>
+      </tr>
+      <tr>
+        <td><code>dateInput</code></td>
+        <td><code>boolean</code></td>
+        <td><code>true</code></td>
+        <td>Allow typing date in input field</td>
+      </tr>
+      <tr>
+        <td><code>locale</code></td>
+        <td><code>'TH' | 'EN'</code></td>
+        <td><code>'TH'</code></td>
+        <td>Display language and date formatting locale</td>
+      </tr>
+      <tr>
+        <td><code>startOfWeek</code></td>
+        <td><code>'monday' | 'sunday'</code></td>
+        <td><code>'monday'</code></td>
+        <td>Calendar week start day</td>
+      </tr>
+      <tr>
+        <td><code>minDate</code></td>
+        <td><code>Date | null</code></td>
+        <td><code>null</code></td>
+        <td>Minimum selectable date</td>
+      </tr>
+      <tr>
+        <td><code>maxDate</code></td>
+        <td><code>Date | null</code></td>
+        <td><code>null</code></td>
+        <td>Maximum selectable date</td>
+      </tr>
+      <tr>
+        <td><code>placeholder</code></td>
+        <td><code>string</code></td>
+        <td><code>''</code></td>
+        <td>Input placeholder text</td>
+      </tr>
+      <tr>
+        <td><code>style</code></td>
+        <td><code>string | null</code></td>
+        <td><code>null</code></td>
+        <td>Inline style string for input width/layout</td>
+      </tr>
+      <tr>
+        <td><code>(onDateChange)</code></td>
+        <td><code>EventEmitter&lt;Date | null&gt;</code></td>
+        <td>—</td>
+        <td>Emits when selected date changes</td>
+      </tr>
+    </table>
+  </section>
+</div>

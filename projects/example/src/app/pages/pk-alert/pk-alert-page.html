@@ -1,0 +1,80 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-alert</h1>
+    <p class="demo-page-desc">Promise-based modal dialogs — alert, confirm, and input (string / number / date / boolean).</p>
+  </div>
+
+  <section class="demo-section">
+    <h2>Notification dialogs</h2>
+    <div class="demo-row">
+      <button class="pk-btn pk-btn-success" (click)="onSuccess()">Success</button>
+      <button class="pk-btn pk-btn-secondary" (click)="onWarn()">Warn</button>
+      <button class="pk-btn pk-btn-error" (click)="onError()">Error</button>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Confirm dialog</h2>
+    <div class="demo-row">
+      <button class="pk-btn pk-btn-error pk-btn-outline" (click)="onConfirm()">Confirm (delete?)</button>
+    </div>
+    <div class="result-box">Result: {{ result() }}</div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Input dialogs</h2>
+    <div class="demo-row">
+      <button class="pk-btn pk-btn-primary" (click)="onInputString()">Input string</button>
+      <button class="pk-btn pk-btn-primary pk-btn-outline" (click)="onInputNumber()">Input number</button>
+      <button class="pk-btn pk-btn-secondary" (click)="onInputDate()">Input date</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-outline" (click)="onInputBoolean()">Input boolean</button>
+    </div>
+    <div class="result-box">Result: {{ result() }}</div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Installation</h2>
+    <pre class="code-block"><code>&lt;!-- Add once to your root component template --&gt;
+&lt;pk-alert /&gt;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>import &#123; PkAlertService &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123; ... &#125;)
+export class MyComponent &#123;
+  alert = inject(PkAlertService);
+
+  async examples() &#123;
+    // Notifications (resolves when user clicks OK)
+    await this.alert.success('Saved successfully!');
+    await this.alert.warn('This may cause issues.');
+    await this.alert.error('Operation failed.');
+
+    // Confirm (resolves true/false)
+    const yes = await this.alert.confirm('Delete?', 'Confirm');
+    if (yes) &#123; /* proceed */ &#125;
+
+    // Input dialogs
+    const name = await this.alert.input('Your name:', 'string', 'Name', 'Alice');
+    const age  = await this.alert.input('Your age:',  'number', 'Age', 25);
+    const dob  = await this.alert.input('Pick date:', 'date');
+    const ok   = await this.alert.input('Agree?',     'boolean');
+  &#125;
+&#125;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>API</h2>
+    <table class="api-table">
+      <tr><th>Method</th><th>Returns</th><th>Description</th></tr>
+      <tr><td><code>success(message, title?)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Info dialog with green icon</td></tr>
+      <tr><td><code>warn(message, title?)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Warning dialog with orange icon</td></tr>
+      <tr><td><code>error(message, title?)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Error dialog with red icon</td></tr>
+      <tr><td><code>confirm(message, title?, okLabel?, cancelLabel?)</code></td><td><code>Promise&lt;boolean&gt;</code></td><td>Confirm with OK/Cancel</td></tr>
+      <tr><td><code>input(message, type, title?, default?)</code></td><td><code>Promise&lt;string|number|boolean|null&gt;</code></td><td>Inline input; null if cancelled</td></tr>
+    </table>
+    <p style="font-size:13px;color:#666;margin-top:8px"><code>type</code> values: <code>'string'</code> <code>'number'</code> <code>'date'</code> <code>'boolean'</code></p>
+  </section>
+</div>

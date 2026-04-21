@@ -1,0 +1,87 @@
+<style>
+  button {
+    padding: 3px 5px;
+    height: 35px;
+  }
+</style>
+
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-typeahead</h1>
+    <p class="demo-page-desc">Input suggestion dropdown for fast text matching with keyboard navigation and custom-value control.</p>
+  </div>
+
+  <section class="demo-section">
+    <h2>Object items</h2>
+    <div style="max-width: 420px;">
+      <pk-typeahead
+        [items]="cityItems"
+        placeholder="Search city"
+        labelField="label"
+        valueField="value"
+        [allowCustomValue]="true"
+        [minChars]="0"
+        [(ngModel)]="selectedValue"
+        (itemSelected)="onCitySelected($event)" style="height: 30px; border-radius: 6px;">
+      </pk-typeahead>
+    </div>
+    <div class="result-box">Selected value: {{ selectedValue || 'None' }}</div>
+  </section>
+
+  <section class="demo-section">
+    <h2>String items (strict)</h2>
+    <div style="max-width: 420px;">
+      <pk-typeahead
+        [items]="languageItems"
+        placeholder="Pick language"
+        [allowCustomValue]="false"
+        [minChars]="1"
+        [(ngModel)]="selectedStrict"
+        (itemSelected)="onLanguageSelected($event)" style="height: 30px; border-radius: 6px;">
+      </pk-typeahead>
+    </div>
+    <div class="result-box">Selected value: {{ selectedStrict || 'None' }}</div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>import &#123; FormsModule &#125; from '&#64;angular/forms';
+import &#123; PkTypeaheadComponent &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123;
+  imports: [FormsModule, PkTypeaheadComponent],
+&#125;)
+export class AnyPage &#123;
+  items = [
+    &#123; label: 'Bangkok', value: 'bangkok' &#125;,
+    &#123; label: 'Phuket', value: 'phuket' &#125;,
+  ];
+
+  selected = '';
+&#125;
+
+&lt;pk-typeahead
+  [items]="items"
+  labelField="label"
+  valueField="value"
+  [(ngModel)]="selected"
+/&gt;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>API</h2>
+    <table class="api-table">
+      <tr><th>Input/Output</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>items</code></td><td><code>any[]</code></td><td><code>[]</code></td><td>Source data for matching</td></tr>
+      <tr><td><code>placeholder</code></td><td><code>string</code></td><td><code>''</code></td><td>Input placeholder text</td></tr>
+      <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Disable input interaction</td></tr>
+      <tr><td><code>labelField</code></td><td><code>string</code></td><td><code>'label'</code></td><td>Display field for object items</td></tr>
+      <tr><td><code>valueField</code></td><td><code>string</code></td><td><code>'value'</code></td><td>Bound value field for object items</td></tr>
+      <tr><td><code>allowCustomValue</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Allow values outside suggestion list</td></tr>
+      <tr><td><code>maxItems</code></td><td><code>number</code></td><td><code>12</code></td><td>Maximum number of suggestion rows</td></tr>
+      <tr><td><code>minChars</code></td><td><code>number</code></td><td><code>0</code></td><td>Minimum input length before filtering</td></tr>
+      <tr><td><code>(itemSelected)</code></td><td><code>EventEmitter&lt;any&gt;</code></td><td>—</td><td>Emits selected suggestion item</td></tr>
+      <tr><td><code>[(ngModel)]</code></td><td><code>any</code></td><td>—</td><td>Two-way value binding</td></tr>
+    </table>
+  </section>
+</div>

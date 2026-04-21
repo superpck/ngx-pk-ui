@@ -1,0 +1,111 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-card</h1>
+    <p class="demo-page-desc">Card layout with header, body, and footer sections. Color variants and modifiers included.</p>
+  </div>
+
+  <section class="demo-section">
+    <h2>Basic structure</h2>
+    <div class="demo-row" style="align-items:flex-start">
+      <div class="pk-card" style="width:260px">
+        <div class="pk-card-header">Card Title</div>
+        <div class="pk-card-body">Some content inside the card body. It can be anything — text, form, media.</div>
+        <div class="pk-card-footer">
+          <button class="pk-btn pk-btn-primary pk-btn-sm">OK</button>
+          <button class="pk-btn pk-btn-secondary pk-btn-outline pk-btn-sm">Cancel</button>
+        </div>
+      </div>
+      <div class="pk-card" style="width:220px">
+        <div class="pk-card-body">Body only — no header or footer.</div>
+      </div>
+      <div class="pk-card" style="width:220px">
+        <div class="pk-card-header">No Footer</div>
+        <div class="pk-card-body">Just a header and body.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Color variants</h2>
+    <div class="demo-row" style="align-items:flex-start">
+      <div class="pk-card pk-card-primary" style="width:200px">
+        <div class="pk-card-header">Primary</div>
+        <div class="pk-card-body">pk-card-primary</div>
+        <div class="pk-card-footer"><button class="pk-btn pk-btn-primary pk-btn-sm">Action</button></div>
+      </div>
+      <div class="pk-card pk-card-secondary" style="width:200px">
+        <div class="pk-card-header">Secondary</div>
+        <div class="pk-card-body">pk-card-secondary</div>
+        <div class="pk-card-footer"><button class="pk-btn pk-btn-secondary pk-btn-sm">Action</button></div>
+      </div>
+      <div class="pk-card pk-card-success" style="width:200px">
+        <div class="pk-card-header">Success</div>
+        <div class="pk-card-body">pk-card-success</div>
+        <div class="pk-card-footer"><button class="pk-btn pk-btn-success pk-btn-sm">Action</button></div>
+      </div>
+      <div class="pk-card pk-card-error" style="width:200px">
+        <div class="pk-card-header">Error</div>
+        <div class="pk-card-body">pk-card-error</div>
+        <div class="pk-card-footer"><button class="pk-btn pk-btn-error pk-btn-sm">Action</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Modifiers</h2>
+    <div class="demo-row" style="align-items:flex-start">
+      <div class="pk-card pk-card-shadow" style="width:200px">
+        <div class="pk-card-header">pk-card-shadow</div>
+        <div class="pk-card-body">Elevated shadow.</div>
+      </div>
+      <div class="pk-card pk-card-flat" style="width:200px">
+        <div class="pk-card-header">pk-card-flat</div>
+        <div class="pk-card-body">No shadow.</div>
+      </div>
+      <div class="pk-card pk-card-outlined" style="width:200px">
+        <div class="pk-card-header">pk-card-outlined</div>
+        <div class="pk-card-body">Border only, no shadow.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>&lt;!-- Full structure --&gt;
+&lt;div class="pk-card"&gt;
+  &lt;div class="pk-card-header"&gt;Title&lt;/div&gt;
+  &lt;div class="pk-card-body"&gt;Content goes here.&lt;/div&gt;
+  &lt;div class="pk-card-footer"&gt;
+    &lt;button class="pk-btn pk-btn-primary pk-btn-sm"&gt;OK&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Color variants --&gt;
+&lt;div class="pk-card pk-card-primary"&gt;...&lt;/div&gt;
+&lt;div class="pk-card pk-card-success"&gt;...&lt;/div&gt;
+&lt;div class="pk-card pk-card-error"&gt;...&lt;/div&gt;
+
+&lt;!-- Modifiers --&gt;
+&lt;div class="pk-card pk-card-shadow"&gt;...&lt;/div&gt;
+&lt;div class="pk-card pk-card-flat"&gt;...&lt;/div&gt;
+&lt;div class="pk-card pk-card-outlined"&gt;...&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>API</h2>
+    <table class="api-table">
+      <tr><th>Class</th><th>Element</th><th>Description</th></tr>
+      <tr><td><code>pk-card</code></td><td>Container</td><td>Base card (white bg, border, radius, shadow)</td></tr>
+      <tr><td><code>pk-card-header</code></td><td>Child</td><td>Top section — bold title, bottom border</td></tr>
+      <tr><td><code>pk-card-body</code></td><td>Child</td><td>Main content area — flex:1</td></tr>
+      <tr><td><code>pk-card-footer</code></td><td>Child</td><td>Bottom section — light bg, flex row</td></tr>
+      <tr><td><code>pk-card-primary</code></td><td>Container</td><td>Blue header bg + matching border</td></tr>
+      <tr><td><code>pk-card-secondary</code></td><td>Container</td><td>Grey header bg + matching border</td></tr>
+      <tr><td><code>pk-card-success</code></td><td>Container</td><td>Green header bg + matching border</td></tr>
+      <tr><td><code>pk-card-error</code></td><td>Container</td><td>Red header bg + matching border</td></tr>
+      <tr><td><code>pk-card-shadow</code></td><td>Container</td><td>Elevated box shadow</td></tr>
+      <tr><td><code>pk-card-flat</code></td><td>Container</td><td>No shadow</td></tr>
+      <tr><td><code>pk-card-outlined</code></td><td>Container</td><td>Border only, no shadow</td></tr>
+    </table>
+  </section>
+</div>

@@ -1,0 +1,47 @@
+<div class="app-layout">
+  <button
+    class="app-menu-toggle"
+    type="button"
+    aria-label="Toggle navigation"
+    (click)="toggleMobileMenu()"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  @if (mobileMenuOpen()) {
+    <button class="app-backdrop" type="button" aria-label="Close navigation" (click)="closeMobileMenu()"></button>
+  }
+
+  <nav class="app-sidebar" [class.app-sidebar--open]="mobileMenuOpen()" (click)="onSidebarClick($event)">
+    <div class="sidebar-logo">ngx-pk-ui</div>
+    <div class="sidebar-version">v1.0.0</div>
+
+    <div class="sidebar-group">
+      <div class="sidebar-group-title">General</div>
+      <a class="sidebar-link" routerLink="/home" routerLinkActive="active">Overview</a>
+    </div>
+
+    <div class="sidebar-group">
+      <div class="sidebar-group-title">Components</div>
+      @for (item of componentsList; track item.link) {
+        <a class="sidebar-link" [routerLink]="item.link" routerLinkActive="active">{{ item.label }}</a>
+      }
+    </div>
+
+    <div class="sidebar-group">
+      <div class="sidebar-group-title">CSS Utilities</div>
+      @for (item of cssClassList; track item.link) {
+        <a class="sidebar-link" [routerLink]="item.link" routerLinkActive="active">{{ item.label }}</a>
+      }
+    </div>
+  </nav>
+
+  <main class="app-content">
+    <router-outlet />
+  </main>
+</div>
+
+<pk-toastr />
+<pk-alert />

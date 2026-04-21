@@ -1,0 +1,92 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-grid</h1>
+    <p class="demo-page-desc">12-column mobile-first responsive grid. Pure CSS — no Angular component needed.</p>
+  </div>
+
+  <section class="demo-section">
+    <h2>Equal columns</h2>
+    <div class="pk-row" style="margin-bottom:8px">
+      <div class="pk-col-4"><div class="grid-box">pk-col-4</div></div>
+      <div class="pk-col-4"><div class="grid-box">pk-col-4</div></div>
+      <div class="pk-col-4"><div class="grid-box">pk-col-4</div></div>
+    </div>
+    <div class="pk-row">
+      <div class="pk-col-3"><div class="grid-box">col-3</div></div>
+      <div class="pk-col-3"><div class="grid-box">col-3</div></div>
+      <div class="pk-col-3"><div class="grid-box">col-3</div></div>
+      <div class="pk-col-3"><div class="grid-box">col-3</div></div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Responsive (resize to see breakpoints)</h2>
+    <div class="pk-row">
+      <div class="pk-col-12 pk-col-md-6 pk-col-lg-4"><div class="grid-box">12 → md:6 → lg:4</div></div>
+      <div class="pk-col-12 pk-col-md-6 pk-col-lg-4"><div class="grid-box">12 → md:6 → lg:4</div></div>
+      <div class="pk-col-12 pk-col-md-12 pk-col-lg-4"><div class="grid-box">12 → md:12 → lg:4</div></div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Auto column</h2>
+    <div class="pk-row">
+      <div class="pk-col-3"><div class="grid-box">fixed 3</div></div>
+      <div class="pk-col"><div class="grid-box">auto fill</div></div>
+      <div class="pk-col-auto"><div class="grid-box">auto width</div></div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>&lt;!-- angular.json --&gt;
+"styles": ["node_modules/ngx-pk-ui/styles/pk-ui.css"]
+
+&lt;!-- Fixed columns --&gt;
+&lt;div class="pk-row"&gt;
+  &lt;div class="pk-col-6"&gt;50%&lt;/div&gt;
+  &lt;div class="pk-col-6"&gt;50%&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Responsive --&gt;
+&lt;div class="pk-row"&gt;
+  &lt;div class="pk-col-12 pk-col-sm-6 pk-col-md-4"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Auto width --&gt;
+&lt;div class="pk-row"&gt;
+  &lt;div class="pk-col"&gt;fills remaining space&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>Breakpoints</h2>
+    <table class="api-table">
+      <tr><th>Prefix</th><th>Min-width</th><th>Classes</th></tr>
+      <tr><td>(none)</td><td>Always</td><td><code>pk-col-[1-12]</code></td></tr>
+      <tr><td><code>xs</code></td><td>Always (&lt;576px)</td><td><code>pk-col-xs-[1-12]</code></td></tr>
+      <tr><td><code>sm</code></td><td>≥ 576px</td><td><code>pk-col-sm-[1-12]</code></td></tr>
+      <tr><td><code>md</code></td><td>≥ 768px</td><td><code>pk-col-md-[1-12]</code></td></tr>
+      <tr><td><code>lg</code></td><td>≥ 992px</td><td><code>pk-col-lg-[1-12]</code></td></tr>
+      <tr><td><code>xl</code></td><td>≥ 1200px</td><td><code>pk-col-xl-[1-12]</code></td></tr>
+    </table>
+  </section>
+
+  <section class="demo-section">
+    <h2>Row modifiers</h2>
+    <table class="api-table">
+      <tr><th>Class</th><th>Description</th></tr>
+      <tr><td><code>pk-row--gap-0</code></td><td>Remove gap between columns</td></tr>
+      <tr><td><code>pk-row--gap-sm</code></td><td>Small gap (8px)</td></tr>
+      <tr><td><code>pk-row--gap-lg</code></td><td>Large gap (32px)</td></tr>
+      <tr><td><code>pk-row--align-center</code></td><td>Vertically center columns</td></tr>
+      <tr><td><code>pk-row--align-top</code></td><td>Align columns to top</td></tr>
+      <tr><td><code>pk-row--align-bottom</code></td><td>Align columns to bottom</td></tr>
+      <tr><td><code>pk-row--justify-between</code></td><td>Space between columns</td></tr>
+      <tr><td><code>pk-row--justify-center</code></td><td>Center columns horizontally</td></tr>
+      <tr><td><code>pk-row--justify-end</code></td><td>Right-align columns</td></tr>
+      <tr><td><code>pk-row--no-wrap</code></td><td>Prevent column wrapping</td></tr>
+      <tr><td><code>pk-row--reverse</code></td><td>Reverse column order</td></tr>
+    </table>
+  </section>
+</div>

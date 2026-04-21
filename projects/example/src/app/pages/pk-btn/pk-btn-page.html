@@ -1,0 +1,97 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-btn</h1>
+    <p class="demo-page-desc">Button CSS utilities — variants, outline, shadow, group, and sizes.</p>
+  </div>
+
+  <section class="demo-section">
+    <h2>Variants (solid)</h2>
+    <div class="demo-row">
+      <button class="pk-btn">Default</button>
+      <button class="pk-btn pk-btn-primary">Primary</button>
+      <button class="pk-btn pk-btn-secondary">Secondary</button>
+      <button class="pk-btn pk-btn-success">Success</button>
+      <button class="pk-btn pk-btn-error">Error</button>
+      <button class="pk-btn pk-btn-primary" disabled>Disabled</button>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Outline</h2>
+    <div class="demo-row">
+      <button class="pk-btn pk-btn-primary pk-btn-outline">Primary</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-outline">Secondary</button>
+      <button class="pk-btn pk-btn-success pk-btn-outline">Success</button>
+      <button class="pk-btn pk-btn-error pk-btn-outline">Error</button>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Sizes</h2>
+    <div class="demo-row" style="align-items:center">
+      <button class="pk-btn pk-btn-primary pk-btn-sm">Small</button>
+      <button class="pk-btn pk-btn-primary">Default</button>
+      <button class="pk-btn pk-btn-primary pk-btn-lg">Large</button>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Shadow</h2>
+    <div class="demo-row">
+      <button class="pk-btn pk-btn-primary pk-btn-shadow">Primary shadow</button>
+      <button class="pk-btn pk-btn-success pk-btn-shadow">Success shadow</button>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Button group</h2>
+    <div class="demo-row">
+      <div class="pk-btn-group">
+        <button class="pk-btn pk-btn-secondary">Left</button>
+        <button class="pk-btn pk-btn-secondary">Center</button>
+        <button class="pk-btn pk-btn-secondary">Right</button>
+      </div>
+      <div class="pk-btn-group">
+        <button class="pk-btn pk-btn-primary pk-btn-outline">A</button>
+        <button class="pk-btn pk-btn-primary pk-btn-outline">B</button>
+        <button class="pk-btn pk-btn-primary pk-btn-outline">C</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>&lt;!-- Solid variants --&gt;
+&lt;button class="pk-btn"&gt;Default (primary)&lt;/button&gt;
+&lt;button class="pk-btn pk-btn-success"&gt;Success&lt;/button&gt;
+&lt;button class="pk-btn pk-btn-error"&gt;Error&lt;/button&gt;
+&lt;button class="pk-btn pk-btn-secondary"&gt;Secondary&lt;/button&gt;
+
+&lt;!-- Outline modifier --&gt;
+&lt;button class="pk-btn pk-btn-primary pk-btn-outline"&gt;Outline&lt;/button&gt;
+
+&lt;!-- Shadow modifier --&gt;
+&lt;button class="pk-btn pk-btn-primary pk-btn-shadow"&gt;Shadow&lt;/button&gt;
+
+&lt;!-- Sizes --&gt;
+&lt;button class="pk-btn pk-btn-sm"&gt;Small&lt;/button&gt;
+&lt;button class="pk-btn pk-btn-lg"&gt;Large&lt;/button&gt;
+
+&lt;!-- Group --&gt;
+&lt;div class="pk-btn-group"&gt;
+  &lt;button class="pk-btn pk-btn-secondary"&gt;A&lt;/button&gt;
+  &lt;button class="pk-btn pk-btn-secondary"&gt;B&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>CSS Custom Properties</h2>
+    <pre class="code-block"><code>:root &#123;
+  --pk-btn-primary:    #1976d2;
+  --pk-btn-secondary:  #546e7a;
+  --pk-btn-success:    #43a047;
+  --pk-btn-error:      #e53935;
+&#125;</code></pre>
+    <p style="font-size:13px;color:#666;margin-top:8px">Override any of these in your global <code>:root</code> to theme the entire library.</p>
+  </section>
+</div>

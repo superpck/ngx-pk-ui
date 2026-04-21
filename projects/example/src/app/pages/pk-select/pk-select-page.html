@@ -1,0 +1,107 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-select</h1>
+    <p class="demo-page-desc">Single and multi select dropdown with search support and ngModel integration.</p>
+  </div>
+
+  <section class="demo-section">
+    <h2>Interactive demo</h2>
+
+    <div class="icon-control-row" style="margin-bottom: 10px;">
+      <label>Mode</label>
+      <select [value]="mode()" (change)="setMode($event)">
+        <option value="single">single</option>
+        <option value="multi">multi</option>
+      </select>
+    </div>
+
+    <div class="icon-control-row" style="margin-bottom: 10px;">
+      <label>Searchable</label>
+      <input type="checkbox" [checked]="searchable()" (change)="setSearchable($event)" />
+    </div>
+
+    <div class="icon-control-row" style="margin-bottom: 14px;">
+      <label>Disabled</label>
+      <input type="checkbox" [checked]="disabled()" (change)="setDisabled($event)" />
+    </div>
+
+    <div style="max-width: 420px;">
+      <pk-select
+        [options]="options()"
+        [mode]="mode()"
+        [searchable]="searchable()"
+        [disabled]="disabled()"
+        [placeholder]="mode() === 'multi' ? 'เลือกหลายรายการ' : 'เลือกรายการ'"
+        (change)="onSelectChange($event)">
+      </pk-select>
+    </div>
+
+    @if (mode() === 'single') {
+      <div class="result-box">Selected: {{ selectedSingle() ?? 'None' }}</div>
+    } @else {
+      <div class="result-box">Selected ({{ selectedMulti().length }}): {{ selectedMulti().join(', ') || 'None' }}</div>
+    }
+  </section>
+
+  <section class="demo-section">
+    <h2>With ngModel</h2>
+
+    <div style="max-width: 420px;">
+      <pk-select
+        [options]="options()"
+        [searchable]="true"
+        placeholder="ใช้งานกับ ngModel"
+        [(ngModel)]="selectedNgModel">
+      </pk-select>
+    </div>
+
+    <div class="result-box">ngModel value: {{ selectedNgModel ?? 'null' }}</div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>import &#123; PkSelectComponent, type SelectOption &#125; from 'ngx-pk-ui';
+import &#123; FormsModule &#125; from '&#64;angular/forms';
+
+&#64;Component(&#123;
+  imports: [FormsModule, PkSelectComponent],
+&#125;)
+export class AnyPage &#123;
+  options: SelectOption[] = [
+    &#123; label: 'Bangkok', value: 'bangkok' &#125;,
+    &#123; label: 'Chiang Mai', value: 'chiangmai' &#125;,
+  ];
+
+  selected: string | null = null;
+&#125;
+
+&lt;pk-select
+  [options]="options"
+  mode="single"
+  [searchable]="true"
+  placeholder="Select"
+  [(ngModel)]="selected"
+/&gt;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>API</h2>
+    <table class="api-table">
+      <tr><th>Input/Output</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>options</code></td><td><code>SelectOption[]</code></td><td>required</td><td>Options list for dropdown</td></tr>
+      <tr><td><code>mode</code></td><td><code>'single' | 'multi'</code></td><td><code>'single'</code></td><td>Select mode behavior</td></tr>
+      <tr><td><code>placeholder</code></td><td><code>string</code></td><td><code>'เลือก...'</code></td><td>Placeholder when no value selected</td></tr>
+      <tr><td><code>searchable</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Enable search input in dropdown</td></tr>
+      <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Disable interaction</td></tr>
+      <tr><td><code>labelField</code></td><td><code>string</code></td><td><code>'label'</code></td><td>Field used as label text</td></tr>
+      <tr><td><code>valueField</code></td><td><code>string</code></td><td><code>'value'</code></td><td>Field used as value key</td></tr>
+      <tr><td><code>returnObjects</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Emit selected object(s) instead of primitive values</td></tr>
+      <tr><td><code>(change)</code></td><td><code>EventEmitter&lt;any&gt;</code></td><td>—</td><td>Emits selected value(s) on change</td></tr>
+      <tr><td><code>[(ngModel)]</code></td><td><code>any</code></td><td>—</td><td>Two-way binding through ControlValueAccessor</td></tr>
+    </table>
+
+    <p style="font-size:13px;color:#666;margin-top:8px">
+      <code>SelectOption</code>: <code>label?</code>, <code>value?</code>, <code>disabled?</code>, and custom fields.
+    </p>
+  </section>
+</div>
