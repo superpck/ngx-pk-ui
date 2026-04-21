@@ -1,0 +1,28 @@
+.pk-dg-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border-top: 1px solid #e0e0e0;
+  background: #fafafa;
+  
+  .pagination-info {
+    color: #565656;
+    font-size: 14px;
+  }
+  
+  .pagination-controls {
+    display: flex;
+    gap: 4px;
+    
+    .btn {
+      min-width: 32px;
+      padding: 4px 8px;
+      
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

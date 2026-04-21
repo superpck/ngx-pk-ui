@@ -1,0 +1,25 @@
+<div class="pk-tabs">
+  <ul class="pk-tabs__nav" role="tablist">
+    @for (tab of tabs(); track $index) {
+      <li
+        class="pk-tabs__nav-item"
+        [class.pk-tabs__nav-item--active]="activeIndex() === $index"
+        [class.pk-tabs__nav-item--disabled]="tab.disabled()"
+        role="tab"
+        [attr.aria-selected]="activeIndex() === $index"
+        [attr.aria-disabled]="tab.disabled()"
+        (click)="selectTab($index)"
+        (keydown.enter)="selectTab($index)"
+        (keydown.space)="selectTab($index)"
+        tabindex="{{ tab.disabled() ? -1 : 0 }}"
+      >
+        {{ tab.label() }}
+      </li>
+    }
+  </ul>
+  <div class="pk-tabs__content" role="tabpanel">
+    @if (tabs()[activeIndex()]) {
+      <ng-container *ngTemplateOutlet="tabs()[activeIndex()].content()" />
+    }
+  </div>
+</div>

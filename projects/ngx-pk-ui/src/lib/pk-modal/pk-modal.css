@@ -1,0 +1,175 @@
+/* ─── Overlay ──────────────────────────────────────────────────────── */
+
+.pk-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+  animation: pkModalFadeIn 0.18s ease;
+}
+
+.pk-modal-overlay--blur {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* ─── Dialog container ─────────────────────────────────────────────── */
+
+.pk-modal-dialog {
+  background: #fff;
+  border: 1px solid #eceff3;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22), 0 4px 16px rgba(0, 0, 0, 0.10);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: calc(100vh - 32px);
+  animation: pkModalSlideIn 0.18s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.pk-modal-dialog::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  border-radius: 10px 10px 0 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+/* ─── Size variants ────────────────────────────────────────────────── */
+
+.pk-modal-dialog--xs   { max-width: 280px; }
+.pk-modal-dialog--sm   { max-width: 360px; }
+.pk-modal-dialog--md   { max-width: 520px; }
+.pk-modal-dialog--lg   { max-width: 760px; }
+.pk-modal-dialog--xl   { max-width: 1020px; }
+.pk-modal-dialog--2xl  { max-width: 1280px; }
+.pk-modal-dialog--full {
+  max-width: 100%;
+  height: calc(100vh - 32px);
+  border-radius: 0;
+}
+
+.pk-modal-dialog--full::before {
+  border-radius: 0;
+}
+
+/* ─── Theme variants ──────────────────────────────────────────────── */
+
+/* Preserve old behavior: white/none are visually identical to legacy */
+.pk-modal-dialog--theme-white,
+.pk-modal-dialog--theme-none {
+  background: #fff;
+  border-color: #eceff3;
+}
+
+.pk-modal-dialog--theme-success {
+  background: linear-gradient(180deg, #f6fff9 0%, #ffffff 22%);
+  border-color: #b7e8cb;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.16), 0 4px 14px rgba(22, 163, 74, 0.16);
+}
+
+.pk-modal-dialog--theme-success::before {
+  background: linear-gradient(90deg, #16a34a 0%, #22c55e 100%);
+}
+
+.pk-modal-dialog--theme-warn {
+  background: linear-gradient(180deg, #fffdf5 0%, #ffffff 22%);
+  border-color: #f7d9a6;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.16), 0 4px 14px rgba(245, 158, 11, 0.17);
+}
+
+.pk-modal-dialog--theme-warn::before {
+  background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%);
+}
+
+.pk-modal-dialog--theme-error {
+  background: linear-gradient(180deg, #fff8f8 0%, #ffffff 22%);
+  border-color: #f5b6b6;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.16), 0 4px 14px rgba(220, 38, 38, 0.16);
+}
+
+.pk-modal-dialog--theme-error::before {
+  background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%);
+}
+
+.pk-modal-dialog--theme-sky {
+  background: linear-gradient(180deg, #f4fbff 0%, #ffffff 22%);
+  border-color: #b8e4fd;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.16), 0 4px 14px rgba(14, 165, 233, 0.17);
+}
+
+.pk-modal-dialog--theme-sky::before {
+  background: linear-gradient(90deg, #0ea5e9 0%, #38bdf8 100%);
+}
+
+.pk-modal-dialog--theme-blue {
+  background: linear-gradient(180deg, #f5f8ff 0%, #ffffff 22%);
+  border-color: #b7c9fa;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.16), 0 4px 14px rgba(37, 99, 235, 0.17);
+}
+
+.pk-modal-dialog--theme-blue::before {
+  background: linear-gradient(90deg, #2563eb 0%, #3b82f6 100%);
+}
+
+.pk-modal-dialog--theme-gray {
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 22%);
+  border-color: #d2d8e1;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.16), 0 4px 14px rgba(71, 85, 105, 0.16);
+}
+
+.pk-modal-dialog--theme-gray::before {
+  background: linear-gradient(90deg, #475569 0%, #64748b 100%);
+}
+
+/* ─── Close button ─────────────────────────────────────────────────── */
+
+.pk-modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: background 0.15s, color 0.15s;
+}
+
+.pk-modal-close-btn:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.pk-modal-close-btn:active {
+  background: #e0e0e0;
+}
+
+/* ─── Animations ────────────────────────────────────────────────────── */
+
+@keyframes pkModalFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pkModalSlideIn {
+  from { opacity: 0; transform: scale(0.96) translateY(-8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}

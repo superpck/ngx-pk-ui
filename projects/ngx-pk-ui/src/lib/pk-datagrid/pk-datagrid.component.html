@@ -1,0 +1,67 @@
+<div class="pk-datagrid-container">
+  @if (pkDgLoading) {
+    <div class="pk-datagrid-spinner">
+      <div class="spinner"></div>
+      <span>Loading...</span>
+    </div>
+  }
+  
+  <table class="pk-datagrid" style="table-layout: fixed" [style.min-width.px]="totalWidth">
+    <thead>
+      <tr>
+        @if (hasExpandCol) {
+          <th class="pk-dg-expand-th"></th>
+        } @else {
+          <th class="pk-dg-expand-th pk-dg-no-detail"></th>
+        }
+        @for (column of columns; track column.pkDgField; let i = $index) {
+          <th [style.width.px]="columnWidths[i]">
+            <div class="th-content">
+              <span>{{ column.headerText }}</span>
+              <div class="th-actions">
+                @if (column.pkDgField) {
+                  <button class="sort-icon-btn"
+                    [class.active]="sortColumn === column.pkDgField"
+                    (click)="onSort(column.pkDgField)"
+                    title="เรียงลำดับ">
+                    <pk-icon
+                      iconSet="material-symbols"
+                      [name]="sortColumn === column.pkDgField ? (sortDirection === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down') : 'unfold_more'"
+                      [size]="12" color="currentColor">
+                    </pk-icon>
+                  </button>
+                }
+                @if (column.pkDgFilterKey) {
+                  <button class="filter-icon-btn"
+                    [class.active]="filterValues[column.pkDgFilterKey]"
+                    (click)="openFilter(column.pkDgFilterKey, $event, column.headerText)"
+                    title="กรอง">
+                    <pk-icon name="search" [size]="12" color="currentColor"></pk-icon>
+                  </button>
+                }
+              </div>
+            </div>
+            @if (column.pkDgFilterKey && activeFilterCol === column.pkDgFilterKey) {
+              <div class="filter-popup"
+                [style.top.px]="filterPopupPos.top"
+                [style.left.px]="filterPopupPos.left"
+                (click)="$event.stopPropagation()">
+                <input type="text"
+                  [value]="filterValues[column.pkDgFilterKey] || ''"
+                  (input)="onFilterInput(column.pkDgFilterKey, $event)"
+                  [placeholder]="'ค้นหา ' + activeFilterHeader"
+                  autofocus>
+              </div>
+            }
+            <div class="resize-handle" (mousedown)="startResize(i, $event)"></div>
+          </th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      <ng-content select="pk-dg-row"></ng-content>
+    </tbody>
+  </table>
+  
+  <ng-content select="pk-dg-footer"></ng-content>
+</div>

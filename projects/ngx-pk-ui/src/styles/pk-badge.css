@@ -1,0 +1,129 @@
+/**
+ * pk-badge — Badge / pill CSS for ngx-pk-ui
+ *
+ * Variants:  pk-badge-primary (default) | pk-badge-success | pk-badge-warn | pk-badge-error
+ * Modifiers: pk-badge-outline | pk-badge-sm | pk-badge-lg | pk-badge-pill | pk-badge-dot
+ *
+ * Usage:
+ *   <span class="pk-badge">New</span>
+ *   <span class="pk-badge pk-badge-success">Active</span>
+ *   <span class="pk-badge pk-badge-error pk-badge-outline">3</span>
+ *   <span class="pk-badge pk-badge-warn pk-badge-dot"></span>
+ */
+
+/* ─── Base ────────────────────────────────────────────────────────── */
+
+.pk-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 9px;
+  min-width: 22px;
+  height: 22px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  border-radius: 11px;
+  border: 2px solid transparent;
+  vertical-align: middle;
+
+  /* Default = primary */
+  background-color: var(--pk-btn-primary, #1976d2);
+  color: #fff;
+}
+
+/* ─── Variants ────────────────────────────────────────────────────── */
+
+.pk-badge-primary {
+  background-color: var(--pk-btn-primary, #1976d2);
+  border-color: transparent;
+  color: #fff;
+}
+
+.pk-badge-success {
+  background-color: var(--pk-btn-success, #43a047);
+  border-color: transparent;
+  color: #fff;
+}
+
+.pk-badge-warn {
+  background-color: var(--pk-btn-warn, #fb8c00);
+  border-color: transparent;
+  color: #fff;
+}
+
+.pk-badge-error {
+  background-color: var(--pk-btn-error, #e53935);
+  border-color: transparent;
+  color: #fff;
+}
+
+/* ─── Outline modifier ────────────────────────────────────────────── */
+
+.pk-badge.pk-badge-outline,
+.pk-badge-primary.pk-badge-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-primary, #1976d2);
+  color: var(--pk-btn-primary, #1976d2);
+}
+
+.pk-badge-success.pk-badge-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-success, #43a047);
+  color: var(--pk-btn-success, #43a047);
+}
+
+.pk-badge-warn.pk-badge-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-warn, #fb8c00);
+  color: var(--pk-btn-warn, #fb8c00);
+}
+
+.pk-badge-error.pk-badge-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-error, #e53935);
+  color: var(--pk-btn-error, #e53935);
+}
+
+/* ─── Size modifiers ──────────────────────────────────────────────── */
+
+.pk-badge-sm {
+  padding: 1px 6px;
+  min-width: 16px;
+  height: 16px;
+  font-size: 10px;
+  border-radius: 8px;
+}
+
+.pk-badge-lg {
+  padding: 4px 12px;
+  min-width: 28px;
+  height: 28px;
+  font-size: 14px;
+  border-radius: 14px;
+}
+
+/* ─── Pill (rectangular with rounded ends) ────────────────────────── */
+
+.pk-badge-pill {
+  border-radius: 4px;
+}
+
+/* ─── Dot (empty circle indicator, no text) ──────────────────────── */
+
+.pk-badge-dot {
+  padding: 0;
+  min-width: 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border-width: 0;
+}
+
+.pk-badge-dot.pk-badge-outline {
+  border-width: 2px;
+  background-color: transparent;
+}
