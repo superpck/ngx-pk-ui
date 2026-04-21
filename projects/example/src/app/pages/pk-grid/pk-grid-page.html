@@ -7,33 +7,101 @@
   <section class="demo-section">
     <h2>Equal columns</h2>
     <div class="pk-row" style="margin-bottom:8px">
-      <div class="pk-col-4"><div class="grid-box">pk-col-4</div></div>
-      <div class="pk-col-4"><div class="grid-box">pk-col-4</div></div>
-      <div class="pk-col-4"><div class="grid-box">pk-col-4</div></div>
+      <div class="pk-col-4">
+        <div class="grid-box">pk-col-4</div>
+      </div>
+      <div class="pk-col-4">
+        <div class="grid-box">pk-col-4</div>
+      </div>
+      <div class="pk-col-4">
+        <div class="grid-box">pk-col-4</div>
+      </div>
     </div>
     <div class="pk-row">
-      <div class="pk-col-3"><div class="grid-box">col-3</div></div>
-      <div class="pk-col-3"><div class="grid-box">col-3</div></div>
-      <div class="pk-col-3"><div class="grid-box">col-3</div></div>
-      <div class="pk-col-3"><div class="grid-box">col-3</div></div>
+      <div class="pk-col-3">
+        <div class="grid-box">col-3</div>
+      </div>
+      <div class="pk-col-3">
+        <div class="grid-box">col-3</div>
+      </div>
+      <div class="pk-col-3">
+        <div class="grid-box">col-3</div>
+      </div>
+      <div class="pk-col-3">
+        <div class="grid-box">col-3</div>
+      </div>
     </div>
   </section>
 
   <section class="demo-section">
     <h2>Responsive (resize to see breakpoints)</h2>
     <div class="pk-row">
-      <div class="pk-col-12 pk-col-md-6 pk-col-lg-4"><div class="grid-box">12 → md:6 → lg:4</div></div>
-      <div class="pk-col-12 pk-col-md-6 pk-col-lg-4"><div class="grid-box">12 → md:6 → lg:4</div></div>
-      <div class="pk-col-12 pk-col-md-12 pk-col-lg-4"><div class="grid-box">12 → md:12 → lg:4</div></div>
+      <div class="pk-col-12 pk-col-md-6 pk-col-lg-4">
+        <div class="grid-box">12 → md:6 → lg:4</div>
+      </div>
+      <div class="pk-col-12 pk-col-md-6 pk-col-lg-4">
+        <div class="grid-box">12 → md:6 → lg:4</div>
+      </div>
+      <div class="pk-col-12 pk-col-md-12 pk-col-lg-4">
+        <div class="grid-box">12 → md:12 → lg:4</div>
+      </div>
+    </div>
+
+    <div class="pk-row" style="margin-top: 10px;">
+      <div class="pk-col-lg-6 pk-col-md-6 pk-col-12">
+        <div class="grid-box" style="margin: 1px; background-color: #fff; border-color: rgb(196, 217, 223);">6/sm-12
+        </div>
+      </div>
+      <div class="pk-col-lg-6 pk-col-md-6 pk-col-12">
+        <div class="grid-box" style="margin: 1px; background-color: #fff; border-color: rgb(196, 217, 223);">6/sm-12
+        </div>
+      </div>
+    </div>
+
+    <div class="pk-row" style="margin-top: 10px;">
+      @for (col of [1,2]; track col) {
+      <div class="pk-col-lg-6 pk-col-md-6 pk-col-sm-6 pk-col-xs-6">
+        <div class="grid-box" style="margin: 1px; background-color: #fff; border-color: rgb(196, 217, 223);">6/12</div>
+      </div>
+      }
+    </div>
+
+    <div class="pk-row" style="margin-top: 10px;">
+      @for (col of [1,2,3]; track col) {
+      <div class="pk-col-lg-4 pk-col-md-4 pk-col-sm-4 pk-col-xs-4">
+        <div class="grid-box" style="margin: 1px; background-color: #fff; border-color: rgb(196, 217, 223);">4/12</div>
+      </div>
+      }
+    </div>
+
+    <div class="pk-row" style="margin-top: 10px;">
+      @for (col of [1,2,3,4]; track col) {
+      <div class="pk-col-lg-3 pk-col-md-3 pk-col-sm-3 pk-col-xs-3">
+        <div class="grid-box" style="margin: 1px; background-color: #fff; border-color: rgb(196, 217, 223);">3/12</div>
+      </div>
+      }
+    </div>
+    <div class="pk-row" style="margin-top: 10px;">
+      @for (col of [1,2,3,4,5,6,7,8,9,10,11,12]; track col) {
+      <div class="pk-col-lg-1 pk-col-md-1 pk-col-sm-1 pk-col-xs-1">
+        <div class="grid-box" style="margin: 1px; background-color: #fff; border-color: rgb(196, 217, 223);">1/12</div>
+      </div>
+      }
     </div>
   </section>
 
   <section class="demo-section">
     <h2>Auto column</h2>
     <div class="pk-row">
-      <div class="pk-col-3"><div class="grid-box">fixed 3</div></div>
-      <div class="pk-col"><div class="grid-box">auto fill</div></div>
-      <div class="pk-col-auto"><div class="grid-box">auto width</div></div>
+      <div class="pk-col-3">
+        <div class="grid-box">fixed 3</div>
+      </div>
+      <div class="pk-col">
+        <div class="grid-box">auto fill</div>
+      </div>
+      <div class="pk-col-auto">
+        <div class="grid-box">auto width</div>
+      </div>
     </div>
   </section>
 
@@ -62,31 +130,95 @@
   <section class="demo-section">
     <h2>Breakpoints</h2>
     <table class="api-table">
-      <tr><th>Prefix</th><th>Min-width</th><th>Classes</th></tr>
-      <tr><td>(none)</td><td>Always</td><td><code>pk-col-[1-12]</code></td></tr>
-      <tr><td><code>xs</code></td><td>Always (&lt;576px)</td><td><code>pk-col-xs-[1-12]</code></td></tr>
-      <tr><td><code>sm</code></td><td>≥ 576px</td><td><code>pk-col-sm-[1-12]</code></td></tr>
-      <tr><td><code>md</code></td><td>≥ 768px</td><td><code>pk-col-md-[1-12]</code></td></tr>
-      <tr><td><code>lg</code></td><td>≥ 992px</td><td><code>pk-col-lg-[1-12]</code></td></tr>
-      <tr><td><code>xl</code></td><td>≥ 1200px</td><td><code>pk-col-xl-[1-12]</code></td></tr>
+      <tr>
+        <th>Prefix</th>
+        <th>Min-width</th>
+        <th>Classes</th>
+      </tr>
+      <tr>
+        <td>(none)</td>
+        <td>Always</td>
+        <td><code>pk-col-[1-12]</code></td>
+      </tr>
+      <tr>
+        <td><code>xs</code></td>
+        <td>Always (&lt;576px)</td>
+        <td><code>pk-col-xs-[1-12]</code></td>
+      </tr>
+      <tr>
+        <td><code>sm</code></td>
+        <td>≥ 576px</td>
+        <td><code>pk-col-sm-[1-12]</code></td>
+      </tr>
+      <tr>
+        <td><code>md</code></td>
+        <td>≥ 768px</td>
+        <td><code>pk-col-md-[1-12]</code></td>
+      </tr>
+      <tr>
+        <td><code>lg</code></td>
+        <td>≥ 992px</td>
+        <td><code>pk-col-lg-[1-12]</code></td>
+      </tr>
+      <tr>
+        <td><code>xl</code></td>
+        <td>≥ 1200px</td>
+        <td><code>pk-col-xl-[1-12]</code></td>
+      </tr>
     </table>
   </section>
 
   <section class="demo-section">
     <h2>Row modifiers</h2>
     <table class="api-table">
-      <tr><th>Class</th><th>Description</th></tr>
-      <tr><td><code>pk-row--gap-0</code></td><td>Remove gap between columns</td></tr>
-      <tr><td><code>pk-row--gap-sm</code></td><td>Small gap (8px)</td></tr>
-      <tr><td><code>pk-row--gap-lg</code></td><td>Large gap (32px)</td></tr>
-      <tr><td><code>pk-row--align-center</code></td><td>Vertically center columns</td></tr>
-      <tr><td><code>pk-row--align-top</code></td><td>Align columns to top</td></tr>
-      <tr><td><code>pk-row--align-bottom</code></td><td>Align columns to bottom</td></tr>
-      <tr><td><code>pk-row--justify-between</code></td><td>Space between columns</td></tr>
-      <tr><td><code>pk-row--justify-center</code></td><td>Center columns horizontally</td></tr>
-      <tr><td><code>pk-row--justify-end</code></td><td>Right-align columns</td></tr>
-      <tr><td><code>pk-row--no-wrap</code></td><td>Prevent column wrapping</td></tr>
-      <tr><td><code>pk-row--reverse</code></td><td>Reverse column order</td></tr>
+      <tr>
+        <th>Class</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>pk-row--gap-0</code></td>
+        <td>Remove gap between columns</td>
+      </tr>
+      <tr>
+        <td><code>pk-row--gap-sm</code></td>
+        <td>Small gap (8px)</td>
+      </tr>
+      <tr>
+        <td><code>pk-row--gap-lg</code></td>
+        <td>Large gap (32px)</td>
+      </tr>
+      <tr>
+        <td><code>pk-row--align-center</code></td>
+        <td>Vertically center columns</td>
+      </tr>
+      <tr>
+        <td><code>pk-row--align-top</code></td>
+        <td>Align columns to top</td>
+      </tr>
+      <tr>
+        <td><code>pk-row--align-bottom</code></td>
+        <td>Align columns to bottom</td>
+      </tr>
+      <tr>
+        <td><code>pk-row--justify-between</code></td>
+        <td>Space between columns</td>
+      </tr>
+      <tr>
+        <td><code>pk-row--justify-center</code></td>
+        <td>Center columns horizontally</td>
+      </tr>
+      <tr>
+        <td><code>pk-row--justify-end</code></td>
+        <td>Right-align columns</td>
+      </tr>
+      <tr>
+        <td><code>pk-row--no-wrap</code></td>
+        <td>Prevent column wrapping</td>
+      </tr>
+      <tr>
+        <td><code>pk-row--reverse</code></td>
+        <td>Reverse column order</td>
+      </tr>
     </table>
   </section>
 </div>

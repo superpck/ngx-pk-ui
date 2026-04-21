@@ -9,7 +9,7 @@
 
     <div class="demo-row" style="margin-bottom: 12px; align-items: center; gap: 12px;">
       <label for="selectionMode"><strong>Selection mode:</strong></label>
-      <select id="selectionMode" [value]="selectionMode()" (change)="setSelectionMode($event)">
+      <select id="selectionMode" [value]="selectionMode()" (change)="setSelectionMode($event)" style="height: 30px; border-radius: 6px;">
         <option value="none">none</option>
         <option value="single">single</option>
         <option value="multi">multi</option>

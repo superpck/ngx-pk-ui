@@ -10,13 +10,14 @@ import {
   ElementRef,
   HostListener,
 } from '@angular/core';
+import { NgClass, NgStyle } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { AutocompleteOption, AutocompleteFetchFn } from './pk-autocomplete.interface';
 
 @Component({
   selector: 'pk-autocomplete',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgClass, NgStyle],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -25,9 +26,9 @@ import { AutocompleteOption, AutocompleteFetchFn } from './pk-autocomplete.inter
     },
   ],
   template: `
-    <div class="relative w-full">
+    <div class="pk-autocomplete" [ngClass]="customClass()" [ngStyle]="customStyle()">
       <!-- Input -->
-      <div class="relative">
+      <div class="pk-autocomplete__input-wrap">
         <input
           #inputElement
           type="text"
@@ -37,21 +38,22 @@ import { AutocompleteOption, AutocompleteFetchFn } from './pk-autocomplete.inter
           (keydown)="onKeyDown($event)"
           [placeholder]="placeholder()"
           [disabled]="disabled()"
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
-          [class.pr-10]="loading() || (searchTerm() && !loading())"
+          [ngStyle]="customStyle()"
+          class="pk-autocomplete__input"
+          [class.pk-autocomplete__input--with-action]="loading() || (searchTerm() && !loading())"
         />
         
         <!-- Loading Spinner or Clear Button -->
         @if (loading()) {
-          <div class="absolute right-3 top-1/2 -translate-y-1/2">
+          <div class="pk-autocomplete__action">
             <div class="pk-spinner pk-spinner-sm"></div>
           </div>
         } @else if (searchTerm() && !disabled()) {
           <button
             type="button"
             (click)="clear()"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            class="pk-autocomplete__clear-btn">
+            <svg class="pk-autocomplete__clear-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
           </button>
@@ -60,20 +62,20 @@ import { AutocompleteOption, AutocompleteFetchFn } from './pk-autocomplete.inter
 
       <!-- Dropdown -->
       @if (isOpen() && !disabled()) {
-        <div class="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto">
+        <div class="pk-autocomplete__dropdown">
           @if (loading()) {
-            <div class="px-4 py-8 text-center text-gray-500">
-              <div class="pk-spinner pk-spinner-sm mx-auto mb-2"></div>
-              <p class="text-sm">กำลังค้นหา...</p>
+            <div class="pk-autocomplete__state">
+              <div class="pk-spinner pk-spinner-sm"></div>
+              <p>กำลังค้นหา...</p>
             </div>
           } @else if (filteredOptions().length === 0) {
-            <div class="px-4 py-8 text-center text-gray-500">
-              <svg class="w-12 h-12 mx-auto mb-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="pk-autocomplete__state">
+              <svg class="pk-autocomplete__empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
-              <p class="text-sm">ไม่พบข้อมูล</p>
+              <p>ไม่พบข้อมูล</p>
               @if (searchTerm()) {
-                <p class="text-xs mt-1">ลองค้นหาด้วยคำอื่น</p>
+                <p class="pk-autocomplete__subtext">ลองค้นหาด้วยคำอื่น</p>
               }
             </div>
           } @else {
@@ -82,12 +84,12 @@ import { AutocompleteOption, AutocompleteFetchFn } from './pk-autocomplete.inter
                 type="button"
                 (click)="selectOption(option)"
                 [disabled]="option.disabled"
-                class="w-full px-4 py-2 text-left hover:bg-blue-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                [class.bg-blue-100]="highlightedIndex() === idx"
-                [class.font-medium]="isSelected(option)">
+                class="pk-autocomplete__option"
+                [class.pk-autocomplete__option--active]="highlightedIndex() === idx"
+                [class.pk-autocomplete__option--selected]="isSelected(option)">
                 {{ option.label }}
                 @if (isSelected(option)) {
-                  <span class="float-right text-blue-600">✓</span>
+                  <span class="pk-autocomplete__check">✓</span>
                 }
               </button>
             }
@@ -96,6 +98,156 @@ import { AutocompleteOption, AutocompleteFetchFn } from './pk-autocomplete.inter
       }
     </div>
   `,
+  styles: [
+    `
+      .pk-autocomplete {
+        position: relative;
+        width: 100%;
+      }
+
+      .pk-autocomplete__input-wrap {
+        position: relative;
+      }
+
+      .pk-autocomplete__input {
+        width: 100%;
+        height: 40px;
+        padding: 0 14px;
+        border: 1px solid #d5d9e0;
+        border-radius: 10px;
+        background: #ffffff;
+        color: #1f2937;
+        font-size: 14px;
+        line-height: 1;
+        transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+      }
+
+      .pk-autocomplete__input::placeholder {
+        color: #9aa3af;
+      }
+
+      .pk-autocomplete__input:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+      }
+
+      .pk-autocomplete__input:disabled {
+        background: #f4f6f8;
+        color: #9aa3af;
+        cursor: not-allowed;
+      }
+
+      .pk-autocomplete__input--with-action {
+        padding-right: 40px;
+      }
+
+      .pk-autocomplete__action,
+      .pk-autocomplete__clear-btn {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .pk-autocomplete__clear-btn {
+        width: 24px;
+        height: 24px;
+        border: none;
+        border-radius: 999px;
+        background: transparent;
+        color: #98a2b3;
+        cursor: pointer;
+        transition: background-color 0.15s ease, color 0.15s ease;
+      }
+
+      .pk-autocomplete__clear-btn:hover {
+        background: #eef2f7;
+        color: #4b5563;
+      }
+
+      .pk-autocomplete__clear-icon {
+        width: 16px;
+        height: 16px;
+      }
+
+      .pk-autocomplete__dropdown {
+        position: absolute;
+        z-index: 50;
+        width: 100%;
+        margin-top: 6px;
+        background: #ffffff;
+        border: 1px solid #dbe1e8;
+        border-radius: 12px;
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.14);
+        max-height: 260px;
+        overflow: auto;
+      }
+
+      .pk-autocomplete__state {
+        min-height: 110px;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: #6b7280;
+        font-size: 13px;
+      }
+
+      .pk-autocomplete__empty-icon {
+        width: 34px;
+        height: 34px;
+        color: #c2cad4;
+      }
+
+      .pk-autocomplete__subtext {
+        margin: 0;
+        color: #9aa3af;
+        font-size: 12px;
+      }
+
+      .pk-autocomplete__option {
+        width: 100%;
+        padding: 10px 14px;
+        border: none;
+        background: transparent;
+        color: #1f2937;
+        font-size: 14px;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        transition: background-color 0.12s ease;
+      }
+
+      .pk-autocomplete__option:hover {
+        background: #f1f5ff;
+      }
+
+      .pk-autocomplete__option--active {
+        background: #e7efff;
+      }
+
+      .pk-autocomplete__option--selected {
+        font-weight: 600;
+      }
+
+      .pk-autocomplete__option:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+
+      .pk-autocomplete__check {
+        color: #2563eb;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PkAutocompleteComponent implements ControlValueAccessor {
@@ -109,6 +261,8 @@ export class PkAutocompleteComponent implements ControlValueAccessor {
   debounceTime = input<number>(300);
   disabled = input<boolean>(false);
   displayKey = input<string>('label');
+  customClass = input<string>('');
+  customStyle = input<Record<string, string> | null>(null);
 
   // State
   searchTerm = signal<string>('');

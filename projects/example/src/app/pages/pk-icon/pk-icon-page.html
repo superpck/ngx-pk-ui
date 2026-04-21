@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     gap: 24px;
   }
+
   .icon-playground-preview {
     display: flex;
     flex-direction: column;
@@ -14,10 +15,12 @@
     border-radius: 8px;
     width: 120px;
   }
+
   .icon-playground-name {
     font-size: 12px;
     color: #666;
   }
+
   .icon-playground-controls {
     display: flex;
     flex-direction: column;
@@ -25,6 +28,7 @@
     flex-grow: 1;
     min-width: 200px;
   }
+
   .icon-control-row {
     display: flex;
     align-items: center;
@@ -41,7 +45,8 @@
 <div class="demo-page">
   <div class="demo-page-header">
     <h1 class="demo-page-title">pk-icon</h1>
-    <p class="demo-page-desc">SVG icon component — {{ totalIcons }} built-in icons with fill/stroke mode, size, color, and stroke-width control.</p>
+    <p class="demo-page-desc">SVG icon component — {{ totalIcons }} built-in icons with fill/stroke mode, size, color,
+      and stroke-width control.</p>
   </div>
 
   <!-- ── Playground ──────────────────────────────────────────── -->
@@ -50,13 +55,8 @@
 
     <div class="icon-playground">
       <div class="icon-playground-preview">
-        <pk-icon
-          [name]="demoName()"
-          [size]="demoSize()"
-          [color]="demoColor()"
-          [fillColor]="demoFill()"
-          [strokeWidth]="demoStroke()"
-        />
+        <pk-icon [name]="demoName()" [size]="demoSize()" [color]="demoColor()" [fillColor]="demoFill()"
+          [strokeWidth]="demoStroke()" />
         <span class="icon-playground-name">{{ demoName() }}</span>
       </div>
 
@@ -100,16 +100,8 @@
 
     <div class="icon-playground">
       <div class="icon-playground-preview">
-        <pk-icon
-          [name]="materialName()"
-          iconSet="material-symbols"
-          [size]="48"
-          [color]="'#1976d2'"
-          [variant]="materialVariant()"
-          [weight]="materialWeight()"
-          [fill]="materialFill()"
-          [opticalSize]="48"
-        />
+        <pk-icon [name]="materialName()" iconSet="material-symbols" [size]="48" [color]="'#1976d2'"
+          [variant]="materialVariant()" [weight]="materialWeight()" [fill]="materialFill()" [opticalSize]="48" />
         <span class="icon-playground-name">{{ materialName() }}</span>
       </div>
 
@@ -136,7 +128,8 @@
 
         <div class="icon-control-row">
           <label>weight <strong>{{ materialWeight() }}</strong></label>
-          <input type="range" min="100" max="700" step="100" [value]="materialWeight()" (input)="setMaterialWeight($event)" />
+          <input type="range" min="100" max="700" step="100" [value]="materialWeight()"
+            (input)="setMaterialWeight($event)" />
         </div>
 
         <div class="icon-control-row">
@@ -162,51 +155,40 @@
     </p>
 
     @for (group of materialGroups; track group.label) {
-      <h3>{{ group.label }}</h3>
-      <div class="icon-grid">
-        @for (name of group.icons; track name) {
-          <button
-            class="icon-item"
-            [class.icon-item--active]="materialName() === name"
-            (click)="selectMaterialIcon(name)"
-            title="{{ name }}"
-          >
-            <pk-icon
-              [name]="name"
-              iconSet="material-symbols"
-              [size]="22"
-              [variant]="materialVariant()"
-              [weight]="materialWeight()"
-              [fill]="materialFill()"
-            />
-            <span class="icon-name">{{ name }}</span>
-          </button>
-        }
-      </div>
+    <h3>{{ group.label }}</h3>
+    <div class="icon-grid">
+      @for (name of group.icons; track name) {
+      <button class="icon-item" [class.icon-item--active]="materialName() === name" (click)="selectMaterialIcon(name)"
+        title="{{ name }}">
+        <pk-icon [name]="name" iconSet="material-symbols" [size]="22" [variant]="materialVariant()"
+          [weight]="materialWeight()" [fill]="materialFill()" />
+        <span class="icon-name">{{ name }}</span>
+      </button>
+      }
+    </div>
     }
+    <div style="margin-top: 6px; color:#64748b; font-size:13px">
+      Original icon url
+      <a href="https://fonts.google.com/icons" target="_blank">https://fonts.google.com/icons</a>
+    </div>
   </section>
 
   <!-- ── Icon Gallery ────────────────────────────────────────── -->
   <section class="demo-section">
-    <h2>All icons <span class="icon-count-badge">{{ totalIcons }}</span></h2>
+    <h2>All iconSet 'pk' <span class="icon-count-badge">{{ totalIcons }}</span></h2>
     <p style="font-size:13px;color:#888;margin:0 0 16px">Click an icon to use it in the playground above.</p>
 
     @for (group of groups; track group.label) {
-      <h3>{{ group.label }}</h3>
-      <div class="icon-grid">
-        @for (name of group.icons; track name) {
-          <button
-            class="icon-item"
-            [class.icon-item--active]="demoName() === name"
-            [class.icon-item--copied]="copied() === name"
-            (click)="selectIcon(name)"
-            title="{{ name }}"
-          >
-            <pk-icon [name]="name" [size]="22" color="currentColor" />
-            <span class="icon-name">{{ name }}</span>
-          </button>
-        }
-      </div>
+    <h3>{{ group.label }}</h3>
+    <div class="icon-grid">
+      @for (name of group.icons; track name) {
+      <button class="icon-item" [class.icon-item--active]="demoName() === name"
+        [class.icon-item--copied]="copied() === name" (click)="selectIcon(name)" title="{{ name }}">
+        <pk-icon [name]="name" [size]="22" color="currentColor" />
+        <span class="icon-name">{{ name }}</span>
+      </button>
+      }
+    </div>
     }
   </section>
 
@@ -215,18 +197,18 @@
     <h2>Sizes</h2>
     <div class="demo-row" style="align-items: flex-end; gap: 24px;">
       @for (sz of [12, 16, 20, 24, 32, 48]; track sz) {
-        <div class="icon-size-demo">
-          <pk-icon name="search" [size]="sz" color="#1976d2" />
-          <span>{{ sz }}px</span>
-        </div>
+      <div class="icon-size-demo">
+        <pk-icon name="search" [size]="sz" color="#1976d2" />
+        <span>{{ sz }}px</span>
+      </div>
       }
     </div>
     <div class="demo-row" style="margin-top: 16px; align-items: flex-end; gap: 24px;">
       @for (sz of [12, 16, 20, 24, 32, 48]; track sz) {
-        <div class="icon-size-demo">
-          <pk-icon name="shield" [size]="sz" color="#1565c0" fillColor="#bbdefb" />
-          <span>{{ sz }}px</span>
-        </div>
+      <div class="icon-size-demo">
+        <pk-icon name="shield" [size]="sz" color="#1565c0" fillColor="#bbdefb" />
+        <span>{{ sz }}px</span>
+      </div>
       }
     </div>
     <pre class="code-block" style="margin-top:16px"><code>&lt;pk-icon name="search" [size]="12" /&gt;
@@ -238,14 +220,14 @@
   <section class="demo-section">
     <h2>Colors</h2>
     <div class="demo-row">
-      <pk-icon name="shield"    [size]="28" color="#1976d2" />
-      <pk-icon name="success"   [size]="28" color="#43a047" />
-      <pk-icon name="warning"   [size]="28" color="#f59e0b" />
-      <pk-icon name="error"     [size]="28" color="#e53935" />
-      <pk-icon name="question"  [size]="28" color="#8e24aa" />
-      <pk-icon name="server"    [size]="28" color="#0288d1" />
-      <pk-icon name="database"  [size]="28" color="#00897b" />
-      <pk-icon name="user"      [size]="28" color="#546e7a" />
+      <pk-icon name="shield" [size]="28" color="#1976d2" />
+      <pk-icon name="success" [size]="28" color="#43a047" />
+      <pk-icon name="warning" [size]="28" color="#f59e0b" />
+      <pk-icon name="error" [size]="28" color="#e53935" />
+      <pk-icon name="question" [size]="28" color="#8e24aa" />
+      <pk-icon name="server" [size]="28" color="#0288d1" />
+      <pk-icon name="database" [size]="28" color="#00897b" />
+      <pk-icon name="user" [size]="28" color="#546e7a" />
     </div>
     <pre class="code-block" style="margin-top:16px"><code>&lt;pk-icon name="success" [size]="28" color="#43a047" /&gt;
 &lt;pk-icon name="warning" [size]="28" color="#f59e0b" /&gt;
@@ -264,28 +246,28 @@
       <div class="icon-compare-group">
         <span class="icon-compare-label">Stroke only (default)</span>
         <div class="demo-row">
-          <pk-icon name="shield"   [size]="32" color="#1976d2" fillColor="none" />
-          <pk-icon name="success"  [size]="32" color="#43a047" fillColor="none" />
-          <pk-icon name="warning"  [size]="32" color="#f59e0b" fillColor="none" />
-          <pk-icon name="error"    [size]="32" color="#e53935" fillColor="none" />
+          <pk-icon name="shield" [size]="32" color="#1976d2" fillColor="none" />
+          <pk-icon name="success" [size]="32" color="#43a047" fillColor="none" />
+          <pk-icon name="warning" [size]="32" color="#f59e0b" fillColor="none" />
+          <pk-icon name="error" [size]="32" color="#e53935" fillColor="none" />
         </div>
       </div>
       <div class="icon-compare-group">
         <span class="icon-compare-label">Stroke + fill</span>
         <div class="demo-row">
-          <pk-icon name="shield"   [size]="32" color="#1565c0" fillColor="#bbdefb" />
-          <pk-icon name="success"  [size]="32" color="#2e7d32" fillColor="#c8e6c9" />
-          <pk-icon name="warning"  [size]="32" color="#e65100" fillColor="#fff3e0" />
-          <pk-icon name="error"    [size]="32" color="#c62828" fillColor="#ffebee" />
+          <pk-icon name="shield" [size]="32" color="#1565c0" fillColor="#bbdefb" />
+          <pk-icon name="success" [size]="32" color="#2e7d32" fillColor="#c8e6c9" />
+          <pk-icon name="warning" [size]="32" color="#e65100" fillColor="#fff3e0" />
+          <pk-icon name="error" [size]="32" color="#c62828" fillColor="#ffebee" />
         </div>
       </div>
       <div class="icon-compare-group">
         <span class="icon-compare-label">Full fill (same color)</span>
         <div class="demo-row">
-          <pk-icon name="shield"   [size]="32" color="#1565c0" fillColor="#1565c0" />
-          <pk-icon name="success"  [size]="32" color="#2e7d32" fillColor="#2e7d32" />
-          <pk-icon name="warning"  [size]="32" color="#e65100" fillColor="#e65100" />
-          <pk-icon name="error"    [size]="32" color="#c62828" fillColor="#c62828" />
+          <pk-icon name="shield" [size]="32" color="#1565c0" fillColor="#1565c0" />
+          <pk-icon name="success" [size]="32" color="#2e7d32" fillColor="#2e7d32" />
+          <pk-icon name="warning" [size]="32" color="#e65100" fillColor="#e65100" />
+          <pk-icon name="error" [size]="32" color="#c62828" fillColor="#c62828" />
         </div>
       </div>
     </div>
@@ -304,10 +286,10 @@
     <h2>strokeWidth</h2>
     <div class="demo-row" style="align-items: flex-end; gap: 28px;">
       @for (sw of [1, 1.5, 2, 2.5, 3, 4]; track sw) {
-        <div class="icon-size-demo">
-          <pk-icon name="search" [size]="32" color="#1976d2" [strokeWidth]="sw" />
-          <span>{{ sw }}</span>
-        </div>
+      <div class="icon-size-demo">
+        <pk-icon name="search" [size]="32" color="#1976d2" [strokeWidth]="sw" />
+        <span>{{ sw }}</span>
+      </div>
       }
     </div>
     <pre class="code-block" style="margin-top:16px"><code>&lt;pk-icon name="search" [strokeWidth]="1" /&gt;    &lt;!-- thin --&gt;
@@ -322,13 +304,13 @@
     <h3>Buttons with icons</h3>
     <div class="demo-row">
       <button class="pk-btn pk-btn-primary" style="display:inline-flex;align-items:center;gap:6px">
-        <pk-icon name="plus"     [size]="15" color="#fff" /> Add item
+        <pk-icon name="plus" [size]="15" color="#fff" /> Add item
       </button>
       <button class="pk-btn pk-btn-secondary pk-btn-outline" style="display:inline-flex;align-items:center;gap:6px">
-        <pk-icon name="pencil"   [size]="15" color="currentColor" /> Edit
+        <pk-icon name="pencil" [size]="15" color="currentColor" /> Edit
       </button>
       <button class="pk-btn pk-btn-error" style="display:inline-flex;align-items:center;gap:6px">
-        <pk-icon name="trash"    [size]="15" color="#fff" /> Delete
+        <pk-icon name="trash" [size]="15" color="#fff" /> Delete
       </button>
       <button class="pk-btn pk-btn-success pk-btn-outline" style="display:inline-flex;align-items:center;gap:6px">
         <pk-icon name="download" [size]="15" color="currentColor" /> Export
@@ -344,7 +326,7 @@
         <pk-icon name="warning" [size]="18" color="#f59e0b" /> This action may cause issues
       </div>
       <div style="display:flex;align-items:center;gap:8px;font-size:14px">
-        <pk-icon name="error"   [size]="18" color="#e53935" /> Authentication failed
+        <pk-icon name="error" [size]="18" color="#e53935" /> Authentication failed
       </div>
       <div style="display:flex;align-items:center;gap:8px;font-size:14px">
         <pk-icon name="question" [size]="18" color="#8e24aa" /> Are you sure you want to continue?
@@ -354,15 +336,16 @@
     <h3>Navigation links</h3>
     <div style="display:flex;flex-direction:column;gap:4px;margin-top:8px">
       @for (item of [
-        {icon:'dashboard',label:'Dashboard'},{icon:'users',label:'Users'},
-        {icon:'database',label:'Database'},{icon:'setting',label:'Settings'},
-        {icon:'shield',label:'Security'}
+      {icon:'dashboard',label:'Dashboard'},{icon:'users',label:'Users'},
+      {icon:'database',label:'Database'},{icon:'setting',label:'Settings'},
+      {icon:'shield',label:'Security'}
       ]; track item.icon) {
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:6px;font-size:14px;cursor:pointer;color:#333"
-             onmouseenter="this.style.background='#f0f4ff'" onmouseleave="this.style.background=''">
-          <pk-icon [name]="$any(item.icon)" [size]="18" color="#1976d2" />
-          {{ item.label }}
-        </div>
+      <div
+        style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:6px;font-size:14px;cursor:pointer;color:#333"
+        onmouseenter="this.style.background='#f0f4ff'" onmouseleave="this.style.background=''">
+        <pk-icon [name]="$any(item.icon)" [size]="18" color="#1976d2" />
+        {{ item.label }}
+      </div>
       }
     </div>
   </section>
@@ -370,14 +353,14 @@
   <!-- ── currentColor ────────────────────────────────────────── -->
   <section class="demo-section">
     <h2>currentColor (CSS inheritance)</h2>
-    <p style="font-size:13px;color:#666;margin:0 0 12px">The default color is <code>currentColor</code>, so icons inherit text color automatically.</p>
+    <p style="font-size:13px;color:#666;margin:0 0 12px">The default color is <code>currentColor</code>, so icons
+      inherit text color automatically.</p>
     <div class="demo-row">
       @for (c of ['#1976d2','#43a047','#e53935','#f59e0b','#8e24aa','#546e7a']; track c) {
-        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;"
-             [style.color]="c">
-          <pk-icon name="menu" [size]="28" />
-          <span>{{ c }}</span>
-        </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;" [style.color]="c">
+        <pk-icon name="menu" [size]="28" />
+        <span>{{ c }}</span>
+      </div>
       }
     </div>
     <pre class="code-block" style="margin-top:16px"><code>&lt;!-- icon inherits text color of parent --&gt;
@@ -403,19 +386,84 @@ import type &#123; PkIconName &#125; from 'ngx-pk-ui';
   <section class="demo-section">
     <h2>API</h2>
     <table class="api-table">
-      <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
-      <tr><td><code>name</code></td><td><code>PkIconName</code></td><td><em>required</em></td><td>Icon identifier</td></tr>
-      <tr><td><code>iconSet</code></td><td><code>'pk' | 'material-symbols'</code></td><td><code>'pk'</code></td><td>Select built-in SVG icons or Material Symbols font mode</td></tr>
-      <tr><td><code>size</code></td><td><code>number</code></td><td><code>15</code></td><td>Width and height in px</td></tr>
-      <tr><td><code>color</code></td><td><code>string</code></td><td><code>'currentColor'</code></td><td>SVG stroke color</td></tr>
-      <tr><td><code>fillColor</code></td><td><code>string</code></td><td><code>'none'</code></td><td>SVG fill color</td></tr>
-      <tr><td><code>viewBox</code></td><td><code>string</code></td><td><code>'0 0 24 24'</code></td><td>SVG viewBox attribute</td></tr>
-      <tr><td><code>strokeWidth</code></td><td><code>number</code></td><td><code>2</code></td><td>SVG stroke-width</td></tr>
-      <tr><td><code>variant</code></td><td><code>'outlined' | 'rounded' | 'sharp'</code></td><td><code>'outlined'</code></td><td>Material Symbols style variant (iconSet='material-symbols')</td></tr>
-      <tr><td><code>fill</code></td><td><code>0 | 1</code></td><td><code>0</code></td><td>Material Symbols fill axis (iconSet='material-symbols')</td></tr>
-      <tr><td><code>weight</code></td><td><code>100..700</code></td><td><code>400</code></td><td>Material Symbols weight axis (iconSet='material-symbols')</td></tr>
-      <tr><td><code>grade</code></td><td><code>-25 | 0 | 200</code></td><td><code>0</code></td><td>Material Symbols grade axis (iconSet='material-symbols')</td></tr>
-      <tr><td><code>opticalSize</code></td><td><code>20 | 24 | 40 | 48</code></td><td><code>24</code></td><td>Material Symbols optical size axis (iconSet='material-symbols')</td></tr>
+      <tr>
+        <th>Input</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>PkIconName</code></td>
+        <td><em>required</em></td>
+        <td>Icon identifier</td>
+      </tr>
+      <tr>
+        <td><code>iconSet</code></td>
+        <td><code>'pk' | 'material-symbols'</code></td>
+        <td><code>'pk'</code></td>
+        <td>Select built-in SVG icons or Material Symbols font mode</td>
+      </tr>
+      <tr>
+        <td><code>size</code></td>
+        <td><code>number</code></td>
+        <td><code>15</code></td>
+        <td>Width and height in px</td>
+      </tr>
+      <tr>
+        <td><code>color</code></td>
+        <td><code>string</code></td>
+        <td><code>'currentColor'</code></td>
+        <td>SVG stroke color</td>
+      </tr>
+      <tr>
+        <td><code>fillColor</code></td>
+        <td><code>string</code></td>
+        <td><code>'none'</code></td>
+        <td>SVG fill color</td>
+      </tr>
+      <tr>
+        <td><code>viewBox</code></td>
+        <td><code>string</code></td>
+        <td><code>'0 0 24 24'</code></td>
+        <td>SVG viewBox attribute</td>
+      </tr>
+      <tr>
+        <td><code>strokeWidth</code></td>
+        <td><code>number</code></td>
+        <td><code>2</code></td>
+        <td>SVG stroke-width</td>
+      </tr>
+      <tr>
+        <td><code>variant</code></td>
+        <td><code>'outlined' | 'rounded' | 'sharp'</code></td>
+        <td><code>'outlined'</code></td>
+        <td>Material Symbols style variant (iconSet='material-symbols')</td>
+      </tr>
+      <tr>
+        <td><code>fill</code></td>
+        <td><code>0 | 1</code></td>
+        <td><code>0</code></td>
+        <td>Material Symbols fill axis (iconSet='material-symbols')</td>
+      </tr>
+      <tr>
+        <td><code>weight</code></td>
+        <td><code>100..700</code></td>
+        <td><code>400</code></td>
+        <td>Material Symbols weight axis (iconSet='material-symbols')</td>
+      </tr>
+      <tr>
+        <td><code>grade</code></td>
+        <td><code>-25 | 0 | 200</code></td>
+        <td><code>0</code></td>
+        <td>Material Symbols grade axis (iconSet='material-symbols')</td>
+      </tr>
+      <tr>
+        <td><code>opticalSize</code></td>
+        <td><code>20 | 24 | 40 | 48</code></td>
+        <td><code>24</code></td>
+        <td>Material Symbols optical size axis (iconSet='material-symbols')</td>
+      </tr>
     </table>
   </section>
 </div>

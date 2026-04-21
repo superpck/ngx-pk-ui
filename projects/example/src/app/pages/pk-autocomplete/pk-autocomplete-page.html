@@ -1,16 +1,15 @@
 <div class="demo-page">
   <div class="demo-page-header">
     <h1 class="demo-page-title">pk-autocomplete</h1>
-    <p class="demo-page-desc">Autocomplete input with local filtering, async fetch mode, keyboard navigation, and ngModel support.</p>
+    <p class="demo-page-desc">Autocomplete input with local filtering, async fetch mode, keyboard navigation, and
+      ngModel support.</p>
   </div>
 
   <section class="demo-section">
     <h2>Local options</h2>
     <div style="max-width: 420px;">
-      <pk-autocomplete
-        [options]="localOptions"
-        placeholder="Type city name"
-        [(ngModel)]="selectedLocal">
+      <pk-autocomplete [options]="localOptions" placeholder="Type city name"
+          [(ngModel)]="selectedLocal" [customStyle]="{ width: '260px', height: '42px' }">
       </pk-autocomplete>
     </div>
     <div class="result-box">Selected value: {{ selectedLocal ?? 'None' }}</div>
@@ -19,11 +18,7 @@
   <section class="demo-section">
     <h2>Async fetch mode</h2>
     <div style="max-width: 420px;">
-      <pk-autocomplete
-        [fetchFn]="fetchCountries"
-        [minChars]="1"
-        [debounceTime]="250"
-        placeholder="Search country"
+      <pk-autocomplete [fetchFn]="fetchCountries" [minChars]="1" [debounceTime]="250" placeholder="Search country"
         [(ngModel)]="selectedAsync">
       </pk-autocomplete>
     </div>
@@ -33,10 +28,7 @@
   <section class="demo-section">
     <h2>With ngModel</h2>
     <div style="max-width: 420px;">
-      <pk-autocomplete
-        [options]="localOptions"
-        placeholder="Bind with ngModel"
-        [(ngModel)]="ngModelValue">
+      <pk-autocomplete [options]="localOptions" placeholder="Bind with ngModel" [(ngModel)]="ngModelValue">
       </pk-autocomplete>
     </div>
     <div class="result-box">ngModel: {{ ngModelValue ?? 'null' }}</div>
@@ -69,14 +61,54 @@ export class AnyPage &#123;
   <section class="demo-section">
     <h2>API</h2>
     <table class="api-table">
-      <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
-      <tr><td><code>options</code></td><td><code>AutocompleteOption[]</code></td><td><code>[]</code></td><td>Local options data source</td></tr>
-      <tr><td><code>fetchFn</code></td><td><code>(term) =&gt; Promise&lt;AutocompleteOption[]&gt;</code></td><td><code>null</code></td><td>Async fetch function for remote search</td></tr>
-      <tr><td><code>placeholder</code></td><td><code>string</code></td><td><code>'ค้นหา...'</code></td><td>Input placeholder text</td></tr>
-      <tr><td><code>minChars</code></td><td><code>number</code></td><td><code>1</code></td><td>Minimum characters before async fetch</td></tr>
-      <tr><td><code>debounceTime</code></td><td><code>number</code></td><td><code>300</code></td><td>Debounce time for async searching</td></tr>
-      <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Disable component interaction</td></tr>
-      <tr><td><code>[(ngModel)]</code></td><td><code>any</code></td><td>—</td><td>Two-way selected value binding</td></tr>
+      <tr>
+        <th>Input</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>options</code></td>
+        <td><code>AutocompleteOption[]</code></td>
+        <td><code>[]</code></td>
+        <td>Local options data source</td>
+      </tr>
+      <tr>
+        <td><code>fetchFn</code></td>
+        <td><code>(term) =&gt; Promise&lt;AutocompleteOption[]&gt;</code></td>
+        <td><code>null</code></td>
+        <td>Async fetch function for remote search</td>
+      </tr>
+      <tr>
+        <td><code>placeholder</code></td>
+        <td><code>string</code></td>
+        <td><code>'ค้นหา...'</code></td>
+        <td>Input placeholder text</td>
+      </tr>
+      <tr>
+        <td><code>minChars</code></td>
+        <td><code>number</code></td>
+        <td><code>1</code></td>
+        <td>Minimum characters before async fetch</td>
+      </tr>
+      <tr>
+        <td><code>debounceTime</code></td>
+        <td><code>number</code></td>
+        <td><code>300</code></td>
+        <td>Debounce time for async searching</td>
+      </tr>
+      <tr>
+        <td><code>disabled</code></td>
+        <td><code>boolean</code></td>
+        <td><code>false</code></td>
+        <td>Disable component interaction</td>
+      </tr>
+      <tr>
+        <td><code>[(ngModel)]</code></td>
+        <td><code>any</code></td>
+        <td>—</td>
+        <td>Two-way selected value binding</td>
+      </tr>
     </table>
   </section>
 </div>

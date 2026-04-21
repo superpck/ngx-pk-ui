@@ -1,11 +1,12 @@
 import { Component, input, output, signal, computed, forwardRef, ElementRef, inject } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgStyle } from '@angular/common';
 import { SelectOption, SelectMode } from './pk-select.interface';
 
 @Component({
   selector: 'pk-select',
   standalone: true,
-  imports: [],
+  imports: [NgStyle],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -17,11 +18,12 @@ import { SelectOption, SelectMode } from './pk-select.interface';
     '(document:click)': 'onDocumentClick($event)'
   },
   template: `
-    <div class="pk-select-container">
+    <div class="pk-select-container" [class]="customClass()">
       <div 
         class="pk-select-trigger"
         [class.pk-select-trigger-open]="isOpen()"
         [class.pk-select-trigger-disabled]="disabled()"
+        [ngStyle]="customStyle()"
         (click)="toggleDropdown()">
         <span class="pk-select-value">
           @if (displayValue()) {
@@ -93,7 +95,6 @@ import { SelectOption, SelectMode } from './pk-select.interface';
       background-color: white;
       cursor: pointer;
       transition: all 0.2s;
-      min-height: 38px;
     }
 
     .pk-select-trigger:hover:not(.pk-select-trigger-disabled) {
@@ -223,6 +224,8 @@ export class PkSelectComponent implements ControlValueAccessor {
   labelField = input<string>('label');
   valueField = input<string>('value');
   returnObjects = input<boolean>(false);
+  customClass = input<string | null>(null);
+  customStyle = input<Record<string, string> | null>(null);
 
   change = output<any>();
 

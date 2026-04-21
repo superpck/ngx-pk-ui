@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  OnChanges, SimpleChanges, ChangeDetectionStrategy
+  OnChanges, SimpleChanges
 } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
@@ -10,7 +10,6 @@ import { TreeNode, TreeSelectionMode } from './pk-treeview.model';
 @Component({
     selector: 'pk-treeview-node',
     imports: [RouterModule, PkIcon],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
     <ul class="pk-tree-list">
       @for (node of nodes; track node) {
@@ -75,6 +74,7 @@ import { TreeNode, TreeSelectionMode } from './pk-treeview.model';
             <div class="pk-tree-children">
               <pk-treeview-node
                 [nodes]="node.children!"
+                [rootNodes]="rootNodes"
                 [selection]="selection"
                 (nodeToggled)="nodeToggled.emit($event)"
                 (selectionChanged)="selectionChanged.emit($event)">
@@ -131,6 +131,7 @@ import { TreeNode, TreeSelectionMode } from './pk-treeview.model';
 })
 export class PkTreeviewNodeComponent {
   @Input() nodes: TreeNode[] = [];
+  @Input() rootNodes: TreeNode[] = [];
   @Input() selection: TreeSelectionMode = 'none';
   @Output() nodeToggled = new EventEmitter<TreeNode>();
   @Output() selectionChanged = new EventEmitter<TreeNode[]>();
@@ -152,13 +153,14 @@ export class PkTreeviewNodeComponent {
   onCheckClick(node: TreeNode, e: Event): void {
     e.stopPropagation();
     if (this.selection === 'single') {
-      this.clearAllSelection(this.nodes);
+      this.clearAllSelection(this.rootNodes.length ? this.rootNodes : this.nodes);
       node._selected = true;
     } else if (this.selection === 'multi') {
       const newState = !node._selected;
       this.setNodeAndChildren(node, newState);
     }
-    this.selectionChanged.emit(this.getSelected(this.nodes));
+    const root = this.rootNodes.length ? this.rootNodes : this.nodes;
+    this.selectionChanged.emit(this.getSelected(root));
   }
 
   private clearAllSelection(nodes: TreeNode[]): void {

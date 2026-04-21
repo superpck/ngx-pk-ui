@@ -19,8 +19,8 @@
 .pk-row {
   display: flex;
   flex-wrap: wrap;
-  margin-left: -8px;
-  margin-right: -8px;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .pk-row--gap-0  { margin-left: 0; margin-right: 0; }
@@ -31,8 +31,8 @@
 
 [class*="pk-col"] {
   box-sizing: border-box;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 0;
+  padding-right: 0;
   min-width: 0;
 }
 

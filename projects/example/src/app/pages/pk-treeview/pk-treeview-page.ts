@@ -19,7 +19,7 @@ export class PkTreeviewPage {
       label: 'Dashboard',
       icon: 'dashboard',
       children: [
-        { label: 'Overview', icon: 'home' },
+        { label: 'Overview', icon: 'text' },
         { label: 'Analytics', icon: 'chart-pie' },
       ],
     },
@@ -29,6 +29,15 @@ export class PkTreeviewPage {
       children: [
         { label: 'All users', icon: 'user' },
         { label: 'Roles', icon: 'shield' },
+        { label: 'Admin', icon: 'user' },
+        {
+          label: 'Setting', icon: 'cog',
+          children: [
+            { label: 'Reports', icon: 'document' },
+            { label: 'Exports', icon: 'download' },
+            { label: 'CSV', icon: 'csv' },
+          ]
+        }
       ],
     },
     {
@@ -37,12 +46,26 @@ export class PkTreeviewPage {
       children: [
         { label: 'Reports', icon: 'document' },
         { label: 'Exports', icon: 'download' },
+        { label: 'CSV', icon: 'csv' },
       ],
     },
   ];
 
   setSelectionMode(event: Event): void {
     this.selectionMode.set((event.target as HTMLSelectElement).value as TreeSelectionMode);
+    this.treeData = this.resetSelection(this.treeData);
+    this.selectedCount.set(0);
+  }
+
+  private resetSelection(nodes: TreeNode[]): TreeNode[] {
+    return nodes.map((node: any) => {
+      const { _selected, _indeterminate, _expanded, ...rest } = node;
+      return {
+        ...rest,
+        ...(node._expanded !== undefined ? { _expanded } : {}),
+        children: node.children ? this.resetSelection(node.children) : undefined,
+      };
+    });
   }
 
   onSelection(nodes: TreeNode[]): void {

@@ -9,7 +9,7 @@
 
     <div class="icon-control-row" style="margin-bottom: 10px;">
       <label>Mode</label>
-      <select [value]="mode()" (change)="setMode($event)">
+      <select [value]="mode()" (change)="setMode($event)" style="height: 25px; padding: 0px 10px 0; border-radius: 4px;">
         <option value="single">single</option>
         <option value="multi">multi</option>
       </select>
@@ -31,7 +31,7 @@
         [mode]="mode()"
         [searchable]="searchable()"
         [disabled]="disabled()"
-        [placeholder]="mode() === 'multi' ? 'เลือกหลายรายการ' : 'เลือกรายการ'"
+        [placeholder]="mode() === 'multi' ? 'Multi-select' : 'Single-select'"
         (change)="onSelectChange($event)">
       </pk-select>
     </div>

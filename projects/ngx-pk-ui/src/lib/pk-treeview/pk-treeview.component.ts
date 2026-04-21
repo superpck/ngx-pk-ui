@@ -34,6 +34,7 @@ import { TreeNode, TreeSelectionMode } from './pk-treeview.model';
     
       <pk-treeview-node
         [nodes]="nodes"
+        [rootNodes]="nodes"
         [selection]="selection"
         (nodeToggled)="onNodeToggled($event)"
         (selectionChanged)="onSelectionChanged($event)">
