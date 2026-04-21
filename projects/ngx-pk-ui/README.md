@@ -1,64 +1,74 @@
-# NgxPkUi
+# ngx-pk-ui (Library Package)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
+Angular 21 UI component library and CSS utilities.
 
-## Code scaffolding
+License: MIT
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Source path:
 
-```bash
-ng generate component component-name
-```
+- `projects/ngx-pk-ui/src/lib` for components
+- `projects/ngx-pk-ui/src/styles` for CSS utilities
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the library, run:
+## Build
 
 ```bash
 ng build ngx-pk-ui
 ```
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
+Output:
 
-### Publishing the Library
+- `dist/ngx-pk-ui`
 
-Once the project is built, you can publish your library by following these steps:
-
-1. Navigate to the `dist` directory:
-
-   ```bash
-   cd dist/ngx-pk-ui
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Test
 
 ```bash
-ng test
+ng test ngx-pk-ui --no-watch
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+Run one spec:
 
 ```bash
-ng e2e
+npx vitest run projects/ngx-pk-ui/src/lib/pk-tabs/pk-tabs.spec.ts
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Publish
 
-## Additional Resources
+```bash
+ng build ngx-pk-ui
+npm publish dist/ngx-pk-ui
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Exported API groups
+
+- Tabs: `PkTabs`, `PkTab`
+- Toastr: `PkToastr`, `PkToastrService`
+- Alert: `PkAlert`, `PkAlertService`
+- Modal: `PkModal`, `PkModalHeader`, `PkModalBody`, `PkModalFooter`
+- Icon: `PkIcon`, icon model types
+- Datagrid: `PkDatagridModule` and datagrid subcomponents/directives
+- Datepicker: `PkDatepickerComponent`, services
+- Progress: `PkProgressComponent`
+- Treeview: `PkTreeviewComponent`, `PkTreeviewModule`
+- Select: `PkSelectComponent`
+- Autocomplete: `PkAutocompleteComponent`
+- Typeahead: `PkTypeaheadComponent`
+
+## CSS utility files
+
+- `styles/pk-ui.css` (all-in-one)
+- `styles/pk-grid.css`
+- `styles/pk-btn.css`
+- `styles/pk-spinner.css`
+- `styles/pk-badge.css`
+- `styles/pk-card.css`
+- `styles/pk-icon-font.css`
+
+## Consumer setup example
+
+```json
+"styles": ["node_modules/ngx-pk-ui/styles/pk-ui.css"]
+```
+
+```ts
+import { PkModal, PkModalHeader, PkModalBody, PkModalFooter } from 'ngx-pk-ui';
+```

@@ -4,6 +4,7 @@ An Angular 21 component library providing UI components and CSS utilities.
 
 - **Angular**: `^21.0.0`
 - **Standalone components** · **Signals** · **Vitest**
+- **License**: MIT
 
 ---
 
@@ -22,8 +23,15 @@ npm install ngx-pk-ui
 | `pk-tabs` | Component | Tab container with content projection |
 | `pk-toastr` | Component + Service | Toast notifications |
 | `pk-alert` | Component + Service | Modal alert / confirm / input dialogs |
-| `pk-modal` | Component | Flexible modal overlay with slot components |
-| `pk-icon` | Component | SVG icon set (67 icons) |
+| `pk-modal` | Component | Flexible modal overlay with slot components, size and theme |
+| `pk-icon` | Component | SVG icon set + Material Symbols mode |
+| `pk-datagrid` | Module + Components | Datagrid with sort, filter, resize, pagination, row detail |
+| `pk-datepicker` | Component | Datepicker with TH/EN locale, range, and clear action |
+| `pk-progress` | Component | Line/circle progress with status variants |
+| `pk-treeview` | Module + Components | Hierarchical tree with expand/collapse and selection modes |
+| `pk-select` | Component | Single/multi select with optional search |
+| `pk-autocomplete` | Component | Local/async autocomplete input |
+| `pk-typeahead` | Component | Typeahead input with keyboard navigation |
 
 ## CSS Utilities
 
@@ -34,6 +42,7 @@ npm install ngx-pk-ui
 | `pk-spinner.css` | Loading spinners |
 | `pk-badge.css` | Badges and dot indicators |
 | `pk-card.css` | Card layouts |
+| `pk-icon-font.css` | Material Symbols font classes |
 
 ### Include all at once
 
@@ -53,7 +62,12 @@ Or import individually:
 
 ## pk-icon
 
-SVG icon component with 67 built-in icons. Supports fill/stroke mode, custom size, color, and stroke width.
+Icon component with 2 modes:
+
+- `iconSet="pk"` (default): built-in SVG icon set
+- `iconSet="material-symbols"`: Material Symbols font glyphs
+
+Supports size, color, stroke/fill (SVG), and Material variation settings.
 
 ```ts
 import { PkIcon } from 'ngx-pk-ui';
@@ -65,6 +79,7 @@ import { PkIcon } from 'ngx-pk-ui';
     <pk-icon name="user" [size]="24" color="#3b82f6" />
     <pk-icon name="success" [size]="20" fillColor="#22c55e" color="#22c55e" />
     <pk-icon name="warning" [strokeWidth]="1.5" />
+    <pk-icon iconSet="material-symbols" name="home" [size]="20" />
   `,
 })
 ```
@@ -74,6 +89,7 @@ import { PkIcon } from 'ngx-pk-ui';
 | Input | Type | Default | Description |
 |-------|------|---------|-------------|
 | `name` | `PkIconName` | *(required)* | Icon identifier |
+| `iconSet` | `'pk' \| 'material-symbols'` | `'pk'` | Render mode |
 | `size` | `number` | `15` | Width and height in px |
 | `color` | `string` | `'currentColor'` | SVG stroke color |
 | `fillColor` | `string` | `'none'` | SVG fill color |
@@ -168,7 +184,7 @@ import { PkModal, PkModalHeader, PkModalBody, PkModalFooter } from 'ngx-pk-ui';
 ```
 
 ```html
-<pk-modal [openModal]="show" size="lg" [blur]="true" (onClose)="show = false">
+<pk-modal [openModal]="show" size="lg" theme="blue" [blur]="true" (onClose)="show = false">
   <pk-modal-header>Title</pk-modal-header>
   <pk-modal-body><p>Content</p></pk-modal-body>
   <pk-modal-footer>
@@ -178,7 +194,59 @@ import { PkModal, PkModalHeader, PkModalBody, PkModalFooter } from 'ngx-pk-ui';
 </pk-modal>
 ```
 
-Size presets: `sm` (360px) · `md` (520px, default) · `lg` (760px) · `xl` (1020px) · `full`
+Size presets: `xs` (280px) · `sm` (360px) · `md` (520px, default) · `lg` (760px) · `xl` (1020px) · `2xl` (1280px) · `full`
+
+Themes: `white` (default) · `none` · `success` · `warn` · `error` · `sky` · `blue` · `gray`
+
+---
+
+## pk-select / pk-autocomplete / pk-typeahead
+
+```ts
+import { FormsModule } from '@angular/forms';
+import { PkSelectComponent, PkAutocompleteComponent, PkTypeaheadComponent } from 'ngx-pk-ui';
+```
+
+```html
+<pk-select [options]="options" mode="multi" [searchable]="true"></pk-select>
+
+<pk-autocomplete [options]="options" [(ngModel)]="selected"></pk-autocomplete>
+
+<pk-typeahead [items]="items" [(ngModel)]="text"></pk-typeahead>
+```
+
+---
+
+## pk-datepicker
+
+```html
+<pk-datepicker
+  [(ngModel)]="dateValue"
+  locale="th"
+  [minDate]="minDate"
+  [maxDate]="maxDate"
+  [setNull]="true"
+></pk-datepicker>
+```
+
+`locale` accepts both lowercase and uppercase (`th` / `TH`, `en` / `EN`).
+
+---
+
+## pk-progress
+
+```html
+<pk-progress [config]="{ type: 'line', percent: 65, status: 'normal' }"></pk-progress>
+<pk-progress [config]="{ type: 'circle', percent: 80, status: 'success' }"></pk-progress>
+```
+
+---
+
+## pk-treeview
+
+```html
+<pk-treeview [nodes]="nodes" selection="multi" [showSelectAll]="true"></pk-treeview>
+```
 
 ---
 
@@ -190,6 +258,9 @@ ng build ngx-pk-ui
 
 # Run all tests (Vitest, headless)
 ng test ngx-pk-ui --no-watch
+
+# Run one spec file
+npx vitest run projects/ngx-pk-ui/src/lib/pk-tabs/pk-tabs.spec.ts
 
 # Serve the example app
 npm run start:example
