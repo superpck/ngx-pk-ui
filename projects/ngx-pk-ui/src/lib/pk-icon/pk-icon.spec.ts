@@ -1,12 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, signal } from '@angular/core';
 import { PkIcon } from './pk-icon';
-import { PK_ICONS, PkIconName } from './pk-icon.model';
+import { PK_ICONS, PkIconName, PkIconSet } from './pk-icon.model';
 
 @Component({
   template: `
     <pk-icon
       [name]="name()"
+      [iconSet]="iconSet()"
       [size]="size()"
       [color]="color()"
       [fillColor]="fillColor()"
@@ -18,6 +19,7 @@ import { PK_ICONS, PkIconName } from './pk-icon.model';
 })
 class TestHostComponent {
   name        = signal<PkIconName>('search');
+  iconSet     = signal<PkIconSet>('pk');
   size        = signal(15);
   color       = signal('currentColor');
   fillColor   = signal('none');
@@ -101,5 +103,17 @@ describe('PkIcon', () => {
     allNames.forEach(name => {
       expect(PK_ICONS[name].trim().length).toBeGreaterThan(0);
     });
+  });
+
+  it('should render Material Symbols when iconSet is material-symbols', () => {
+    host.iconSet.set('material-symbols');
+    fixture.detectChanges();
+
+    const symbol = fixture.nativeElement.querySelector('.pk-material-symbol');
+    const svg = fixture.nativeElement.querySelector('svg');
+
+    expect(symbol).not.toBeNull();
+    expect(symbol.textContent.trim()).toBe('search');
+    expect(svg).toBeNull();
   });
 });

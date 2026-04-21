@@ -1,0 +1,61 @@
+<div class="datepicker-container" [class.datepicker-container--open]="isOpen">
+  <input type="text" [value]="formattedDate" [disabled]="disabled" [style]="style"
+    [placeholder]="placeholder? placeholder : (localeMode === 'TH' ? 'วว/ดด/ปปปป' : 'DD/MM/YYYY')"
+    [title]="placeholder? placeholder : (localeMode === 'TH' ? 'Click เพื่อเลือกวันที่' : 'Click for select date')"
+    (click)="togglePicker($event)" class="datepicker-input" [readonly]="!dateInput" (change)="onChangeDate($event)" />
+  @if (isOpen) {
+    <div class="datepicker-dropdown" [ngStyle]="dropdownStyles">
+      <div class="calendar">
+        <div class="calendar-header">
+          <button class="nav-btn" (click)="prevMonth()" [disabled]="!canGoPrevMonth">
+            << </button>
+              <select [(ngModel)]="selectedMonth" (ngModelChange)="onMonthChange($event)" [disabled]="disabled">
+                @for (month of months; track month.value) {
+                  <option [value]="month.value" [disabled]="isMonthDisabled(month.value)">{{ month.name }}</option>
+                }
+              </select>
+              <select [(ngModel)]="selectedYear" (ngModelChange)="onYearChange($event)" [disabled]="disabled">
+                @for (year of years; track year) {
+                  <option [value]="year">{{ year }}</option>
+                }
+              </select>
+              <button class="nav-btn" (click)="nextMonth()" [disabled]="!canGoNextMonth">>></button>
+        </div>
+
+        <div class="month-year-display">{{ currentMonthYear }}</div>
+
+        <div class="weekdays">
+          @for (weekday of weekdays; track weekday) {
+            <div class="weekday">{{ weekday }}</div>
+          }
+        </div>
+
+        <div class="days">
+          @for (day of daysInMonth; track day) {
+            <button
+              [class.selected]="isSelected(day)"
+              [class.other-month]="!isCurrentMonth(day)"
+              [class.weekend]="isWeekend(day)"
+              [class.holiday]="isExplicitHoliday(day)"
+              [disabled]="disabled || !isDateInRange(day)"
+              [title]="isExplicitHoliday(day) ? getHolidayTitle(day) : ''"
+              (click)="onDateSelect(day)">
+              {{ day.getDate() }}
+            </button>
+          }
+        </div>
+
+        <div class="calendar-footer">
+          <button class="today-btn" (click)="selectToday()" [disabled]="isTodayDisabled">
+            {{ localeMode === 'TH' ? 'วันนี้' : 'Today' }}
+          </button>
+          @if (setNull) {
+            <button class="reset-btn" (click)="resetDate()" [disabled]="disabled">
+              {{ localeMode === 'TH' ? 'ลบ' : 'Clear' }}
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>

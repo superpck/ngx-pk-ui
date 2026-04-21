@@ -10,6 +10,16 @@ export type PkIconName =
   | 'time' | 'wait' | 'success' | 'warning' | 'error' | 'question'
   | 'youtube' | 'facebook' | 'line' | 'telegram' | 'wechat' | 'linkedin';
 
+export type PkIconSet = 'pk' | 'material-symbols';
+
+export type PkMaterialSymbolVariant = 'outlined' | 'rounded' | 'sharp';
+
+export type PkMaterialSymbolWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700;
+
+export type PkMaterialSymbolGrade = -25 | 0 | 200;
+
+export type PkMaterialSymbolOpticalSize = 20 | 24 | 40 | 48;
+
 export const PK_ICONS: Record<PkIconName, string> = {
 
   // ── Navigation & UI ──────────────────────────────────────────────────────

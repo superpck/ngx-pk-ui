@@ -1,7 +1,7 @@
 /**
  * pk-btn — Button CSS for ngx-pk-ui
  *
- * Variants:  pk-btn-primary (default) | pk-btn-secondary | pk-btn-success | pk-btn-error
+ * Variants:  pk-btn-primary (default) | pk-btn-secondary | pk-btn-success | pk-btn-warn | pk-btn-error
  * Modifiers: pk-btn-outline | pk-btn-shadow | pk-btn-sm | pk-btn-lg
  * Group:     pk-btn-group (wraps multiple pk-btn, joined borders)
  *
@@ -122,6 +122,15 @@
 .pk-btn-success:active { background-color: var(--pk-btn-success-a); }
 .pk-btn-success:focus-visible { outline-color: rgba(67, 160, 71, 0.45); }
 
+.pk-btn-warn {
+  background-color: var(--pk-btn-warn);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-warn:hover  { background-color: var(--pk-btn-warn-h); }
+.pk-btn-warn:active { background-color: var(--pk-btn-warn-a); }
+.pk-btn-warn:focus-visible { outline-color: rgba(251, 140, 0, 0.45); }
+
 .pk-btn-error {
   background-color: var(--pk-btn-error);
   border-color: transparent;
@@ -178,6 +187,21 @@
 .pk-btn-success.pk-btn-outline:active {
   background-color: var(--pk-btn-success-h);
   border-color: var(--pk-btn-success-h);
+  color: #fff;
+}
+
+.pk-btn-warn.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-warn);
+  color: var(--pk-btn-warn);
+}
+.pk-btn-warn.pk-btn-outline:hover {
+  background-color: var(--pk-btn-warn);
+  color: #fff;
+}
+.pk-btn-warn.pk-btn-outline:active {
+  background-color: var(--pk-btn-warn-h);
+  border-color: var(--pk-btn-warn-h);
   color: #fff;
 }
 

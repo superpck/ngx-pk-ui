@@ -7,7 +7,7 @@
   "assets": [
     {
       "input": "src/styles",
-      "glob": "**/*.css",
+      "glob": "**/*",
       "output": "styles"
     }
   ]

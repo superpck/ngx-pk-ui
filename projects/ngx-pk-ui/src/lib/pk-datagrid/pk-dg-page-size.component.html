@@ -1,0 +1,8 @@
+<span class="pk-dg-page-size">
+  <ng-content></ng-content>
+  <select (change)="onChange($event)">
+    @for (opt of pkPageSizeOptions; track opt) {
+      <option [value]="opt" [selected]="opt === currentSize">{{ opt }}</option>
+    }
+  </select>
+</span>
