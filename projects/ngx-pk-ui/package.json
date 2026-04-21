@@ -1,7 +1,25 @@
 {
   "name": "ngx-pk-ui",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "Angular 21 UI component library and CSS utilities.",
   "license": "MIT",
+  "author": "superpck",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/superpck/ngx-pk-ui.git"
+  },
+  "homepage": "https://github.com/superpck/ngx-pk-ui#readme",
+  "bugs": {
+    "url": "https://github.com/superpck/ngx-pk-ui/issues"
+  },
+  "keywords": [
+    "angular",
+    "angular-components",
+    "ui",
+    "component-library",
+    "signals",
+    "standalone"
+  ],
   "peerDependencies": {
     "@angular/common": "^21.2.0",
     "@angular/core": "^21.2.0"

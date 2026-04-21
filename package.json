@@ -9,7 +9,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "start:example": "ng build ngx-pk-ui --watch & sleep 3 && ng serve example --open",
-    "build:lib": "ng build ngx-pk-ui"
+    "build:lib": "ng build ngx-pk-ui",
+    "build:example:pages": "ng build ngx-pk-ui && ng build example --configuration production --base-href /ngx-pk-ui/",
+    "postbuild:example:pages": "cp dist/example/browser/index.html dist/example/browser/404.html"
   },
   "prettier": {
     "printWidth": 100,
