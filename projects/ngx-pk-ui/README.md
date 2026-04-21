@@ -4,6 +4,8 @@ Angular 21 UI component library and CSS utilities.
 
 License: MIT
 
+npm: https://www.npmjs.com/package/ngx-pk-ui
+
 Repository: https://github.com/superpck/ngx-pk-ui
 
 Demo & Usage: https://superpck.github.io/ngx-pk-ui/
