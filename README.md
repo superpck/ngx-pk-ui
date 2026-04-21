@@ -10,7 +10,10 @@ An Angular 21 component library providing UI components and CSS utilities.
 
 - https://superpck.github.io/ngx-pk-ui/
 
----
+## npm public
+
+- https://www.npmjs.com/package/ngx-pk-ui
+
 
 ## Installation
 
