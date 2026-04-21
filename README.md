@@ -6,6 +6,10 @@ An Angular 21 component library providing UI components and CSS utilities.
 - **Standalone components** · **Signals** · **Vitest**
 - **License**: MIT
 
+## Demo
+
+- https://superpck.github.io/ngx-pk-ui/
+
 ---
 
 ## Installation
