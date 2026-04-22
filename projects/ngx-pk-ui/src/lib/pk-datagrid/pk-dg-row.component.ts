@@ -1,16 +1,16 @@
 import { Component, Input, TemplateRef, ContentChild } from '@angular/core';
 
 @Component({
-  selector: 'pk-dg-row',
+  selector: 'pk-dg-rows',
   templateUrl: './pk-dg-row.component.html',
-  styleUrls: ['./pk-dg-row.component.scss'],
+  styleUrls: ['./pk-dg-row.component.css'],
   standalone: false,
   host: {
     'style': 'display: contents'
   }
 })
 export class PkDgRowComponent {
-  @Input() pkDgItem: any;
+  @Input() pkDgRow: any;
   
   @ContentChild('detail') detailTemplate?: TemplateRef<any>;
   

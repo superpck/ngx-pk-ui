@@ -3,10 +3,10 @@ import { PkDgRowComponent } from './pk-dg-row.component';
 import { PkDatagridComponent } from './pk-datagrid.component';
 
 @Directive({
-  selector: '[pkDgItems]',
+  selector: '[pkDgRows]',
   standalone: false
 })
-export class PkDgItemsDirective implements DoCheck {
+export class PkDgRowsDirective implements DoCheck {
   private _items: any[] = [];
   private _lastVersion: number = -1;
   
@@ -28,13 +28,13 @@ export class PkDgItemsDirective implements DoCheck {
   }
   
   @Input()
-  set pkDgItemsOf(items: any[]) {
+  set pkDgRowsOf(items: any[]) {
     this._items = items || [];
     // Push items to parent datagrid so it can handle pagination/sorting
     if (this.datagrid) {
       this.datagrid.items = this._items;
       if (this.datagrid.pagination) {
-        this.datagrid.pagination.totalItems = this._items.length;
+        this.datagrid.pagination.rowCount = this._items.length;
         this.datagrid.pagination.updatePagination();
       }
       this.datagrid.updateDisplayedItems();
@@ -60,10 +60,10 @@ export class PkDgItemsDirective implements DoCheck {
 
 
 @Directive({
-  selector: '[pkIfExpanded]',
+  selector: '[pkDgRowIsExpand]',
   standalone: false
 })
-export class PkIfExpandedDirective {
+export class PkDgRowIsExpandDirective {
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,

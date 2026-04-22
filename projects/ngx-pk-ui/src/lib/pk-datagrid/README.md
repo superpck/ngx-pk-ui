@@ -1,15 +1,15 @@
 # PK Datagrid
 
-Angular datagrid component ทดแทน Clarity Datagrid พร้อม features ครบถ้วน
+Angular datagrid component with sorting, filtering, pagination, action menu, and expandable detail rows.
 
 ## Features
 
-- ✅ Sorting columns
-- ✅ Pagination
-- ✅ Loading state
-- ✅ Expandable row details
-- ✅ Custom cell templates
-- ✅ Responsive design
+- ✅ Column sorting
+- ✅ Column filter popup
+- ✅ Pagination + page size selector
+- ✅ Loading overlay
+- ✅ Expandable row detail (lazy render)
+- ✅ Action dropdown menu per row
 
 ## Installation
 
@@ -26,90 +26,117 @@ export class YourModule { }
 
 ```html
 <pk-datagrid [pkDgLoading]="loading">
-  <!-- Columns -->
-  <pk-dg-column [pkDgField]="'username'" [style.width.px]="250">username</pk-dg-column>
-  <pk-dg-column [pkDgField]="'fname'">name</pk-dg-column>
-  <pk-dg-column [pkDgField]="'position'">position</pk-dg-column>
-  
-  <!-- Rows -->
-  <pk-dg-row *pkDgItems="let user of users" [pkDgItem]="user" (click)="onRowClick(user)">
-    <pk-dg-cell>{{ user.username }}</pk-dg-cell>
-    <pk-dg-cell>{{ user.fname }} {{ user.lname }}</pk-dg-cell>
-    <pk-dg-cell>{{ user.position }}</pk-dg-cell>
-    
-    <!-- Expandable detail -->
-    <pk-dg-row-detail *pkIfExpanded>
-      <div>
-        <p>Detail content here...</p>
-        <p>Email: {{ user.email }}</p>
-      </div>
-    </pk-dg-row-detail>
-  </pk-dg-row>
-  
-  <!-- Footer with pagination -->
+
+  <pk-dg-header [style.width.px]="90"  [pkDgSort]="'hn'"   pkDgFilter="hn">HN</pk-dg-header>
+  <pk-dg-header [style.width.px]="200" [pkDgSort]="'name'" pkDgFilter="name">Full Name</pk-dg-header>
+  <pk-dg-header [style.width.px]="60"  [pkDgSort]="'age'">Age</pk-dg-header>
+  <pk-dg-header                        [pkDgSort]="'ward'">Ward</pk-dg-header>
+
+  <pk-dg-rows *pkDgRows="let item of patients" [pkDgRow]="item">
+    <pk-dg-column>{{ item.hn }}</pk-dg-column>
+    <pk-dg-column>{{ item.name }}</pk-dg-column>
+    <pk-dg-column>{{ item.age }}</pk-dg-column>
+    <pk-dg-column>{{ item.ward }}</pk-dg-column>
+  </pk-dg-rows>
+
   <pk-dg-footer>
-    <pk-dg-pagination #pagination [pkDgPageSize]="10">
-      <pk-dg-page-size [pkPageSizeOptions]="[10,15,20,50,100]">
-        Users per page
-      </pk-dg-page-size>
-      {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }}
-      of {{ pagination.totalItems }} users
+    <pk-dg-pagination #pg [pkDgPageSize]="10" [rowCount]="patients.length">
+      <pk-dg-page-size [pkPageSizeList]="[10, 20, 50]">rows per page</pk-dg-page-size>
+      {{ pg.firstItem + 1 }}–{{ pg.lastItem + 1 }} of {{ patients.length }} rows
     </pk-dg-pagination>
   </pk-dg-footer>
+
 </pk-datagrid>
 ```
 
-## Migration from Clarity Datagrid
+## Usage with Action Menu + Expandable Rows
 
-### Before (Clarity):
-```html
-<clr-datagrid [clrDgLoading]="loading">
-  <clr-dg-column>Name</clr-dg-column>
-  <clr-dg-row *clrDgItems="let user of users">
-    <clr-dg-cell>{{ user.name }}</clr-dg-cell>
-  </clr-dg-row>
-</clr-datagrid>
-```
-
-### After (PK Datagrid):
 ```html
 <pk-datagrid [pkDgLoading]="loading">
-  <pk-dg-column>Name</pk-dg-column>
-  <pk-dg-row *pkDgItems="let user of users">
-    <pk-dg-cell>{{ user.name }}</pk-dg-cell>
-  </pk-dg-row>
+
+  <pk-dg-header [pkDgSort]="'name'">Name</pk-dg-header>
+  <pk-dg-header [pkDgSort]="'ward'">Ward</pk-dg-header>
+
+  <pk-dg-rows *pkDgRows="let item of patients" [pkDgRow]="item">
+
+    <!-- action dropdown — clicking any item closes the menu automatically -->
+    <pk-dg-action>
+      <button class="action-item" (click)="onEdit(item)">Edit</button>
+      <button class="action-item" (click)="onDelete(item)">Delete</button>
+    </pk-dg-action>
+
+    <pk-dg-column>{{ item.name }}</pk-dg-column>
+    <pk-dg-column>{{ item.ward }}</pk-dg-column>
+
+    <!-- *pkDgRowIsExpand is required: shows the expand button and lazy-renders content -->
+    <pk-dg-row-expand *pkDgRowIsExpand>
+      <div style="padding: 12px">Detail: {{ item.name }}</div>
+    </pk-dg-row-expand>
+
+  </pk-dg-rows>
+
+  <pk-dg-footer>
+    <pk-dg-pagination #pg [pkDgPageSize]="10" [rowCount]="patients.length">
+      {{ pg.firstItem + 1 }}–{{ pg.lastItem + 1 }} of {{ patients.length }} rows
+    </pk-dg-pagination>
+  </pk-dg-footer>
+
 </pk-datagrid>
 ```
 
 ## API Reference
 
-### `pk-datagrid`
-| Input | Type | Description |
-|-------|------|-------------|
-| `pkDgLoading` | `boolean` | Show loading spinner |
+### `<pk-datagrid>`
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `[pkDgLoading]` | `boolean` | `false` | Show loading overlay |
 
-### `pk-dg-column`
+### `<pk-dg-header>`
 | Input | Type | Description |
-|-------|------|-------------|
-| `pkDgField` | `string` | Field name for sorting |
+|---|---|---|
+| `[pkDgSort]` | `string` | Field name used for sorting |
+| `pkDgFilter` | `string` | Enables filter popup on the header |
 | `[style.width.px]` | `number` | Column width in pixels |
 
-### `pk-dg-row`
-| Input | Type | Description |
-|-------|------|-------------|
-| `pkDgItem` | `any` | Row data item |
-| `(click)` | `EventEmitter` | Row click event |
+### `*pkDgRows` + `<pk-dg-rows>`
+```html
+<pk-dg-rows *pkDgRows="let item of list" [pkDgRow]="item">
+```
+| | Description |
+|---|---|
+| `*pkDgRows="let x of list"` | Structural directive that iterates data — handles pagination and sorting automatically |
+| `[pkDgRow]="item"` | Passes row data into the row component (required) |
 
-### `pk-dg-pagination`
-| Input | Type | Description |
-|-------|------|-------------|
-| `pkDgPageSize` | `number` | Items per page (default: 10) |
-| `totalItems` | `number` | Total number of items |
+### `<pk-dg-action>`
+Place `<button class="action-item">` elements as children — clicking any item closes the dropdown automatically.
 
-## Styling
+### `<pk-dg-column>`
+Data cell — order must match the corresponding `pk-dg-header`.
 
-Custom CSS classes:
-- `.pk-datagrid` - Main table
-- `.pk-datagrid-spinner` - Loading overlay
-- `.pk-dg-pagination` - Pagination controls
-- `.pk-dg-footer` - Footer container
+### `<pk-dg-row-expand>`
+| | Description |
+|---|---|
+| `*pkDgRowIsExpand` | **Required** — shows the expand button on the row and lazy-renders the content |
+
+### `<pk-dg-pagination>`
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `[rowCount]` | `number` | `0` | Total number of records |
+| `[pkDgPageSize]` | `number` | `10` | Number of rows per page |
+| `#ref` | template ref | — | Used to access `firstItem` / `lastItem` in the template |
+
+**`#ref` names must be unique** when multiple `pk-datagrid` exist in the same template (e.g. `#pg1`, `#pg2`).
+
+| Property | Type | Description |
+|---|---|---|
+| `firstItem` | `number` | Index of the first row on the current page (0-based) |
+| `lastItem` | `number` | Index of the last row on the current page (0-based) |
+
+### `<pk-dg-page-size>`
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `[pkPageSizeList]` | `number[]` | `[10,20,50,100]` | List of page size options |
+
+## More Examples
+
+[EXAMPLES.md](./EXAMPLES.md)

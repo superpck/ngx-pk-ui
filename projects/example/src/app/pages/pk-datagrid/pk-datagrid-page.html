@@ -11,36 +11,36 @@
     </div>
 
     <pk-datagrid [pkDgLoading]="loading()">
-      <pk-dg-column [pkDgField]="'username'" [pkDgFilterKey]="'username'" [style.width.px]="180">Username</pk-dg-column>
-      <pk-dg-column [pkDgField]="'firstName'" [pkDgFilterKey]="'firstName'" [style.width.px]="170">First name</pk-dg-column>
-      <pk-dg-column [pkDgField]="'lastName'" [pkDgFilterKey]="'lastName'" [style.width.px]="170">Last name</pk-dg-column>
-      <pk-dg-column [pkDgField]="'role'" [pkDgFilterKey]="'role'" [style.width.px]="150">Role</pk-dg-column>
-      <pk-dg-column [pkDgField]="'active'" [style.width.px]="110">Status</pk-dg-column>
+      <pk-dg-header [pkDgSort]="'username'" [pkDgFilter]="'username'" [style.width.px]="180">Username</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'firstName'" [pkDgFilter]="'firstName'" [style.width.px]="170">First name</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'lastName'" [pkDgFilter]="'lastName'" [style.width.px]="170">Last name</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'role'" [pkDgFilter]="'role'" [style.width.px]="150">Role</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'active'" [style.width.px]="110">Status</pk-dg-header>
 
-      <pk-dg-row *pkDgItems="let user of users" [pkDgItem]="user">
-        <pk-dg-cell>{{ user.username }}</pk-dg-cell>
-        <pk-dg-cell>{{ user.firstName }}</pk-dg-cell>
-        <pk-dg-cell>{{ user.lastName }}</pk-dg-cell>
-        <pk-dg-cell>{{ user.role }}</pk-dg-cell>
-        <pk-dg-cell>
+      <pk-dg-rows *pkDgRows="let user of users" [pkDgRow]="user">
+        <pk-dg-column>{{ user.username }}</pk-dg-column>
+        <pk-dg-column>{{ user.firstName }}</pk-dg-column>
+        <pk-dg-column>{{ user.lastName }}</pk-dg-column>
+        <pk-dg-column>{{ user.role }}</pk-dg-column>
+        <pk-dg-column>
           <span class="pk-badge" [class.pk-badge-success]="user.active" [class.pk-badge-error]="!user.active">
             {{ user.active ? 'Active' : 'Disabled' }}
           </span>
-        </pk-dg-cell>
+        </pk-dg-column>
 
-        <pk-dg-row-detail *pkIfExpanded>
+        <pk-dg-row-expand *pkDgRowIsExpand>
           <div style="display:flex;gap:10px;flex-wrap:wrap">
             <span class="pk-badge pk-badge-pill">ID: {{ user.id }}</span>
             <span class="pk-badge pk-badge-pill pk-badge-outline">{{ user.email }}</span>
             <span class="pk-badge pk-badge-pill">Role: {{ user.role }}</span>
           </div>
-        </pk-dg-row-detail>
-      </pk-dg-row>
+        </pk-dg-row-expand>
+      </pk-dg-rows>
 
       <pk-dg-footer>
         <pk-dg-pagination #pagination [pkDgPageSize]="5">
-          <pk-dg-page-size [pkPageSizeOptions]="[5, 10, 20]">Rows per page</pk-dg-page-size>
-          {{ pagination.firstItem + 1 }} - {{ pagination.lastItem }} of {{ pagination.totalItems }} rows
+          <pk-dg-page-size [pkPageSizeList]="[5, 10, 20]">Rows per page</pk-dg-page-size>
+          {{ pagination.firstItem + 1 }} - {{ pagination.lastItem }} of {{ users.length }} rows
         </pk-dg-pagination>
       </pk-dg-footer>
     </pk-datagrid>
@@ -63,33 +63,32 @@ export class AnyPage &#123;&#125;</code></pre>
     <table class="api-table">
       <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
       <tr><td><code>pkDgLoading</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show loading overlay</td></tr>
-      <tr><td><code>items</code></td><td><code>any[]</code></td><td><code>[]</code></td><td>Row source data (usually set via <code>*pkDgItems</code>)</td></tr>
-      <tr><td><code>filterValues</code></td><td><code>Record&lt;string, string&gt;</code></td><td><code>&#123;&#125;</code></td><td>Current column filter values</td></tr>
-      <tr><td><code>filterChange</code></td><td><code>EventEmitter&lt;&#123; key, value &#125;&gt;</code></td><td>—</td><td>Emits when a filter input changes</td></tr>
     </table>
 
-    <h3>pk-dg-column</h3>
+    <h3>pk-dg-header</h3>
     <table class="api-table">
       <tr><th>Input</th><th>Type</th><th>Description</th></tr>
-      <tr><td><code>pkDgField</code></td><td><code>string</code></td><td>Field key for sorting</td></tr>
-      <tr><td><code>pkDgFilterKey</code></td><td><code>string</code></td><td>Field key used by filter popup</td></tr>
+      <tr><td><code>pkDgSort</code></td><td><code>string</code></td><td>Field key for sorting</td></tr>
+      <tr><td><code>pkDgFilter</code></td><td><code>string</code></td><td>Field key used by filter popup</td></tr>
       <tr><td><code>[style.width.px]</code></td><td><code>number</code></td><td>Column width in pixels</td></tr>
     </table>
 
     <h3>pk-dg-pagination</h3>
     <table class="api-table">
-      <tr><th>Input/Output</th><th>Type</th><th>Description</th></tr>
-      <tr><td><code>pkDgPageSize</code></td><td><code>number</code></td><td>Rows per page</td></tr>
-      <tr><td><code>totalItems</code></td><td><code>number</code></td><td>Total rows after filtering</td></tr>
-      <tr><td><code>pkDgPageChange</code></td><td><code>EventEmitter&lt;number&gt;</code></td><td>Emits current page</td></tr>
+      <tr><th>Input / Property</th><th>Type</th><th>Description</th></tr>
+      <tr><td><code>pkDgPageSize</code></td><td><code>number</code></td><td>Rows per page (default: 10)</td></tr>
+      <tr><td><code>rowCount</code></td><td><code>number</code></td><td>Total rows (set automatically via <code>*pkDgRows</code>)</td></tr>
+      <tr><td><code>firstItem</code></td><td><code>number</code></td><td>0-based index of the first row on the current page</td></tr>
+      <tr><td><code>lastItem</code></td><td><code>number</code></td><td>0-based index of the last row on the current page</td></tr>
+      <tr><td><code>pkDgPageChange</code></td><td><code>EventEmitter&lt;number&gt;</code></td><td>Emits current page number</td></tr>
       <tr><td><code>pkDgPageSizeChange</code></td><td><code>EventEmitter&lt;number&gt;</code></td><td>Emits selected page size</td></tr>
     </table>
 
     <h3>Directives</h3>
     <table class="api-table">
       <tr><th>Directive</th><th>Usage</th><th>Description</th></tr>
-      <tr><td><code>*pkDgItems</code></td><td><code>*pkDgItems="let row of rows"</code></td><td>Structural directive to render visible paged rows</td></tr>
-      <tr><td><code>*pkIfExpanded</code></td><td><code>&lt;pk-dg-row-detail *pkIfExpanded&gt;...&lt;/pk-dg-row-detail&gt;</code></td><td>Renders row detail only when current row is expanded</td></tr>
+      <tr><td><code>*pkDgRows</code></td><td><code>*pkDgRows="let row of rows"</code></td><td>Structural directive to render visible paged rows</td></tr>
+      <tr><td><code>*pkDgRowIsExpand</code></td><td><code>&lt;pk-dg-row-expand *pkDgRowIsExpand&gt;...&lt;/pk-dg-row-expand&gt;</code></td><td>Renders row detail only when current row is expanded</td></tr>
     </table>
   </section>
 </div>

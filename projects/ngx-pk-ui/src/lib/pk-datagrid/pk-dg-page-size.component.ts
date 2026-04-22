@@ -4,11 +4,11 @@ import { PkDgPaginationComponent } from './pk-dg-pagination.component';
 @Component({
   selector: 'pk-dg-page-size',
   templateUrl: './pk-dg-page-size.component.html',
-  styleUrls: ['./pk-dg-page-size.component.scss'],
+  styleUrls: ['./pk-dg-page-size.component.css'],
   standalone: false
 })
 export class PkDgPageSizeComponent {
-  @Input() pkPageSizeOptions: number[] = [10, 20, 50, 100];
+  @Input() pkPageSizeList: number[] = [10, 20, 50, 100];
 
   pagination: PkDgPaginationComponent | null = null;
 
@@ -20,7 +20,7 @@ export class PkDgPageSizeComponent {
   }
 
   get currentSize(): number {
-    return this.pagination?.pkDgPageSize ?? this.pkPageSizeOptions[0];
+    return this.pagination?.pkDgPageSize ?? this.pkPageSizeList[0];
   }
 
   onChange(event: Event) {
