@@ -3,11 +3,11 @@ export type PkIconName =
   | 'login' | 'logout' | 'map' | 'map-point' | 'folder-close' | 'folder-open'
   | 'document' | 'report' | 'chart-pie' | 'chart-bar' | 'dashboard' | 'database'
   | 'cog' | 'setting' | 'email' | 'upload' | 'download' | 'export' | 'import'
-  | 'csv' | 'xls' | 'pdf' | 'text' | 'link' | 'unlink' | 'reload' | 'phone'
+  | 'csv' | 'xls' | 'pdf' | 'text' | 'link' | 'unlink' | 'reload' | 'phone' | 'tag' | 'tags'
   | 'check-mark' | 'check-mark-circle' | 'shield' | 'server' | 'eye' | 'eye-off'
-  | 'plus' | 'pencil' | 'save' | 'trash' | 'list' | 'clock' | 'calendar' | 'venn'
+  | 'plus' | 'pencil' | 'save' | 'trash' | 'list' | 'clock' | 'calendar' | 'venn' | 'venn3'
   | 'chevron-right' | 'chevron-left' | 'chevron-up' | 'chevron-down'
-  | 'ambulance' | 'car' | 'car-crash' | 'bed' | 'xray' | 'lab' | 'print'
+  | 'ambulance' | 'car' | 'car-crash' | 'car-crash2' | 'bed' | 'xray' | 'lab' | 'print'
   | 'time' | 'wait' | 'success' | 'warning' | 'error' | 'question'
   | 'youtube' | 'facebook' | 'line' | 'telegram' | 'wechat' | 'linkedin';
 
@@ -63,6 +63,7 @@ export const PK_ICONS: Record<PkIconName, string> = {
   'chart-bar': `<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/>`,
   'dashboard': `<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>`,
   'venn': `<circle cx="9" cy="12" r="7"/><circle cx="15" cy="12" r="7"/>`,
+  'venn3': `<circle cx="12" cy="7.5" r="6.5"/><circle cx="8" cy="15.5" r="6.5"/><circle cx="16" cy="15.5" r="6.5"/>`,
 
   // ── System & Infrastructure ──────────────────────────────────────────────
   'database': `<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>`,
@@ -80,6 +81,10 @@ export const PK_ICONS: Record<PkIconName, string> = {
   'download': `<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>`,
   'export': `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="12" x2="15" y2="12"/><polyline points="12.5 9.5 15 12 12.5 14.5"/>`,
   'import': `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="15" y1="12" x2="9" y2="12"/><polyline points="11.5 9.5 9 12 11.5 14.5"/>`,
+
+  // ── Labels ──────────────────────────────────────────────────────────────
+  'tag': `<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>`,
+  'tags': `<path d="M9 5H2v7l6.29 6.29c.94.94 2.48.94 3.42 0l3.58-3.58c.94-.94.94-2.48 0-3.42L9 5z"/><line x1="6" y1="9" x2="6.01" y2="9"/><path d="m15 5 6.3 6.3a2.4 2.4 0 0 1 0 3.4L17 19"/>`,
 
   // ── Links ────────────────────────────────────────────────────────────────
   'link': `<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>`,
@@ -110,7 +115,8 @@ export const PK_ICONS: Record<PkIconName, string> = {
   // ── Medical & Transport ──────────────────────────────────────────────────
   'ambulance': `<rect x="2" y="7" width="14" height="10" rx="1"/><path d="M16 10l5 1v5h-5"/><circle cx="6" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M6 10h4M8 8v4"/>`,
   'car': `<rect x="2" y="10" width="20" height="7" rx="2"/><path d="M6 10l2-4h8l2 4"/><circle cx="6.5" cy="17" r="1.5"/><circle cx="17.5" cy="17" r="1.5"/>`,
-  'car-crash': `<rect x="2" y="10" width="14" height="7" rx="2"/><path d="M5 10l2-4h6l2 4"/><circle cx="5.5" cy="17" r="1.5"/><circle cx="12.5" cy="17" r="1.5"/><line x1="19" y1="4" x2="23" y2="8"/><line x1="23" y1="4" x2="19" y2="8"/>`,
+  'car-crash2': `<rect x="2" y="10" width="14" height="7" rx="2"/><path d="M5 10l2-4h6l2 4"/><circle cx="5.5" cy="17" r="1.5"/><circle cx="12.5" cy="17" r="1.5"/><line x1="19" y1="4" x2="23" y2="8"/><line x1="23" y1="4" x2="19" y2="8"/>`,
+  'car-crash': `<path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/><polygon points="19,6.5 20,10.6 23.6,8.4 21.4,12 25.5,13 21.4,14 23.6,17.6 20,15.4 19,19.5 18,15.4 14.4,17.6 16.6,14 12.5,13 16.6,12 14.4,8.4 18,10.6"/>`,
   'bed': `<path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v4H2"/><path d="M2 17h20"/><circle cx="6" cy="8" r="2"/>`,
   'xray': `<rect x="3" y="2" width="18" height="20" rx="2"/><line x1="12" y1="6" x2="12" y2="18"/><path d="M9 8c0 0 3 2 3 4s-3 4-3 4"/><path d="M15 8c0 0-3 2-3 4s3 4 3 4"/>`,
   'lab': `<path d="M9 3h6"/><path d="M9 3v7l-5 9a1 1 0 0 0 .9 1.5h12.2a1 1 0 0 0 .9-1.5L15 10V3"/><circle cx="11" cy="16" r="1"/>`,
