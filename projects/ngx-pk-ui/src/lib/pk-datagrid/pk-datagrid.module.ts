@@ -4,27 +4,29 @@ import { FormsModule } from '@angular/forms';
 import { PkIcon } from '../pk-icon/pk-icon';
 
 import { PkDatagridComponent } from './pk-datagrid.component';
-import { PkDgColumnComponent } from './pk-dg-column.component';
+import { PkDgHeaderComponent } from './pk-dg-header.component';
 import { PkDgRowComponent } from './pk-dg-row.component';
-import { PkDgCellComponent } from './pk-dg-cell.component';
+import { PkDgColumnComponent } from './pk-dg-column.component';
 import { PkDgFooterComponent } from './pk-dg-footer.component';
 import { PkDgPaginationComponent } from './pk-dg-pagination.component';
 import { PkDgPageSizeComponent } from './pk-dg-page-size.component';
-import { PkDgRowDetailComponent } from './pk-dg-row-detail.component';
-import { PkDgItemsDirective, PkIfExpandedDirective, NowrapDirective } from './pk-datagrid.directives';
+import { PkDgRowExpandComponent } from './pk-dg-row-expand.component';
+import { PkDgActionComponent } from './pk-dg-action.component';
+import { PkDgRowsDirective, PkDgRowIsExpandDirective, NowrapDirective } from './pk-datagrid.directives';
 
 @NgModule({
   declarations: [
     PkDatagridComponent,
-    PkDgColumnComponent,
+    PkDgHeaderComponent,
     PkDgRowComponent,
-    PkDgCellComponent,
+    PkDgColumnComponent,
     PkDgFooterComponent,
     PkDgPaginationComponent,
     PkDgPageSizeComponent,
-    PkDgRowDetailComponent,
-    PkDgItemsDirective,
-    PkIfExpandedDirective,
+    PkDgRowExpandComponent,
+    PkDgActionComponent,
+    PkDgRowsDirective,
+    PkDgRowIsExpandDirective,
     NowrapDirective
   ],
   imports: [
@@ -34,15 +36,16 @@ import { PkDgItemsDirective, PkIfExpandedDirective, NowrapDirective } from './pk
   ],
   exports: [
     PkDatagridComponent,
-    PkDgColumnComponent,
+    PkDgHeaderComponent,
     PkDgRowComponent,
-    PkDgCellComponent,
+    PkDgColumnComponent,
     PkDgFooterComponent,
     PkDgPaginationComponent,
     PkDgPageSizeComponent,
-    PkDgRowDetailComponent,
-    PkDgItemsDirective,
-    PkIfExpandedDirective,
+    PkDgRowExpandComponent,
+    PkDgActionComponent,
+    PkDgRowsDirective,
+    PkDgRowIsExpandDirective,
     NowrapDirective,
     PkIcon
   ]

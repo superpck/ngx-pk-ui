@@ -18,7 +18,7 @@ interface MaterialIconGroup {
 }
 
 const ICON_GROUPS: IconGroup[] = [
-  { label: 'Navigation & UI',       icons: ['search','menu','close','sort','plus','list','reload'] },
+  { label: 'Navigation & UI',       icons: ['search','menu','close','sort','plus','list','reload','chevron-right','chevron-left','chevron-up','chevron-down'] },
   { label: 'Users & Auth',          icons: ['user','users','profile','login','logout'] },
   { label: 'Location',              icons: ['map','map-point'] },
   { label: 'Files & Documents',     icons: ['folder-close','folder-open','document','report','csv','xls','pdf','text'] },

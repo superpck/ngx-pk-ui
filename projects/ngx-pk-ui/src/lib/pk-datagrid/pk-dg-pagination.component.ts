@@ -4,14 +4,14 @@ import { PkDgPageSizeComponent } from './pk-dg-page-size.component';
 @Component({
   selector: 'pk-dg-pagination',
   templateUrl: './pk-dg-pagination.component.html',
-  styleUrls: ['./pk-dg-pagination.component.scss'],
+  styleUrls: ['./pk-dg-pagination.component.css'],
   standalone: false
 })
 export class PkDgPaginationComponent implements OnInit, AfterContentInit {
   @ContentChild(PkDgPageSizeComponent) pageSize?: PkDgPageSizeComponent;
 
   @Input() pkDgPageSize: number = 10;
-  @Input() totalItems: number = 0;
+  @Input() rowCount: number = 0;
   
   @Output() pkDgPageChange = new EventEmitter<number>();
   @Output() pkDgPageSizeChange = new EventEmitter<number>();
@@ -36,11 +36,11 @@ export class PkDgPaginationComponent implements OnInit, AfterContentInit {
   
   updatePagination() {
     this.firstItem = (this.currentPage - 1) * this.pkDgPageSize;
-    this.lastItem = Math.min(this.firstItem + this.pkDgPageSize, this.totalItems);
+    this.lastItem = Math.min(this.firstItem + this.pkDgPageSize, this.rowCount);
   }
   
   get totalPages(): number {
-    return Math.ceil(this.totalItems / this.pkDgPageSize);
+    return Math.ceil(this.rowCount / this.pkDgPageSize);
   }
   
   goToPage(page: number) {

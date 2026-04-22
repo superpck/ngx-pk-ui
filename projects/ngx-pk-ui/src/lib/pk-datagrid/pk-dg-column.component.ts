@@ -1,35 +1,20 @@
-import { Component, Input, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'pk-dg-column',
-  template: '<ng-content></ng-content>',
+  template: '<td [class.wrap]="!_nowrap" [ngStyle]="tdStyle"><ng-content></ng-content></td>',
+  styleUrls: ['./pk-dg-column.component.css'],
   standalone: false,
   host: {
-    'style': 'display: none'
+    'style': 'display: contents'
   }
 })
-export class PkDgColumnComponent implements AfterViewInit {
-  @Input() pkDgField?: string;
-  @Input() pkDgFilterKey?: string;
-  @Input('style.width.px') widthPx?: number;
-  
-  width?: string;
-  headerText: string = '';
-
-  constructor(private el: ElementRef) {}
-
-  ngAfterViewInit() {
-    // Extract text content for header
-    const nativeElement = this.el.nativeElement;
-    this.headerText = nativeElement.textContent?.trim() || '';
-
-    // @Input('style.width.px') is bypassed by Angular's style binding pipeline —
-    // read from the host element's actual inline style as the reliable source
-    if (!this.widthPx) {
-      const styleWidth = nativeElement.style.width as string;
-      if (styleWidth && styleWidth.endsWith('px')) {
-        this.widthPx = parseInt(styleWidth, 10);
-      }
-    }
+export class PkDgColumnComponent {
+  @Input() set nowrap(value: boolean) {
+    this._nowrap = value;
   }
+  get nowrap(): boolean { return this._nowrap; }
+  _nowrap: boolean = true;
+
+  @Input() tdStyle: { [key: string]: string } | null = null;
 }

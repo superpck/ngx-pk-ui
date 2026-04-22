@@ -34,15 +34,15 @@
   width: 22px;
   height: 22px;
   margin: auto;
-  
-  &:hover {
-    background: #e8f4ff;
-    color: #0072a3;
-  }
-  
-  &.expanded {
-    color: #0072a3;
-  }
+}
+
+.pk-dg-expand-btn:hover {
+  background: #e8f4ff;
+  color: #0072a3;
+}
+
+.pk-dg-expand-btn.expanded {
+  color: #0072a3;
 }
 
 .pk-dg-chevron {

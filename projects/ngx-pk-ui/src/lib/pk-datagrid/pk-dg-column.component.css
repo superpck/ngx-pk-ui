@@ -1,0 +1,19 @@
+:host {
+  display: contents;
+}
+
+:host td {
+  padding: 8px;
+  color: #333;
+  border: 1px solid #e8e8e8;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host td.wrap {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}

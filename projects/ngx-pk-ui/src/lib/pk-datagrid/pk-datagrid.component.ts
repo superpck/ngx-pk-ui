@@ -1,20 +1,26 @@
 import { Component, ContentChildren, ContentChild, QueryList, AfterContentInit, AfterViewInit, OnChanges, SimpleChanges, Input, Output, EventEmitter, ChangeDetectorRef, HostListener, OnDestroy } from '@angular/core';
-import { PkDgColumnComponent } from './pk-dg-column.component';
+import { PkDgHeaderComponent } from './pk-dg-header.component';
 import { PkDgPaginationComponent } from './pk-dg-pagination.component';
-import { PkDgRowDetailComponent } from './pk-dg-row-detail.component';
-import { PkIfExpandedDirective } from './pk-datagrid.directives';
+import { PkDgRowExpandComponent } from './pk-dg-row-expand.component';
+import { PkDgRowIsExpandDirective } from './pk-datagrid.directives';
+import { PkDgActionComponent } from './pk-dg-action.component';
 
 @Component({
   selector: 'pk-datagrid',
   templateUrl: './pk-datagrid.component.html',
-  styleUrls: ['./pk-datagrid.component.scss'],
+  styleUrls: ['./pk-datagrid.component.css'],
   standalone: false
 })
 export class PkDatagridComponent implements AfterContentInit, AfterViewInit, OnChanges, OnDestroy {
-  @ContentChildren(PkDgColumnComponent) columns!: QueryList<PkDgColumnComponent>;
+  @ContentChildren(PkDgHeaderComponent) columns!: QueryList<PkDgHeaderComponent>;
   @ContentChild(PkDgPaginationComponent) pagination?: PkDgPaginationComponent;
-  @ContentChildren(PkDgRowDetailComponent, { descendants: true }) rowDetails!: QueryList<PkDgRowDetailComponent>;
-  @ContentChildren(PkIfExpandedDirective, { descendants: true }) expandDirectives!: QueryList<PkIfExpandedDirective>;
+  @ContentChildren(PkDgRowExpandComponent, { descendants: true }) rowDetails!: QueryList<PkDgRowExpandComponent>;
+  @ContentChildren(PkDgRowIsExpandDirective, { descendants: true }) expandDirectives!: QueryList<PkDgRowIsExpandDirective>;
+  @ContentChildren(PkDgActionComponent, { descendants: true }) actionComponents!: QueryList<PkDgActionComponent>;
+
+  get hasActionCol(): boolean {
+    return this.actionComponents ? this.actionComponents.length > 0 : false;
+  }
 
   get hasExpandCol(): boolean {
     if (this.expandDirectives && this.expandDirectives.length > 0) return true;
@@ -48,7 +54,7 @@ export class PkDatagridComponent implements AfterContentInit, AfterViewInit, OnC
 
   get totalWidth(): number {
     const sum = this.columnWidths.reduce((acc, w) => acc + w, 0);
-    return sum + (this.hasExpandCol ? 32 : 0);
+    return sum + (this.hasExpandCol ? 32 : 0) + (this.hasActionCol ? 32 : 0);
   }
 
   private _initColumnWidths() {
@@ -88,7 +94,7 @@ export class PkDatagridComponent implements AfterContentInit, AfterViewInit, OnC
     // Also re-update displayed items to ensure pagination is initialized
     setTimeout(() => {
       if (this.pagination) {
-        this.pagination.totalItems = this.items.length;
+        this.pagination.rowCount = this.items.length;
         this.pagination.updatePagination();
       }
       this._initColumnWidths();
@@ -124,7 +130,7 @@ export class PkDatagridComponent implements AfterContentInit, AfterViewInit, OnC
 
     // Keep pagination counts in sync with filtered result
     if (this.pagination) {
-      this.pagination.totalItems = result.length;
+      this.pagination.rowCount = result.length;
       if (this.pagination.currentPage > this.pagination.totalPages && this.pagination.totalPages > 0) {
         this.pagination.currentPage = this.pagination.totalPages;
       }
