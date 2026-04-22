@@ -1,4 +1,4 @@
-# ngx-pk-ui
+# ngx-pk-ui 1.0.3
 
 An Angular 21 component library providing UI components and CSS utilities.
 
@@ -105,7 +105,7 @@ import { PkIcon } from 'ngx-pk-ui';
 
 ### Available icons
 
-**Navigation & UI:** `search` `menu` `close` `sort` `plus` `list` `reload`
+**Navigation & UI:** `search` `menu` `close` `sort` `plus` `list` `reload` `chevron-right` `chevron-left` `chevron-up` `chevron-down`
 
 **Users & Auth:** `user` `users` `profile` `login` `logout`
 
