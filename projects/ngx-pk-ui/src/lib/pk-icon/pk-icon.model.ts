@@ -6,6 +6,7 @@ export type PkIconName =
   | 'csv' | 'xls' | 'pdf' | 'text' | 'link' | 'unlink' | 'reload' | 'phone'
   | 'check-mark' | 'check-mark-circle' | 'shield' | 'server' | 'eye' | 'eye-off'
   | 'plus' | 'pencil' | 'save' | 'trash' | 'list' | 'clock' | 'calendar' | 'venn'
+  | 'chevron-right' | 'chevron-left' | 'chevron-up' | 'chevron-down'
   | 'ambulance' | 'car' | 'car-crash' | 'bed' | 'xray' | 'lab' | 'print'
   | 'time' | 'wait' | 'success' | 'warning' | 'error' | 'question'
   | 'youtube' | 'facebook' | 'line' | 'telegram' | 'wechat' | 'linkedin';
@@ -30,6 +31,11 @@ export const PK_ICONS: Record<PkIconName, string> = {
   'plus': `<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>`,
   'list': `<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>`,
   'reload': `<polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/>`,
+  'chevron-right': `<polyline points="9 18 15 12 9 6"/>`,
+  'chevron-left': `<polyline points="15 18 9 12 15 6"/>`,
+  'chevron-up': `<polyline points="18 15 12 9 6 15"/>`,
+  'chevron-down': `<polyline points="6 9 12 15 18 9"/>`,
+
 
   // ── Users & Auth ─────────────────────────────────────────────────────────
   'user': `<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>`,
