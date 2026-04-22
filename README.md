@@ -89,5 +89,11 @@ npm publish dist/ngx-pk-ui
 
 ## Component instruction
 
-see instruction.md
+See [instruction.md](instruction.md)
+
+---
+
+## Credits
+
+Developed with the assistance of [GitHub Copilot](https://github.com/features/copilot).
 
