@@ -8,50 +8,28 @@
 | `<pk-dg-header>` | Column header definition (place before `*pkDgRows`) |
 | `*pkDgRows="let x of list"` | Structural directive that iterates data |
 | `<pk-dg-rows [pkDgRow]="item">` | Row wrapper — created automatically by `*pkDgRows` |
-| `<pk-dg-action>` | Dropdown action menu — renders as **column 1** (⋮) |
-| `<pk-dg-row-expand *pkDgRowIsExpand>` | Expandable detail row — renders expand button as **column 2** (▶). `*pkDgRowIsExpand` is required |
-| `<pk-dg-column>` | Data cell in each row — starts from **column 3** onwards. Order must match headers |
+| `<pk-dg-action>` | Dropdown action menu per row (must be inside `pk-dg-rows`) |
+| `<pk-dg-column>` | Data cell in each row (order must match headers) |
+| `<pk-dg-row-expand *pkDgRowIsExpand>` | Expandable detail row — `*pkDgRowIsExpand` is required |
 | `<pk-dg-footer>` | Container for pagination |
 | `<pk-dg-pagination #ref>` | Pagination component |
 | `<pk-dg-page-size>` | Page size dropdown (place inside `pk-dg-pagination`) |
-
-### Column Layout
-
-```
-| ⋮ action | ▶ expand | col 1 | col 2 | col 3 | ... |
-```
-
-> Place elements inside `<pk-dg-rows>` in this order: `<pk-dg-action>` → `<pk-dg-column>` → `<pk-dg-row-expand>`
-
-### pk-datagrid inputs / outputs
-| | Description |
-|---|---|
-| `[pkDgLoading]="loading"` | Show loading overlay |
-| `[filterValues]="filterValues"` | External filter map `{ fieldName: 'search text' }` |
-| `(pkDgRefresh)` | Emits when the refresh button is clicked |
-| `(filterChange)` | Emits `{ key, value }` whenever a filter popup value changes |
 
 ### pk-dg-header inputs
 | Input | Description |
 |---|---|
 | `[pkDgSort]="'fieldName'"` | Field name used for sorting |
-| `pkDgFilter="fieldName"` | Enables filter popup on the header |
+| `[pkDgFilter]="'fieldName'"` | Enables filter popup on the header |
 | `[style.width.px]="120"` | Column width in pixels |
-
-### pk-dg-column inputs
-| Input | Default | Description |
-|---|---|---|
-| `nowrap` | `true` | Prevent cell text from wrapping (attribute, no value needed) |
-| `[tdStyle]` | `null` | Inline `ngStyle` object applied to the `<td>` |
 
 ### pk-dg-pagination inputs / properties
 | | Description |
 |---|---|
-| `[rowCount]="list.length"` | Total number of records (auto-set by `*pkDgRows`; pass as initial value) |
+| `[rowCount]="list.length"` | Total number of records |
 | `[pkDgPageSize]="10"` | Number of rows per page |
 | `#ref` | Template ref for accessing `firstItem` / `lastItem` |
-| `ref.firstItem` | 0-based start index of the current page (use `+1` to display 1-based) |
-| `ref.lastItem` | Exclusive end index of the current page — equals the 1-based last row number (do **not** add 1) |
+| `ref.firstItem` | Index of the first row on the current page (0-based) |
+| `ref.lastItem` | Index of the last row on the current page (0-based) |
 
 > **Note:** When multiple `pk-datagrid` components exist in the same template, each `#ref` name must be unique (e.g. `#pg1`, `#pg2`).
 
@@ -67,8 +45,8 @@
 ```html
 <pk-datagrid [pkDgLoading]="loading">
 
-  <pk-dg-header [style.width.px]="90"  [pkDgSort]="'hn'"   pkDgFilter="hn">HN</pk-dg-header>
-  <pk-dg-header [style.width.px]="200" [pkDgSort]="'name'" pkDgFilter="name">Full Name</pk-dg-header>
+  <pk-dg-header [style.width.px]="90"  [pkDgSort]="'hn'"   [pkDgFilter]="'hn'">HN</pk-dg-header>
+  <pk-dg-header [style.width.px]="200" [pkDgSort]="'name'" [pkDgFilter]="'name'">Full Name</pk-dg-header>
   <pk-dg-header [style.width.px]="60"  [pkDgSort]="'age'">Age</pk-dg-header>
   <pk-dg-header                        [pkDgSort]="'ward'">Ward</pk-dg-header>
 
@@ -82,7 +60,7 @@
   <pk-dg-footer>
     <pk-dg-pagination #pg [pkDgPageSize]="10" [rowCount]="patients.length">
       <pk-dg-page-size [pkPageSizeList]="[10, 20, 50]">rows per page</pk-dg-page-size>
-      {{ pg.firstItem + 1 }}–{{ pg.lastItem }} of {{ patients.length }} rows
+      {{ pg.firstItem + 1 }}–{{ pg.lastItem + 1 }} of {{ patients.length }} rows
     </pk-dg-pagination>
   </pk-dg-footer>
 
@@ -96,8 +74,8 @@
 ```html
 <pk-datagrid [pkDgLoading]="loading">
 
-  <pk-dg-header [style.width.px]="90"  [pkDgSort]="'hn'"   pkDgFilter="hn">HN</pk-dg-header>
-  <pk-dg-header [style.width.px]="200" [pkDgSort]="'name'" pkDgFilter="name">Full Name</pk-dg-header>
+  <pk-dg-header [style.width.px]="90"  [pkDgSort]="'hn'"   [pkDgFilter]="'hn'">HN</pk-dg-header>
+  <pk-dg-header [style.width.px]="200" [pkDgSort]="'name'" [pkDgFilter]="'name'">Full Name</pk-dg-header>
   <pk-dg-header [style.width.px]="60"  [pkDgSort]="'age'">Age</pk-dg-header>
   <pk-dg-header                        [pkDgSort]="'ward'">Ward</pk-dg-header>
 
@@ -131,7 +109,7 @@
   <pk-dg-footer>
     <pk-dg-pagination #pg1 [pkDgPageSize]="10" [rowCount]="patients.length">
       <pk-dg-page-size [pkPageSizeList]="[10, 20, 50]">rows per page</pk-dg-page-size>
-      {{ pg1.firstItem + 1 }}–{{ pg1.lastItem }} of {{ patients.length }} rows
+      {{ pg1.firstItem + 1 }}–{{ pg1.lastItem + 1 }} of {{ patients.length }} rows
     </pk-dg-pagination>
   </pk-dg-footer>
 
@@ -150,7 +128,7 @@ Each `pk-dg-pagination` must use a unique `#ref` name:
   ...
   <pk-dg-footer>
     <pk-dg-pagination #pg1 [pkDgPageSize]="10" [rowCount]="list1.length">
-      {{ pg1.firstItem + 1 }}–{{ pg1.lastItem }} of {{ list1.length }} rows
+      {{ pg1.firstItem + 1 }}–{{ pg1.lastItem + 1 }} of {{ list1.length }} rows
     </pk-dg-pagination>
   </pk-dg-footer>
 </pk-datagrid>
@@ -160,7 +138,7 @@ Each `pk-dg-pagination` must use a unique `#ref` name:
   ...
   <pk-dg-footer>
     <pk-dg-pagination #pg2 [pkDgPageSize]="10" [rowCount]="list2.length">
-      {{ pg2.firstItem + 1 }}–{{ pg2.lastItem }} of {{ list2.length }} rows
+      {{ pg2.firstItem + 1 }}–{{ pg2.lastItem + 1 }} of {{ list2.length }} rows
     </pk-dg-pagination>
   </pk-dg-footer>
 </pk-datagrid>
@@ -201,13 +179,11 @@ export class PatientListComponent implements OnInit {
 ## Module Import
 
 ```typescript
-import { PkDatagridModule } from 'src/app/pk-ui/pk-datagrid/pk-datagrid.module';
+import { PkDatagridModule } from 'ngx-pk-ui';
 
-@NgModule({
-  imports: [
-    CommonModule,
-    PkDatagridModule,
-  ]
+@Component({
+  imports: [PkDatagridModule],
 })
-export class YourModule { }
+export class YourComponent { }
 ```
+

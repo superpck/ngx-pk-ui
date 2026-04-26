@@ -1,0 +1,57 @@
+:host {
+  display: contents;
+}
+
+.pk-dg-expand-btn-cell {
+  width: 28px;
+  min-width: 28px;
+  padding: 0 2px;
+  text-align: center;
+  border: 1px solid #e8e8e8;
+  vertical-align: middle;
+}
+
+.pk-dg-expand-btn-cell.pk-dg-no-detail {
+  width: 0;
+  min-width: 0;
+  max-width: 0;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+}
+
+.pk-dg-expand-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  transition: color 0.15s, background 0.15s;
+  width: 22px;
+  height: 22px;
+  margin: auto;
+  
+  &:hover {
+    background: #e8f4ff;
+    color: #0072a3;
+  }
+  
+  &.expanded {
+    color: #0072a3;
+  }
+}
+
+.pk-dg-chevron {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s ease;
+  transform: rotate(-90deg);
+}
+
+.pk-dg-expand-btn.expanded .pk-dg-chevron {
+  transform: rotate(0deg);
+}

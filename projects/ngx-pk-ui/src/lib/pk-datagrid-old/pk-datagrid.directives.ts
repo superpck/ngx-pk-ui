@@ -38,13 +38,7 @@ export class PkDgRowsDirective implements DoCheck {
         this.datagrid.pagination.updatePagination();
       }
       this.datagrid.updateDisplayedItems();
-      this._lastVersion = this.datagrid.displayedItemsVersion;
-      // Render immediately on first bind; do not wait for a user event.
-      this.renderItems();
-      return;
     }
-
-    this.renderItems();
   }
   
   private renderItems() {

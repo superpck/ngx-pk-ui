@@ -6,7 +6,7 @@ import { PkIcon } from '../pk-icon/pk-icon';
 import { PkDatagridComponent } from './pk-datagrid.component';
 import { PkDgHeaderComponent } from './pk-dg-header.component';
 import { PkDgRowComponent } from './pk-dg-row.component';
-import { PkDgCellComponent } from './pk-dg-cell.component';
+import { PkDgColumnComponent } from './pk-dg-column.component';
 import { PkDgFooterComponent } from './pk-dg-footer.component';
 import { PkDgPaginationComponent } from './pk-dg-pagination.component';
 import { PkDgPageSizeComponent } from './pk-dg-page-size.component';
@@ -19,7 +19,7 @@ import { PkDgRowsDirective, PkDgRowIsExpandDirective, NowrapDirective } from './
     PkDatagridComponent,
     PkDgHeaderComponent,
     PkDgRowComponent,
-    PkDgCellComponent,
+    PkDgColumnComponent,
     PkDgFooterComponent,
     PkDgPaginationComponent,
     PkDgPageSizeComponent,
@@ -38,7 +38,7 @@ import { PkDgRowsDirective, PkDgRowIsExpandDirective, NowrapDirective } from './
     PkDatagridComponent,
     PkDgHeaderComponent,
     PkDgRowComponent,
-    PkDgCellComponent,
+    PkDgColumnComponent,
     PkDgFooterComponent,
     PkDgPaginationComponent,
     PkDgPageSizeComponent,

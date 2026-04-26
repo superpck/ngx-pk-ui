@@ -4,7 +4,7 @@ import { PkDgPageSizeComponent } from './pk-dg-page-size.component';
 @Component({
   selector: 'pk-dg-pagination',
   templateUrl: './pk-dg-pagination.component.html',
-  styleUrls: ['./pk-dg-pagination.component.scss'],
+  styleUrls: ['./pk-dg-pagination.component.css'],
   standalone: false
 })
 export class PkDgPaginationComponent implements OnInit, AfterContentInit {
