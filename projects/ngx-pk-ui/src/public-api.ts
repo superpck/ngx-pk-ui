@@ -33,7 +33,7 @@ export * from './lib/pk-datagrid/pk-datagrid.component';
 export * from './lib/pk-datagrid/pk-datagrid.directives';
 export * from './lib/pk-datagrid/pk-dg-header.component';
 export * from './lib/pk-datagrid/pk-dg-row.component';
-export * from './lib/pk-datagrid/pk-dg-column.component';
+export * from './lib/pk-datagrid/pk-dg-cell.component';
 export * from './lib/pk-datagrid/pk-dg-row-expand.component';
 export * from './lib/pk-datagrid/pk-dg-action.component';
 export * from './lib/pk-datagrid/pk-dg-footer.component';

@@ -1,8 +1,8 @@
-<tr class="pk-dg-row">
+<tr class="pk-dg-row" [class]="rowClass">
   <ng-content select="pk-dg-action"></ng-content>
   @if (hasDetail) {
     <td class="pk-dg-expand-btn-cell">
-      <button class="pk-dg-expand-btn" [class.expanded]="isExpanded" (click)="isExpanded=!isExpanded; $event.stopPropagation()" title="ขยาย/ย่อ">
+      <button class="pk-dg-expand-btn" [class.expanded]="isExpanded" (click)="isExpanded=!isExpanded" title="ขยาย/ย่อ">
         <pk-icon [name]="isExpanded ? 'chevron-down' : 'chevron-right'" [size]="16" color="currentColor"></pk-icon>
       </button>
     </td>

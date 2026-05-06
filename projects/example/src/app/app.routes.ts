@@ -20,4 +20,5 @@ export const routes: Routes = [
   { path: 'pk-spinner', loadComponent: () => import('./pages/pk-spinner/pk-spinner-page').then(m => m.PkSpinnerPage) },
   { path: 'pk-badge', loadComponent: () => import('./pages/pk-badge/pk-badge-page').then(m => m.PkBadgePage) },
   { path: 'pk-card', loadComponent: () => import('./pages/pk-card/pk-card-page').then(m => m.PkCardPage) },
+  { path: 'pk-breadcrumb', loadComponent: () => import('./pages/pk-breadcrumb/pk-breadcrumb-page').then(m => m.PkBreadcrumbPage) },
 ];

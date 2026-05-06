@@ -3,13 +3,13 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'pk-dg-column',
   template: '<td [class.wrap]="!_nowrap" [ngStyle]="tdStyle"><ng-content></ng-content></td>',
-  styleUrls: ['./pk-dg-column.component.css'],
+  styleUrls: ['./pk-dg-cell.component.scss'],
   standalone: false,
   host: {
     'style': 'display: contents'
   }
 })
-export class PkDgColumnComponent {
+export class PkDgCellComponent {
   @Input() set nowrap(value: boolean) {
     this._nowrap = value;
   }

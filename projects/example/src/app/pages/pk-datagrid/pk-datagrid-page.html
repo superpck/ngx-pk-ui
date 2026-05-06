@@ -4,6 +4,7 @@
     <p class="demo-page-desc">Data grid with sorting, filtering, pagination, loading, and expandable row detail.</p>
   </div>
 
+  @if (users) {
   <section class="demo-section">
     <h2>Demo</h2>
     <div class="demo-row" style="margin-bottom: 14px;">
@@ -18,6 +19,20 @@
       <pk-dg-header [pkDgSort]="'active'" [style.width.px]="110">Status</pk-dg-header>
 
       <pk-dg-rows *pkDgRows="let user of users" [pkDgRow]="user">
+        <pk-dg-action>
+          <button class="action-item">
+            <pk-icon name="eye" [size]="14"></pk-icon> View
+          </button>
+          <button class="action-item">
+            <pk-icon name="plus" [size]="14"></pk-icon> Add
+          </button>
+          <button class="action-item">
+            <pk-icon name="pencil" [size]="14"></pk-icon> Edit
+          </button>
+          <button class="action-item" style="color: red;">
+            <pk-icon name="trash" [size]="14"></pk-icon> Delete
+          </button>
+        </pk-dg-action>
         <pk-dg-column>{{ user.username }}</pk-dg-column>
         <pk-dg-column>{{ user.firstName }}</pk-dg-column>
         <pk-dg-column>{{ user.lastName }}</pk-dg-column>
@@ -38,13 +53,14 @@
       </pk-dg-rows>
 
       <pk-dg-footer>
-        <pk-dg-pagination #pagination [pkDgPageSize]="5">
+        <pk-dg-pagination #pagination [pkDgPageSize]="10">
           <pk-dg-page-size [pkPageSizeList]="[5, 10, 20]">Rows per page</pk-dg-page-size>
           {{ pagination.firstItem + 1 }} - {{ pagination.lastItem }} of {{ users.length }} rows
         </pk-dg-pagination>
       </pk-dg-footer>
     </pk-datagrid>
   </section>
+  }
 
   <section class="demo-section">
     <h2>Usage</h2>
@@ -61,34 +77,100 @@ export class AnyPage &#123;&#125;</code></pre>
 
     <h3>pk-datagrid</h3>
     <table class="api-table">
-      <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
-      <tr><td><code>pkDgLoading</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show loading overlay</td></tr>
+      <tr>
+        <th>Input</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>pkDgLoading</code></td>
+        <td><code>boolean</code></td>
+        <td><code>false</code></td>
+        <td>Show loading overlay</td>
+      </tr>
     </table>
 
     <h3>pk-dg-header</h3>
     <table class="api-table">
-      <tr><th>Input</th><th>Type</th><th>Description</th></tr>
-      <tr><td><code>pkDgSort</code></td><td><code>string</code></td><td>Field key for sorting</td></tr>
-      <tr><td><code>pkDgFilter</code></td><td><code>string</code></td><td>Field key used by filter popup</td></tr>
-      <tr><td><code>[style.width.px]</code></td><td><code>number</code></td><td>Column width in pixels</td></tr>
+      <tr>
+        <th>Input</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>pkDgSort</code></td>
+        <td><code>string</code></td>
+        <td>Field key for sorting</td>
+      </tr>
+      <tr>
+        <td><code>pkDgFilter</code></td>
+        <td><code>string</code></td>
+        <td>Field key used by filter popup</td>
+      </tr>
+      <tr>
+        <td><code>[style.width.px]</code></td>
+        <td><code>number</code></td>
+        <td>Column width in pixels</td>
+      </tr>
     </table>
 
     <h3>pk-dg-pagination</h3>
     <table class="api-table">
-      <tr><th>Input / Property</th><th>Type</th><th>Description</th></tr>
-      <tr><td><code>pkDgPageSize</code></td><td><code>number</code></td><td>Rows per page (default: 10)</td></tr>
-      <tr><td><code>rowCount</code></td><td><code>number</code></td><td>Total rows (set automatically via <code>*pkDgRows</code>)</td></tr>
-      <tr><td><code>firstItem</code></td><td><code>number</code></td><td>0-based index of the first row on the current page</td></tr>
-      <tr><td><code>lastItem</code></td><td><code>number</code></td><td>0-based index of the last row on the current page</td></tr>
-      <tr><td><code>pkDgPageChange</code></td><td><code>EventEmitter&lt;number&gt;</code></td><td>Emits current page number</td></tr>
-      <tr><td><code>pkDgPageSizeChange</code></td><td><code>EventEmitter&lt;number&gt;</code></td><td>Emits selected page size</td></tr>
+      <tr>
+        <th>Input / Property</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>pkDgPageSize</code></td>
+        <td><code>number</code></td>
+        <td>Rows per page (default: 10)</td>
+      </tr>
+      <tr>
+        <td><code>rowCount</code></td>
+        <td><code>number</code></td>
+        <td>Total rows (set automatically via <code>*pkDgRows</code>)</td>
+      </tr>
+      <tr>
+        <td><code>firstItem</code></td>
+        <td><code>number</code></td>
+        <td>0-based index of the first row on the current page</td>
+      </tr>
+      <tr>
+        <td><code>lastItem</code></td>
+        <td><code>number</code></td>
+        <td>0-based index of the last row on the current page</td>
+      </tr>
+      <tr>
+        <td><code>pkDgPageChange</code></td>
+        <td><code>EventEmitter&lt;number&gt;</code></td>
+        <td>Emits current page number</td>
+      </tr>
+      <tr>
+        <td><code>pkDgPageSizeChange</code></td>
+        <td><code>EventEmitter&lt;number&gt;</code></td>
+        <td>Emits selected page size</td>
+      </tr>
     </table>
 
     <h3>Directives</h3>
     <table class="api-table">
-      <tr><th>Directive</th><th>Usage</th><th>Description</th></tr>
-      <tr><td><code>*pkDgRows</code></td><td><code>*pkDgRows="let row of rows"</code></td><td>Structural directive to render visible paged rows</td></tr>
-      <tr><td><code>*pkDgRowIsExpand</code></td><td><code>&lt;pk-dg-row-expand *pkDgRowIsExpand&gt;...&lt;/pk-dg-row-expand&gt;</code></td><td>Renders row detail only when current row is expanded</td></tr>
+      <tr>
+        <th>Directive</th>
+        <th>Usage</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>*pkDgRows</code></td>
+        <td><code>*pkDgRows="let row of rows"</code></td>
+        <td>Structural directive to render visible paged rows</td>
+      </tr>
+      <tr>
+        <td><code>*pkDgRowIsExpand</code></td>
+        <td><code>&lt;pk-dg-row-expand *pkDgRowIsExpand&gt;...&lt;/pk-dg-row-expand&gt;</code></td>
+        <td>Renders row detail only when current row is expanded</td>
+      </tr>
     </table>
   </section>
 </div>

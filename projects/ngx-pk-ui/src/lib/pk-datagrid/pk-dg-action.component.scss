@@ -25,16 +25,16 @@
   width: 28px;
   height: 28px;
   margin: auto;
-}
 
-.pk-dg-action-btn:hover {
-  background: #e8f4ff;
-  color: #0072a3;
-}
+  &:hover {
+    background: #e8f4ff;
+    color: #0072a3;
+  }
 
-.pk-dg-action-btn.active {
-  background: #e8f4ff;
-  color: #0072a3;
+  &.active {
+    background: #e8f4ff;
+    color: #0072a3;
+  }
 }
 
 .pk-dg-action-menu {
@@ -47,31 +47,31 @@
   min-width: 160px;
   padding: 4px 0;
   overflow: hidden;
-}
 
-.pk-dg-action-menu ::ng-deep .action-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  width: 100%;
-  padding: 8px 14px;
-  text-align: left;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 13px;
-  color: #333;
-  box-sizing: border-box;
-  transition: background 0.1s;
-  white-space: nowrap;
-}
+  ::ng-deep .action-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding: 8px 14px;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    color: #333;
+    box-sizing: border-box;
+    transition: background 0.1s;
+    white-space: nowrap;
 
-.pk-dg-action-menu ::ng-deep .action-item:hover:not([disabled]) {
-  background: #f0f6ff;
-  color: #0072a3;
-}
+    &:hover:not([disabled]) {
+      background: #f0f6ff;
+      color: #0072a3;
+    }
 
-.pk-dg-action-menu ::ng-deep .action-item[disabled] {
-  color: #bbb;
-  cursor: not-allowed;
+    &[disabled] {
+      color: #bbb;
+      cursor: not-allowed;
+    }
+  }
 }

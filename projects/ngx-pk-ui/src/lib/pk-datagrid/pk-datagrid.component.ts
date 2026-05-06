@@ -8,12 +8,12 @@ import { PkDgActionComponent } from './pk-dg-action.component';
 @Component({
   selector: 'pk-datagrid',
   templateUrl: './pk-datagrid.component.html',
-  styleUrls: ['./pk-datagrid.component.css'],
+  styleUrls: ['./pk-datagrid.component.scss'],
   standalone: false
 })
 export class PkDatagridComponent implements AfterContentInit, AfterViewInit, OnChanges, OnDestroy {
   @ContentChildren(PkDgHeaderComponent) columns!: QueryList<PkDgHeaderComponent>;
-  @ContentChild(PkDgPaginationComponent) pagination?: PkDgPaginationComponent;
+  @ContentChild(PkDgPaginationComponent, { descendants: true }) pagination?: PkDgPaginationComponent;
   @ContentChildren(PkDgRowExpandComponent, { descendants: true }) rowDetails!: QueryList<PkDgRowExpandComponent>;
   @ContentChildren(PkDgRowIsExpandDirective, { descendants: true }) expandDirectives!: QueryList<PkDgRowIsExpandDirective>;
   @ContentChildren(PkDgActionComponent, { descendants: true }) actionComponents!: QueryList<PkDgActionComponent>;
@@ -99,6 +99,9 @@ export class PkDatagridComponent implements AfterContentInit, AfterViewInit, OnC
       }
       this._initColumnWidths();
       this.updateDisplayedItems();
+      // In zoneless mode, async callbacks do not automatically trigger a render pass.
+      // Run one explicit change detection so initial pagination is reflected immediately.
+      this.cdr.detectChanges();
     }, 0);
   }
 

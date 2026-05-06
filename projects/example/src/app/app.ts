@@ -32,6 +32,7 @@ export class App {
     { label: 'spinner', link: '/pk-spinner' },
     { label: 'badge', link: '/pk-badge' },
     { label: 'card', link: '/pk-card' },
+    { label: 'breadcrumb', link: '/pk-breadcrumb' },
   ];
 
   toggleMobileMenu(): void {

@@ -6,6 +6,7 @@
     </div>
   }
   
+  <div class="pk-datagrid-scroll-area">
   <table class="pk-datagrid" style="table-layout: fixed" [style.min-width.px]="totalWidth">
     <thead>
       <tr>
@@ -64,6 +65,7 @@
       <ng-content select="pk-dg-rows"></ng-content>
     </tbody>
   </table>
-  
+  </div>
+
   <ng-content select="pk-dg-footer"></ng-content>
 </div>

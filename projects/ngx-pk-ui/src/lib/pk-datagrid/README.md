@@ -110,13 +110,20 @@ export class YourModule { }
 ### `<pk-dg-action>`
 Place `<button class="action-item">` elements as children — clicking any item closes the dropdown automatically.
 
+Renders as **column 1** (⋮ button). Hidden if not used.
+
 ### `<pk-dg-column>`
-Data cell — order must match the corresponding `pk-dg-header`.
+Data cell — order must match the corresponding `pk-dg-header`. Starts from **column 3** onwards.
 
 ### `<pk-dg-row-expand>`
 | | Description |
 |---|---|
 | `*pkDgRowIsExpand` | **Required** — shows the expand button on the row and lazy-renders the content |
+
+Renders as **column 2** (▶ button). Hidden if not used.
+
+> **Column layout:** `| ⋮ action | ▶ expand | col 1 | col 2 | ... |`
+> Place inside `<pk-dg-rows>` in this order: `<pk-dg-action>` → `<pk-dg-column>` → `<pk-dg-row-expand>`
 
 ### `<pk-dg-pagination>`
 | Input | Type | Default | Description |
