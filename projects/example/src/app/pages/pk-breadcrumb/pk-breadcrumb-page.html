@@ -1,0 +1,116 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-breadcrumb</h1>
+    <p class="demo-page-desc">Breadcrumb navigation. Pure CSS — no Angular component needed.</p>
+  </div>
+
+  <section class="demo-section">
+    <h2>Default (› separator)</h2>
+    <div class="demo-row">
+      <nav class="pk-breadcrumb">
+        <ol class="pk-breadcrumb-list">
+          <li class="pk-breadcrumb-item"><a href="#">Home</a></li>
+          <li class="pk-breadcrumb-item"><a href="#">Products</a></li>
+          <li class="pk-breadcrumb-item pk-breadcrumb-item--active">Detail</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Separator variants</h2>
+    <div class="demo-col">
+      <nav class="pk-breadcrumb pk-breadcrumb--slash">
+        <ol class="pk-breadcrumb-list">
+          <li class="pk-breadcrumb-item"><a href="#">Home</a></li>
+          <li class="pk-breadcrumb-item"><a href="#">Settings</a></li>
+          <li class="pk-breadcrumb-item pk-breadcrumb-item--active">Profile</li>
+        </ol>
+      </nav>
+      <nav class="pk-breadcrumb pk-breadcrumb--dot">
+        <ol class="pk-breadcrumb-list">
+          <li class="pk-breadcrumb-item"><a href="#">Home</a></li>
+          <li class="pk-breadcrumb-item"><a href="#">Settings</a></li>
+          <li class="pk-breadcrumb-item pk-breadcrumb-item--active">Profile</li>
+        </ol>
+      </nav>
+      <nav class="pk-breadcrumb pk-breadcrumb--arrow">
+        <ol class="pk-breadcrumb-list">
+          <li class="pk-breadcrumb-item"><a href="#">Home</a></li>
+          <li class="pk-breadcrumb-item"><a href="#">Settings</a></li>
+          <li class="pk-breadcrumb-item pk-breadcrumb-item--active">Profile</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Sizes</h2>
+    <div class="demo-col">
+      <nav class="pk-breadcrumb pk-breadcrumb--sm">
+        <ol class="pk-breadcrumb-list">
+          <li class="pk-breadcrumb-item"><a href="#">Home</a></li>
+          <li class="pk-breadcrumb-item"><a href="#">Library</a></li>
+          <li class="pk-breadcrumb-item pk-breadcrumb-item--active">Data</li>
+        </ol>
+      </nav>
+      <nav class="pk-breadcrumb">
+        <ol class="pk-breadcrumb-list">
+          <li class="pk-breadcrumb-item"><a href="#">Home</a></li>
+          <li class="pk-breadcrumb-item"><a href="#">Library</a></li>
+          <li class="pk-breadcrumb-item pk-breadcrumb-item--active">Data</li>
+        </ol>
+      </nav>
+      <nav class="pk-breadcrumb pk-breadcrumb--lg">
+        <ol class="pk-breadcrumb-list">
+          <li class="pk-breadcrumb-item"><a href="#">Home</a></li>
+          <li class="pk-breadcrumb-item"><a href="#">Library</a></li>
+          <li class="pk-breadcrumb-item pk-breadcrumb-item--active">Data</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Background variant</h2>
+    <div class="demo-row">
+      <nav class="pk-breadcrumb pk-breadcrumb--bg">
+        <ol class="pk-breadcrumb-list">
+          <li class="pk-breadcrumb-item"><a href="#">Home</a></li>
+          <li class="pk-breadcrumb-item"><a href="#">Components</a></li>
+          <li class="pk-breadcrumb-item pk-breadcrumb-item--active">Breadcrumb</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Single item</h2>
+    <div class="demo-row">
+      <nav class="pk-breadcrumb">
+        <ol class="pk-breadcrumb-list">
+          <li class="pk-breadcrumb-item pk-breadcrumb-item--active">Home</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="demo-code">&lt;nav class="pk-breadcrumb"&gt;
+  &lt;ol class="pk-breadcrumb-list"&gt;
+    &lt;li class="pk-breadcrumb-item"&gt;&lt;a routerLink="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="pk-breadcrumb-item"&gt;&lt;a routerLink="/products"&gt;Products&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="pk-breadcrumb-item pk-breadcrumb-item--active"&gt;Detail&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;
+
+&lt;!-- With separator variant --&gt;
+&lt;nav class="pk-breadcrumb pk-breadcrumb--slash"&gt;...&lt;/nav&gt;
+&lt;nav class="pk-breadcrumb pk-breadcrumb--dot"&gt;...&lt;/nav&gt;
+&lt;nav class="pk-breadcrumb pk-breadcrumb--arrow"&gt;...&lt;/nav&gt;
+
+&lt;!-- With background --&gt;
+&lt;nav class="pk-breadcrumb pk-breadcrumb--bg"&gt;...&lt;/nav&gt;</pre>
+  </section>
+</div>

@@ -1,0 +1,136 @@
+/**
+ * pk-breadcrumb — Breadcrumb navigation CSS for ngx-pk-ui
+ *
+ * Structure:
+ *   nav.pk-breadcrumb
+ *     ol.pk-breadcrumb-list
+ *       li.pk-breadcrumb-item          ← ancestor (with <a> inside)
+ *       li.pk-breadcrumb-item.pk-breadcrumb-item--active  ← current page (plain text)
+ *
+ * Separator variants (add to nav):
+ *   pk-breadcrumb--slash   /
+ *   pk-breadcrumb--dot     ·
+ *   pk-breadcrumb--arrow   →
+ *   (default separator:    ›)
+ *
+ * Size variants:
+ *   pk-breadcrumb--sm   pk-breadcrumb--lg
+ *
+ * Background variant:
+ *   pk-breadcrumb--bg   grey pill background with border
+ *
+ * Usage:
+ *   <nav class="pk-breadcrumb">
+ *     <ol class="pk-breadcrumb-list">
+ *       <li class="pk-breadcrumb-item"><a href="/">Home</a></li>
+ *       <li class="pk-breadcrumb-item"><a href="/products">Products</a></li>
+ *       <li class="pk-breadcrumb-item pk-breadcrumb-item--active">Detail</li>
+ *     </ol>
+ *   </nav>
+ */
+
+/* ─── CSS Custom Properties ───────────────────────────────────────── */
+
+:root {
+  --pk-breadcrumb-color:          #1976d2;
+  --pk-breadcrumb-color-h:        #1565c0;
+  --pk-breadcrumb-active-color:   #212121;
+  --pk-breadcrumb-muted-color:    #757575;
+  --pk-breadcrumb-separator:      '›';
+  --pk-breadcrumb-separator-gap:  8px;
+  --pk-breadcrumb-font-size:      14px;
+}
+
+/* ─── Base ────────────────────────────────────────────────────────── */
+
+.pk-breadcrumb {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: var(--pk-breadcrumb-font-size);
+}
+
+.pk-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── Item ────────────────────────────────────────────────────────── */
+
+.pk-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  color: var(--pk-breadcrumb-muted-color);
+}
+
+/* Separator — inserted before every item except the first */
+.pk-breadcrumb-item + .pk-breadcrumb-item::before {
+  content: var(--pk-breadcrumb-separator);
+  margin: 0 var(--pk-breadcrumb-separator-gap);
+  color: var(--pk-breadcrumb-muted-color);
+  font-size: 0.9em;
+  user-select: none;
+}
+
+/* ─── Links ───────────────────────────────────────────────────────── */
+
+.pk-breadcrumb-item a {
+  color: var(--pk-breadcrumb-color);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.pk-breadcrumb-item a:hover {
+  color: var(--pk-breadcrumb-color-h);
+  text-decoration: underline;
+}
+
+/* ─── Active item (current page) ──────────────────────────────────── */
+
+.pk-breadcrumb-item--active {
+  color: var(--pk-breadcrumb-active-color);
+  font-weight: 500;
+  cursor: default;
+  pointer-events: none;
+}
+
+.pk-breadcrumb-item--active a {
+  color: var(--pk-breadcrumb-active-color);
+  pointer-events: none;
+  text-decoration: none;
+}
+
+/* ─── Separator variants ──────────────────────────────────────────── */
+
+.pk-breadcrumb--slash .pk-breadcrumb-item + .pk-breadcrumb-item::before {
+  content: '/';
+}
+
+.pk-breadcrumb--dot .pk-breadcrumb-item + .pk-breadcrumb-item::before {
+  content: '·';
+}
+
+.pk-breadcrumb--arrow .pk-breadcrumb-item + .pk-breadcrumb-item::before {
+  content: '→';
+}
+
+/* ─── Size variants ───────────────────────────────────────────────── */
+
+.pk-breadcrumb--sm {
+  font-size: 12px;
+}
+
+.pk-breadcrumb--lg {
+  font-size: 16px;
+}
+
+/* ─── Background variant ──────────────────────────────────────────── */
+
+.pk-breadcrumb--bg {
+  background-color: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 8px 16px;
+}
