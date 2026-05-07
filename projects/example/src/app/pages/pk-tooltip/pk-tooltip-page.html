@@ -1,0 +1,152 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-tooltip</h1>
+    <p class="demo-page-desc">
+      Tooltip directive — use <code>pkTooltip</code> on any element as a replacement for the native
+      <code>[title]</code> attribute. Supports four positions and four color types.
+    </p>
+  </div>
+
+  <!-- Positions -->
+  <section class="demo-section">
+    <h2>Positions</h2>
+    <div class="demo-row" style="padding: 60px 0; justify-content: center; gap: 24px;">
+      <button class="pk-btn pk-btn-secondary"
+        pkTooltip="Top tooltip"
+        pkTooltipPosition="top">
+        top
+      </button>
+      <button class="pk-btn pk-btn-secondary"
+        pkTooltip="Bottom tooltip"
+        pkTooltipPosition="bottom">
+        bottom
+      </button>
+      <button class="pk-btn pk-btn-secondary"
+        pkTooltip="Left tooltip"
+        pkTooltipPosition="left">
+        left
+      </button>
+      <button class="pk-btn pk-btn-secondary"
+        pkTooltip="Right tooltip"
+        pkTooltipPosition="right">
+        right
+      </button>
+    </div>
+  </section>
+
+  <!-- Types / Colors -->
+  <section class="demo-section">
+    <h2>Types</h2>
+    <div class="demo-row" style="padding: 40px 0; justify-content: center; gap: 24px;">
+      <button class="pk-btn pk-btn-primary"
+        pkTooltip="Primary tooltip"
+        pkTooltipType="primary">
+        primary
+      </button>
+      <button class="pk-btn pk-btn-success"
+        pkTooltip="Success tooltip"
+        pkTooltipType="success">
+        success
+      </button>
+      <button class="pk-btn pk-btn-error"
+        pkTooltip="Danger tooltip"
+        pkTooltipType="danger">
+        danger
+      </button>
+      <button class="pk-btn"
+        style="background:#0288d1"
+        pkTooltip="Info tooltip"
+        pkTooltipType="info">
+        info
+      </button>
+    </div>
+  </section>
+
+  <!-- On any element -->
+  <section class="demo-section">
+    <h2>On any element</h2>
+    <div class="demo-row" style="align-items: center; gap: 24px; flex-wrap: wrap;">
+      <span pkTooltip="I'm a span" pkTooltipPosition="top" pkTooltipType="info"
+            style="cursor:default; text-decoration: underline dotted;">
+        Hover this text
+      </span>
+      <span class="pk-badge pk-badge-success"
+        pkTooltip="Build passed"
+        pkTooltipPosition="bottom"
+        pkTooltipType="success">
+        v1.1.2
+      </span>
+      <input class="pk-btn pk-btn-secondary"
+        style="cursor:text; min-width:160px"
+        type="text"
+        placeholder="Focus me"
+        pkTooltip="Tooltip on focus"
+        pkTooltipPosition="right"
+        pkTooltipType="primary">
+    </div>
+  </section>
+
+  <!-- Usage -->
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>import &#123; PkTooltip &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123;
+  imports: [PkTooltip],
+  // ...
+&#125;)
+export class MyComponent &#123;&#125;
+</code></pre>
+    <pre class="code-block"><code>&lt;!-- Positions: top (default) | bottom | left | right --&gt;
+&lt;button pkTooltip="Saved!" pkTooltipPosition="top"&gt;Save&lt;/button&gt;
+&lt;button pkTooltip="Deleted" pkTooltipPosition="bottom"&gt;Delete&lt;/button&gt;
+
+&lt;!-- Types: primary (default) | success | danger | info --&gt;
+&lt;button pkTooltip="All good" pkTooltipType="success"&gt;OK&lt;/button&gt;
+&lt;button pkTooltip="Warning!" pkTooltipType="danger"&gt;Delete&lt;/button&gt;
+
+&lt;!-- Combined --&gt;
+&lt;button
+  pkTooltip="Are you sure?"
+  pkTooltipPosition="right"
+  pkTooltipType="danger"&gt;
+  Remove
+&lt;/button&gt;
+</code></pre>
+  </section>
+
+  <!-- API -->
+  <section class="demo-section">
+    <h2>API</h2>
+    <table style="width:100%; border-collapse:collapse; font-size:14px;">
+      <thead>
+        <tr style="border-bottom:2px solid #e0e0e0; text-align:left;">
+          <th style="padding:8px 12px;">Input</th>
+          <th style="padding:8px 12px;">Type</th>
+          <th style="padding:8px 12px;">Default</th>
+          <th style="padding:8px 12px;">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #f0f0f0;">
+          <td style="padding:8px 12px;"><code>pkTooltip</code></td>
+          <td style="padding:8px 12px;"><code>string</code></td>
+          <td style="padding:8px 12px;"><em>required</em></td>
+          <td style="padding:8px 12px;">Text to display in the tooltip</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f0f0f0;">
+          <td style="padding:8px 12px;"><code>pkTooltipPosition</code></td>
+          <td style="padding:8px 12px;"><code>'top' | 'bottom' | 'left' | 'right'</code></td>
+          <td style="padding:8px 12px;"><code>'top'</code></td>
+          <td style="padding:8px 12px;">Where the tooltip appears relative to the host element</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 12px;"><code>pkTooltipType</code></td>
+          <td style="padding:8px 12px;"><code>'primary' | 'success' | 'danger' | 'info'</code></td>
+          <td style="padding:8px 12px;"><code>'primary'</code></td>
+          <td style="padding:8px 12px;">Color variant of the tooltip bubble</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

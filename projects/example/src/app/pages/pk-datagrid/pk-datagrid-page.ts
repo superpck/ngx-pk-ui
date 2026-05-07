@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { PkDatagridModule } from 'ngx-pk-ui';
+import { PkDatagridModule, PkIcon } from 'ngx-pk-ui';
 
 interface UserRow {
   id: number;
@@ -13,7 +13,7 @@ interface UserRow {
 
 @Component({
   selector: 'app-pk-datagrid-page',
-  imports: [PkDatagridModule],
+  imports: [PkDatagridModule, PkIcon],
   templateUrl: './pk-datagrid-page.html',
 })
 export class PkDatagridPage {

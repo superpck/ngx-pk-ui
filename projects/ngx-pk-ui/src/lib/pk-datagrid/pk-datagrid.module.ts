@@ -46,8 +46,7 @@ import { PkDgRowsDirective, PkDgRowIsExpandDirective, NowrapDirective } from './
     PkDgActionComponent,
     PkDgRowsDirective,
     PkDgRowIsExpandDirective,
-    NowrapDirective,
-    PkIcon
+    NowrapDirective
   ]
 })
 export class PkDatagridModule { }

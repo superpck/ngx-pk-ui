@@ -14,7 +14,8 @@ import type { PkModalSize } from './pk-modal.model';
   template: `
     <pk-modal
       [openModal]="open()"
-      [closeAble]="closeable()"
+      [closeMarker]="closeable()"
+      [closeAny]="closeable()"
       [blur]="blur()"
       [size]="size()"
       [customClass]="customClass()"
