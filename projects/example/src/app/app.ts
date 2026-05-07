@@ -12,27 +12,27 @@ export class App {
   mobileMenuOpen = signal(false);
 
   readonly componentsList = [
-    { label: 'tabs', link: '/pk-tabs' },
-    { label: 'toastr', link: '/pk-toastr' },
     { label: 'alert', link: '/pk-alert' },
-    { label: 'modal', link: '/pk-modal' },
-    { label: 'icon', link: '/pk-icon' },
+    { label: 'autocomplete', link: '/pk-autocomplete' },
     { label: 'datagrid', link: '/pk-datagrid' },
     { label: 'datepicker', link: '/pk-datepicker' },
+    { label: 'icon', link: '/pk-icon' },
+    { label: 'modal', link: '/pk-modal' },
     { label: 'progress', link: '/pk-progress' },
-    { label: 'treeview', link: '/pk-treeview' },
     { label: 'select', link: '/pk-select' },
-    { label: 'autocomplete', link: '/pk-autocomplete' },
+    { label: 'tabs', link: '/pk-tabs' },
+    { label: 'toastr', link: '/pk-toastr' },
+    { label: 'treeview', link: '/pk-treeview' },
     { label: 'typeahead', link: '/pk-typeahead' },
   ];
 
   readonly cssClassList = [
-    { label: 'grid', link: '/pk-grid' },
-    { label: 'btn', link: '/pk-btn' },
-    { label: 'spinner', link: '/pk-spinner' },
     { label: 'badge', link: '/pk-badge' },
-    { label: 'card', link: '/pk-card' },
     { label: 'breadcrumb', link: '/pk-breadcrumb' },
+    { label: 'btn', link: '/pk-btn' },
+    { label: 'card', link: '/pk-card' },
+    { label: 'grid', link: '/pk-grid' },
+    { label: 'spinner', link: '/pk-spinner' },
   ];
 
   toggleMobileMenu(): void {

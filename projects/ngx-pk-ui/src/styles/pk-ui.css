@@ -17,3 +17,39 @@
 @import './pk-card.css';
 @import './pk-breadcrumb.css';
 @import './pk-icon-font.css';
+
+/* pk-current-row: Row select color ------------------------------------------------- */
+.pk-current-row {
+  background-color: #eee;
+  border-bottom: 2px solid rgba(93, 102, 125, 0.891);
+}
+
+.pk-current-row-blue {
+  background-color: rgb(223, 233, 252);
+  border-bottom: 2px solid rgb(0, 98, 255);
+}
+
+.pk-current-row-yellow {
+  background-color: rgb(255, 249, 196);
+  border-bottom: 2px solid rgb(255, 193, 7);
+}
+
+.pk-current-row-magenta {
+  background-color: rgb(255, 229, 245);
+  border-bottom: 2px solid rgb(255, 0, 128);
+}
+
+.pk-current-row-success {
+  background-color: rgb(225, 249, 225);
+  border-bottom: 2px solid rgb(102, 166, 102);
+}
+
+.pk-current-row-warn {
+  background-color: rgb(249, 241, 225);
+  border-bottom: 2px solid rgba(207, 100, 6, 0.891);
+}
+
+.pk-current-row-danger {
+  background-color: rgb(249, 225, 225);
+  border-bottom: 2px solid rgba(255, 2, 2, 0.891);
+}
