@@ -1,53 +1,98 @@
 <div class="demo-page">
+
+  <!-- Header -->
   <div class="demo-page-header">
     <h1 class="demo-page-title">ngx-pk-ui</h1>
-    <p class="demo-page-desc">Angular 21 component library — signals, standalone, zero NgModules.</p>
+    <p class="demo-page-desc">
+      An Angular 21 component library built for modern applications.
+      It provides ready-to-use UI components and CSS utilities designed around Angular's
+      signal-based architecture — fully standalone, no NgModules required.
+    </p>
+    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;">
+      <a class="pk-btn pk-btn-secondary pk-btn-outline pk-btn-sm"
+         href="https://github.com/superpck/ngx-pk-ui" target="_blank" rel="noopener"
+         style="display:inline-flex; align-items:center; gap:6px;">
+        <!-- GitHub mark -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.004.07 1.532 1.032 1.532 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.202 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.944.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.579.688.481C19.138 20.2 22 16.447 22 12.021 22 6.484 17.523 2 12 2z"/>
+        </svg>
+        GitHub
+      </a>
+      <a class="pk-btn pk-btn-secondary pk-btn-outline pk-btn-sm"
+         href="https://superpck.github.io/ngx-pk-ui/" target="_blank" rel="noopener"
+         style="display:inline-flex; align-items:center; gap:6px;">
+        <pk-icon name="link" [size]="14" color="currentColor"></pk-icon>
+        Live Demo
+      </a>
+      <a class="pk-btn pk-btn-secondary pk-btn-outline pk-btn-sm"
+         href="https://www.npmjs.com/package/ngx-pk-ui" target="_blank" rel="noopener"
+         style="display:inline-flex; align-items:center; gap:6px;">
+        <!-- npm hexagon -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474C23.214 24 24 23.214 24 22.237V1.763C24 .786 23.214 0 22.237 0H1.763zm7.031 4.876h6.412c3.422 0 5.325 1.77 5.325 5.07v5.21c0 3.3-1.903 5.07-5.325 5.07H8.794v-6.28h3.206v3.074h1.603V7.952H8.794V4.876z"/>
+        </svg>
+        npm
+      </a>
+    </div>
   </div>
 
+  <!-- Usage -->
   <section class="demo-section">
-    <h2>Components</h2>
-    <div class="home-card-grid">
-      @for (item of componentCards; track item.label) {
-        <a [routerLink]="item.link" class="home-card">
-          <div class="home-card-name">{{ item.label }}</div>
-          <div class="home-card-desc">{{ item.description }}</div>
-        </a>
-      }
-    </div>
-  </section>
+    <h2>Usage</h2>
 
-  <section class="demo-section">
-    <h2>CSS Utilities</h2>
-    <div class="home-card-grid">
-      @for (item of utilityCards; track item.label) {
-        <a [routerLink]="item.link" class="home-card">
-          <div class="home-card-name">{{ item.label }}</div>
-          <div class="home-card-desc">{{ item.description }}</div>
-        </a>
-      }
-    </div>
-  </section>
-
-  <section class="demo-section">
-    <h2>Popular CSS Classes</h2>
-    <div class="home-card-grid">
-      @for (item of cssClassList; track item.name) {
-        <div class="home-card">
-          <div class="home-card-name">{{ item.name }}</div>
-          <div class="home-card-desc">{{ item.description }}</div>
-        </div>
-      }
-    </div>
-  </section>
-
-  <section class="demo-section">
-    <h2>Installation</h2>
+    <h3>1. Install</h3>
     <pre class="code-block"><code>npm install ngx-pk-ui</code></pre>
-    <h3 style="margin-top:16px">Add CSS (angular.json)</h3>
+
+    <h3 style="margin-top:20px">2. Add global styles (angular.json)</h3>
     <pre class="code-block"><code>"styles": ["node_modules/ngx-pk-ui/styles/pk-ui.css"]</code></pre>
-    <h3 style="margin-top:16px">Import components</h3>
-    <pre class="code-block">
-      <code>import &#123; PkTabs, PkTab, PkToastr, PkToastrService, PkAlert, PkAlertService &#125; from 'ngx-pk-ui';</code>
-    </pre>
+
+    <h3 style="margin-top:20px">3. Import components</h3>
+    <pre class="code-block"><code>import &#123; PkToastr, PkToastrService, PkAlert, PkAlertService, PkTooltip &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123;
+  imports: [PkToastr, PkAlert, PkTooltip],
+  // ...
+&#125;)
+export class AppComponent &#123; &#125;</code></pre>
+
+    <h3 style="margin-top:20px">4. Add service components to your root template</h3>
+    <pre class="code-block"><code>&lt;!-- app.html --&gt;
+&lt;router-outlet /&gt;
+&lt;pk-toastr /&gt;
+&lt;pk-alert /&gt;</code></pre>
   </section>
+
+  <!-- Notes -->
+  <section class="demo-section">
+    <h2>Notes</h2>
+    <ul style="line-height:2; font-size:14px; color:#555; padding-left:20px;">
+      <li>
+        <strong>Angular 21+ required.</strong>
+        This library uses <code>signal()</code>, <code>input()</code>, <code>contentChildren()</code>,
+        and control-flow blocks (<code>&#64;for</code>, <code>&#64;if</code>).
+        It is not compatible with Angular 16 or earlier.
+      </li>
+      <li>
+        <strong>Standalone only.</strong>
+        There are no NgModules. Every component and directive must be added to
+        the consuming component's <code>imports[]</code> array directly.
+      </li>
+      <li>
+        <strong><code>pk-toastr</code> and <code>pk-alert</code></strong> must each be placed
+        <em>once</em> in the root component template (<code>app.html</code>).
+        Placing them inside lazy-loaded pages will cause them to be destroyed on navigation.
+      </li>
+      <li>
+        <strong>CSS is separate from components.</strong>
+        Buttons, badges, cards, spinners, and grid classes are pure CSS and require
+        <code>pk-ui.css</code> (or individual files) to be loaded globally.
+        They do not auto-load by importing an Angular component.
+      </li>
+      <li>
+        <strong>Peer dependency:</strong> <code>&#64;angular/core &#94;21.0.0</code>.
+        When updating Angular, ensure the library version matches.
+      </li>
+    </ul>
+  </section>
+
 </div>
