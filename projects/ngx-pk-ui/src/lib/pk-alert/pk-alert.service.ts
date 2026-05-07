@@ -1,4 +1,13 @@
-import { Injectable, signal } from '@angular/core';
+import {
+  ApplicationRef,
+  createComponent,
+  EnvironmentInjector,
+  inject,
+  Injectable,
+  signal,
+  PLATFORM_ID,
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import {
   AlertConfig,
   AlertInputType,
@@ -10,6 +19,24 @@ import {
 export class PkAlertService {
   /** The component reads this signal to know what (if anything) to display. */
   readonly slot = signal<AlertSlot | null>(null);
+
+  constructor() {
+    if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
+
+    const appRef   = inject(ApplicationRef);
+    const injector = inject(EnvironmentInjector);
+
+    import('./pk-alert').then(({ PkAlert }) => {
+      try {
+        if (document.querySelector('pk-alert')) return; // already in DOM (manual tag)
+        const ref = createComponent(PkAlert, { environmentInjector: injector });
+        appRef.attachView(ref.hostView);
+        document.body.appendChild(ref.location.nativeElement);
+      } catch {
+        // Injector was destroyed before the dynamic import resolved (e.g., during tests).
+      }
+    });
+  }
 
   private _open(config: AlertConfig): Promise<AlertResult> {
     return new Promise<AlertResult>((resolve) => {
