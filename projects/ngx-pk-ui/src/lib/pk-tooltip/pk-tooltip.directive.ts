@@ -1,7 +1,9 @@
 import { Directive, ElementRef, HostListener, inject, input, OnDestroy } from '@angular/core';
 
 export type PkTooltipPosition = 'top' | 'bottom' | 'left' | 'right';
-export type PkTooltipType = 'primary' | 'success' | 'danger' | 'info';
+export type PkTooltipType =
+  | 'primary' | 'success' | 'danger' | 'info'
+  | 'primary-outline' | 'success-outline' | 'danger-outline' | 'info-outline';
 
 @Directive({
   selector: '[pkTooltip]',
@@ -35,11 +37,16 @@ export class PkTooltip implements OnDestroy {
     if (!text || this.tooltipEl) return;
 
     const tooltip = document.createElement('div');
-    tooltip.className = [
+    const rawType   = this.pkTooltipType();
+    const isOutline = rawType.endsWith('-outline');
+    const baseType  = isOutline ? rawType.slice(0, -'-outline'.length) : rawType;
+    const classes = [
       'pk-tooltip-box',
       `pk-tooltip-box--${this.pkTooltipPosition()}`,
-      `pk-tooltip-box--${this.pkTooltipType()}`,
-    ].join(' ');
+      `pk-tooltip-box--${baseType}`,
+    ];
+    if (isOutline) classes.push('pk-tooltip-box--outline');
+    tooltip.className = classes.join(' ');
     tooltip.textContent = text;
     tooltip.style.visibility = 'hidden';
     document.body.appendChild(tooltip);

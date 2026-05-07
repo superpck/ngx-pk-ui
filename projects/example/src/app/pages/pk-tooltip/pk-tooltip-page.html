@@ -62,6 +62,33 @@
     </div>
   </section>
 
+  <!-- Outline -->
+  <section class="demo-section">
+    <h2>Outline</h2>
+    <div class="demo-row" style="padding: 40px 0; justify-content: center; gap: 24px;">
+      <button class="pk-btn pk-btn-primary pk-btn-outline"
+        pkTooltip="Primary outline"
+        pkTooltipType="primary-outline">
+        primary
+      </button>
+      <button class="pk-btn pk-btn-success pk-btn-outline"
+        pkTooltip="Success outline"
+        pkTooltipType="success-outline">
+        success
+      </button>
+      <button class="pk-btn pk-btn-error pk-btn-outline"
+        pkTooltip="Danger outline"
+        pkTooltipType="danger-outline">
+        danger
+      </button>
+      <button class="pk-btn pk-btn-secondary pk-btn-outline"
+        pkTooltip="Info outline"
+        pkTooltipType="info-outline">
+        info
+      </button>
+    </div>
+  </section>
+
   <!-- On any element -->
   <section class="demo-section">
     <h2>On any element</h2>
@@ -105,11 +132,14 @@ export class MyComponent &#123;&#125;
 &lt;button pkTooltip="All good" pkTooltipType="success"&gt;OK&lt;/button&gt;
 &lt;button pkTooltip="Warning!" pkTooltipType="danger"&gt;Delete&lt;/button&gt;
 
+&lt;!-- Outline (append -outline to any type) --&gt;
+&lt;button pkTooltip="Outline style" pkTooltipType="primary-outline"&gt;Save&lt;/button&gt;
+
 &lt;!-- Combined --&gt;
 &lt;button
   pkTooltip="Are you sure?"
   pkTooltipPosition="right"
-  pkTooltipType="danger"&gt;
+  pkTooltipType="danger-outline"&gt;
   Remove
 &lt;/button&gt;
 </code></pre>
@@ -142,9 +172,9 @@ export class MyComponent &#123;&#125;
         </tr>
         <tr>
           <td style="padding:8px 12px;"><code>pkTooltipType</code></td>
-          <td style="padding:8px 12px;"><code>'primary' | 'success' | 'danger' | 'info'</code></td>
+          <td style="padding:8px 12px;"><code>'primary' | 'success' | 'danger' | 'info'<br>'primary-outline' | 'success-outline'<br>'danger-outline' | 'info-outline'</code></td>
           <td style="padding:8px 12px;"><code>'primary'</code></td>
-          <td style="padding:8px 12px;">Color variant of the tooltip bubble</td>
+          <td style="padding:8px 12px;">Color variant. Append <code>-outline</code> for transparent background with colored border</td>
         </tr>
       </tbody>
     </table>
