@@ -59,6 +59,9 @@ export * from './lib/pk-treeview/pk-treeview.model';
 export * from './lib/pk-select/pk-select.interface';
 export * from './lib/pk-select/pk-select.component';
 
+// pk-tooltip
+export * from './lib/pk-tooltip/pk-tooltip.directive';
+
 // pk-autocomplete
 export * from './lib/pk-autocomplete/pk-autocomplete.interface';
 export * from './lib/pk-autocomplete/pk-autocomplete.component';

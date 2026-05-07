@@ -17,6 +17,7 @@
 @import './pk-card.css';
 @import './pk-breadcrumb.css';
 @import './pk-icon-font.css';
+@import './pk-tooltip.css';
 
 /* pk-current-row: Row select color ------------------------------------------------- */
 .pk-current-row {

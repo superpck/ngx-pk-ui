@@ -22,6 +22,7 @@ export class App {
     { label: 'select', link: '/pk-select' },
     { label: 'tabs', link: '/pk-tabs' },
     { label: 'toastr', link: '/pk-toastr' },
+    { label: 'tooltip', link: '/pk-tooltip' },
     { label: 'treeview', link: '/pk-treeview' },
     { label: 'typeahead', link: '/pk-typeahead' },
   ];

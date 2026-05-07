@@ -18,7 +18,7 @@
         } @else {
           <th class="pk-dg-expand-th pk-dg-no-detail"></th>
         }
-        @for (column of columns; track column.pkDgSort; let i = $index) {
+        @for (column of columns; track i; let i = $index) {
           <th [style.width.px]="columnWidths[i]">
             <div class="th-content">
               <span>{{ column.headerText }}</span>
