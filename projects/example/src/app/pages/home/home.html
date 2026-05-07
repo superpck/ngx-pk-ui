@@ -55,11 +55,14 @@
 &#125;)
 export class AppComponent &#123; &#125;</code></pre>
 
-    <h3 style="margin-top:20px">4. Add service components to your root template</h3>
-    <pre class="code-block"><code>&lt;!-- app.html --&gt;
-&lt;router-outlet /&gt;
-&lt;pk-toastr /&gt;
-&lt;pk-alert /&gt;</code></pre>
+    <h3 style="margin-top:20px">4. Inject and use</h3>
+    <pre class="code-block"><code>import &#123; PkToastrService, PkAlertService &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123; ... &#125;)
+export class MyComponent &#123;
+  toastr = inject(PkToastrService); // toast container auto-mounts
+  alert  = inject(PkAlertService);  // dialog overlay auto-mounts
+&#125;</code></pre>
   </section>
 
   <!-- Notes -->
@@ -78,9 +81,10 @@ export class AppComponent &#123; &#125;</code></pre>
         the consuming component's <code>imports[]</code> array directly.
       </li>
       <li>
-        <strong><code>pk-toastr</code> and <code>pk-alert</code></strong> must each be placed
-        <em>once</em> in the root component template (<code>app.html</code>).
-        Placing them inside lazy-loaded pages will cause them to be destroyed on navigation.
+        <strong><code>pk-toastr</code> and <code>pk-alert</code></strong> self-mount automatically
+        when their service is first injected — no template tag required.
+        If you still have <code>&lt;pk-toastr /&gt;</code> or <code>&lt;pk-alert /&gt;</code>
+        in your template, the service detects it and skips the auto-mount to avoid duplication.
       </li>
       <li>
         <strong>CSS is separate from components.</strong>

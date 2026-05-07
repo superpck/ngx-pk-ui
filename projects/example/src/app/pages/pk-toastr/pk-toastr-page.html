@@ -18,14 +18,22 @@
 
   <section class="demo-section">
     <h2>Installation</h2>
-    <pre class="code-block"><code>&lt;!-- Add once to your root component template --&gt;
-&lt;pk-toastr /&gt;</code></pre>
-    <pre class="code-block" style="margin-top:8px"><code>import &#123; PkToastr &#125; from 'ngx-pk-ui';
+    <pre class="code-block"><code>npm install ngx-pk-ui</code></pre>
+    <p style="margin-top:8px; font-size:14px; color:#555;">
+      <strong>No template tag needed.</strong>
+      <code>PkToastrService</code> automatically mounts the toast container into
+      <code>document.body</code> the first time it is injected.
+      Just inject the service and start calling it.
+    </p>
+    <pre class="code-block" style="margin-top:8px"><code>import &#123; PkToastrService &#125; from 'ngx-pk-ui';
 
 &#64;Component(&#123;
-  imports: [PkToastr],
-  template: `&lt;router-outlet /&gt;&lt;pk-toastr /&gt;`,
-&#125;)</code></pre>
+  // No PkToastr in imports[], no &lt;pk-toastr /&gt; in template
+  imports: [],
+&#125;)
+export class AppComponent &#123;
+  toastr = inject(PkToastrService); // ← this is all you need
+&#125;</code></pre>
   </section>
 
   <section class="demo-section">

@@ -32,14 +32,18 @@
 .pk-toast--info    { background: #1e88e5; }
 .pk-toast--warning { background: #fb8c00; }
 
+.pk-toast__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .pk-toast__title {
-  display: block;
   font-weight: 700;
   margin-bottom: 2px;
 }
 
 .pk-toast__message {
-  flex: 1;
   font-size: 14px;
 }
 
