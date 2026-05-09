@@ -6,6 +6,16 @@ An Angular 21 component library providing UI components and CSS utilities.
 - **Standalone components** · **Signals** · **Vitest**
 - **License**: MIT
 
+## Angular Version Compatibility
+
+| Angular | Status | Notes |
+|---------|--------|-------|
+| 21 | ✅ Fully supported | Target version |
+| 20 | ⚠️ Likely works | peerDep warning — use `--legacy-peer-deps` |
+| 19 | ⚠️ Mostly works | peerDep warning; `provideBrowserGlobalErrorListeners` may be missing |
+| 17–18 | 🚧 Partial | `input()` / `contentChildren()` in developer preview only |
+| < 17 | ❌ Not supported | Signals not available |
+
 ## Demo & Usage
 
 - https://superpck.github.io/ngx-pk-ui/
