@@ -254,6 +254,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `PkAccordion` | Component | `pk-accordion/pk-accordion` |
 | `PkTab` | Component | `pk-tabs/pk-tab` |
 | `PkTabs` | Component | `pk-tabs/pk-tabs` |
+| `PkTabsModule` | NgModule | `pk-tabs/pk-tabs.module` |
 | `Toast` | Interface | `pk-toastr/pk-toastr.model` |
 | `ToastType` | Type alias | `pk-toastr/pk-toastr.model` |
 | `PkToastrService` | Injectable service | `pk-toastr/pk-toastr.service` |
@@ -270,6 +271,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `PkModalBody` | Component | `pk-modal/pk-modal-body` |
 | `PkModalFooter` | Component | `pk-modal/pk-modal-footer` |
 | `PkModal` | Component | `pk-modal/pk-modal` |
+| `PkModalModule` | NgModule | `pk-modal/pk-modal.module` |
 | `PkIconModel` | Type alias | `pk-icon/pk-icon.model` |
 | `PkIcon` | Component | `pk-icon/pk-icon` |
 | `PkDatagridModule` | NgModule | `pk-datagrid/pk-datagrid.module` |

@@ -46,10 +46,10 @@ npm publish dist/ngx-pk-ui
 
 ## Exported API groups
 
-- Tabs: `PkTabs`, `PkTab`
+- Tabs: `PkTabs`, `PkTab`, `PkTabsModule`
 - Toastr: `PkToastr`, `PkToastrService`
 - Alert: `PkAlert`, `PkAlertService`
-- Modal: `PkModal`, `PkModalHeader`, `PkModalBody`, `PkModalFooter`
+- Modal: `PkModal`, `PkModalHeader`, `PkModalBody`, `PkModalFooter`, `PkModalModule`
 - Icon: `PkIcon`, icon model types
 - Datagrid: `PkDatagridModule` and datagrid subcomponents/directives
 - Datepicker: `PkDatepickerComponent`, services
@@ -76,5 +76,10 @@ npm publish dist/ngx-pk-ui
 ```
 
 ```ts
+// Individual imports
 import { PkModal, PkModalHeader, PkModalBody, PkModalFooter } from 'ngx-pk-ui';
+
+// Or convenience modules (single import)
+import { PkTabsModule } from 'ngx-pk-ui';
+import { PkModalModule } from 'ngx-pk-ui';
 ```
