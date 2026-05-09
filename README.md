@@ -1,4 +1,4 @@
-# ngx-pk-ui 1.1.3
+# ngx-pk-ui 1.1.4
 
 An Angular 21 component library providing UI components and CSS utilities.
 
@@ -27,6 +27,7 @@ npm install ngx-pk-ui
 
 | Component | Type | Description |
 |-----------|------|-------------|
+| `pk-accordion` | Component | Collapsible panels with single / multi-open mode |
 | `pk-tabs` | Component | Tab container with content projection |
 | `pk-toastr` | Component + Service | Toast notifications |
 | `pk-alert` | Component + Service | Modal alert / confirm / input dialogs |
@@ -39,6 +40,42 @@ npm install ngx-pk-ui
 | `pk-select` | Component | Single/multi select with optional search |
 | `pk-autocomplete` | Component | Local/async autocomplete input |
 | `pk-typeahead` | Component | Typeahead input with keyboard navigation |
+
+---
+
+### pk-accordion
+
+```ts
+import { PkAccordion, PkAccordionItem } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkAccordion, PkAccordionItem],
+})
+```
+
+```html
+<!-- Single-open (default) -->
+<pk-accordion>
+  <pk-accordion-item label="Section 1">Content goes here.</pk-accordion-item>
+  <pk-accordion-item label="Section 2" [open]="true">Starts expanded.</pk-accordion-item>
+  <pk-accordion-item label="Disabled" [disabled]="true">Cannot open.</pk-accordion-item>
+</pk-accordion>
+
+<!-- Multi-open -->
+<pk-accordion [multi]="true">
+  <pk-accordion-item label="A">...</pk-accordion-item>
+  <pk-accordion-item label="B">...</pk-accordion-item>
+</pk-accordion>
+```
+
+| Input | Component | Type | Default | Description |
+|-------|-----------|------|---------|-------------|
+| `multi` | `PkAccordion` | `boolean` | `false` | Allow multiple panels open simultaneously |
+| `label` | `PkAccordionItem` | `string` | required | Panel header text |
+| `open` | `PkAccordionItem` | `boolean` | `false` | Expand on init |
+| `disabled` | `PkAccordionItem` | `boolean` | `false` | Prevent toggling |
+
+---
 
 ## CSS Utilities
 
