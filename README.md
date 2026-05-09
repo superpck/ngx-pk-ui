@@ -1,4 +1,4 @@
-# ngx-pk-ui 1.1.9
+# ngx-pk-ui 1.2.0
 
 An Angular 21 component library providing UI components and CSS utilities.
 
@@ -98,6 +98,7 @@ import { PkAccordion, PkAccordionItem } from 'ngx-pk-ui';
 | `pk-card.css` | Card layouts |
 | `pk-table.css` | Styled tables with striped, hover, bordered, size and color variants |
 | `pk-toggle.css` | Toggle switch replacing `<input type="checkbox">` |
+| `pk-form.css` | Floating label fields for `input`, `select`, `textarea` — prefix/suffix, counter, group layout |
 | `pk-font.css` | Thai & Lao Google Fonts helper classes (opt-in, not in pk-ui.css) |
 | `pk-icon-font.css` | Material Symbols font classes |
 
@@ -181,6 +182,81 @@ Or import individually:
 | `pk-toggle-sm` | Small (34×18 px) |
 | `pk-toggle-lg` | Large (56×30 px) |
 | `pk-toggle-label-left` | Move label to the left of the track |
+
+---
+
+### pk-form
+
+Floating label form fields — pure CSS, works with `input`, `select`, and `textarea`.
+The `input` **must** have `placeholder=" "` (single space) for the float animation to work.
+
+```html
+<!-- Basic input -->
+<div class="pk-field">
+  <input class="pk-field__input" type="text" placeholder=" " id="name" />
+  <label class="pk-field__label" for="name">Full name</label>
+</div>
+
+<!-- Prefix / Suffix -->
+<div class="pk-field">
+  <div class="pk-field__wrap">
+    <span class="pk-field__prefix">@</span>
+    <input class="pk-field__input" type="text" placeholder=" " id="user" />
+    <span class="pk-field__suffix">.com</span>
+  </div>
+  <label class="pk-field__label" for="user">Username</label>
+</div>
+
+<!-- Error state with message -->
+<div class="pk-field pk-field--error">
+  <input class="pk-field__input" type="email" placeholder=" " id="email" />
+  <label class="pk-field__label" for="email">Email</label>
+  <span class="pk-field__error">Invalid email address</span>
+</div>
+
+<!-- Form group (2-column) -->
+<div class="pk-form-group pk-form-group--2">
+  <div class="pk-field"> ... </div>
+  <div class="pk-field"> ... </div>
+</div>
+```
+
+**Wrapper modifier classes:**
+
+| Class | Description |
+|-------|-------------|
+| `pk-field` | Required wrapper |
+| `pk-field--filled` | Filled background, bottom border only (Material style) |
+| `pk-field--underline` | No border box, underline only |
+| `pk-field--pill` | Fully rounded corners |
+| `pk-field--outlined` | Adds glow ring on focus |
+| `pk-field--sm` | Small (42 px height) |
+| `pk-field--lg` | Large (60 px height) |
+| `pk-field--success` | Green border + label |
+| `pk-field--error` | Red border + label |
+
+**Element classes:**
+
+| Class | Element | Description |
+|-------|---------|-------------|
+| `pk-field__input` | `input` / `select` / `textarea` | Form control — must have `placeholder=" "` |
+| `pk-field__label` | `label` | Floating label — must come **after** the input in the DOM |
+| `pk-field__wrap` | `div` | Flex row container for prefix/suffix + input |
+| `pk-field__prefix` | `span` | Left-attached addon |
+| `pk-field__suffix` | `span` | Right-attached addon |
+| `pk-field__hint` | `span` | Helper text (grey) |
+| `pk-field__error` | `span` | Error message (red) |
+| `pk-field__footer` | `div` | Flex row: hint left + counter right |
+| `pk-field__counter` | `span` | Character counter (right-aligned) |
+
+**Layout helpers:**
+
+| Class | Description |
+|-------|-------------|
+| `pk-form-group` | Responsive flex row of fields |
+| `pk-form-group--2` | 2-column layout |
+| `pk-form-group--3` | 3-column layout |
+| `pk-form-section` | Section divider label (uppercase, border-bottom) |
 
 ---
 
