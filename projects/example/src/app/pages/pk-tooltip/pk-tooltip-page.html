@@ -3,7 +3,7 @@
     <h1 class="demo-page-title">pk-tooltip</h1>
     <p class="demo-page-desc">
       Tooltip directive — use <code>pkTooltip</code> on any element as a replacement for the native
-      <code>[title]</code> attribute. Supports four positions and four color types.
+      <code>[title]</code> attribute. Supports four positions and five color types.
     </p>
   </div>
 
@@ -43,6 +43,11 @@
         pkTooltipType="primary">
         primary
       </button>
+      <button class="pk-btn pk-btn-secondary"
+        pkTooltip="Secondary tooltip"
+        pkTooltipType="secondary">
+        secondary
+      </button>
       <button class="pk-btn pk-btn-success"
         pkTooltip="Success tooltip"
         pkTooltipType="success">
@@ -70,6 +75,11 @@
         pkTooltip="Primary outline"
         pkTooltipType="primary-outline">
         primary
+      </button>
+      <button class="pk-btn pk-btn-secondary pk-btn-outline"
+        pkTooltip="Secondary outline"
+        pkTooltipType="secondary-outline">
+        secondary
       </button>
       <button class="pk-btn pk-btn-success pk-btn-outline"
         pkTooltip="Success outline"
@@ -128,7 +138,7 @@ export class MyComponent &#123;&#125;
 &lt;button pkTooltip="Saved!" pkTooltipPosition="top"&gt;Save&lt;/button&gt;
 &lt;button pkTooltip="Deleted" pkTooltipPosition="bottom"&gt;Delete&lt;/button&gt;
 
-&lt;!-- Types: primary (default) | success | danger | info --&gt;
+&lt;!-- Types: primary (default) | secondary | success | danger | info --&gt;
 &lt;button pkTooltip="All good" pkTooltipType="success"&gt;OK&lt;/button&gt;
 &lt;button pkTooltip="Warning!" pkTooltipType="danger"&gt;Delete&lt;/button&gt;
 
@@ -172,7 +182,7 @@ export class MyComponent &#123;&#125;
         </tr>
         <tr>
           <td style="padding:8px 12px;"><code>pkTooltipType</code></td>
-          <td style="padding:8px 12px;"><code>'primary' | 'success' | 'danger' | 'info'<br>'primary-outline' | 'success-outline'<br>'danger-outline' | 'info-outline'</code></td>
+          <td style="padding:8px 12px;"><code>'primary' | 'secondary' | 'success' | 'danger' | 'info'<br>'primary-outline' | 'secondary-outline'<br>'success-outline' | 'danger-outline' | 'info-outline'</code></td>
           <td style="padding:8px 12px;"><code>'primary'</code></td>
           <td style="padding:8px 12px;">Color variant. Append <code>-outline</code> for transparent background with colored border</td>
         </tr>

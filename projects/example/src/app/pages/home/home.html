@@ -4,7 +4,7 @@
   <div class="demo-page-header">
     <h1 class="demo-page-title">ngx-pk-ui</h1>
     <p class="demo-page-desc">
-      An Angular 21 component library built for modern applications.
+      An Angular {{angularVersion.major}} component library built for modern applications.
       It provides ready-to-use UI components and CSS utilities designed around Angular's
       signal-based architecture — fully standalone, no NgModules required.
     </p>
@@ -70,7 +70,7 @@ export class MyComponent &#123;
     <h2>Notes</h2>
     <ul style="line-height:2; font-size:14px; color:#555; padding-left:20px;">
       <li>
-        <strong>Angular 21+ required.</strong>
+        <strong>Angular {{angularVersion.major}}+ required.</strong>
         This library uses <code>signal()</code>, <code>input()</code>, <code>contentChildren()</code>,
         and control-flow blocks (<code>&#64;for</code>, <code>&#64;if</code>).
         It is not compatible with Angular 16 or earlier.
@@ -93,10 +93,30 @@ export class MyComponent &#123;
         They do not auto-load by importing an Angular component.
       </li>
       <li>
-        <strong>Peer dependency:</strong> <code>&#64;angular/core &#94;21.0.0</code>.
+        <strong>Peer dependency:</strong> <code>&#64;angular/core &#94;{{angularVersion.major}}.0.0</code>.
         When updating Angular, ensure the library version matches.
       </li>
     </ul>
+  </section>
+
+  <!-- Credits -->
+  <section class="demo-section">
+    <h2>Credits</h2>
+    <div style="display:flex; align-items:center; gap:10px; font-size:14px; color:#555;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="flex-shrink:0;">
+        <!-- GitHub Copilot icon -->
+        <circle cx="12" cy="12" r="11" stroke="#6e40c9" stroke-width="1.5"/>
+        <circle cx="9" cy="11" r="1.5" fill="#6e40c9"/>
+        <circle cx="15" cy="11" r="1.5" fill="#6e40c9"/>
+        <path d="M8.5 15.5c1 1.2 2.5 1.8 3.5 1.8s2.5-.6 3.5-1.8" stroke="#6e40c9" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M7 8c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="#6e40c9" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Developed with the assistance of
+      <a href="https://github.com/features/copilot" target="_blank" rel="noopener"
+         style="color:#6e40c9; font-weight:600; text-decoration:none;">
+        GitHub Copilot
+      </a>
+    </div>
   </section>
 
 </div>
