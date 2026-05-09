@@ -29,15 +29,17 @@ export class App {
   ];
 
   readonly cssClassList = [
+    { label: 'layout', link: '/pk-layout' },
     { label: 'badge', link: '/pk-badge' },
     { label: 'breadcrumb', link: '/pk-breadcrumb' },
     { label: 'button', link: '/pk-btn' },
     { label: 'card', link: '/pk-card' },
     { label: 'font', link: '/pk-font' },
+    { label: 'form', link: '/pk-form' },
     { label: 'grid', link: '/pk-grid' },
     { label: 'spinner', link: '/pk-spinner' },
     { label: 'table', link: '/pk-table' },
-    { label: 'toggle', link: '/pk-toggle' },
+    { label: 'toggle switch', link: '/pk-toggle' },
   ];
 
   toggleMobileMenu(): void {
@@ -50,7 +52,7 @@ export class App {
 
   onSidebarClick(event: Event): void {
     const target = event.target as HTMLElement | null;
-    if (target?.closest('.sidebar-link')) {
+    if (target?.closest('.pk-sidebar__link')) {
       this.closeMobileMenu();
     }
   }

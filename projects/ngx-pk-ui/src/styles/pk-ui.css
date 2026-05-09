@@ -12,6 +12,7 @@
 
 @import './pk-grid.css';
 @import './pk-btn.css';
+@import './pk-form.css';
 @import './pk-spinner.css';
 @import './pk-badge.css';
 @import './pk-card.css';
@@ -20,6 +21,7 @@
 @import './pk-breadcrumb.css';
 @import './pk-icon-font.css';
 @import './pk-tooltip.css';
+@import './pk-layout.css';
 
 /* pk-current-row: Row select color ------------------------------------------------- */
 .pk-current-row {

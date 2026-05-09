@@ -81,6 +81,8 @@ projects/
       pk-breadcrumb.css           ← breadcrumb nav
       pk-icon-font.css            ← Material Symbols font classes
       pk-tooltip.css              ← tooltip styles
+      pk-form.css                 ← floating label fields (input/select/textarea), prefix/suffix, group layout
+      pk-layout.css               ← fixed top navbar + sidebar layout shell (CSS variables, responsive)
       pk-font.css                 ← Thai & Lao Google Fonts helper classes (opt-in — NOT in pk-ui.css)
   example/                 ← local dev/test app (gitignored, never published)
     src/app/
@@ -91,7 +93,7 @@ projects/
                     pk-icon/ pk-datagrid/ pk-datepicker/ pk-progress/ pk-treeview/
                     pk-select/ pk-autocomplete/ pk-typeahead/ pk-tooltip/
         CSS pages:  pk-grid/ pk-btn/ pk-spinner/ pk-badge/ pk-card/
-                    pk-table/ pk-toggle/ pk-breadcrumb/ pk-font/
+                    pk-table/ pk-toggle/ pk-breadcrumb/ pk-font/ pk-form/ pk-layout/
 ```
 
 `dist/ngx-pk-ui/` is the build output consumed by npm. Never edit files there.
@@ -299,7 +301,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `1.1.9` |
+| Library version | `1.2.0` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) |
@@ -323,6 +325,8 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-table` (CSS only)   | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-table.css` |
 | `pk-toggle` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-toggle.css` |
 | `pk-breadcrumb` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-breadcrumb.css` |
+| `pk-form` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-form.css` — included in pk-ui.css |
+| `pk-layout` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-layout.css` — included in pk-ui.css |
 | `pk-font` (CSS only, opt-in) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-font.css` — NOT in pk-ui.css |
 | `pk-icon-font` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-icon-font.css` |
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section |
@@ -331,7 +335,6 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 **Test totals: 41 / 41 passing**
 
 ### Suggested next components
-- `pk-input` — styled form inputs: pk-input, pk-input-group, pk-label, pk-form-field
 - `pk-stepper` — multi-step wizard / stepper
 - `pk-pagination` — standalone pagination component (reuse datagrid logic)
 - `pk-drawer` — slide-in side panel / off-canvas drawer
@@ -791,3 +794,149 @@ import { PkTooltip } from 'ngx-pk-ui';
 |-----------|-------|
 | `*pkDgRows` | `*pkDgRows="let row of rows"` — renders visible paged rows |
 | `*pkDgRowIsExpand` | On `<pk-dg-row-expand>` — renders only when row is expanded |
+
+---
+
+## pk-form CSS reference
+
+Floating label form fields — pure CSS, no Angular component. Works with `input`, `select`, `textarea`.
+Included in `pk-ui.css` automatically.
+
+```html
+<!-- Basic (outlined, default) -->
+<div class="pk-field">
+  <input class="pk-field__input" type="text" placeholder=" " id="name" />
+  <label class="pk-field__label" for="name">Full name</label>
+</div>
+
+<!-- Prefix / Suffix (use pk-field__wrap) -->
+<div class="pk-field">
+  <div class="pk-field__wrap">
+    <span class="pk-field__prefix">@</span>
+    <input class="pk-field__input" type="text" placeholder=" " id="user" />
+    <span class="pk-field__suffix">.com</span>
+  </div>
+  <label class="pk-field__label" for="user">Username</label>
+</div>
+```
+
+**CRITICAL — `placeholder=" "` (single space) is required** on every `pk-field__input`.
+The CSS uses `:not(:placeholder-shown)` to detect when the field has a value and float the label.
+
+**Wrapper modifier classes:**
+| Class | Description |
+|-------|-------------|
+| `pk-field` | Required wrapper |
+| `pk-field--filled` | Material filled style (bg + bottom border only) |
+| `pk-field--underline` | Underline only, no box |
+| `pk-field--pill` | border-radius 100px |
+| `pk-field--outlined` | Glow ring on focus (stackable) |
+| `pk-field--sm / --lg` | Height 42px / 60px |
+| `pk-field--success / --error` | State color |
+
+**Element classes:**
+| Class | Element | Description |
+|-------|---------|-------------|
+| `pk-field__input` | input/select/textarea | Form control — must have `placeholder=" "` |
+| `pk-field__label` | label | Floating label — must be after input in DOM |
+| `pk-field__wrap` | div | Flex row for prefix + input + suffix (single border) |
+| `pk-field__prefix` | span | Left addon (grayed bg, inner right divider) |
+| `pk-field__suffix` | span | Right addon (grayed bg, inner left divider) |
+| `pk-field__hint` | span | Helper text (grey) |
+| `pk-field__error` | span | Error message (red) |
+| `pk-field__footer` | div | Flex row: hint left + counter right |
+| `pk-field__counter` | span | Character counter right-aligned |
+
+**Layout helpers:**
+| Class | Description |
+|-------|-------------|
+| `pk-form-group` | Responsive flex row of pk-fields |
+| `pk-form-group--2 / --3` | Force 2 or 3 column layout |
+| `pk-form-section` | Section divider label (uppercase + border-bottom) |
+
+**Prefix/Suffix implementation notes:**
+- `pk-field__wrap` acts as the single border box (`border: 1.5px solid` + `overflow: hidden`)
+- `pk-field__input` inside wrap has no own border
+- When prefix present: `pk-field` gains `padding-top: 22px` and label is permanently floated above the wrap
+- When suffix-only: label floats dynamically (focus/:not(:placeholder-shown)) via `:has()` selector on `pk-field`
+
+---
+
+## pk-layout CSS reference
+
+Fixed top navbar + sidebar layout shell. Pure CSS, no Angular component. All dimensions and colors are CSS variables.
+Included in `pk-ui.css` automatically.
+
+```html
+<div class="pk-layout">
+  <nav class="pk-navbar">
+    <button class="pk-navbar__hamburger"><!-- icon --></button>
+    <div class="pk-navbar__brand">My App</div>
+    <div class="pk-navbar__content">
+      <span class="pk-navbar__title">Page Title</span>
+    </div>
+    <div class="pk-navbar__end"><!-- avatar, actions --></div>
+  </nav>
+
+  <!-- show/hide via JS -->
+  <button class="pk-layout__backdrop pk-layout__backdrop--open" (click)="close()"></button>
+
+  <nav class="pk-sidebar" [class.pk-sidebar--open]="open">
+    <div class="pk-sidebar__section">
+      <span class="pk-sidebar__heading">General</span>
+      <a class="pk-sidebar__link active" href="#">Home</a>
+      <a class="pk-sidebar__link" href="#">Settings</a>
+    </div>
+    <div class="pk-sidebar__divider"></div>
+  </nav>
+
+  <main class="pk-layout__main">
+    <router-outlet />
+  </main>
+</div>
+```
+
+**Key CSS variables:**
+| Variable | Default | Description |
+|---|---|---|
+| `--pk-navbar-height` | `56px` | Navbar height |
+| `--pk-sidebar-width` | `220px` | Sidebar width (desktop) |
+| `--pk-navbar-bg` | `#ffffff` | Navbar background |
+| `--pk-sidebar-bg` | `#ffffff` | Sidebar background |
+| `--pk-sidebar-link-color` | `#374151` | Default link color |
+| `--pk-sidebar-link-hover-bg` | `rgba(0,0,0,0.05)` | Link hover bg |
+| `--pk-sidebar-link-hover-color` | `inherit` | Link hover text color |
+| `--pk-sidebar-link-active-color` | `var(--pk-btn-primary)` | Active link color |
+| `--pk-sidebar-link-active-bg` | `rgba(25,118,210,0.08)` | Active link bg |
+| `--pk-sidebar-link-active-border` | `var(--pk-btn-primary)` | Active left border color |
+| `--pk-sidebar-heading-color` | `#9ca3af` | Section heading color |
+| `--pk-layout-bg` | `#f9fafb` | Main content background |
+| `--pk-layout-main-pad-top` | `calc(56px + 32px)` | Content top padding |
+| `--pk-layout-main-pad-x` | `40px` | Content horizontal padding |
+
+**Class reference:**
+| Class | Description |
+|---|---|
+| `pk-layout` | Flex shell wrapper |
+| `pk-navbar` | Fixed top bar, full width, z-index 200 |
+| `pk-navbar__brand` | Left brand slot — same width as sidebar on desktop |
+| `pk-navbar__hamburger` | Hidden desktop / flex mobile; 38×38px button |
+| `pk-navbar__hamburger-icon` | Built-in 3-line icon (3 child `<span>`s) |
+| `pk-navbar__content` | Flex-1 center slot (title, breadcrumb) |
+| `pk-navbar__title` | Truncated page title inside `__content` |
+| `pk-navbar__end` | Right slot (avatar, actions) |
+| `pk-sidebar` | Fixed left, starts below navbar, z-index 150 |
+| `pk-sidebar--open` | Slides sidebar into view (mobile) |
+| `pk-sidebar__section` | Groups heading + links |
+| `pk-sidebar__heading` | Uppercase section label |
+| `pk-sidebar__link` | Nav item — add `.active` or `--active` for active state |
+| `pk-sidebar__divider` | Thin horizontal rule |
+| `pk-layout__main` | Content area — auto margin-left; top pad for navbar |
+| `pk-layout__backdrop` | Invisible mobile overlay (add `--open` to show) |
+| `pk-layout__backdrop--open` | Shows backdrop (`display: block`) |
+
+**Responsive (breakpoint: 768px):**
+- Desktop: sidebar always visible, brand has fixed width + right border, hamburger hidden
+- Mobile: sidebar off-screen (`translateX(-110%)`) → slides in on `--open`; hamburger visible in navbar; main is full-width
+
+**Active link:** works with Angular `routerLinkActive="active"` or manual `.pk-sidebar__link--active` class.

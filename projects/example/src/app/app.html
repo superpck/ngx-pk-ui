@@ -1,39 +1,61 @@
-<div class="app-layout">
-  <button class="app-menu-toggle" type="button" aria-label="Toggle navigation" (click)="toggleMobileMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+<div class="pk-layout">
 
-  @if (mobileMenuOpen()) {
-  <button class="app-backdrop" type="button" aria-label="Close navigation" (click)="closeMobileMenu()"></button>
-  }
+  <!-- ── Top Navbar ──────────────────────────────────────────── -->
+  <nav class="pk-navbar">
+    <!-- Hamburger (mobile only — shown via CSS) -->
+    <button class="pk-navbar__hamburger" type="button" aria-label="Toggle navigation" (click)="toggleMobileMenu()">
+      <span class="pk-navbar__hamburger-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
 
-  <nav class="app-sidebar" [class.app-sidebar--open]="mobileMenuOpen()" (click)="onSidebarClick($event)">
-    <div class="sidebar-logo">ngx-pk-ui</div>
-    <div class="sidebar-version">v{{version}}</div>
-
-    <div class="sidebar-group">
-      <div class="sidebar-group-title">General</div>
-      <a class="sidebar-link" routerLink="/home" routerLinkActive="active">Overview</a>
+    <!-- Brand — aligns above sidebar on desktop -->
+    <div class="pk-navbar__brand">
+      <span class="app-brand-name">ngx-pk-ui</span>
+      <span class="app-brand-version">v{{ version }}</span>
     </div>
 
-    <div class="sidebar-group">
-      <div class="sidebar-group-title">Components</div>
+    <!-- Page title slot -->
+    <div class="pk-navbar__content">
+      <span class="pk-navbar__title">Component Library</span>
+    </div>
+
+    <!-- Right-side slot (avatar / actions) -->
+    <div class="pk-navbar__end"></div>
+  </nav>
+
+  <!-- ── Mobile Backdrop ─────────────────────────────────────── -->
+  @if (mobileMenuOpen()) {
+  <button class="pk-layout__backdrop pk-layout__backdrop--open" type="button" aria-label="Close navigation" (click)="closeMobileMenu()"></button>
+  }
+
+  <!-- ── Sidebar ─────────────────────────────────────────────── -->
+  <nav class="pk-sidebar" [class.pk-sidebar--open]="mobileMenuOpen()" (click)="onSidebarClick($event)">
+    <div class="pk-sidebar__section">
+      <span class="pk-sidebar__heading">General</span>
+      <a class="pk-sidebar__link" routerLink="/home" routerLinkActive="active">Overview</a>
+    </div>
+
+    <div class="pk-sidebar__section">
+      <span class="pk-sidebar__heading">Components</span>
       @for (item of componentsList; track item.link) {
-      <a class="sidebar-link" [routerLink]="item.link" routerLinkActive="active">{{ item.label }}</a>
+      <a class="pk-sidebar__link" [routerLink]="item.link" routerLinkActive="active">{{ item.label }}</a>
       }
     </div>
 
-    <div class="sidebar-group">
-      <div class="sidebar-group-title">CSS Utilities</div>
+    <div class="pk-sidebar__section" style="padding-bottom: 40px">
+      <span class="pk-sidebar__heading">CSS Utilities</span>
       @for (item of cssClassList; track item.link) {
-      <a class="sidebar-link" [routerLink]="item.link" routerLinkActive="active">{{ item.label }}</a>
+      <a class="pk-sidebar__link" [routerLink]="item.link" routerLinkActive="active">{{ item.label }}</a>
       }
     </div>
   </nav>
 
-  <main class="app-content">
+  <!-- ── Main Content ────────────────────────────────────────── -->
+  <main class="pk-layout__main">
     <router-outlet />
   </main>
+
 </div>
