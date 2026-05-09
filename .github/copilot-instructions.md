@@ -81,7 +81,6 @@ projects/
       pk-breadcrumb.css           ← breadcrumb nav
       pk-icon-font.css            ← Material Symbols font classes
       pk-tooltip.css              ← tooltip styles
-      pk-form.css                 ← floating label fields (input/select/textarea), prefix/suffix, group layout
       pk-font.css                 ← Thai & Lao Google Fonts helper classes (opt-in — NOT in pk-ui.css)
   example/                 ← local dev/test app (gitignored, never published)
     src/app/
@@ -92,7 +91,7 @@ projects/
                     pk-icon/ pk-datagrid/ pk-datepicker/ pk-progress/ pk-treeview/
                     pk-select/ pk-autocomplete/ pk-typeahead/ pk-tooltip/
         CSS pages:  pk-grid/ pk-btn/ pk-spinner/ pk-badge/ pk-card/
-                    pk-table/ pk-toggle/ pk-breadcrumb/ pk-font/ pk-form/
+                    pk-table/ pk-toggle/ pk-breadcrumb/ pk-font/
 ```
 
 `dist/ngx-pk-ui/` is the build output consumed by npm. Never edit files there.
@@ -300,7 +299,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `1.2.0` |
+| Library version | `1.1.9` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) |
@@ -324,7 +323,6 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-table` (CSS only)   | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-table.css` |
 | `pk-toggle` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-toggle.css` |
 | `pk-breadcrumb` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-breadcrumb.css` |
-| `pk-form` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-form.css` — included in pk-ui.css |
 | `pk-font` (CSS only, opt-in) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-font.css` — NOT in pk-ui.css |
 | `pk-icon-font` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-icon-font.css` |
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section |
@@ -333,6 +331,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 **Test totals: 41 / 41 passing**
 
 ### Suggested next components
+- `pk-input` — styled form inputs: pk-input, pk-input-group, pk-label, pk-form-field
 - `pk-stepper` — multi-step wizard / stepper
 - `pk-pagination` — standalone pagination component (reuse datagrid logic)
 - `pk-drawer` — slide-in side panel / off-canvas drawer
@@ -792,68 +791,3 @@ import { PkTooltip } from 'ngx-pk-ui';
 |-----------|-------|
 | `*pkDgRows` | `*pkDgRows="let row of rows"` — renders visible paged rows |
 | `*pkDgRowIsExpand` | On `<pk-dg-row-expand>` — renders only when row is expanded |
-
----
-
-## pk-form CSS reference
-
-Floating label form fields — pure CSS, no Angular component. Works with `input`, `select`, `textarea`.
-Included in `pk-ui.css` automatically.
-
-```html
-<!-- Basic (outlined, default) -->
-<div class="pk-field">
-  <input class="pk-field__input" type="text" placeholder=" " id="name" />
-  <label class="pk-field__label" for="name">Full name</label>
-</div>
-
-<!-- Prefix / Suffix (use pk-field__wrap) -->
-<div class="pk-field">
-  <div class="pk-field__wrap">
-    <span class="pk-field__prefix">@</span>
-    <input class="pk-field__input" type="text" placeholder=" " id="user" />
-    <span class="pk-field__suffix">.com</span>
-  </div>
-  <label class="pk-field__label" for="user">Username</label>
-</div>
-```
-
-**CRITICAL — `placeholder=" "` (single space) is required** on every `pk-field__input`.
-The CSS uses `:not(:placeholder-shown)` to detect when the field has a value and float the label.
-
-**Wrapper modifier classes:**
-| Class | Description |
-|-------|-------------|
-| `pk-field` | Required wrapper |
-| `pk-field--filled` | Material filled style (bg + bottom border only) |
-| `pk-field--underline` | Underline only, no box |
-| `pk-field--pill` | border-radius 100px |
-| `pk-field--outlined` | Glow ring on focus (stackable) |
-| `pk-field--sm / --lg` | Height 42px / 60px |
-| `pk-field--success / --error` | State color |
-
-**Element classes:**
-| Class | Element | Description |
-|-------|---------|-------------|
-| `pk-field__input` | input/select/textarea | Form control — must have `placeholder=" "` |
-| `pk-field__label` | label | Floating label — must be after input in DOM |
-| `pk-field__wrap` | div | Flex row for prefix + input + suffix (single border) |
-| `pk-field__prefix` | span | Left addon (grayed bg, inner right divider) |
-| `pk-field__suffix` | span | Right addon (grayed bg, inner left divider) |
-| `pk-field__hint` | span | Helper text (grey) |
-| `pk-field__error` | span | Error message (red) |
-| `pk-field__footer` | div | Flex row: hint left + counter right |
-| `pk-field__counter` | span | Character counter right-aligned |
-
-**Layout helpers:**
-| Class | Description |
-|-------|-------------|
-| `pk-form-group` | Responsive flex row of pk-fields |
-| `pk-form-group--2 / --3` | Force 2 or 3 column layout |
-| `pk-form-section` | Section divider label (uppercase + border-bottom) |
-
-**Prefix/Suffix implementation notes:**
-- `pk-field__wrap` acts as the single border box (`border: 1.5px solid` + `overflow: hidden`)
-- `pk-field__input` inside wrap has no own border
-- When prefix present: `pk-field` gains `padding-top: 22px` and label is permanently floated above the wrap
-- When suffix-only: label floats dynamically (focus/:not(:placeholder-shown)) via `:has()` selector on `pk-field`
