@@ -2,6 +2,10 @@
  * Public API Surface of ngx-pk-ui
  */
 
+// pk-accordion
+export * from './lib/pk-accordion/pk-accordion-item';
+export * from './lib/pk-accordion/pk-accordion';
+
 // pk-tabs
 export * from './lib/pk-tabs/pk-tab';
 export * from './lib/pk-tabs/pk-tabs';

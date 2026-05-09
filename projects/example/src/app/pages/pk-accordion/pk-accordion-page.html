@@ -1,0 +1,90 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-accordion</h1>
+    <p class="demo-page-desc">Collapsible panels using content projection and Angular signals. Supports single and multi-open modes.</p>
+  </div>
+
+  <section class="demo-section">
+    <h2>Single mode (default)</h2>
+    <p>Only one panel can be open at a time.</p>
+    <pk-accordion>
+      <pk-accordion-item label="What is ngx-pk-ui?">
+        <p>A lightweight Angular 21 component library published to npm — batteries included, zero dependencies beyond Angular itself.</p>
+      </pk-accordion-item>
+      <pk-accordion-item label="How do I install it?">
+        <p>Run <code>npm install ngx-pk-ui</code> then import the components you need in your standalone component's <code>imports[]</code> array.</p>
+      </pk-accordion-item>
+      <pk-accordion-item label="Is theming supported?">
+        <p>Yes. All colours are driven by CSS custom properties such as <code>--pk-btn-primary</code>. Override them in <code>:root</code> to match your brand.</p>
+      </pk-accordion-item>
+      <pk-accordion-item label="Disabled panel" [disabled]="true">
+        <p>This content is never shown.</p>
+      </pk-accordion-item>
+    </pk-accordion>
+  </section>
+
+  <section class="demo-section">
+    <h2>Multi mode</h2>
+    <p>Multiple panels can be open simultaneously with <code>[multi]="true"</code>.</p>
+    <pk-accordion [multi]="true">
+      <pk-accordion-item label="Panel A" [open]="true">
+        <p>This panel starts open. You can open all panels at once in multi mode.</p>
+      </pk-accordion-item>
+      <pk-accordion-item label="Panel B" [open]="true">
+        <p>This one too — both open on load.</p>
+      </pk-accordion-item>
+      <pk-accordion-item label="Panel C">
+        <p>This panel starts closed. Click to expand.</p>
+      </pk-accordion-item>
+    </pk-accordion>
+  </section>
+
+  <section class="demo-section">
+    <h2>Installation</h2>
+    <pre class="code-block"><code>import &#123; PkAccordion, PkAccordionItem &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123;
+  imports: [PkAccordion, PkAccordionItem],
+  // ...
+&#125;)</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>&lt;pk-accordion&gt;
+  &lt;pk-accordion-item label="Section 1"&gt;
+    &lt;p&gt;Content goes here.&lt;/p&gt;
+  &lt;/pk-accordion-item&gt;
+  &lt;pk-accordion-item label="Section 2" [open]="true"&gt;
+    &lt;p&gt;Starts expanded.&lt;/p&gt;
+  &lt;/pk-accordion-item&gt;
+  &lt;pk-accordion-item label="Disabled" [disabled]="true"&gt;
+    &lt;p&gt;Cannot be opened.&lt;/p&gt;
+  &lt;/pk-accordion-item&gt;
+&lt;/pk-accordion&gt;
+
+&lt;!-- Multi mode --&gt;
+&lt;pk-accordion [multi]="true"&gt;
+  &lt;pk-accordion-item label="A"&gt;...&lt;/pk-accordion-item&gt;
+  &lt;pk-accordion-item label="B"&gt;...&lt;/pk-accordion-item&gt;
+&lt;/pk-accordion&gt;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>API — PkAccordionItem inputs</h2>
+    <table class="api-table">
+      <tr><th>Input</th><th>Type</th><th>Required</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>label</code></td><td><code>string</code></td><td>✅</td><td>—</td><td>Header text of the panel</td></tr>
+      <tr><td><code>open</code></td><td><code>boolean</code></td><td>❌</td><td><code>false</code></td><td>Whether the panel starts expanded</td></tr>
+      <tr><td><code>disabled</code></td><td><code>boolean</code></td><td>❌</td><td><code>false</code></td><td>Prevents the panel from being toggled</td></tr>
+    </table>
+  </section>
+
+  <section class="demo-section">
+    <h2>API — PkAccordion inputs</h2>
+    <table class="api-table">
+      <tr><th>Input</th><th>Type</th><th>Required</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>multi</code></td><td><code>boolean</code></td><td>❌</td><td><code>false</code></td><td>Allow multiple panels open at once</td></tr>
+    </table>
+  </section>
+</div>

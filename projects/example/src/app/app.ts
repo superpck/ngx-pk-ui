@@ -11,6 +11,7 @@ export class App {
   mobileMenuOpen = signal(false);
 
   readonly componentsList = [
+    { label: 'accordion', link: '/pk-accordion' },
     { label: 'alert', link: '/pk-alert' },
     { label: 'autocomplete', link: '/pk-autocomplete' },
     { label: 'datagrid', link: '/pk-datagrid' },
