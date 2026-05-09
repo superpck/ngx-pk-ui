@@ -9,6 +9,7 @@ export * from './lib/pk-accordion/pk-accordion';
 // pk-tabs
 export * from './lib/pk-tabs/pk-tab';
 export * from './lib/pk-tabs/pk-tabs';
+export * from './lib/pk-tabs/pk-tabs.module';
 
 // pk-toastr
 export * from './lib/pk-toastr/pk-toastr.model';
@@ -26,6 +27,7 @@ export * from './lib/pk-modal/pk-modal-header';
 export * from './lib/pk-modal/pk-modal-body';
 export * from './lib/pk-modal/pk-modal-footer';
 export * from './lib/pk-modal/pk-modal';
+export * from './lib/pk-modal/pk-modal.module';
 
 // pk-icon
 export * from './lib/pk-icon/pk-icon.model';

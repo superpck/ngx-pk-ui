@@ -1,10 +1,10 @@
 import { Component, signal } from '@angular/core';
-import { PkModal, PkModalHeader, PkModalBody, PkModalFooter } from 'ngx-pk-ui';
+import { PkModalModule } from 'ngx-pk-ui';
 import type { PkModalSize, PkModalTheme } from 'ngx-pk-ui';
 
 @Component({
   selector: 'app-pk-modal-page',
-  imports: [PkModal, PkModalHeader, PkModalBody, PkModalFooter],
+  imports: [PkModalModule],
   templateUrl: './pk-modal-page.html',
 })
 export class PkModalPage {
