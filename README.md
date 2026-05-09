@@ -1,4 +1,4 @@
-# ngx-pk-ui 1.1.8
+# ngx-pk-ui 1.1.9
 
 An Angular 21 component library providing UI components and CSS utilities.
 
@@ -171,6 +171,49 @@ Or import individually:
 | `pk-toggle-sm` | Small (34×18 px) |
 | `pk-toggle-lg` | Large (56×30 px) |
 | `pk-toggle-label-left` | Move label to the left of the track |
+
+---
+
+### pk-font
+
+`pk-font.css` is **opt-in** — it is NOT included in `pk-ui.css`. Import separately:
+
+```json
+// angular.json
+"styles": [
+  "node_modules/ngx-pk-ui/styles/pk-ui.css",
+  "node_modules/ngx-pk-ui/styles/pk-font.css"
+]
+```
+
+```html
+<p class="pk-font-sarabun">สวัสดี</p>
+<p class="pk-font-kanit">สวัสดี</p>
+<p class="pk-font-phetsarath">ສະບາຍດີ</p>
+```
+
+| Class | Font | Script |
+|-------|------|--------|
+| `pk-font-bai-jamjuree` | Bai Jamjuree | Thai |
+| `pk-font-chakra-petch` | Chakra Petch | Thai |
+| `pk-font-charm` | Charm | Thai |
+| `pk-font-charmonman` | Charmonman | Thai |
+| `pk-font-kanit` | Kanit | Thai |
+| `pk-font-mitr` | Mitr | Thai |
+| `pk-font-noto-sans-thai` | Noto Sans Thai | Thai |
+| `pk-font-pattaya` | Pattaya | Thai |
+| `pk-font-prompt` | Prompt | Thai |
+| `pk-font-sarabun` | Sarabun | Thai |
+| `pk-font-sriracha` | Sriracha | Thai |
+| `pk-font-srisakdi` | Srisakdi | Thai |
+| `pk-font-thasadith` | Thasadith | Thai |
+| `pk-font-trirong` | Trirong | Thai |
+| `pk-font-noto-sans-lao` | Noto Sans Lao | Lao |
+| `pk-font-noto-sans-lao-looped` | Noto Sans Lao Looped | Lao |
+| `pk-font-noto-serif-lao` | Noto Serif Lao | Lao |
+| `pk-font-phetsarath` | Phetsarath | Lao |
+
+> **Note:** Google Sans is proprietary (not on Google Fonts CDN) and is excluded.
 
 ---
 
