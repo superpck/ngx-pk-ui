@@ -33,45 +33,65 @@ projects/
     src/
       public-api.ts        ← everything exported from here is part of the public API
       lib/
+        pk-accordion/
+          pk-accordion-item.ts  ← child component: one collapsible panel (content projection)
+          pk-accordion.ts       ← parent container: single/multi-open mode via signals
+          pk-accordion.html / .css / .spec.ts
         pk-tabs/
           pk-tab.ts        ← child component: one tab item (used via content projection)
           pk-tabs.ts       ← parent container: manages active tab with signals
-          pk-tabs.html / .css
-          pk-tabs.spec.ts
+          pk-tabs.html / .css / .spec.ts
         pk-toastr/
           pk-toastr.model.ts    ← Toast interface and ToastType
           pk-toastr.service.ts  ← injectable service: success/error/info/warning/dismiss/clear
           pk-toastr.ts          ← component that renders the toast container (add once to AppComponent)
-          pk-toastr.html / .css
-          pk-toastr.spec.ts
+          pk-toastr.html / .css / .spec.ts
         pk-alert/
           pk-alert.model.ts     ← AlertType, AlertInputType, AlertConfig, AlertSlot interfaces
           pk-alert.service.ts   ← injectable service: success/warn/error/confirm/input → Promise
           pk-alert.ts           ← modal overlay component (add once to AppComponent)
-          pk-alert.html / .css
-          pk-alert.spec.ts
+          pk-alert.html / .css / .spec.ts
         pk-modal/
           pk-modal.model.ts     ← PkModalSize type alias
           pk-modal-header.ts    ← slot component — bold header, bottom border
           pk-modal-body.ts      ← slot component — scrollable body
           pk-modal-footer.ts    ← slot component — right-aligned flex footer
           pk-modal.ts           ← main component: openModal/size/blur/closeAble/customClass/customStyle/(onClose)
-          pk-modal.html / .css
-          pk-modal.spec.ts
+          pk-modal.html / .css / .spec.ts
+        pk-icon/
+          pk-icon.model.ts      ← PkIconModel type
+          pk-icon.ts            ← SVG icon component + Material Symbols mode
+        pk-datagrid/            ← NgModule-based datagrid (sort, filter, resize, pagination, row detail)
+        pk-datepicker/          ← Datepicker with TH/EN locale, range, clear
+        pk-progress/            ← Line/circle progress with status variants
+        pk-treeview/            ← Hierarchical tree (NgModule-based)
+        pk-select/              ← Single/multi select with optional search
+        pk-autocomplete/        ← Local/async autocomplete input
+        pk-typeahead/           ← Typeahead input with keyboard navigation
+        pk-tooltip/             ← Hover tooltip (CSS-driven + Angular component)
     src/styles/
-      pk-ui.css                   ← single entry point — imports all CSS modules
-      pk-grid.css                 ← standalone CSS grid system
-      pk-btn.css                  ← standalone CSS button system
-      pk-spinner.css              ← standalone CSS spinner system
-      pk-badge.css                ← standalone CSS badge system
-      pk-card.css                 ← standalone CSS card system
+      pk-ui.css                   ← single entry point — @imports all modules below
+      pk-grid.css                 ← responsive 12-column grid
+      pk-btn.css                  ← button variants and groups
+      pk-spinner.css              ← loading spinners
+      pk-badge.css                ← badges and dot indicators
+      pk-card.css                 ← card layouts
+      pk-table.css                ← styled tables (striped, hover, bordered, color variants)
+      pk-toggle.css               ← CSS-only toggle switch (replaces <input type="checkbox">)
+      pk-breadcrumb.css           ← breadcrumb nav
+      pk-icon-font.css            ← Material Symbols font classes
+      pk-tooltip.css              ← tooltip styles
+      pk-font.css                 ← Thai & Lao Google Fonts helper classes (opt-in — NOT in pk-ui.css)
   example/                 ← local dev/test app (gitignored, never published)
     src/app/
       app.ts / app.html / app.css  ← shell: dark sidebar nav + RouterOutlet + PkToastr + PkAlert
       app.routes.ts                ← lazy-loaded routes for each component/CSS section
       pages/
-        home/           pk-tabs/   pk-toastr/   pk-alert/   pk-modal/
-        pk-grid/        pk-btn/    pk-spinner/  pk-badge/   pk-card/
+        Components: home/ pk-accordion/ pk-tabs/ pk-toastr/ pk-alert/ pk-modal/
+                    pk-icon/ pk-datagrid/ pk-datepicker/ pk-progress/ pk-treeview/
+                    pk-select/ pk-autocomplete/ pk-typeahead/ pk-tooltip/
+        CSS pages:  pk-grid/ pk-btn/ pk-spinner/ pk-badge/ pk-card/
+                    pk-table/ pk-toggle/ pk-breadcrumb/ pk-font/
 ```
 
 `dist/ngx-pk-ui/` is the build output consumed by npm. Never edit files there.
@@ -186,12 +206,50 @@ Default `duration` is **4000 ms**. Pass `0` to keep toast until manually dismiss
 
 ---
 
+### pk-accordion
+
+Uses **content projection** — `<pk-accordion-item>` children are discovered via `contentChildren()`.
+
+```ts
+import { PkAccordion, PkAccordionItem } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkAccordion, PkAccordionItem],
+})
+```
+
+```html
+<!-- Single-open (default) -->
+<pk-accordion>
+  <pk-accordion-item label="Section 1">Content goes here.</pk-accordion-item>
+  <pk-accordion-item label="Section 2" [open]="true">Starts expanded.</pk-accordion-item>
+  <pk-accordion-item label="Disabled" [disabled]="true">Cannot open.</pk-accordion-item>
+</pk-accordion>
+
+<!-- Multi-open -->
+<pk-accordion [multi]="true">
+  <pk-accordion-item label="A">...</pk-accordion-item>
+  <pk-accordion-item label="B">...</pk-accordion-item>
+</pk-accordion>
+```
+
+| Input | Component | Type | Default | Description |
+|-------|-----------|------|---------|-------------|
+| `multi` | `PkAccordion` | `boolean` | `false` | Allow multiple panels open simultaneously |
+| `label` | `PkAccordionItem` | `string` | required | Panel header text |
+| `open` | `PkAccordionItem` | `boolean` | `false` | Expand on init |
+| `disabled` | `PkAccordionItem` | `boolean` | `false` | Prevent toggling |
+
+---
+
 ## Exported public symbols
 
 Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 
 | Symbol | Kind | File |
 |--------|------|------|
+| `PkAccordionItem` | Component | `pk-accordion/pk-accordion-item` |
+| `PkAccordion` | Component | `pk-accordion/pk-accordion` |
 | `PkTab` | Component | `pk-tabs/pk-tab` |
 | `PkTabs` | Component | `pk-tabs/pk-tabs` |
 | `Toast` | Interface | `pk-toastr/pk-toastr.model` |
@@ -205,6 +263,19 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `AlertResult` | Type alias | `pk-alert/pk-alert.model` |
 | `PkAlertService` | Injectable service | `pk-alert/pk-alert.service` |
 | `PkAlert` | Component | `pk-alert/pk-alert` |
+| `PkModalSize` | Type alias | `pk-modal/pk-modal.model` |
+| `PkModalHeader` | Component | `pk-modal/pk-modal-header` |
+| `PkModalBody` | Component | `pk-modal/pk-modal-body` |
+| `PkModalFooter` | Component | `pk-modal/pk-modal-footer` |
+| `PkModal` | Component | `pk-modal/pk-modal` |
+| `PkIconModel` | Type alias | `pk-icon/pk-icon.model` |
+| `PkIcon` | Component | `pk-icon/pk-icon` |
+| `PkDatagridModule` | NgModule | `pk-datagrid/pk-datagrid.module` |
+| `PkDatagridComponent` | Component | `pk-datagrid/pk-datagrid.component` |
+| `PkDatepickerComponent` | Component | `pk-datepicker/pk-datepicker.component` |
+| `PkProgressComponent` | Component | `pk-progress/pk-progress.component` |
+| `PkTreeviewModule` | NgModule | `pk-treeview/pk-treeview.module` |
+| `PkTreeviewComponent` | Component | `pk-treeview/pk-treeview.component` |
 
 ---
 
@@ -215,6 +286,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - **`ng new` creates a subdirectory** — `ng new <name>` always nests files. When creating the workspace in the repo root, files need to be moved up manually.
 - **Browser flag removed** — `ng test --browsers=ChromeHeadless` fails; Vitest uses its own browser provider. Run `ng test ngx-pk-ui --no-watch` directly.
 - **`NgTemplateOutlet` must be imported** — even though it's from `@angular/common`, it is not included automatically in standalone components. Add it to `imports: [NgTemplateOutlet]` in `PkTabs`.
+- **Never use `{{ }}` inside `<pre><code>` blocks** — Angular template compiler evaluates interpolations even in HTML-escaped content. `&#123;&#123;` decodes to `{{` before template compilation, causing binding errors. Use static text in code demo blocks instead.
 
 ---
 
@@ -223,28 +295,42 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `0.0.1` |
+| Library version | `1.1.6` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
+| `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) |
 | `pk-toastr` | ✅ Built, tested (4 tests) |
 | `pk-alert` | ✅ Built, tested (13 tests) |
 | `pk-modal` | ✅ Built, tested (12 tests) |
-| `pk-grid` (CSS only) | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
-| `pk-btn` (CSS only)  | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
-| `pk-spinner` (CSS only) | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
-| `pk-badge` (CSS only)   | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-badge.css` |
-| `pk-card` (CSS only)    | ✅ Built, shipped as `dist/ngx-pk-ui/styles/pk-card.css` |
+| `pk-icon` | ✅ Built |
+| `pk-datagrid` | ✅ Built (NgModule) |
+| `pk-datepicker` | ✅ Built |
+| `pk-progress` | ✅ Built |
+| `pk-treeview` | ✅ Built (NgModule) |
+| `pk-select` | ✅ Built |
+| `pk-autocomplete` | ✅ Built |
+| `pk-typeahead` | ✅ Built |
+| `pk-tooltip` | ✅ Built |
+| `pk-grid` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
+| `pk-btn` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
+| `pk-spinner` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
+| `pk-badge` (CSS only)   | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-badge.css` |
+| `pk-card` (CSS only)    | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-card.css` |
+| `pk-table` (CSS only)   | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-table.css` |
+| `pk-toggle` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-toggle.css` |
+| `pk-breadcrumb` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-breadcrumb.css` |
+| `pk-font` (CSS only, opt-in) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-font.css` — NOT in pk-ui.css |
+| `pk-icon-font` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-icon-font.css` |
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section |
-| npm published | ❌ Not yet |
+| npm published | ✅ Published |
 
-**Test totals: 33 / 33 passing**
+**Test totals: 41 / 41 passing**
 
 ### Suggested next components
-- `pk-tooltip` — hover tooltip (pure CSS or CDK overlay)
-- `pk-accordion` — collapsible panels, similar to `pk-tabs` (content projection)
-- `pk-table` — styled table with striped, hover, bordered variants
 - `pk-input` — styled form inputs: pk-input, pk-input-group, pk-label, pk-form-field
-- `pk-select` — styled native or custom select dropdown
+- `pk-stepper` — multi-step wizard / stepper
+- `pk-pagination` — standalone pagination component (reuse datagrid logic)
+- `pk-drawer` — slide-in side panel / off-canvas drawer
 
 ---
 
@@ -468,6 +554,109 @@ export class MyComponent {
 | `pk-card-outlined` | Border only, no shadow |
 
 Colors are driven by the same CSS custom properties as `pk-btn.css` (`--pk-btn-primary`, etc.).
+
+---
+
+## pk-table CSS reference
+
+```html
+<!-- Basic -->
+<table class="pk-table">
+  <thead><tr><th>Name</th><th>Status</th></tr></thead>
+  <tbody><tr><td>Alice</td><td>Active</td></tr></tbody>
+</table>
+
+<!-- Striped + hover + colored header -->
+<table class="pk-table pk-table-primary pk-table-striped pk-table-hover">...</table>
+
+<!-- Responsive wrapper -->
+<div class="pk-table-responsive">
+  <table class="pk-table pk-table-bordered">...</table>
+</div>
+```
+
+| Class | Description |
+|-------|-------------|
+| `pk-table` | Base styles (required) |
+| `pk-table-striped` | Alternating row background |
+| `pk-table-hover` | Row highlight on hover |
+| `pk-table-bordered` | Border on every cell |
+| `pk-table-sm` | Reduced padding |
+| `pk-table-compact` | Minimal padding + smaller font |
+| `pk-table-primary/success/warn/error` | Colored `<thead>` |
+| `pk-table-responsive` | Wrapper `<div>` — horizontal scroll on overflow |
+
+---
+
+## pk-toggle CSS reference
+
+```html
+<!-- Minimal -->
+<label class="pk-toggle">
+  <input type="checkbox" />
+  <span class="pk-toggle__track"></span>
+</label>
+
+<!-- With label + color variant -->
+<label class="pk-toggle pk-toggle-success">
+  <input type="checkbox" checked />
+  <span class="pk-toggle__track"></span>
+  <span class="pk-toggle__label">Enable feature</span>
+</label>
+```
+
+| Class | Description |
+|-------|-------------|
+| `pk-toggle` | Wrapper `<label>` — required |
+| `pk-toggle__track` | Track + thumb `<span>` — required |
+| `pk-toggle__label` | Optional text label `<span>` |
+| `pk-toggle-success/warn/error` | Checked color variant |
+| `pk-toggle-sm` | Small (34×18 px) |
+| `pk-toggle-lg` | Large (56×30 px) |
+| `pk-toggle-label-left` | Move label to the left of the track |
+
+---
+
+## pk-font CSS reference
+
+`pk-font.css` is **opt-in** — it is NOT included in `pk-ui.css`. Import separately.
+
+```json
+// angular.json
+"styles": [
+  "node_modules/ngx-pk-ui/styles/pk-ui.css",
+  "node_modules/ngx-pk-ui/styles/pk-font.css"
+]
+```
+
+```html
+<p class="pk-font-sarabun">สวัสดี</p>
+<p class="pk-font-kanit">สวัสดี</p>
+<p class="pk-font-phetsarath">ສະບາຍດີ</p>
+```
+
+| Class | Font | Script |
+|-------|------|--------|
+| `pk-font-bai-jamjuree` | Bai Jamjuree | Thai |
+| `pk-font-chakra-petch` | Chakra Petch | Thai |
+| `pk-font-charm` | Charm | Thai |
+| `pk-font-charmonman` | Charmonman | Thai |
+| `pk-font-kanit` | Kanit | Thai |
+| `pk-font-mitr` | Mitr | Thai |
+| `pk-font-noto-sans-thai` | Noto Sans Thai | Thai |
+| `pk-font-pattaya` | Pattaya | Thai |
+| `pk-font-prompt` | Prompt | Thai |
+| `pk-font-sarabun` | Sarabun | Thai |
+| `pk-font-sriracha` | Sriracha | Thai |
+| `pk-font-srisakdi` | Srisakdi | Thai |
+| `pk-font-thasadith` | Thasadith | Thai |
+| `pk-font-trirong` | Trirong | Thai |
+| `pk-font-noto-sans-lao` | Noto Sans Lao | Lao |
+| `pk-font-noto-sans-lao-looped` | Noto Sans Lao Looped | Lao |
+| `pk-font-noto-serif-lao` | Noto Serif Lao | Lao |
+| `pk-font-phetsarath` | Phetsarath | Lao |
+
+> **Note:** Google Sans is proprietary (not on Google Fonts CDN) and is excluded.
 
 ---
 
