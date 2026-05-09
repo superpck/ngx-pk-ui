@@ -3,7 +3,7 @@
  *
  * Applied to a dynamically created .pk-tooltip-box element.
  * Positions: top (default) | bottom | left | right
- * Types:     primary (default) | success | danger | info
+ * Types:     primary (default) | secondary | success | danger | info
  */
 
 /* ─── CSS custom properties ─────────────────────────────────────── */
@@ -20,7 +20,9 @@
   font-size: 12px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.4;
-  white-space: nowrap;
+  white-space: normal;
+  max-width: 260px;
+  word-break: break-word;
   pointer-events: none;
   color: #fff;
   background: var(--pk-tooltip-bg, #333);
@@ -75,6 +77,13 @@
 /* ─── Color variants ────────────────────────────────────────────── */
 .pk-tooltip-box--primary {
   --pk-tooltip-bg: var(--pk-btn-primary, #1976d2);
+}
+
+.pk-tooltip-box--secondary {
+  --pk-tooltip-bg: #fbfbf8;
+  border: 1.5px solid #dcdcda;
+  border-radius: 4px;
+  color: #444;
 }
 
 .pk-tooltip-box--success {

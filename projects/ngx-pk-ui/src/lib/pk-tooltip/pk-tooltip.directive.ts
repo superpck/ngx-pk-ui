@@ -2,8 +2,8 @@ import { Directive, ElementRef, HostListener, inject, input, OnDestroy } from '@
 
 export type PkTooltipPosition = 'top' | 'bottom' | 'left' | 'right';
 export type PkTooltipType =
-  | 'primary' | 'success' | 'danger' | 'info'
-  | 'primary-outline' | 'success-outline' | 'danger-outline' | 'info-outline';
+  | 'primary' | 'secondary' | 'success' | 'danger' | 'info'
+  | 'primary-outline' | 'secondary-outline' | 'success-outline' | 'danger-outline' | 'info-outline';
 
 @Directive({
   selector: '[pkTooltip]',
