@@ -14,13 +14,41 @@
   .pagination-controls {
     display: flex;
     gap: 4px;
+    align-items: center;
     
-    .btn {
-      min-width: 32px;
-      padding: 4px 8px;
-      
+    .pk-dg-btn {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      line-height: 1;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      background: transparent;
+      color: #333;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+
+      &:hover:not(:disabled) {
+        background: #e8eaf0;
+      }
+
+      &.pk-dg-btn-active {
+        background: var(--pk-btn-primary, #1976d2);
+        color: #fff;
+        border-color: var(--pk-btn-primary, #1976d2);
+      }
+
+      &.pk-dg-btn-nav {
+        font-size: 18px;
+        color: #555;
+      }
+
       &:disabled {
-        opacity: 0.5;
+        opacity: 0.4;
         cursor: not-allowed;
       }
     }
