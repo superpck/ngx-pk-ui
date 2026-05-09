@@ -36,6 +36,7 @@ export class App {
     { label: 'grid', link: '/pk-grid' },
     { label: 'spinner', link: '/pk-spinner' },
     { label: 'table', link: '/pk-table' },
+    { label: 'toggle', link: '/pk-toggle' },
   ];
 
   toggleMobileMenu(): void {

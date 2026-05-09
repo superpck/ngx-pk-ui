@@ -1,0 +1,197 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-toggle</h1>
+    <p class="demo-page-desc">Toggle switch replacing <code>&lt;input type="checkbox"&gt;</code>. Pure CSS — no JavaScript. Fully accessible and keyboard-operable.</p>
+  </div>
+
+  <!-- ── Basic ── -->
+  <section class="demo-section">
+    <h2>Basic</h2>
+    <div style="display:flex; flex-direction:column; gap:12px">
+      <label class="pk-toggle">
+        <input type="checkbox" />
+        <span class="pk-toggle__track"></span>
+      </label>
+
+      <label class="pk-toggle">
+        <input type="checkbox" checked />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Enable notifications</span>
+      </label>
+
+      <label class="pk-toggle">
+        <input type="checkbox" disabled />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Disabled (off)</span>
+      </label>
+
+      <label class="pk-toggle">
+        <input type="checkbox" checked disabled />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Disabled (on)</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- ── Color Variants ── -->
+  <section class="demo-section">
+    <h2>Color variants</h2>
+    <div style="display:flex; flex-direction:column; gap:12px">
+      <label class="pk-toggle">
+        <input type="checkbox" checked />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Primary (default)</span>
+      </label>
+
+      <label class="pk-toggle pk-toggle-success">
+        <input type="checkbox" checked />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Success</span>
+      </label>
+
+      <label class="pk-toggle pk-toggle-warn">
+        <input type="checkbox" checked />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Warning</span>
+      </label>
+
+      <label class="pk-toggle pk-toggle-error">
+        <input type="checkbox" checked />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Error</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- ── Sizes ── -->
+  <section class="demo-section">
+    <h2>Sizes</h2>
+    <div style="display:flex; flex-direction:column; gap:14px">
+      <label class="pk-toggle pk-toggle-sm">
+        <input type="checkbox" checked />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Small (pk-toggle-sm)</span>
+      </label>
+
+      <label class="pk-toggle">
+        <input type="checkbox" checked />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Medium (default)</span>
+      </label>
+
+      <label class="pk-toggle pk-toggle-lg">
+        <input type="checkbox" checked />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Large (pk-toggle-lg)</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- ── Label position ── -->
+  <section class="demo-section">
+    <h2>Label position</h2>
+    <div style="display:flex; flex-direction:column; gap:12px">
+      <label class="pk-toggle">
+        <input type="checkbox" checked />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Label on right (default)</span>
+      </label>
+
+      <label class="pk-toggle pk-toggle-label-left">
+        <input type="checkbox" checked />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Label on left (pk-toggle-label-left)</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- ── In a form ── -->
+  <section class="demo-section">
+    <h2>In a form</h2>
+    <div style="display:flex; flex-direction:column; gap:10px; max-width:320px">
+      <label class="pk-toggle pk-toggle-success">
+        <input type="checkbox" checked />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Dark mode</span>
+      </label>
+      <label class="pk-toggle pk-toggle-success">
+        <input type="checkbox" />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Email notifications</span>
+      </label>
+      <label class="pk-toggle pk-toggle-success">
+        <input type="checkbox" checked />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Two-factor authentication</span>
+      </label>
+      <label class="pk-toggle pk-toggle-success">
+        <input type="checkbox" disabled />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Managed by admin</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- ── Installation ── -->
+  <section class="demo-section">
+    <h2>Installation</h2>
+    <pre class="code-block"><code>// angular.json
+"styles": ["node_modules/ngx-pk-ui/styles/pk-toggle.css"]
+
+// or include everything
+"styles": ["node_modules/ngx-pk-ui/styles/pk-ui.css"]
+
+// or CSS import
+&#64;import 'ngx-pk-ui/styles/pk-toggle.css';</code></pre>
+  </section>
+
+  <!-- ── Usage ── -->
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>&lt;!-- Minimal --&gt;
+&lt;label class="pk-toggle"&gt;
+  &lt;input type="checkbox" /&gt;
+  &lt;span class="pk-toggle__track"&gt;&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- With label --&gt;
+&lt;label class="pk-toggle pk-toggle-success"&gt;
+  &lt;input type="checkbox" checked /&gt;
+  &lt;span class="pk-toggle__track"&gt;&lt;/span&gt;
+  &lt;span class="pk-toggle__label"&gt;Enable feature&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- Small, label on left --&gt;
+&lt;label class="pk-toggle pk-toggle-sm pk-toggle-label-left"&gt;
+  &lt;input type="checkbox" /&gt;
+  &lt;span class="pk-toggle__track"&gt;&lt;/span&gt;
+  &lt;span class="pk-toggle__label"&gt;Compact&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- Angular two-way binding --&gt;
+&lt;label class="pk-toggle"&gt;
+  &lt;input type="checkbox" [(ngModel)]="isEnabled" /&gt;
+  &lt;span class="pk-toggle__track"&gt;&lt;/span&gt;
+  &lt;span class="pk-toggle__label"&gt;Active&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+  </section>
+
+  <!-- ── API ── -->
+  <section class="demo-section">
+    <h2>Class reference</h2>
+    <table class="pk-table pk-table-bordered pk-table-sm">
+      <thead><tr><th>Class</th><th>Applies to</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>pk-toggle</code></td><td><code>&lt;label&gt;</code></td><td>Wrapper — required</td></tr>
+        <tr><td><code>pk-toggle__track</code></td><td><code>&lt;span&gt;</code></td><td>The track + thumb — required</td></tr>
+        <tr><td><code>pk-toggle__label</code></td><td><code>&lt;span&gt;</code></td><td>Optional text label</td></tr>
+        <tr><td><code>pk-toggle-success</code></td><td><code>&lt;label&gt;</code></td><td>Green when checked</td></tr>
+        <tr><td><code>pk-toggle-warn</code></td><td><code>&lt;label&gt;</code></td><td>Orange when checked</td></tr>
+        <tr><td><code>pk-toggle-error</code></td><td><code>&lt;label&gt;</code></td><td>Red when checked</td></tr>
+        <tr><td><code>pk-toggle-sm</code></td><td><code>&lt;label&gt;</code></td><td>Small size (34×18px)</td></tr>
+        <tr><td><code>pk-toggle-lg</code></td><td><code>&lt;label&gt;</code></td><td>Large size (56×30px)</td></tr>
+        <tr><td><code>pk-toggle-label-left</code></td><td><code>&lt;label&gt;</code></td><td>Move label to the left</td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>
