@@ -16,6 +16,7 @@ export const routes: Routes = [
   { path: 'pk-select', loadComponent: () => import('./pages/pk-select/pk-select-page').then(m => m.PkSelectPage) },
   { path: 'pk-autocomplete', loadComponent: () => import('./pages/pk-autocomplete/pk-autocomplete-page').then(m => m.PkAutocompletePage) },
   { path: 'pk-typeahead', loadComponent: () => import('./pages/pk-typeahead/pk-typeahead-page').then(m => m.PkTypeaheadPage) },
+  { path: 'pk-table', loadComponent: () => import('./pages/pk-table/pk-table-page').then(m => m.PkTablePage) },
   { path: 'pk-grid', loadComponent: () => import('./pages/pk-grid/pk-grid-page').then(m => m.PkGridPage) },
   { path: 'pk-btn', loadComponent: () => import('./pages/pk-btn/pk-btn-page').then(m => m.PkBtnPage) },
   { path: 'pk-spinner', loadComponent: () => import('./pages/pk-spinner/pk-spinner-page').then(m => m.PkSpinnerPage) },

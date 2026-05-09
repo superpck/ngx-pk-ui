@@ -1,0 +1,199 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-table</h1>
+    <p class="demo-page-desc">Styled HTML tables. No JavaScript — pure CSS classes. Supports striped, hover, bordered, size variants, and colored headers.</p>
+  </div>
+
+  <!-- ── Basic ── -->
+  <section class="demo-section">
+    <h2>Basic</h2>
+    <table class="pk-table">
+      <thead>
+        <tr>
+          <th>#</th><th>Name</th><th>Role</th><th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Alice</td><td>Admin</td><td><span class="pk-badge pk-badge-success">Active</span></td></tr>
+        <tr><td>2</td><td>Bob</td><td>Editor</td><td><span class="pk-badge pk-badge-warn">Pending</span></td></tr>
+        <tr><td>3</td><td>Charlie</td><td>Viewer</td><td><span class="pk-badge pk-badge-error">Inactive</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ── Striped + Hover ── -->
+  <section class="demo-section">
+    <h2>Striped + Hover</h2>
+    <table class="pk-table pk-table-striped pk-table-hover">
+      <thead>
+        <tr><th>#</th><th>Product</th><th>Category</th><th>Price</th><th>Stock</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Widget A</td><td>Tools</td><td>$12.00</td><td>120</td></tr>
+        <tr><td>2</td><td>Gadget B</td><td>Electronics</td><td>$49.99</td><td>34</td></tr>
+        <tr><td>3</td><td>Part C</td><td>Hardware</td><td>$3.50</td><td>500</td></tr>
+        <tr><td>4</td><td>Module D</td><td>Software</td><td>$99.00</td><td>∞</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ── Bordered ── -->
+  <section class="demo-section">
+    <h2>Bordered</h2>
+    <table class="pk-table pk-table-bordered">
+      <thead>
+        <tr><th>Month</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Revenue</td><td>$10k</td><td>$14k</td><td>$12k</td><td>$18k</td></tr>
+        <tr><td>Expenses</td><td>$8k</td><td>$9k</td><td>$10k</td><td>$11k</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td>Profit</td><td>$2k</td><td>$5k</td><td>$2k</td><td>$7k</td></tr>
+      </tfoot>
+    </table>
+  </section>
+
+  <!-- ── Color Variants ── -->
+  <section class="demo-section">
+    <h2>Header color variants</h2>
+    <div style="display:flex; flex-direction:column; gap:16px">
+      <table class="pk-table pk-table-primary pk-table-striped">
+        <thead><tr><th>pk-table-primary</th><th>Column B</th><th>Column C</th></tr></thead>
+        <tbody>
+          <tr><td>Row 1</td><td>Data</td><td>Data</td></tr>
+          <tr><td>Row 2</td><td>Data</td><td>Data</td></tr>
+        </tbody>
+      </table>
+
+      <table class="pk-table pk-table-success pk-table-striped">
+        <thead><tr><th>pk-table-success</th><th>Column B</th><th>Column C</th></tr></thead>
+        <tbody>
+          <tr><td>Row 1</td><td>Data</td><td>Data</td></tr>
+          <tr><td>Row 2</td><td>Data</td><td>Data</td></tr>
+        </tbody>
+      </table>
+
+      <table class="pk-table pk-table-warn pk-table-striped">
+        <thead><tr><th>pk-table-warn</th><th>Column B</th><th>Column C</th></tr></thead>
+        <tbody>
+          <tr><td>Row 1</td><td>Data</td><td>Data</td></tr>
+          <tr><td>Row 2</td><td>Data</td><td>Data</td></tr>
+        </tbody>
+      </table>
+
+      <table class="pk-table pk-table-error pk-table-striped">
+        <thead><tr><th>pk-table-error</th><th>Column B</th><th>Column C</th></tr></thead>
+        <tbody>
+          <tr><td>Row 1</td><td>Data</td><td>Data</td></tr>
+          <tr><td>Row 2</td><td>Data</td><td>Data</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── Sizes ── -->
+  <section class="demo-section">
+    <h2>Size modifiers</h2>
+    <h3>pk-table-sm</h3>
+    <table class="pk-table pk-table-sm pk-table-hover" style="margin-bottom:16px">
+      <thead><tr><th>Name</th><th>Value</th><th>Unit</th></tr></thead>
+      <tbody>
+        <tr><td>Width</td><td>100</td><td>px</td></tr>
+        <tr><td>Height</td><td>200</td><td>px</td></tr>
+      </tbody>
+    </table>
+
+    <h3>pk-table-compact</h3>
+    <table class="pk-table pk-table-compact pk-table-hover">
+      <thead><tr><th>Key</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>version</td><td>1.1.4</td></tr>
+        <tr><td>framework</td><td>Angular 21</td></tr>
+        <tr><td>license</td><td>MIT</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ── Responsive ── -->
+  <section class="demo-section">
+    <h2>Responsive wrapper</h2>
+    <p>Wrap with <code>pk-table-responsive</code> to enable horizontal scroll on narrow screens.</p>
+    <div class="pk-table-responsive">
+      <table class="pk-table pk-table-striped pk-table-hover pk-table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th><th>First Name</th><th>Last Name</th><th>Department</th>
+            <th>Location</th><th>Start Date</th><th>Salary</th><th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td><td>Alice</td><td>Smith</td><td>Engineering</td>
+            <td>Bangkok</td><td>2022-01-15</td><td>$80,000</td>
+            <td><span class="pk-badge pk-badge-success">Active</span></td>
+          </tr>
+          <tr>
+            <td>2</td><td>Bob</td><td>Jones</td><td>Marketing</td>
+            <td>Chiang Mai</td><td>2023-06-01</td><td>$60,000</td>
+            <td><span class="pk-badge pk-badge-warn">Pending</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── Installation ── -->
+  <section class="demo-section">
+    <h2>Installation</h2>
+    <pre class="code-block"><code>// angular.json
+"styles": ["node_modules/ngx-pk-ui/styles/pk-table.css"]
+
+// or include everything
+"styles": ["node_modules/ngx-pk-ui/styles/pk-ui.css"]
+
+// or CSS import
+&#64;import 'ngx-pk-ui/styles/pk-table.css';</code></pre>
+  </section>
+
+  <!-- ── Usage ── -->
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>&lt;!-- Basic --&gt;
+&lt;table class="pk-table"&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Alice&lt;/td&gt;&lt;td&gt;Active&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;!-- Striped + Hover + Primary header --&gt;
+&lt;table class="pk-table pk-table-primary pk-table-striped pk-table-hover"&gt;...&lt;/table&gt;
+
+&lt;!-- Responsive --&gt;
+&lt;div class="pk-table-responsive"&gt;
+  &lt;table class="pk-table"&gt;...&lt;/table&gt;
+&lt;/div&gt;</code></pre>
+  </section>
+
+  <!-- ── API ── -->
+  <section class="demo-section">
+    <h2>Class reference</h2>
+    <table class="pk-table pk-table-bordered pk-table-sm">
+      <thead><tr><th>Class</th><th>Applies to</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>pk-table</code></td><td><code>&lt;table&gt;</code></td><td>Base styles (required)</td></tr>
+        <tr><td><code>pk-table-striped</code></td><td><code>&lt;table&gt;</code></td><td>Alternating row background</td></tr>
+        <tr><td><code>pk-table-hover</code></td><td><code>&lt;table&gt;</code></td><td>Row highlight on hover</td></tr>
+        <tr><td><code>pk-table-bordered</code></td><td><code>&lt;table&gt;</code></td><td>Border on every cell</td></tr>
+        <tr><td><code>pk-table-sm</code></td><td><code>&lt;table&gt;</code></td><td>Reduced cell padding</td></tr>
+        <tr><td><code>pk-table-compact</code></td><td><code>&lt;table&gt;</code></td><td>Minimal padding + smaller font</td></tr>
+        <tr><td><code>pk-table-primary</code></td><td><code>&lt;table&gt;</code></td><td>Blue <code>&lt;thead&gt;</code> background</td></tr>
+        <tr><td><code>pk-table-success</code></td><td><code>&lt;table&gt;</code></td><td>Green <code>&lt;thead&gt;</code> background</td></tr>
+        <tr><td><code>pk-table-warn</code></td><td><code>&lt;table&gt;</code></td><td>Orange <code>&lt;thead&gt;</code> background</td></tr>
+        <tr><td><code>pk-table-error</code></td><td><code>&lt;table&gt;</code></td><td>Red <code>&lt;thead&gt;</code> background</td></tr>
+        <tr><td><code>pk-table-responsive</code></td><td>wrapper <code>&lt;div&gt;</code></td><td>Horizontal scroll on overflow</td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>

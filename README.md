@@ -86,6 +86,7 @@ import { PkAccordion, PkAccordionItem } from 'ngx-pk-ui';
 | `pk-spinner.css` | Loading spinners |
 | `pk-badge.css` | Badges and dot indicators |
 | `pk-card.css` | Card layouts |
+| `pk-table.css` | Styled tables with striped, hover, bordered, size and color variants |
 | `pk-icon-font.css` | Material Symbols font classes |
 
 ### Include all at once
@@ -100,7 +101,39 @@ Or import individually:
 ```css
 @import 'ngx-pk-ui/styles/pk-btn.css';
 @import 'ngx-pk-ui/styles/pk-grid.css';
+@import 'ngx-pk-ui/styles/pk-table.css';
 ```
+---
+
+### pk-table
+
+```html
+<!-- Basic -->
+<table class="pk-table">
+  <thead><tr><th>Name</th><th>Status</th></tr></thead>
+  <tbody><tr><td>Alice</td><td>Active</td></tr></tbody>
+</table>
+
+<!-- Striped + hover + colored header -->
+<table class="pk-table pk-table-primary pk-table-striped pk-table-hover">...</table>
+
+<!-- Responsive wrapper -->
+<div class="pk-table-responsive">
+  <table class="pk-table pk-table-bordered">...</table>
+</div>
+```
+
+| Class | Description |
+|-------|-------------|
+| `pk-table` | Base styles (required) |
+| `pk-table-striped` | Alternating row background |
+| `pk-table-hover` | Row highlight on hover |
+| `pk-table-bordered` | Border on every cell |
+| `pk-table-sm` | Reduced padding |
+| `pk-table-compact` | Minimal padding + smaller font |
+| `pk-table-primary/success/warn/error` | Colored `<thead>` |
+| `pk-table-responsive` | Wrapper `<div>` — horizontal scroll on overflow |
+
 ---
 
 ## Development
