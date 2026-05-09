@@ -25,7 +25,7 @@
       }
     </div>
 
-    <div class="sidebar-group">
+    <div class="sidebar-group" style="padding-bottom: 40px !important;">
       <div class="sidebar-group-title">CSS Utilities</div>
       @for (item of cssClassList; track item.link) {
       <a class="sidebar-link" [routerLink]="item.link" routerLinkActive="active">{{ item.label }}</a>
