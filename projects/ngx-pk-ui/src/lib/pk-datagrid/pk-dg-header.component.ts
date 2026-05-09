@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, Input, ElementRef, AfterContentInit } from '@angular/core';
 
 @Component({
   selector: 'pk-dg-header',
@@ -8,7 +8,7 @@ import { Component, Input, ElementRef, AfterViewInit } from '@angular/core';
     'style': 'display: none'
   }
 })
-export class PkDgHeaderComponent implements AfterViewInit {
+export class PkDgHeaderComponent implements AfterContentInit {
   @Input() pkDgSort?: string;
   @Input() pkDgFilter?: string;
   @Input('style.width.px') widthPx?: number;
@@ -18,7 +18,7 @@ export class PkDgHeaderComponent implements AfterViewInit {
 
   constructor(private el: ElementRef) {}
 
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     const nativeElement = this.el.nativeElement;
     this.headerText = nativeElement.textContent?.trim() || '';
 

@@ -5,7 +5,7 @@
   
   <div class="pagination-controls">
     <button 
-      class="btn btn-sm btn-link"
+      class="pk-dg-btn pk-dg-btn-nav"
       [disabled]="currentPage === 1"
       (click)="goToPage(currentPage - 1)">
       ‹
@@ -13,16 +13,15 @@
     
     @for (page of pages; track page) {
       <button 
-        class="btn btn-sm"
-        [class.btn-primary]="page === currentPage"
-        [class.btn-link]="page !== currentPage"
+        class="pk-dg-btn"
+        [class.pk-dg-btn-active]="page === currentPage"
         (click)="goToPage(page)">
         {{ page }}
       </button>
     }
     
     <button 
-      class="btn btn-sm btn-link"
+      class="pk-dg-btn pk-dg-btn-nav"
       [disabled]="currentPage === totalPages"
       (click)="goToPage(currentPage + 1)">
       ›

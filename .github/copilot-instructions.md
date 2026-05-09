@@ -286,7 +286,11 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - **`ng new` creates a subdirectory** — `ng new <name>` always nests files. When creating the workspace in the repo root, files need to be moved up manually.
 - **Browser flag removed** — `ng test --browsers=ChromeHeadless` fails; Vitest uses its own browser provider. Run `ng test ngx-pk-ui --no-watch` directly.
 - **`NgTemplateOutlet` must be imported** — even though it's from `@angular/common`, it is not included automatically in standalone components. Add it to `imports: [NgTemplateOutlet]` in `PkTabs`.
-- **Never use `{{ }}` inside `<pre><code>` blocks** — Angular template compiler evaluates interpolations even in HTML-escaped content. `&#123;&#123;` decodes to `{{` before template compilation, causing binding errors. Use static text in code demo blocks instead.
+- **Never use `{{ }}` inside `<pre><code>` blocks** — Angular template compiler evaluates interpolations even in HTML-escaped content. `&#123;&#123;` decodes to `{{` before template compilation, causing binding errors. Use `{{ '{' }}{{ '{' }} expr {{ '}' }}{{ '}' }}` — each brace as a separate interpolation. `{ { expr } }` (space-separated) also fails with NG5002 ICU parse error.
+- **`pkTooltip` does not work on `<pk-dg-column>`** — that component uses `host: { style: 'display: contents' }` so it has no bounding box. Apply `[pkTooltip]` to an inner `<span>` instead.
+- **`provideHttpClient()` required for HttpClient** — add to `providers` in `app.config.ts` when any component uses `inject(HttpClient)`.
+- **Datagrid NG0100 fix** — `PkDgHeaderComponent` reads `textContent` in `ngAfterViewInit` (fires after parent CD). Fix: moved to `ngAfterContentInit`. This prevents ExpressionChangedAfterItHasBeenCheckedError in Angular 19+.
+- **Datagrid pagination CSS** — internal buttons use `pk-dg-btn` / `pk-dg-btn-active` / `pk-dg-btn-nav` (self-contained SCSS). No dependency on external `btn` classes — safe alongside Bootstrap or any other CSS framework.
 
 ---
 
@@ -295,7 +299,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `1.1.7` |
+| Library version | `1.1.9` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) |
@@ -727,3 +731,63 @@ export class MyComponent {
 - **`closeAble=false`** — hides the × button AND disables backdrop-click dismiss. You must emit `(onClose)` programmatically.
 - **Animation** — overlay fades in, dialog slides in from slightly above (pure CSS, no Angular Animations module).
 - **`customStyle`** — uses Angular's `[ngStyle]` binding; provide a `Record<string, string>` object.
+
+---
+
+## pk-tooltip API reference
+
+```ts
+import { PkTooltip } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkTooltip],
+})
+```
+
+```html
+<button [pkTooltip]="'Hello world'" pkTooltipPosition="top" pkTooltipType="primary">Hover me</button>
+
+<!-- Dynamic text -->
+<span [pkTooltip]="user.email" pkTooltipPosition="bottom" pkTooltipType="secondary">{{ user.email }}</span>
+```
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `pkTooltip` | `string` | required | Tooltip text |
+| `pkTooltipPosition` | `'top'\|'bottom'\|'left'\|'right'` | `'top'` | Tooltip placement |
+| `pkTooltipType` | `PkTooltipType` | `'primary'` | Color variant |
+
+`PkTooltipType` values: `'primary'` `'secondary'` `'success'` `'danger'` `'info'` + `-outline` suffix for each
+
+- `white-space: normal; max-width: 260px` — long text wraps automatically.
+- Tooltip is appended to `<body>` and positioned with JS — works on any element that has a real bounding box. **Does NOT work on elements with `display: contents`** (e.g. `<pk-dg-column>`).
+
+---
+
+## pk-datagrid key API
+
+### `<pk-dg-rows>` inputs
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `pkDgRow` | `any` | required | Data object for the row (used by sort/filter) |
+| `rowClass` | `string` | `''` | CSS class added to the `<tr>` element — e.g. `[rowClass]="row.active ? 'row-active' : ''"` |
+
+### `<pk-dg-header>` inputs
+| Input | Type | Description |
+|-------|------|-------------|
+| `pkDgSort` | `string` | Field key for sorting |
+| `pkDgFilter` | `string` | Field key for filter popup |
+
+### `<pk-dg-pagination>` inputs / properties
+| Input/Property | Type | Description |
+|----------------|------|-------------|
+| `pkDgPageSize` | `number` | Rows per page (default 10) |
+| `rowCount` | `number` | Total row count — **must be set** for correct page range display |
+| `firstItem` | `number` | 0-based index of first row on current page |
+| `lastItem` | `number` | 0-based index of last row on current page |
+
+### Directives
+| Directive | Usage |
+|-----------|-------|
+| `*pkDgRows` | `*pkDgRows="let row of rows"` — renders visible paged rows |
+| `*pkDgRowIsExpand` | On `<pk-dg-row-expand>` — renders only when row is expanded |

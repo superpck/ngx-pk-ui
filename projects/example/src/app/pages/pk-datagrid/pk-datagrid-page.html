@@ -4,27 +4,34 @@
     <p class="demo-page-desc">Data grid with sorting, filtering, pagination, loading, and expandable row detail.</p>
   </div>
 
-  @if (users) {
   <section class="demo-section">
     <h2>Demo</h2>
     <div class="demo-row" style="margin-bottom: 14px;">
-      <button class="pk-btn pk-btn-primary" (click)="simulateLoading()">Simulate loading</button>
+      <button class="pk-btn pk-btn-primary" (click)="fetchUsers()">
+        <pk-icon name="reload" [size]="14"></pk-icon> Reload
+      </button>
+      <span style="font-size:13px; color:#888; margin-left:8px;">{{ users.length }} users from randomuser.me</span>
     </div>
 
     <pk-datagrid [pkDgLoading]="loading()">
-      <pk-dg-header [pkDgSort]="'username'" [pkDgFilter]="'username'" [style.width.px]="180">Username</pk-dg-header>
-      <pk-dg-header [pkDgSort]="'firstName'" [pkDgFilter]="'firstName'" [style.width.px]="170">First name</pk-dg-header>
-      <pk-dg-header [pkDgSort]="'lastName'" [pkDgFilter]="'lastName'" [style.width.px]="170">Last name</pk-dg-header>
-      <pk-dg-header [pkDgSort]="'role'" [pkDgFilter]="'role'" [style.width.px]="150">Role</pk-dg-header>
-      <pk-dg-header [pkDgSort]="'active'" [style.width.px]="110">Status</pk-dg-header>
+      <pk-dg-header [style.width.px]="60">Photo</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'username'" [pkDgFilter]="'username'" [style.width.px]="160">Username</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'firstName'" [pkDgFilter]="'firstName'" [style.width.px]="140">First name</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'lastName'" [pkDgFilter]="'lastName'" [style.width.px]="140">Last name</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'gender'" [pkDgFilter]="'gender'" [style.width.px]="90">Gender</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'age'" [style.width.px]="70">Age</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'email'" [pkDgFilter]="'email'" [style.width.px]="220">Email</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'country'" [pkDgFilter]="'country'" [style.width.px]="140">Country</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'nat'" [style.width.px]="60">NAT</pk-dg-header>
 
-      <pk-dg-rows *pkDgRows="let user of users" [pkDgRow]="user">
+      <pk-dg-rows *pkDgRows="let user of users" [pkDgRow]="user" (click)="selectedUser = user">
         <pk-dg-action>
+          <div style="padding: 4px 12px; font-size: 0.75rem; color: #555;">
+            <img [src]="user.thumbnail" style="width:32px;height:32px;border-radius:50%;vertical-align:middle;margin-right:6px;" alt="">
+            {{ user.firstName }} {{ user.lastName }}
+          </div>
           <button class="action-item">
             <pk-icon name="eye" [size]="14"></pk-icon> View
-          </button>
-          <button class="action-item">
-            <pk-icon name="plus" [size]="14"></pk-icon> Add
           </button>
           <button class="action-item">
             <pk-icon name="pencil" [size]="14"></pk-icon> Edit
@@ -33,43 +40,142 @@
             <pk-icon name="trash" [size]="14"></pk-icon> Delete
           </button>
         </pk-dg-action>
+
+        <pk-dg-column>
+          <img [src]="user.thumbnail" style="width:32px;height:32px;border-radius:50%;display:block;" alt="">
+        </pk-dg-column>
         <pk-dg-column>{{ user.username }}</pk-dg-column>
         <pk-dg-column>{{ user.firstName }}</pk-dg-column>
         <pk-dg-column>{{ user.lastName }}</pk-dg-column>
-        <pk-dg-column>{{ user.role }}</pk-dg-column>
         <pk-dg-column>
-          <span class="pk-badge" [class.pk-badge-success]="user.active" [class.pk-badge-error]="!user.active">
-            {{ user.active ? 'Active' : 'Disabled' }}
+          <span class="pk-badge pk-badge-sm"
+            [class.pk-badge-primary]="user.gender === 'male'"
+            [class.pk-badge-success]="user.gender === 'female'">
+            {{ user.gender }}
           </span>
+        </pk-dg-column>
+        <pk-dg-column style="text-align:center;">{{ user.age }}</pk-dg-column>
+        <pk-dg-column>
+          <span [pkTooltip]="user.email" pkTooltipPosition="top"
+            style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+            {{ user.email }}
+          </span>
+        </pk-dg-column>
+        <pk-dg-column>
+          <span [pkTooltip]="user.city + ', ' + user.country" pkTooltipPosition="left" pkTooltipType="secondary"
+            style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+            {{ user.city }}, {{ user.country }}
+          </span>
+        </pk-dg-column>
+        <pk-dg-column style="text-align:center;">
+          <span class="pk-badge pk-badge-sm pk-badge-outline">{{ user.nat }}</span>
         </pk-dg-column>
 
         <pk-dg-row-expand *pkDgRowIsExpand>
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <span class="pk-badge pk-badge-pill">ID: {{ user.id }}</span>
-            <span class="pk-badge pk-badge-pill pk-badge-outline">{{ user.email }}</span>
-            <span class="pk-badge pk-badge-pill">Role: {{ user.role }}</span>
+          <div style="display:flex;gap:20px;padding:12px 16px 12px 34px;align-items:flex-start;flex-wrap:wrap;">
+            <img [src]="user.picture" style="width:80px;height:80px;border-radius:8px;object-fit:cover;" alt="">
+            <table style="font-size:13px;border-collapse:collapse;">
+              <tr>
+                <td style="color:#888;padding:3px 16px 3px 0;white-space:nowrap;">Full name</td>
+                <td style="font-weight:600;">{{ user.firstName }} {{ user.lastName }}</td>
+              </tr>
+              <tr>
+                <td style="color:#888;padding:3px 16px 3px 0;">Username</td>
+                <td>{{ user.username }}</td>
+              </tr>
+              <tr>
+                <td style="color:#888;padding:3px 16px 3px 0;">Email</td>
+                <td>{{ user.email }}</td>
+              </tr>
+              <tr>
+                <td style="color:#888;padding:3px 16px 3px 0;">Phone</td>
+                <td>{{ user.phone }}</td>
+              </tr>
+              <tr>
+                <td style="color:#888;padding:3px 16px 3px 0;">Mobile</td>
+                <td>{{ user.cell }}</td>
+              </tr>
+              <tr>
+                <td style="color:#888;padding:3px 16px 3px 0;">Date of birth</td>
+                <td>{{ user.dob | date:'dd MMM yyyy' }} ({{ user.age }} yrs)</td>
+              </tr>
+              <tr>
+                <td style="color:#888;padding:3px 16px 3px 0;">Location</td>
+                <td>{{ user.city }}, {{ user.country }} ({{ user.nat }})</td>
+              </tr>
+            </table>
           </div>
         </pk-dg-row-expand>
       </pk-dg-rows>
 
       <pk-dg-footer>
-        <pk-dg-pagination #pagination [pkDgPageSize]="10">
-          <pk-dg-page-size [pkPageSizeList]="[5, 10, 20]">Rows per page</pk-dg-page-size>
-          {{ pagination.firstItem + 1 }} - {{ pagination.lastItem }} of {{ users.length }} rows
+        <pk-dg-pagination #pagination [pkDgPageSize]="10" [rowCount]="users.length">
+          <pk-dg-page-size [pkPageSizeList]="[5, 10, 20, 50]">Rows per page</pk-dg-page-size>
+          {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of {{ users.length }} rows
         </pk-dg-pagination>
       </pk-dg-footer>
     </pk-datagrid>
   </section>
-  }
 
   <section class="demo-section">
     <h2>Usage</h2>
     <pre class="code-block"><code>import &#123; PkDatagridModule &#125; from 'ngx-pk-ui';
 
 &#64;Component(&#123;
+  selector: 'app-my-page',
   imports: [PkDatagridModule],
+  template: `
+    &lt;pk-datagrid [pkDgLoading]="loading"&gt;
+
+      &lt;!-- Column headers (sort / filter optional) --&gt;
+      &lt;pk-dg-header [pkDgSort]="'name'" [pkDgFilter]="'name'" [style.width.px]="200"&gt;Name&lt;/pk-dg-header&gt;
+      &lt;pk-dg-header [pkDgSort]="'role'" [style.width.px]="140"&gt;Role&lt;/pk-dg-header&gt;
+
+      &lt;!-- Rows (structural directive handles paging) --&gt;
+      &lt;pk-dg-rows *pkDgRows="let row of rows" [pkDgRow]="row"&gt;
+
+        &lt;!-- Optional action menu --&gt;
+        &lt;pk-dg-action&gt;
+          &lt;button class="action-item"&gt;Edit&lt;/button&gt;
+          &lt;button class="action-item" style="color:red"&gt;Delete&lt;/button&gt;
+        &lt;/pk-dg-action&gt;
+
+        &lt;!-- Data cells (one per header, in the same order) --&gt;
+        &lt;pk-dg-column&gt;{{ '{' }}{{ '{' }} row.name {{ '}' }}{{ '}' }}&lt;/pk-dg-column&gt;
+        &lt;pk-dg-column&gt;{{ '{' }}{{ '{' }} row.role {{ '}' }}{{ '}' }}&lt;/pk-dg-column&gt;
+
+        &lt;!-- Optional expandable row detail --&gt;
+        &lt;pk-dg-row-expand *pkDgRowIsExpand&gt;
+          &lt;p&gt;{{ '{' }}{{ '{' }} row.detail {{ '}' }}{{ '}' }}&lt;/p&gt;
+        &lt;/pk-dg-row-expand&gt;
+      &lt;/pk-dg-rows&gt;
+
+      &lt;!-- Footer with pagination --&gt;
+      &lt;pk-dg-footer&gt;
+        &lt;pk-dg-pagination #p [pkDgPageSize]="10" [rowCount]="rows.length"&gt;
+          &lt;pk-dg-page-size [pkPageSizeList]="[10, 20, 50]"&gt;Rows per page&lt;/pk-dg-page-size&gt;
+          {{ '{' }}{{ '{' }} p.firstItem + 1 {{ '}' }}{{ '}' }} - {{ '{' }}{{ '{' }} p.lastItem + 1 {{ '}' }}{{ '}' }} of {{ '{' }}{{ '{' }} rows.length {{ '}' }}{{ '}' }} rows
+        &lt;/pk-dg-pagination&gt;
+      &lt;/pk-dg-footer&gt;
+    &lt;/pk-datagrid&gt;
+  `,
 &#125;)
-export class AnyPage &#123;&#125;</code></pre>
+export class AnyPage &#123;
+  loading = false;
+  rows = [
+    &#123; name: 'Alice', role: 'Admin',     detail: 'alice@example.com' &#125;,
+    &#123; name: 'Bob',   role: 'Developer', detail: 'bob@example.com'   &#125;,
+  ];
+&#125;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>Data source</h2>
+    <p style="font-size:14px;color:#555;">
+      Demo data is generated by
+      <a href="https://randomuser.me" target="_blank" rel="noopener noreferrer" style="color:var(--pk-btn-primary,#1976d2);">Random User Generator</a>
+      — a free, open API for generating random user data.
+    </p>
   </section>
 
   <section class="demo-section">
@@ -88,6 +194,28 @@ export class AnyPage &#123;&#125;</code></pre>
         <td><code>boolean</code></td>
         <td><code>false</code></td>
         <td>Show loading overlay</td>
+      </tr>
+    </table>
+
+    <h3>pk-dg-rows</h3>
+    <table class="api-table">
+      <tr>
+        <th>Input</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>pkDgRow</code></td>
+        <td><code>any</code></td>
+        <td>—</td>
+        <td>The data object for this row (used by sort/filter directives)</td>
+      </tr>
+      <tr>
+        <td><code>rowClass</code></td>
+        <td><code>string</code></td>
+        <td><code>''</code></td>
+        <td>CSS class added to the <code>&lt;tr&gt;</code> element — useful for conditional row highlighting, e.g. <code>[rowClass]="row.active ? 'row-active' : ''"</code></td>
       </tr>
     </table>
 
@@ -111,7 +239,7 @@ export class AnyPage &#123;&#125;</code></pre>
       <tr>
         <td><code>[style.width.px]</code></td>
         <td><code>number</code></td>
-        <td>Column width in pixels</td>
+        <td>Column width in pixels (default 120)</td>
       </tr>
     </table>
 
