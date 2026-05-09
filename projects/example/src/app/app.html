@@ -1,22 +1,17 @@
 <div class="app-layout">
-  <button
-    class="app-menu-toggle"
-    type="button"
-    aria-label="Toggle navigation"
-    (click)="toggleMobileMenu()"
-  >
+  <button class="app-menu-toggle" type="button" aria-label="Toggle navigation" (click)="toggleMobileMenu()">
     <span></span>
     <span></span>
     <span></span>
   </button>
 
   @if (mobileMenuOpen()) {
-    <button class="app-backdrop" type="button" aria-label="Close navigation" (click)="closeMobileMenu()"></button>
+  <button class="app-backdrop" type="button" aria-label="Close navigation" (click)="closeMobileMenu()"></button>
   }
 
   <nav class="app-sidebar" [class.app-sidebar--open]="mobileMenuOpen()" (click)="onSidebarClick($event)">
     <div class="sidebar-logo">ngx-pk-ui</div>
-    <div class="sidebar-version">v1.1.3</div>
+    <div class="sidebar-version">v{{version}}</div>
 
     <div class="sidebar-group">
       <div class="sidebar-group-title">General</div>
@@ -26,14 +21,14 @@
     <div class="sidebar-group">
       <div class="sidebar-group-title">Components</div>
       @for (item of componentsList; track item.link) {
-        <a class="sidebar-link" [routerLink]="item.link" routerLinkActive="active">{{ item.label }}</a>
+      <a class="sidebar-link" [routerLink]="item.link" routerLinkActive="active">{{ item.label }}</a>
       }
     </div>
 
     <div class="sidebar-group">
       <div class="sidebar-group-title">CSS Utilities</div>
       @for (item of cssClassList; track item.link) {
-        <a class="sidebar-link" [routerLink]="item.link" routerLinkActive="active">{{ item.label }}</a>
+      <a class="sidebar-link" [routerLink]="item.link" routerLinkActive="active">{{ item.label }}</a>
       }
     </div>
   </nav>

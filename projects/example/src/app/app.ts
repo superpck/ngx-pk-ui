@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
-
+import { version } from '../../../../package.json';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
@@ -9,6 +9,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class App {
   mobileMenuOpen = signal(false);
+  version = version;
 
   readonly componentsList = [
     { label: 'accordion', link: '/pk-accordion' },
