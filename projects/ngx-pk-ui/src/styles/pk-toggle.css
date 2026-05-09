@@ -1,0 +1,190 @@
+/**
+ * pk-toggle — Toggle switch CSS for ngx-pk-ui
+ *
+ * Replaces <input type="checkbox"> with a styled toggle switch.
+ * Uses a visually-hidden checkbox + sibling label — fully accessible,
+ * keyboard-operable, and works without any JavaScript.
+ *
+ * Structure:
+ *   <label class="pk-toggle">
+ *     <input type="checkbox" />
+ *     <span class="pk-toggle__track"></span>
+ *     <span class="pk-toggle__label">Label text</span>   ← optional
+ *   </label>
+ *
+ * Variants:  pk-toggle-primary (default) | pk-toggle-success | pk-toggle-warn | pk-toggle-error
+ * Modifiers: pk-toggle-sm | pk-toggle-lg | pk-toggle-label-left
+ *
+ * Usage:
+ *   <label class="pk-toggle">
+ *     <input type="checkbox" />
+ *     <span class="pk-toggle__track"></span>
+ *   </label>
+ *
+ *   <label class="pk-toggle pk-toggle-success">
+ *     <input type="checkbox" checked />
+ *     <span class="pk-toggle__track"></span>
+ *     <span class="pk-toggle__label">Enable notifications</span>
+ *   </label>
+ *
+ *   <!-- Disabled -->
+ *   <label class="pk-toggle">
+ *     <input type="checkbox" disabled />
+ *     <span class="pk-toggle__track"></span>
+ *     <span class="pk-toggle__label">Disabled</span>
+ *   </label>
+ */
+
+/* ─── CSS Custom Properties ───────────────────────────────────────── */
+
+:root {
+  --pk-toggle-off-bg:      #bdbdbd;
+  --pk-toggle-thumb:       #fff;
+  --pk-toggle-shadow:      0 1px 4px rgba(0,0,0,0.25);
+  --pk-toggle-duration:    0.22s;
+
+  /* Track dimensions (md) */
+  --pk-toggle-width:       44px;
+  --pk-toggle-height:      24px;
+  --pk-toggle-thumb-size:  18px;
+  --pk-toggle-thumb-inset: 3px;
+}
+
+/* ─── Wrapper label ───────────────────────────────────────────────── */
+
+.pk-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.9rem;
+  color: #333;
+  vertical-align: middle;
+}
+
+/* ─── Visually-hidden native checkbox ────────────────────────────── */
+
+.pk-toggle input[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── Track ───────────────────────────────────────────────────────── */
+
+.pk-toggle__track {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: var(--pk-toggle-width);
+  height: var(--pk-toggle-height);
+  background-color: var(--pk-toggle-off-bg);
+  border-radius: 9999px;
+  transition: background-color var(--pk-toggle-duration) ease;
+}
+
+/* Thumb (pseudo-element) */
+.pk-toggle__track::after {
+  content: '';
+  position: absolute;
+  top: var(--pk-toggle-thumb-inset);
+  left: var(--pk-toggle-thumb-inset);
+  width: var(--pk-toggle-thumb-size);
+  height: var(--pk-toggle-thumb-size);
+  background-color: var(--pk-toggle-thumb);
+  border-radius: 50%;
+  box-shadow: var(--pk-toggle-shadow);
+  transition: transform var(--pk-toggle-duration) ease,
+              box-shadow var(--pk-toggle-duration) ease;
+}
+
+/* ─── Checked state — default (primary) ──────────────────────────── */
+
+.pk-toggle input[type="checkbox"]:checked + .pk-toggle__track {
+  background-color: var(--pk-btn-primary, #1976d2);
+}
+
+.pk-toggle input[type="checkbox"]:checked + .pk-toggle__track::after {
+  transform: translateX(calc(var(--pk-toggle-width) - var(--pk-toggle-thumb-size) - var(--pk-toggle-thumb-inset) * 2));
+}
+
+/* ─── Focus ring (keyboard accessibility) ────────────────────────── */
+
+.pk-toggle input[type="checkbox"]:focus-visible + .pk-toggle__track {
+  outline: 2px solid var(--pk-btn-primary, #1976d2);
+  outline-offset: 2px;
+}
+
+/* ─── Disabled ────────────────────────────────────────────────────── */
+
+.pk-toggle input[type="checkbox"]:disabled + .pk-toggle__track {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.pk-toggle:has(input[type="checkbox"]:disabled) {
+  cursor: not-allowed;
+  color: #9e9e9e;
+}
+
+/* ─── Color Variants ──────────────────────────────────────────────── */
+
+.pk-toggle-success input[type="checkbox"]:checked + .pk-toggle__track {
+  background-color: var(--pk-btn-success, #43a047);
+}
+
+.pk-toggle-success input[type="checkbox"]:focus-visible + .pk-toggle__track {
+  outline-color: var(--pk-btn-success, #43a047);
+}
+
+.pk-toggle-warn input[type="checkbox"]:checked + .pk-toggle__track {
+  background-color: var(--pk-btn-warn, #fb8c00);
+}
+
+.pk-toggle-warn input[type="checkbox"]:focus-visible + .pk-toggle__track {
+  outline-color: var(--pk-btn-warn, #fb8c00);
+}
+
+.pk-toggle-error input[type="checkbox"]:checked + .pk-toggle__track {
+  background-color: var(--pk-btn-error, #e53935);
+}
+
+.pk-toggle-error input[type="checkbox"]:focus-visible + .pk-toggle__track {
+  outline-color: var(--pk-btn-error, #e53935);
+}
+
+/* ─── Size: sm ────────────────────────────────────────────────────── */
+
+.pk-toggle-sm {
+  --pk-toggle-width:       34px;
+  --pk-toggle-height:      18px;
+  --pk-toggle-thumb-size:  12px;
+  --pk-toggle-thumb-inset: 3px;
+  font-size: 0.8rem;
+  gap: 7px;
+}
+
+/* ─── Size: lg ────────────────────────────────────────────────────── */
+
+.pk-toggle-lg {
+  --pk-toggle-width:       56px;
+  --pk-toggle-height:      30px;
+  --pk-toggle-thumb-size:  22px;
+  --pk-toggle-thumb-inset: 4px;
+  font-size: 1rem;
+  gap: 12px;
+}
+
+/* ─── Label on the left ───────────────────────────────────────────── */
+
+.pk-toggle-label-left {
+  flex-direction: row-reverse;
+}

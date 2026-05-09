@@ -1,0 +1,53 @@
+/**
+ * pk-font — Thai & Lao Google Fonts helper classes for ngx-pk-ui
+ *
+ * All fonts are served from Google Fonts CDN (SIL Open Font License 1.1).
+ * Note: "Google Sans" is a proprietary Google typeface — not on Google Fonts.
+ *
+ * ── Thai ──────────────────────────────────────────────────────────────
+ * Bai Jamjuree · Chakra Petch · Charm · Charmonman · Kanit · Mitr
+ * Noto Sans Thai · Pattaya · Prompt · Sarabun · Sriracha · Srisakdi
+ * Thasadith · Trirong
+ *
+ * ── Lao ───────────────────────────────────────────────────────────────
+ * Noto Sans Lao · Noto Sans Lao Looped · Noto Serif Lao · Phetsarath
+ *
+ * Usage:
+ *   <p class="pk-font-sarabun">ข้อความภาษาไทย</p>
+ *   <p class="pk-font-noto-sans-lao">ຂໍ້ຄວາມພາສາລາວ</p>
+ *
+ * Import (opt-in — not included in pk-ui.css by default):
+ *   @import 'ngx-pk-ui/styles/pk-font.css';
+ */
+
+/* ─── Thai fonts ──────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@300;400;500;600;700&family=Chakra+Petch:wght@300;400;500;600;700&family=Charm:wght@400;700&family=Charmonman:wght@400;700&family=Kanit:wght@300;400;500;600;700&family=Mitr:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Pattaya&family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Sriracha&family=Srisakdi:wght@400;700&family=Thasadith:wght@400;700&family=Trirong:wght@300;400;500;600;700&display=swap');
+
+/* ─── Lao fonts ───────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&family=Noto+Sans+Lao+Looped:wght@300;400;500;600;700&family=Noto+Serif+Lao:wght@300;400;500;600;700&family=Phetsarath:wght@400;700&display=swap');
+
+/* ─── Thai class map ──────────────────────────────────────────────── */
+
+.pk-font-bai-jamjuree  { font-family: 'Bai Jamjuree',  sans-serif; }
+.pk-font-chakra-petch  { font-family: 'Chakra Petch',  sans-serif; }
+.pk-font-charm         { font-family: 'Charm',         cursive;    }
+.pk-font-charmonman    { font-family: 'Charmonman',    cursive;    }
+.pk-font-kanit         { font-family: 'Kanit',         sans-serif; }
+.pk-font-mitr          { font-family: 'Mitr',          sans-serif; }
+.pk-font-noto-sans-thai { font-family: 'Noto Sans Thai', sans-serif; }
+.pk-font-pattaya       { font-family: 'Pattaya',       sans-serif; }
+.pk-font-prompt        { font-family: 'Prompt',        sans-serif; }
+.pk-font-sarabun       { font-family: 'Sarabun',       sans-serif; }
+.pk-font-sriracha      { font-family: 'Sriracha',      cursive;    }
+.pk-font-srisakdi      { font-family: 'Srisakdi',      cursive;    }
+.pk-font-thasadith     { font-family: 'Thasadith',     sans-serif; }
+.pk-font-trirong       { font-family: 'Trirong',       serif;      }
+
+/* ─── Lao class map ───────────────────────────────────────────────── */
+
+.pk-font-noto-sans-lao         { font-family: 'Noto Sans Lao',        sans-serif; }
+.pk-font-noto-sans-lao-looped  { font-family: 'Noto Sans Lao Looped', sans-serif; }
+.pk-font-noto-serif-lao        { font-family: 'Noto Serif Lao',       serif;      }
+.pk-font-phetsarath            { font-family: 'Phetsarath',           sans-serif; }

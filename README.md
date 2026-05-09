@@ -1,4 +1,4 @@
-# ngx-pk-ui 1.1.4
+# ngx-pk-ui 1.1.6
 
 An Angular 21 component library providing UI components and CSS utilities.
 
@@ -87,6 +87,8 @@ import { PkAccordion, PkAccordionItem } from 'ngx-pk-ui';
 | `pk-badge.css` | Badges and dot indicators |
 | `pk-card.css` | Card layouts |
 | `pk-table.css` | Styled tables with striped, hover, bordered, size and color variants |
+| `pk-toggle.css` | Toggle switch replacing `<input type="checkbox">` |
+| `pk-font.css` | Thai & Lao Google Fonts helper classes (opt-in, not in pk-ui.css) |
 | `pk-icon-font.css` | Material Symbols font classes |
 
 ### Include all at once
@@ -133,6 +135,42 @@ Or import individually:
 | `pk-table-compact` | Minimal padding + smaller font |
 | `pk-table-primary/success/warn/error` | Colored `<thead>` |
 | `pk-table-responsive` | Wrapper `<div>` — horizontal scroll on overflow |
+
+---
+
+### pk-toggle
+
+```html
+<!-- Minimal -->
+<label class="pk-toggle">
+  <input type="checkbox" />
+  <span class="pk-toggle__track"></span>
+</label>
+
+<!-- With label + color variant -->
+<label class="pk-toggle pk-toggle-success">
+  <input type="checkbox" checked />
+  <span class="pk-toggle__track"></span>
+  <span class="pk-toggle__label">Enable feature</span>
+</label>
+
+<!-- Angular two-way binding -->
+<label class="pk-toggle">
+  <input type="checkbox" [(ngModel)]="isEnabled" />
+  <span class="pk-toggle__track"></span>
+  <span class="pk-toggle__label">{{ isEnabled ? 'On' : 'Off' }}</span>
+</label>
+```
+
+| Class | Description |
+|-------|-------------|
+| `pk-toggle` | Wrapper `<label>` — required |
+| `pk-toggle__track` | Track + thumb `<span>` — required |
+| `pk-toggle__label` | Optional text label `<span>` |
+| `pk-toggle-success/warn/error` | Checked color variant |
+| `pk-toggle-sm` | Small (34×18 px) |
+| `pk-toggle-lg` | Large (56×30 px) |
+| `pk-toggle-label-left` | Move label to the left of the track |
 
 ---
 

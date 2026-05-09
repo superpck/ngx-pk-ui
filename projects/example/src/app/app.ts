@@ -33,9 +33,11 @@ export class App {
     { label: 'breadcrumb', link: '/pk-breadcrumb' },
     { label: 'button', link: '/pk-btn' },
     { label: 'card', link: '/pk-card' },
+    { label: 'font', link: '/pk-font' },
     { label: 'grid', link: '/pk-grid' },
     { label: 'spinner', link: '/pk-spinner' },
     { label: 'table', link: '/pk-table' },
+    { label: 'toggle', link: '/pk-toggle' },
   ];
 
   toggleMobileMenu(): void {
