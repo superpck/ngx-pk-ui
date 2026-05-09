@@ -27,4 +27,5 @@ export const routes: Routes = [
   { path: 'pk-breadcrumb', loadComponent: () => import('./pages/pk-breadcrumb/pk-breadcrumb-page').then(m => m.PkBreadcrumbPage) },
   { path: 'pk-tooltip', loadComponent: () => import('./pages/pk-tooltip/pk-tooltip-page').then(m => m.PkTooltipPage) },
   { path: 'pk-form', loadComponent: () => import('./pages/pk-form/pk-form-page').then(m => m.PkFormPage) },
+  { path: 'pk-layout', loadComponent: () => import('./pages/pk-layout/pk-layout-page').then(m => m.PkLayoutPage) },
 ];

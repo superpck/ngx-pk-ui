@@ -29,6 +29,7 @@ export class App {
   ];
 
   readonly cssClassList = [
+    { label: 'layout', link: '/pk-layout' },
     { label: 'badge', link: '/pk-badge' },
     { label: 'breadcrumb', link: '/pk-breadcrumb' },
     { label: 'button', link: '/pk-btn' },
@@ -51,7 +52,7 @@ export class App {
 
   onSidebarClick(event: Event): void {
     const target = event.target as HTMLElement | null;
-    if (target?.closest('.sidebar-link')) {
+    if (target?.closest('.pk-sidebar__link')) {
       this.closeMobileMenu();
     }
   }

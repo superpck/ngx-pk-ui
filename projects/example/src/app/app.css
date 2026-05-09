@@ -1,165 +1,40 @@
+/* ── pk-layout variable overrides for this app ────────────── */
 :host {
   display: block;
-  --sidebar-width: 220px;
-  --sidebar-bg: #fff;
-  --sidebar-text: #313541;
-  --sidebar-active: #0153d6;
-  --sidebar-hover: #16194a;
-  --content-bg: #f9f9ee;
+  /* Sidebar */
+  --pk-sidebar-bg: #ffffff;
+  --pk-sidebar-link-color: #313541;
+  --pk-sidebar-link-hover-bg: #16194a;
+  --pk-sidebar-link-hover-color: #ffffff;
+  --pk-sidebar-link-active-color: #0153d6;
+  --pk-sidebar-link-active-bg: rgba(137, 180, 250, 0.521);
+  --pk-sidebar-link-active-border: #0153d6;
+  --pk-sidebar-heading-color: #7280ed;
+  /* Navbar */
+  --pk-navbar-bg: #ffffff;
+  --pk-navbar-text: #313541;
+  /* Layout */
+  --pk-layout-bg: #f9f9ee;
+
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-:host {
-  margin: 0;
-}
-
-.app-layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-.app-sidebar {
-  width: var(--sidebar-width);
-  background: var(--sidebar-bg);
-  color: var(--sidebar-text);
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  overflow-y: auto;
-  z-index: 100;
-}
-
-.sidebar-logo {
-  font-size: 18px;
+/* ── App-specific brand slot ───────────────────────────────── */
+.app-brand-name {
+  font-size: 1.05rem;
   font-weight: 700;
   color: #2661eb;
-  padding: 20px 20px 4px;
   letter-spacing: 0.03em;
+  white-space: nowrap;
 }
 
-.sidebar-version {
-  font-size: 11px;
+.app-brand-version {
+  font-size: 0.6875rem;
   color: #585b70;
-  padding: 0 20px 20px;
+  white-space: nowrap;
 }
 
-.sidebar-group {
-  margin: 4px 0px;
-}
-
-.sidebar-group-title {
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #7280ed;
-  padding: 12px 20px 4px;
-}
-
-.sidebar-link {
-  display: block;
-  padding: 7px 20px;
-  color: var(--sidebar-text);
-  text-decoration: none;
-  font-size: 14px;
-  border-left: 3px solid transparent;
-  transition: background 0.15s, color 0.15s;
-}
-
-.sidebar-link:hover {
-  background: var(--sidebar-hover);
-  color: #fff;
+/* Sidebar active link: override border-radius from hover */
+.pk-sidebar__link:hover {
   border-radius: 2px;
-}
-
-.sidebar-link.active {
-  border-left-color: var(--sidebar-active);
-  color: var(--sidebar-active);
-  background: rgba(137, 180, 250, 0.521);
-  font-weight: 600;
-}
-
-.app-content {
-  margin-left: var(--sidebar-width);
-  flex: 1;
-  background: var(--content-bg);
-  min-height: 100vh;
-  padding: 32px 40px;
-}
-
-.app-menu-toggle {
-  display: none;
-}
-
-.app-backdrop {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .app-layout {
-    min-height: 100dvh;
-  }
-
-  .app-menu-toggle {
-    display: inline-flex;
-    position: fixed;
-    top: 14px;
-    left: 14px;
-    z-index: 130;
-    width: 42px;
-    height: 42px;
-    border: none;
-    border-radius: 10px;
-    background: #ffffff;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 4px;
-    cursor: pointer;
-  }
-
-  .app-menu-toggle span {
-    display: block;
-    width: 18px;
-    height: 2px;
-    background: #1f2937;
-    border-radius: 2px;
-  }
-
-  .app-backdrop {
-    display: block;
-    position: fixed;
-    inset: 0;
-    z-index: 105;
-    background: rgba(15, 23, 42, 0.42);
-    border: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .app-sidebar {
-    width: min(82vw, 300px);
-    transform: translateX(-108%);
-    transition: transform 0.2s ease;
-    box-shadow: 12px 0 28px rgba(0, 0, 0, 0.24);
-    z-index: 120;
-  }
-
-  .app-sidebar.app-sidebar--open {
-    transform: translateX(0);
-  }
-
-  .app-content {
-    margin-left: 0;
-    width: 100%;
-    padding: 64px 16px 20px;
-  }
 }

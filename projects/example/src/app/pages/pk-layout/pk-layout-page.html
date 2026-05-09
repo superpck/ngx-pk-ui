@@ -1,0 +1,194 @@
+<section class="demo-section">
+  <h1>pk-layout</h1>
+  <p style="color:#555;margin-top:4px">
+    A pure-CSS layout shell: fixed top navbar + fixed sidebar. All dimensions and colors are CSS variables — override in <code>:root</code> or any parent selector.
+  </p>
+</section>
+
+<!-- ── Usage ─────────────────────────────────────────────────── -->
+<section class="demo-section">
+  <h2>Usage</h2>
+  <p>Import from <code>pk-ui.css</code> (already included) or directly:</p>
+
+  <pre><code>&#64;import 'ngx-pk-ui/styles/pk-layout.css';</code></pre>
+
+  <pre><code>&lt;div class="pk-layout"&gt;
+
+  &lt;!-- Fixed top navbar --&gt;
+  &lt;nav class="pk-navbar"&gt;
+    &lt;button class="pk-navbar__hamburger"&gt;...&lt;/button&gt;
+    &lt;div class="pk-navbar__brand"&gt;My App&lt;/div&gt;
+    &lt;div class="pk-navbar__content"&gt;
+      &lt;span class="pk-navbar__title"&gt;Page Title&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="pk-navbar__end"&gt;
+      &lt;!-- avatar, buttons, etc. --&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+
+  &lt;!-- Mobile backdrop (show/hide via JS) --&gt;
+  &lt;button class="pk-layout__backdrop pk-layout__backdrop--open"
+          (click)="closeSidebar()"&gt;&lt;/button&gt;
+
+  &lt;!-- Fixed sidebar --&gt;
+  &lt;nav class="pk-sidebar pk-sidebar--open"&gt;
+    &lt;div class="pk-sidebar__section"&gt;
+      &lt;span class="pk-sidebar__heading"&gt;General&lt;/span&gt;
+      &lt;a class="pk-sidebar__link active" href="#"&gt;Home&lt;/a&gt;
+      &lt;a class="pk-sidebar__link" href="#"&gt;Settings&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class="pk-sidebar__divider"&gt;&lt;/div&gt;
+    &lt;div class="pk-sidebar__section"&gt;
+      &lt;span class="pk-sidebar__heading"&gt;Reports&lt;/span&gt;
+      &lt;a class="pk-sidebar__link" href="#"&gt;Sales&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+
+  &lt;!-- Main content --&gt;
+  &lt;main class="pk-layout__main"&gt;
+    &lt;router-outlet /&gt;
+  &lt;/main&gt;
+
+&lt;/div&gt;</code></pre>
+</section>
+
+<!-- ── CSS Variables ──────────────────────────────────────────── -->
+<section class="demo-section">
+  <h2>CSS Variables</h2>
+
+  <h3 style="margin-top:20px">Navbar</h3>
+  <table class="pk-table pk-table-bordered" style="width:100%">
+    <thead>
+      <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--pk-navbar-height</code></td><td><code>56px</code></td><td>Height of the fixed navbar</td></tr>
+      <tr><td><code>--pk-navbar-bg</code></td><td><code>#ffffff</code></td><td>Navbar background color</td></tr>
+      <tr><td><code>--pk-navbar-border</code></td><td><code>#e5e7eb</code></td><td>Bottom border + brand border-right color</td></tr>
+      <tr><td><code>--pk-navbar-shadow</code></td><td><code>0 1px 4px rgba(0,0,0,0.08)</code></td><td>Navbar box-shadow</td></tr>
+      <tr><td><code>--pk-navbar-text</code></td><td><code>#111827</code></td><td>Text color inside navbar</td></tr>
+      <tr><td><code>--pk-navbar-brand-font-size</code></td><td><code>1.05rem</code></td><td>Brand slot font size</td></tr>
+      <tr><td><code>--pk-navbar-brand-font-weight</code></td><td><code>700</code></td><td>Brand slot font weight</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:24px">Sidebar</h3>
+  <table class="pk-table pk-table-bordered" style="width:100%">
+    <thead>
+      <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--pk-sidebar-width</code></td><td><code>220px</code></td><td>Sidebar width (desktop)</td></tr>
+      <tr><td><code>--pk-sidebar-bg</code></td><td><code>#ffffff</code></td><td>Sidebar background</td></tr>
+      <tr><td><code>--pk-sidebar-border</code></td><td><code>#e5e7eb</code></td><td>Sidebar right border + divider color</td></tr>
+      <tr><td><code>--pk-sidebar-link-color</code></td><td><code>#374151</code></td><td>Default link text color</td></tr>
+      <tr><td><code>--pk-sidebar-link-hover-bg</code></td><td><code>rgba(0,0,0,0.05)</code></td><td>Link hover background</td></tr>
+      <tr><td><code>--pk-sidebar-link-hover-color</code></td><td><code>inherit</code></td><td>Link hover text color</td></tr>
+      <tr><td><code>--pk-sidebar-link-active-color</code></td><td><code>var(--pk-btn-primary)</code></td><td>Active link text color</td></tr>
+      <tr><td><code>--pk-sidebar-link-active-bg</code></td><td><code>rgba(25,118,210,0.08)</code></td><td>Active link background</td></tr>
+      <tr><td><code>--pk-sidebar-link-active-border</code></td><td><code>var(--pk-btn-primary)</code></td><td>Active link left border color</td></tr>
+      <tr><td><code>--pk-sidebar-heading-color</code></td><td><code>#9ca3af</code></td><td>Section heading color</td></tr>
+      <tr><td><code>--pk-sidebar-heading-font-size</code></td><td><code>0.6875rem</code></td><td>Section heading font size</td></tr>
+      <tr><td><code>--pk-sidebar-link-font-size</code></td><td><code>0.875rem</code></td><td>Link font size</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:24px">Layout / Main</h3>
+  <table class="pk-table pk-table-bordered" style="width:100%">
+    <thead>
+      <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--pk-layout-bg</code></td><td><code>#f9fafb</code></td><td>Main content background</td></tr>
+      <tr><td><code>--pk-layout-main-pad-top</code></td><td><code>calc(navbar-height + 32px)</code></td><td>Main content top padding (accounts for fixed navbar)</td></tr>
+      <tr><td><code>--pk-layout-main-pad-x</code></td><td><code>40px</code></td><td>Main content horizontal padding</td></tr>
+      <tr><td><code>--pk-layout-main-pad-bottom</code></td><td><code>40px</code></td><td>Main content bottom padding</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ── Class Reference ───────────────────────────────────────── -->
+<section class="demo-section">
+  <h2>Class Reference</h2>
+
+  <h3 style="margin-top:20px">Layout shell</h3>
+  <table class="pk-table pk-table-bordered" style="width:100%">
+    <thead><tr><th>Class</th><th>Element</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>.pk-layout</code></td><td>wrapper div</td><td>Flex shell, <code>min-height: 100vh</code></td></tr>
+      <tr><td><code>.pk-layout__main</code></td><td>main</td><td>Content area — auto margin-left to clear sidebar; top padding for navbar</td></tr>
+      <tr><td><code>.pk-layout__backdrop</code></td><td>button</td><td>Invisible overlay (hidden by default)</td></tr>
+      <tr><td><code>.pk-layout__backdrop--open</code></td><td>modifier</td><td>Makes backdrop visible (<code>display: block</code>)</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:24px">Navbar</h3>
+  <table class="pk-table pk-table-bordered" style="width:100%">
+    <thead><tr><th>Class</th><th>Element</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>.pk-navbar</code></td><td>nav</td><td>Fixed top bar, full width, z-index 200</td></tr>
+      <tr><td><code>.pk-navbar__brand</code></td><td>div / a</td><td>Left slot — same width as sidebar on desktop, right border</td></tr>
+      <tr><td><code>.pk-navbar__hamburger</code></td><td>button</td><td>Hidden on desktop; visible on mobile — place inside navbar before brand</td></tr>
+      <tr><td><code>.pk-navbar__hamburger-icon</code></td><td>span</td><td>Built-in 3-line icon (3 child <code>&lt;span&gt;</code>s)</td></tr>
+      <tr><td><code>.pk-navbar__content</code></td><td>div</td><td>Flex-1 center slot — page title, breadcrumb</td></tr>
+      <tr><td><code>.pk-navbar__title</code></td><td>span / h1</td><td>Truncated page title inside <code>__content</code></td></tr>
+      <tr><td><code>.pk-navbar__end</code></td><td>div</td><td>Right slot — avatar, action buttons, etc.</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:24px">Sidebar</h3>
+  <table class="pk-table pk-table-bordered" style="width:100%">
+    <thead><tr><th>Class</th><th>Element</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>.pk-sidebar</code></td><td>nav / aside</td><td>Fixed left bar, starts below navbar, z-index 150</td></tr>
+      <tr><td><code>.pk-sidebar--open</code></td><td>modifier</td><td>Slides sidebar into view on mobile</td></tr>
+      <tr><td><code>.pk-sidebar__section</code></td><td>div</td><td>Groups a heading + related links</td></tr>
+      <tr><td><code>.pk-sidebar__heading</code></td><td>span / div</td><td>Uppercase section label</td></tr>
+      <tr><td><code>.pk-sidebar__link</code></td><td>a</td><td>Nav item — add <code>.active</code> or <code>.pk-sidebar__link--active</code> for active state</td></tr>
+      <tr><td><code>.pk-sidebar__divider</code></td><td>div</td><td>Thin horizontal rule between sections</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ── Responsive ────────────────────────────────────────────── -->
+<section class="demo-section">
+  <h2>Responsive behaviour</h2>
+  <table class="pk-table pk-table-bordered" style="width:100%">
+    <thead><tr><th>Viewport</th><th>Navbar</th><th>Sidebar</th><th>Main</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>&gt; 768px</code></td>
+        <td>Brand slot fixed width = sidebar width, right border. Hamburger hidden.</td>
+        <td>Always visible, fixed left starting below navbar.</td>
+        <td><code>margin-left: var(--pk-sidebar-width)</code></td>
+      </tr>
+      <tr>
+        <td><code>≤ 768px</code></td>
+        <td>Brand has no fixed width or right border. Hamburger shown inside navbar.</td>
+        <td>Hidden (<code>translateX(-110%)</code>) by default; slides in on <code>--open</code> with backdrop overlay.</td>
+        <td><code>margin-left: 0</code>, reduced padding.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ── Override example ──────────────────────────────────────── -->
+<section class="demo-section">
+  <h2>Override example</h2>
+  <p>Set CSS variables on any ancestor to theme the layout:</p>
+  <pre><code>:root {{ '{' }}
+  --pk-navbar-bg: #1e293b;
+  --pk-navbar-text: #f1f5f9;
+  --pk-navbar-border: #334155;
+  --pk-sidebar-bg: #0f172a;
+  --pk-sidebar-link-color: #94a3b8;
+  --pk-sidebar-link-hover-bg: rgba(255, 255, 255, 0.06);
+  --pk-sidebar-link-hover-color: #f1f5f9;
+  --pk-sidebar-link-active-color: #38bdf8;
+  --pk-sidebar-link-active-bg: rgba(56, 189, 248, 0.1);
+  --pk-sidebar-link-active-border: #38bdf8;
+  --pk-sidebar-heading-color: #475569;
+  --pk-sidebar-border: #1e293b;
+  --pk-layout-bg: #111827;
+{{ '}' }}</code></pre>
+</section>

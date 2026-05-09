@@ -1,0 +1,303 @@
+/**
+ * pk-layout.css — Top navbar + sidebar layout shell
+ *
+ * A pure-CSS layout utility that wires up a fixed top navbar with
+ * a matching fixed sidebar. All colors and dimensions are driven by
+ * CSS custom properties so consuming apps can override every value.
+ *
+ * Usage:
+ *   <div class="pk-layout">
+ *     <nav class="pk-navbar"> … </nav>
+ *     <aside class="pk-sidebar pk-sidebar--open"> … </aside>
+ *     <button class="pk-layout__backdrop pk-layout__backdrop--open"></button>
+ *     <main class="pk-layout__main"> … </main>
+ *   </div>
+ */
+
+/* ─── CSS Variables ──────────────────────────────────────────── */
+:root {
+  /* Navbar */
+  --pk-navbar-height: 56px;
+  --pk-navbar-bg: #ffffff;
+  --pk-navbar-border: #e5e7eb;
+  --pk-navbar-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --pk-navbar-text: #111827;
+  --pk-navbar-brand-font-size: 1.05rem;
+  --pk-navbar-brand-font-weight: 700;
+
+  /* Sidebar */
+  --pk-sidebar-width: 220px;
+  --pk-sidebar-bg: #ffffff;
+  --pk-sidebar-border: #e5e7eb;
+  --pk-sidebar-link-color: #374151;
+  --pk-sidebar-link-hover-bg: rgba(0, 0, 0, 0.05);
+  --pk-sidebar-link-hover-color: inherit;
+  --pk-sidebar-link-active-color: var(--pk-btn-primary, #1976d2);
+  --pk-sidebar-link-active-bg: rgba(25, 118, 210, 0.08);
+  --pk-sidebar-link-active-border: var(--pk-btn-primary, #1976d2);
+  --pk-sidebar-heading-color: #9ca3af;
+  --pk-sidebar-heading-font-size: 0.6875rem;
+  --pk-sidebar-link-font-size: 0.875rem;
+
+  /* Layout / main content */
+  --pk-layout-bg: #f9fafb;
+  --pk-layout-main-pad-top: calc(var(--pk-navbar-height) + 32px);
+  --pk-layout-main-pad-x: 40px;
+  --pk-layout-main-pad-bottom: 40px;
+}
+
+/* ─── Layout Shell ───────────────────────────────────────────── */
+.pk-layout {
+  display: flex;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.pk-layout *,
+.pk-layout *::before,
+.pk-layout *::after {
+  box-sizing: border-box;
+}
+
+/* ─── Top Navbar ─────────────────────────────────────────────── */
+.pk-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--pk-navbar-height);
+  background: var(--pk-navbar-bg);
+  border-bottom: 1px solid var(--pk-navbar-border);
+  box-shadow: var(--pk-navbar-shadow);
+  display: flex;
+  align-items: center;
+  z-index: 200;
+  color: var(--pk-navbar-text);
+}
+
+/* Brand: sits above the sidebar, same width on desktop */
+.pk-navbar__brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: var(--pk-sidebar-width);
+  height: 100%;
+  padding: 0 20px;
+  border-right: 1px solid var(--pk-navbar-border);
+  font-size: var(--pk-navbar-brand-font-size);
+  font-weight: var(--pk-navbar-brand-font-weight);
+  color: var(--pk-navbar-text);
+  text-decoration: none;
+  gap: 10px;
+  overflow: hidden;
+}
+
+/* Hamburger: hidden on desktop, shown on mobile */
+.pk-navbar__hamburger {
+  display: none;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin: 0 4px 0 10px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  color: var(--pk-navbar-text);
+  transition: background 0.15s;
+}
+
+.pk-navbar__hamburger:hover {
+  background: var(--pk-sidebar-link-hover-bg);
+}
+
+/* Default hamburger icon (3 lines) — override by placing any content inside */
+.pk-navbar__hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 18px;
+}
+
+.pk-navbar__hamburger-icon span {
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+/* Middle content area — page title / breadcrumb slot */
+.pk-navbar__content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.pk-navbar__title {
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--pk-navbar-text);
+}
+
+/* Right-side actions slot — avatar, buttons, etc. */
+.pk-navbar__end {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+
+/* ─── Sidebar ────────────────────────────────────────────────── */
+.pk-sidebar {
+  position: fixed;
+  top: var(--pk-navbar-height);
+  left: 0;
+  width: var(--pk-sidebar-width);
+  height: calc(100vh - var(--pk-navbar-height));
+  background: var(--pk-sidebar-bg);
+  border-right: 1px solid var(--pk-sidebar-border);
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar styling (non-intrusive) */
+.pk-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.pk-sidebar::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 4px;
+}
+
+/* Section wrapper — groups heading + links */
+.pk-sidebar__section {
+  padding: 8px 0;
+}
+
+/* Section heading (e.g. "COMPONENTS") */
+.pk-sidebar__heading {
+  display: block;
+  padding: 10px 20px 4px;
+  font-size: var(--pk-sidebar-heading-font-size);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--pk-sidebar-heading-color);
+}
+
+/* Nav link */
+.pk-sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 20px;
+  font-size: var(--pk-sidebar-link-font-size);
+  color: var(--pk-sidebar-link-color);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pk-sidebar__link:hover {
+  background: var(--pk-sidebar-link-hover-bg);
+  color: var(--pk-sidebar-link-hover-color);
+}
+
+/* Active state — works with Angular routerLinkActive="active" or manual --active class */
+.pk-sidebar__link.active,
+.pk-sidebar__link--active {
+  border-left-color: var(--pk-sidebar-link-active-border);
+  color: var(--pk-sidebar-link-active-color);
+  background: var(--pk-sidebar-link-active-bg);
+  font-weight: 600;
+}
+
+/* Horizontal divider between sections */
+.pk-sidebar__divider {
+  height: 1px;
+  background: var(--pk-sidebar-border);
+  margin: 8px 16px;
+}
+
+/* ─── Main Content ───────────────────────────────────────────── */
+.pk-layout__main {
+  flex: 1;
+  margin-left: var(--pk-sidebar-width);
+  padding: var(--pk-layout-main-pad-top) var(--pk-layout-main-pad-x) var(--pk-layout-main-pad-bottom);
+  min-height: 100vh;
+  background: var(--pk-layout-bg);
+}
+
+/* ─── Mobile Backdrop ────────────────────────────────────────── */
+.pk-layout__backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 140;
+  background: rgba(15, 23, 42, 0.42);
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.pk-layout__backdrop--open {
+  display: block;
+}
+
+/* ─── Responsive (mobile ≤ 768px) ───────────────────────────── */
+@media (max-width: 768px) {
+  /* Hamburger: show */
+  .pk-navbar__hamburger {
+    display: flex;
+  }
+
+  /* Brand: no fixed width, no right border (sidebar hidden) */
+  .pk-navbar__brand {
+    width: auto;
+    border-right: none;
+  }
+
+  /* Sidebar: off-screen by default, slides in */
+  .pk-sidebar {
+    top: 0;
+    height: 100vh;
+    width: min(82vw, 300px);
+    transform: translateX(-110%);
+    transition: transform 0.22s ease;
+    box-shadow: none;
+    z-index: 160;
+  }
+
+  .pk-sidebar--open {
+    transform: translateX(0);
+    box-shadow: 12px 0 32px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Main: full width, extra top padding for navbar */
+  .pk-layout__main {
+    margin-left: 0;
+    --pk-layout-main-pad-x: 16px;
+    --pk-layout-main-pad-top: calc(var(--pk-navbar-height) + 20px);
+    --pk-layout-main-pad-bottom: 24px;
+  }
+}

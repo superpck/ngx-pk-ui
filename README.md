@@ -99,6 +99,7 @@ import { PkAccordion, PkAccordionItem } from 'ngx-pk-ui';
 | `pk-table.css` | Styled tables with striped, hover, bordered, size and color variants |
 | `pk-toggle.css` | Toggle switch replacing `<input type="checkbox">` |
 | `pk-form.css` | Floating label fields for `input`, `select`, `textarea` — prefix/suffix, counter, group layout |
+| `pk-layout.css` | Fixed top navbar + sidebar layout shell — all CSS variables, responsive |
 | `pk-font.css` | Thai & Lao Google Fonts helper classes (opt-in, not in pk-ui.css) |
 | `pk-icon-font.css` | Material Symbols font classes |
 
