@@ -1,0 +1,41 @@
+<div class="pk-accordion">
+  @for (item of items(); track $index) {
+    <div
+      class="pk-accordion-item"
+      [class.pk-accordion-item--open]="item._isOpen()"
+      [class.pk-accordion-item--disabled]="item.disabled()"
+    >
+      <button
+        class="pk-accordion-item__header"
+        type="button"
+        [attr.aria-expanded]="item._isOpen()"
+        [attr.aria-disabled]="item.disabled() || null"
+        [disabled]="item.disabled() || null"
+        (click)="toggle($index)"
+      >
+        <span class="pk-accordion-item__label">{{ item.label() }}</span>
+        <svg
+          class="pk-accordion-item__chevron"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+
+      <div class="pk-accordion-item__body" role="region">
+        <div class="pk-accordion-item__body-inner">
+          <div class="pk-accordion-item__content">
+            <ng-container *ngTemplateOutlet="item.content()" />
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

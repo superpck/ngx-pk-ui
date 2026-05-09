@@ -88,3 +88,12 @@
 .pk-tooltip-box--info {
   --pk-tooltip-bg: var(--pk-tooltip-info, #0288d1);
 }
+
+/* ─── Outline variant ───────────────────────────────────────────── */
+.pk-tooltip-box--outline {
+  background: transparent;
+  border: 1.5px solid var(--pk-tooltip-bg, #333);
+  color: var(--pk-tooltip-bg, #333);
+}
+
+

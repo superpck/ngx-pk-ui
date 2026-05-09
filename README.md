@@ -1,4 +1,4 @@
-# ngx-pk-ui 1.1.2
+# ngx-pk-ui 1.1.4
 
 An Angular 21 component library providing UI components and CSS utilities.
 
@@ -27,6 +27,7 @@ npm install ngx-pk-ui
 
 | Component | Type | Description |
 |-----------|------|-------------|
+| `pk-accordion` | Component | Collapsible panels with single / multi-open mode |
 | `pk-tabs` | Component | Tab container with content projection |
 | `pk-toastr` | Component + Service | Toast notifications |
 | `pk-alert` | Component + Service | Modal alert / confirm / input dialogs |
@@ -40,6 +41,42 @@ npm install ngx-pk-ui
 | `pk-autocomplete` | Component | Local/async autocomplete input |
 | `pk-typeahead` | Component | Typeahead input with keyboard navigation |
 
+---
+
+### pk-accordion
+
+```ts
+import { PkAccordion, PkAccordionItem } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkAccordion, PkAccordionItem],
+})
+```
+
+```html
+<!-- Single-open (default) -->
+<pk-accordion>
+  <pk-accordion-item label="Section 1">Content goes here.</pk-accordion-item>
+  <pk-accordion-item label="Section 2" [open]="true">Starts expanded.</pk-accordion-item>
+  <pk-accordion-item label="Disabled" [disabled]="true">Cannot open.</pk-accordion-item>
+</pk-accordion>
+
+<!-- Multi-open -->
+<pk-accordion [multi]="true">
+  <pk-accordion-item label="A">...</pk-accordion-item>
+  <pk-accordion-item label="B">...</pk-accordion-item>
+</pk-accordion>
+```
+
+| Input | Component | Type | Default | Description |
+|-------|-----------|------|---------|-------------|
+| `multi` | `PkAccordion` | `boolean` | `false` | Allow multiple panels open simultaneously |
+| `label` | `PkAccordionItem` | `string` | required | Panel header text |
+| `open` | `PkAccordionItem` | `boolean` | `false` | Expand on init |
+| `disabled` | `PkAccordionItem` | `boolean` | `false` | Prevent toggling |
+
+---
+
 ## CSS Utilities
 
 | File | Description |
@@ -49,6 +86,7 @@ npm install ngx-pk-ui
 | `pk-spinner.css` | Loading spinners |
 | `pk-badge.css` | Badges and dot indicators |
 | `pk-card.css` | Card layouts |
+| `pk-table.css` | Styled tables with striped, hover, bordered, size and color variants |
 | `pk-icon-font.css` | Material Symbols font classes |
 
 ### Include all at once
@@ -63,7 +101,39 @@ Or import individually:
 ```css
 @import 'ngx-pk-ui/styles/pk-btn.css';
 @import 'ngx-pk-ui/styles/pk-grid.css';
+@import 'ngx-pk-ui/styles/pk-table.css';
 ```
+---
+
+### pk-table
+
+```html
+<!-- Basic -->
+<table class="pk-table">
+  <thead><tr><th>Name</th><th>Status</th></tr></thead>
+  <tbody><tr><td>Alice</td><td>Active</td></tr></tbody>
+</table>
+
+<!-- Striped + hover + colored header -->
+<table class="pk-table pk-table-primary pk-table-striped pk-table-hover">...</table>
+
+<!-- Responsive wrapper -->
+<div class="pk-table-responsive">
+  <table class="pk-table pk-table-bordered">...</table>
+</div>
+```
+
+| Class | Description |
+|-------|-------------|
+| `pk-table` | Base styles (required) |
+| `pk-table-striped` | Alternating row background |
+| `pk-table-hover` | Row highlight on hover |
+| `pk-table-bordered` | Border on every cell |
+| `pk-table-sm` | Reduced padding |
+| `pk-table-compact` | Minimal padding + smaller font |
+| `pk-table-primary/success/warn/error` | Colored `<thead>` |
+| `pk-table-responsive` | Wrapper `<div>` — horizontal scroll on overflow |
+
 ---
 
 ## Development

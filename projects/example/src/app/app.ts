@@ -11,6 +11,7 @@ export class App {
   mobileMenuOpen = signal(false);
 
   readonly componentsList = [
+    { label: 'accordion', link: '/pk-accordion' },
     { label: 'alert', link: '/pk-alert' },
     { label: 'autocomplete', link: '/pk-autocomplete' },
     { label: 'datagrid', link: '/pk-datagrid' },
@@ -29,10 +30,11 @@ export class App {
   readonly cssClassList = [
     { label: 'badge', link: '/pk-badge' },
     { label: 'breadcrumb', link: '/pk-breadcrumb' },
-    { label: 'btn', link: '/pk-btn' },
+    { label: 'button', link: '/pk-btn' },
     { label: 'card', link: '/pk-card' },
     { label: 'grid', link: '/pk-grid' },
     { label: 'spinner', link: '/pk-spinner' },
+    { label: 'table', link: '/pk-table' },
   ];
 
   toggleMobileMenu(): void {
