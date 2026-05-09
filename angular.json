@@ -52,6 +52,7 @@
             ],
             "styles": [
               "dist/ngx-pk-ui/styles/pk-ui.css",
+              "dist/ngx-pk-ui/styles/pk-font.css",
               "projects/example/src/styles.css"
             ]
           },

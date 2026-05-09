@@ -1,0 +1,362 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-font</h1>
+    <p class="demo-page-desc">Thai &amp; Lao Google Fonts helper classes. All fonts are served from Google Fonts CDN (SIL Open Font License 1.1).</p>
+  </div>
+
+  <!-- ── Installation ── -->
+  <section class="demo-section">
+    <h2>Installation</h2>
+    <p class="section-note"><strong>pk-font.css is opt-in</strong> — not included in <code>pk-ui.css</code> by default. Import it separately when needed.</p>
+    <pre class="code-block"><code>// angular.json
+"styles": [
+  "node_modules/ngx-pk-ui/styles/pk-ui.css",
+  "node_modules/ngx-pk-ui/styles/pk-font.css"
+]
+
+// or CSS / SCSS
+&#64;import 'ngx-pk-ui/styles/pk-font.css';</code></pre>
+  </section>
+
+  <!-- ── Thai fonts (A–Z) ── -->
+  <section class="demo-section">
+    <h2>Thai fonts</h2>
+    <p class="section-note">
+      ⚠️ <strong>Google Sans</strong> เป็น proprietary typeface ของ Google ไม่มีให้ใช้บน Google Fonts CDN
+    </p>
+
+    <!-- Bai Jamjuree -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-bai-jamjuree</span>
+        <span class="font-name">Bai Jamjuree</span>
+      </div>
+      <div>
+        <div class="pk-font-bai-jamjuree font-sample">{{ thaiText }}</div>
+        <div class="pk-font-bai-jamjuree font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:500">Medium</span>
+          <span style="font-weight:600">SemiBold</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chakra Petch -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-chakra-petch</span>
+        <span class="font-name">Chakra Petch</span>
+      </div>
+      <div>
+        <div class="pk-font-chakra-petch font-sample">{{ thaiText }}</div>
+        <div class="pk-font-chakra-petch font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:500">Medium</span>
+          <span style="font-weight:600">SemiBold</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charm -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-charm</span>
+        <span class="font-name">Charm</span>
+      </div>
+      <div>
+        <div class="pk-font-charm font-sample">{{ thaiText }}</div>
+        <div class="pk-font-charm font-weights">
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charmonman -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-charmonman</span>
+        <span class="font-name">Charmonman</span>
+      </div>
+      <div>
+        <div class="pk-font-charmonman font-sample">{{ thaiText }}</div>
+        <div class="pk-font-charmonman font-weights">
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kanit -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-kanit</span>
+        <span class="font-name">Kanit</span>
+      </div>
+      <div>
+        <div class="pk-font-kanit font-sample">{{ thaiText }}</div>
+        <div class="pk-font-kanit font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:500">Medium</span>
+          <span style="font-weight:600">SemiBold</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mitr -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-mitr</span>
+        <span class="font-name">Mitr</span>
+      </div>
+      <div>
+        <div class="pk-font-mitr font-sample">{{ thaiText }}</div>
+        <div class="pk-font-mitr font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:500">Medium</span>
+          <span style="font-weight:600">SemiBold</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Noto Sans Thai -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-noto-sans-thai</span>
+        <span class="font-name">Noto Sans Thai</span>
+      </div>
+      <div>
+        <div class="pk-font-noto-sans-thai font-sample">{{ thaiText }}</div>
+        <div class="pk-font-noto-sans-thai font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:500">Medium</span>
+          <span style="font-weight:600">SemiBold</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pattaya -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-pattaya</span>
+        <span class="font-name">Pattaya</span>
+      </div>
+      <div>
+        <div class="pk-font-pattaya font-sample">{{ thaiText }}</div>
+        <div class="pk-font-pattaya font-weights">
+          <span style="font-weight:400">Regular only</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prompt -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-prompt</span>
+        <span class="font-name">Prompt</span>
+      </div>
+      <div>
+        <div class="pk-font-prompt font-sample">{{ thaiText }}</div>
+        <div class="pk-font-prompt font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:500">Medium</span>
+          <span style="font-weight:600">SemiBold</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sarabun -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-sarabun</span>
+        <span class="font-name">Sarabun</span>
+      </div>
+      <div>
+        <div class="pk-font-sarabun font-sample">{{ thaiText }}</div>
+        <div class="pk-font-sarabun font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:500">Medium</span>
+          <span style="font-weight:600">SemiBold</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sriracha -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-sriracha</span>
+        <span class="font-name">Sriracha</span>
+      </div>
+      <div>
+        <div class="pk-font-sriracha font-sample">{{ thaiText }}</div>
+        <div class="pk-font-sriracha font-weights">
+          <span style="font-weight:400">Regular only</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Srisakdi -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-srisakdi</span>
+        <span class="font-name">Srisakdi</span>
+      </div>
+      <div>
+        <div class="pk-font-srisakdi font-sample">{{ thaiText }}</div>
+        <div class="pk-font-srisakdi font-weights">
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thasadith -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-thasadith</span>
+        <span class="font-name">Thasadith</span>
+      </div>
+      <div>
+        <div class="pk-font-thasadith font-sample">{{ thaiText }}</div>
+        <div class="pk-font-thasadith font-weights">
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trirong -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-trirong</span>
+        <span class="font-name">Trirong</span>
+      </div>
+      <div>
+        <div class="pk-font-trirong font-sample">{{ thaiText }}</div>
+        <div class="pk-font-trirong font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:500">Medium</span>
+          <span style="font-weight:600">SemiBold</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Lao fonts (A–Z) ── -->
+  <section class="demo-section">
+    <h2>Lao fonts</h2>
+
+    <!-- Noto Sans Lao -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-noto-sans-lao</span>
+        <span class="font-name">Noto Sans Lao</span>
+      </div>
+      <div>
+        <div class="pk-font-noto-sans-lao font-sample">{{ laoText }}</div>
+        <div class="pk-font-noto-sans-lao font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:500">Medium</span>
+          <span style="font-weight:600">SemiBold</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Noto Sans Lao Looped -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-noto-sans-lao-looped</span>
+        <span class="font-name">Noto Sans Lao Looped</span>
+      </div>
+      <div>
+        <div class="pk-font-noto-sans-lao-looped font-sample">{{ laoText }}</div>
+        <div class="pk-font-noto-sans-lao-looped font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:500">Medium</span>
+          <span style="font-weight:600">SemiBold</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Noto Serif Lao -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-noto-serif-lao</span>
+        <span class="font-name">Noto Serif Lao</span>
+      </div>
+      <div>
+        <div class="pk-font-noto-serif-lao font-sample">{{ laoText }}</div>
+        <div class="pk-font-noto-serif-lao font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:500">Medium</span>
+          <span style="font-weight:600">SemiBold</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phetsarath -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-phetsarath</span>
+        <span class="font-name">Phetsarath</span>
+      </div>
+      <div>
+        <div class="pk-font-phetsarath font-sample">{{ laoText }}</div>
+        <div class="pk-font-phetsarath font-weights">
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:700">Bold</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Class reference ── -->
+  <section class="demo-section">
+    <h2>Class reference</h2>
+    <table class="pk-table pk-table-bordered pk-table-sm">
+      <thead><tr><th>Class</th><th>Font family</th><th>Script</th><th>Style</th></tr></thead>
+      <tbody>
+        <tr><td><code>pk-font-bai-jamjuree</code></td><td>Bai Jamjuree</td><td>Thai</td><td>sans-serif</td></tr>
+        <tr><td><code>pk-font-chakra-petch</code></td><td>Chakra Petch</td><td>Thai</td><td>sans-serif</td></tr>
+        <tr><td><code>pk-font-charm</code></td><td>Charm</td><td>Thai</td><td>cursive</td></tr>
+        <tr><td><code>pk-font-charmonman</code></td><td>Charmonman</td><td>Thai</td><td>cursive</td></tr>
+        <tr><td><code>pk-font-kanit</code></td><td>Kanit</td><td>Thai</td><td>sans-serif</td></tr>
+        <tr><td><code>pk-font-mitr</code></td><td>Mitr</td><td>Thai</td><td>sans-serif</td></tr>
+        <tr><td><code>pk-font-noto-sans-thai</code></td><td>Noto Sans Thai</td><td>Thai</td><td>sans-serif</td></tr>
+        <tr><td><code>pk-font-pattaya</code></td><td>Pattaya</td><td>Thai</td><td>sans-serif</td></tr>
+        <tr><td><code>pk-font-prompt</code></td><td>Prompt</td><td>Thai</td><td>sans-serif</td></tr>
+        <tr><td><code>pk-font-sarabun</code></td><td>Sarabun</td><td>Thai</td><td>sans-serif</td></tr>
+        <tr><td><code>pk-font-sriracha</code></td><td>Sriracha</td><td>Thai</td><td>cursive</td></tr>
+        <tr><td><code>pk-font-srisakdi</code></td><td>Srisakdi</td><td>Thai</td><td>cursive</td></tr>
+        <tr><td><code>pk-font-thasadith</code></td><td>Thasadith</td><td>Thai</td><td>sans-serif</td></tr>
+        <tr><td><code>pk-font-trirong</code></td><td>Trirong</td><td>Thai</td><td>serif</td></tr>
+        <tr><td><code>pk-font-noto-sans-lao</code></td><td>Noto Sans Lao</td><td>Lao</td><td>sans-serif</td></tr>
+        <tr><td><code>pk-font-noto-sans-lao-looped</code></td><td>Noto Sans Lao Looped</td><td>Lao</td><td>sans-serif</td></tr>
+        <tr><td><code>pk-font-noto-serif-lao</code></td><td>Noto Serif Lao</td><td>Lao</td><td>serif</td></tr>
+        <tr><td><code>pk-font-phetsarath</code></td><td>Phetsarath</td><td>Lao</td><td>sans-serif</td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>

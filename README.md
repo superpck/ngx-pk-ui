@@ -88,6 +88,7 @@ import { PkAccordion, PkAccordionItem } from 'ngx-pk-ui';
 | `pk-card.css` | Card layouts |
 | `pk-table.css` | Styled tables with striped, hover, bordered, size and color variants |
 | `pk-toggle.css` | Toggle switch replacing `<input type="checkbox">` |
+| `pk-font.css` | Thai & Lao Google Fonts helper classes (opt-in, not in pk-ui.css) |
 | `pk-icon-font.css` | Material Symbols font classes |
 
 ### Include all at once

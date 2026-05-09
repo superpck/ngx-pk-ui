@@ -18,6 +18,7 @@ export const routes: Routes = [
   { path: 'pk-typeahead', loadComponent: () => import('./pages/pk-typeahead/pk-typeahead-page').then(m => m.PkTypeaheadPage) },
   { path: 'pk-table', loadComponent: () => import('./pages/pk-table/pk-table-page').then(m => m.PkTablePage) },
   { path: 'pk-toggle', loadComponent: () => import('./pages/pk-toggle/pk-toggle-page').then(m => m.PkTogglePage) },
+  { path: 'pk-font', loadComponent: () => import('./pages/pk-font/pk-font-page').then(m => m.PkFontPage) },
   { path: 'pk-grid', loadComponent: () => import('./pages/pk-grid/pk-grid-page').then(m => m.PkGridPage) },
   { path: 'pk-btn', loadComponent: () => import('./pages/pk-btn/pk-btn-page').then(m => m.PkBtnPage) },
   { path: 'pk-spinner', loadComponent: () => import('./pages/pk-spinner/pk-spinner-page').then(m => m.PkSpinnerPage) },
