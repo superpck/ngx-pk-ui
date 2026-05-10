@@ -19,7 +19,7 @@ npm run start:example      # runs: ng build ngx-pk-ui --watch & ng serve example
 ng test ngx-pk-ui --no-watch
 
 # Run a single test file
-npx vitest run projects/ngx-pk-ui/src/lib/pk-tabs/pk-tabs.spec.ts
+npx vitest run projects/ngx-pk-ui/src/lib/pk-accordion/pk-accordion.spec.ts
 
 # Publish to npm (run after build)
 npm publish dist/ngx-pk-ui
@@ -37,10 +37,20 @@ projects/
           pk-accordion-item.ts  ← child component: one collapsible panel (content projection)
           pk-accordion.ts       ← parent container: single/multi-open mode via signals
           pk-accordion.html / .css / .spec.ts
-        pk-tabs/
-          pk-tab.ts        ← child component: one tab item (used via content projection)
-          pk-tabs.ts       ← parent container: manages active tab with signals
-          pk-tabs.html / .css / .spec.ts
+        pk-tabs/                  ← NgModule-based (not standalone) — import PkTabsModule
+          pk-tab/
+            pk-tab.component.ts        ← PkTabComponent — one tab pane (standalone: false)
+            pk-tab-body.component.ts   ← PkTabBodyComponent — body content slot
+            pk-tab-title.component.ts  ← PkTabTitleComponent — custom title slot
+          pk-tabs/
+            pk-tabs.component.ts       ← PkTabsComponent — tab container
+            pk-tabs.component.html / .scss
+          pk-tabs.module.ts            ← PkTabsModule — exports all 4 components
+        pk-tabs-old/              ← old standalone/signals version (pending deletion, not exported)
+        pk-timeline/
+          pk-timeline-item.ts   ← child component: one event dot/label (standalone)
+          pk-timeline.ts        ← parent container: direction/lineStyle via signals (standalone)
+          pk-timeline-item.css / pk-timeline.css
         pk-toastr/
           pk-toastr.model.ts    ← Toast interface and ToastType
           pk-toastr.service.ts  ← injectable service: success/error/info/warning/dismiss/clear
@@ -91,7 +101,7 @@ projects/
       pages/
         Components: home/ pk-accordion/ pk-tabs/ pk-toastr/ pk-alert/ pk-modal/
                     pk-icon/ pk-datagrid/ pk-datepicker/ pk-progress/ pk-treeview/
-                    pk-select/ pk-autocomplete/ pk-typeahead/ pk-tooltip/
+                    pk-select/ pk-autocomplete/ pk-typeahead/ pk-tooltip/ pk-timeline/
         CSS pages:  pk-grid/ pk-btn/ pk-spinner/ pk-badge/ pk-card/
                     pk-table/ pk-toggle/ pk-breadcrumb/ pk-font/ pk-form/ pk-layout/
 ```
@@ -105,7 +115,7 @@ projects/
 - **Signals** (`signal()`, `input()`, `contentChildren()`, `viewChild()`) — no `@Input`/`@Output` decorators.
 - **`input.required<T>()`** for required component inputs.
 - **`contentChildren(Token)`** (not `@ContentChildren`) for querying projected content.
-- **Standalone components only** — no NgModules.
+- **Standalone components only** — no NgModules for new components. Exception: `pk-tabs`, `pk-datagrid`, `pk-treeview` use NgModule pattern (copied from existing projects or legacy) — import their `*Module` class instead.
 - **`inject()`** instead of constructor injection.
 - **`@for` / `@if` control flow blocks** — not `*ngFor` / `*ngIf` directives.
 
@@ -134,37 +144,61 @@ projects/
 
 ### pk-tabs
 
-Uses **content projection** — `<pk-tab>` children are discovered via `contentChildren()`, not passed as inputs.
+Uses **NgModule** pattern — import `PkTabsModule` (not standalone). Uses `*ngFor` / `*ngTemplateOutlet` internally.
+
+```ts
+// In consuming NgModule or standalone component
+import { PkTabsModule } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkTabsModule],
+})
+```
 
 ```html
-<!-- Import both PkTabs and PkTab in the consuming component's imports[] -->
 <pk-tabs>
-  <pk-tab label="Profile">
-    <p>Profile content here</p>
+  <pk-tab>
+    <pk-tab-title>Profile</pk-tab-title>
+    <pk-tab-body>
+      <p>Profile content here</p>
+    </pk-tab-body>
   </pk-tab>
-  <pk-tab label="Settings">
-    <p>Settings content here</p>
+
+  <pk-tab [active]="true">
+    <pk-tab-title>Settings</pk-tab-title>
+    <pk-tab-body>
+      <p>Settings content — active by default</p>
+    </pk-tab-body>
   </pk-tab>
-  <pk-tab label="Disabled" [disabled]="true">
-    <p>Never shown</p>
+
+  <pk-tab [disabled]="true">
+    <pk-tab-title>Disabled</pk-tab-title>
+    <pk-tab-body><p>Never shown</p></pk-tab-body>
   </pk-tab>
 </pk-tabs>
 ```
 
-**`PkTab` inputs:**
-| Input | Type | Required | Default |
-|-------|------|----------|---------|
-| `label` | `string` | ✅ | — |
-| `disabled` | `boolean` | ❌ | `false` |
+**`PkTabsComponent` inputs / outputs:**
+| Input/Output | Type | Default | Description |
+|---|---|---|---|
+| `overflow` | `'scrollx'\|'newline'` | `'scrollx'` | Tab overflow behaviour |
+| `customClass` | `string` | `''` | Extra CSS class on container |
+| `customStyle` | `object` | `{}` | Inline styles on container |
+| `style` | `string` | `''` | Raw style string |
+| `(onSelectTab)` | `number` | — | Emits index of selected tab |
 
-**`PkTabs` public API:**
-| Member | Type | Description |
-|--------|------|-------------|
-| `tabs` | `Signal<PkTab[]>` | All projected `<pk-tab>` children |
-| `activeIndex` | `WritableSignal<number>` | Index of the currently active tab |
-| `selectTab(index)` | `void` | Programmatically activate a tab |
+**`PkTabComponent` inputs:**
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `active` | `boolean` | `false` | Activate this tab on init |
+| `disabled` | `boolean` | `false` | Prevent tab from being selected |
+| `customClass` | `string` | `''` | Extra CSS class |
+| `customStyle` | `object` | `{}` | Inline styles |
+| `style` | `string` | `''` | Raw style string |
 
----
+**`PkTabTitleComponent`** — title slot inside `<pk-tab>`. Supports `customClass`, `customStyle`, `style`. Emits `(tabClick)`.
+
+**`PkTabBodyComponent`** — body content slot inside `<pk-tab>`. Supports `customClass`, `customStyle`.
 
 ### pk-toastr
 
@@ -205,6 +239,57 @@ export class MyComponent {
 | `show` | `(type, message, title?, duration?) => void` |
 
 Default `duration` is **4000 ms**. Pass `0` to keep toast until manually dismissed.
+
+---
+
+### pk-timeline
+
+Uses **content projection** — `<pk-timeline-item>` children are discovered via `contentChildren()`.
+
+```ts
+import { PkTimeline, PkTimelineItem } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkTimeline, PkTimelineItem],
+})
+```
+
+```html
+<!-- Vertical (default) -->
+<pk-timeline>
+  <pk-timeline-item label="16 Oct" sublabel="09:15" icon="check_circle" [active]="true" dotColor="#10b981">
+    <p>Event content here</p>
+  </pk-timeline-item>
+  <pk-timeline-item label="15 Oct" image="https://example.com/avatar.jpg">
+    <p>Event with avatar photo</p>
+  </pk-timeline-item>
+</pk-timeline>
+
+<!-- Horizontal + dashed -->
+<pk-timeline direction="horizontal" lineStyle="dashed">
+  <pk-timeline-item label="Step 1" icon="shopping_cart" [active]="true">...</pk-timeline-item>
+  <pk-timeline-item label="Step 2" icon="local_shipping">...</pk-timeline-item>
+  <pk-timeline-item label="Step 3" icon="check_circle">...</pk-timeline-item>
+</pk-timeline>
+```
+
+**`PkTimeline` inputs:**
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `direction` | `'vertical'\|'horizontal'` | `'vertical'` | Layout direction |
+| `lineStyle` | `'solid'\|'dashed'` | `'solid'` | Connecting line style |
+
+**`PkTimelineItem` inputs:**
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `label` | `string` | `''` | Date / step name beside dot |
+| `sublabel` | `string` | `''` | Secondary label line |
+| `icon` | `string` | `''` | Material Symbols icon name |
+| `image` | `string` | `''` | Avatar/photo URL (circular, overrides icon) |
+| `dotColor` | `string` | `''` | CSS color override for dot |
+| `active` | `boolean` | `false` | Filled dot; icon turns white |
+
+Dot rendering priority: `image` > `icon` > empty bordered circle.
 
 ---
 
@@ -252,8 +337,12 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 |--------|------|------|
 | `PkAccordionItem` | Component | `pk-accordion/pk-accordion-item` |
 | `PkAccordion` | Component | `pk-accordion/pk-accordion` |
-| `PkTab` | Component | `pk-tabs/pk-tab` |
-| `PkTabs` | Component | `pk-tabs/pk-tabs` |
+| `PkTimelineItem` | Component | `pk-timeline/pk-timeline-item` |
+| `PkTimeline` | Component | `pk-timeline/pk-timeline` |
+| `PkTabComponent` | Component | `pk-tabs/pk-tab/pk-tab.component` |
+| `PkTabBodyComponent` | Component | `pk-tabs/pk-tab/pk-tab-body.component` |
+| `PkTabTitleComponent` | Component | `pk-tabs/pk-tab/pk-tab-title.component` |
+| `PkTabsComponent` | Component | `pk-tabs/pk-tabs/pk-tabs.component` |
 | `PkTabsModule` | NgModule | `pk-tabs/pk-tabs.module` |
 | `Toast` | Interface | `pk-toastr/pk-toastr.model` |
 | `ToastType` | Type alias | `pk-toastr/pk-toastr.model` |
@@ -289,7 +378,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - **No `fakeAsync` in Vitest** — Angular 21 uses Vitest as the test runner (not Karma). `fakeAsync`/`tick` from `@angular/core/testing` throw a zone error. Use `vi.useFakeTimers()` / `vi.advanceTimersByTime(ms)` / `vi.useRealTimers()` from `vitest` instead.
 - **`ng new` creates a subdirectory** — `ng new <name>` always nests files. When creating the workspace in the repo root, files need to be moved up manually.
 - **Browser flag removed** — `ng test --browsers=ChromeHeadless` fails; Vitest uses its own browser provider. Run `ng test ngx-pk-ui --no-watch` directly.
-- **`NgTemplateOutlet` must be imported** — even though it's from `@angular/common`, it is not included automatically in standalone components. Add it to `imports: [NgTemplateOutlet]` in `PkTabs`.
+- **pk-tabs is NgModule-based** — import `PkTabsModule` (not individual components). It uses `*ngFor` and `*ngTemplateOutlet` internally. Do NOT try to make it standalone — it was copied from a working project intentionally.
 - **Never use `{{ }}` inside `<pre><code>` blocks** — Angular template compiler evaluates interpolations even in HTML-escaped content. `&#123;&#123;` decodes to `{{` before template compilation, causing binding errors. Use `{{ '{' }}{{ '{' }} expr {{ '}' }}{{ '}' }}` — each brace as a separate interpolation. `{ { expr } }` (space-separated) also fails with NG5002 ICU parse error.
 - **`pkTooltip` does not work on `<pk-dg-column>`** — that component uses `host: { style: 'display: contents' }` so it has no bounding box. Apply `[pkTooltip]` to an inner `<span>` instead.
 - **`provideHttpClient()` required for HttpClient** — add to `providers` in `app.config.ts` when any component uses `inject(HttpClient)`.
@@ -306,7 +395,8 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Library version | `2.1.0` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
-| `pk-tabs` | ✅ Built, tested (4 tests) |
+| `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
+| `pk-timeline` | ✅ Built — no tests yet |
 | `pk-toastr` | ✅ Built, tested (4 tests) |
 | `pk-alert` | ✅ Built, tested (13 tests) |
 | `pk-modal` | ✅ Built, tested (12 tests) |
@@ -527,7 +617,7 @@ export class MyComponent {
 <span class="pk-badge pk-badge-lg">New</span>
 
 <!-- Pill (rectangular, rounded ends) -->
-<span class="pk-badge pk-badge-success pk-badge-pill">v2.0.2</span>
+<span class="pk-badge pk-badge-success pk-badge-pill">v2.1.0</span>
 
 <!-- Dot (empty indicator, no text) -->
 <span class="pk-badge pk-badge-dot pk-badge-success"></span>

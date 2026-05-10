@@ -4,6 +4,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadComponent: () => import('./pages/home/home').then(m => m.Home) },
   { path: 'pk-accordion', loadComponent: () => import('./pages/pk-accordion/pk-accordion-page').then(m => m.PkAccordionPage) },
+  { path: 'pk-timeline', loadComponent: () => import('./pages/pk-timeline/pk-timeline-page').then(m => m.PkTimelinePage) },
   { path: 'pk-tabs', loadComponent: () => import('./pages/pk-tabs/pk-tabs-page').then(m => m.PkTabsPage) },
   { path: 'pk-toastr', loadComponent: () => import('./pages/pk-toastr/pk-toastr-page').then(m => m.PkToastrPage) },
   { path: 'pk-alert', loadComponent: () => import('./pages/pk-alert/pk-alert-page').then(m => m.PkAlertPage) },

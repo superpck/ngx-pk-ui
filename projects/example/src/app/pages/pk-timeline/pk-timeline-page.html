@@ -1,0 +1,290 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-timeline</h1>
+    <p class="demo-page-desc">
+      Modern timeline component — vertical &amp; horizontal, with icon, image, dashed line, and color support.
+    </p>
+  </div>
+
+  <!-- ── Demo 1: Vertical with date labels ── -->
+  <section class="demo-section">
+    <h2>Demo — Vertical (date labels)</h2>
+    <pk-timeline>
+      <pk-timeline-item label="16 Oct" sublabel="09:15" [active]="true" dotColor="#10b981">
+        <div class="tl-card tl-card--success">
+          <span class="tl-badge tl-badge--success">Positive</span>
+          <div class="tl-card__title">General Meeting</div>
+          <div class="tl-card__meta">Given By Rachit <span class="tl-tag">Management</span></div>
+        </div>
+      </pk-timeline-item>
+
+      <pk-timeline-item label="15 Oct" sublabel="14:30" dotColor="#ef4444">
+        <div class="tl-card tl-card--error">
+          <span class="tl-badge tl-badge--error">Negative</span>
+          <div class="tl-card__title">General Meeting</div>
+          <div class="tl-card__meta">Given By Rachit <span class="tl-tag">Management</span></div>
+        </div>
+      </pk-timeline-item>
+
+      <pk-timeline-item label="14 Oct" sublabel="11:00" dotColor="#f59e0b">
+        <div class="tl-card tl-card--warn">
+          <span class="tl-badge tl-badge--warn">Neutral</span>
+          <div class="tl-card__title">General Meeting</div>
+          <div class="tl-card__meta">Given By Rachit <span class="tl-tag">Management</span></div>
+        </div>
+      </pk-timeline-item>
+
+      <pk-timeline-item label="13 Oct" sublabel="10:00" dotColor="#10b981">
+        <div class="tl-card tl-card--success">
+          <span class="tl-badge tl-badge--success">Positive</span>
+          <div class="tl-card__title">General Meeting</div>
+          <div class="tl-card__meta">Given By Rachit <span class="tl-tag">Management</span></div>
+        </div>
+      </pk-timeline-item>
+    </pk-timeline>
+  </section>
+
+  <!-- ── Demo 2: Vertical with icons ── -->
+  <section class="demo-section">
+    <h2>Demo — Vertical with icons</h2>
+    <pk-timeline lineStyle="dashed">
+      <pk-timeline-item label="Nov 19" sublabel="09:15" icon="local_shipping" [active]="true">
+        <div class="tl-card">
+          <div class="tl-card__title" style="color: #f97316">In delivery to destination</div>
+          <div class="tl-card__addr">6841 Oak Avenue, Springfield</div>
+        </div>
+      </pk-timeline-item>
+
+      <pk-timeline-item label="Nov 18" sublabel="10:21" icon="arrow_upward">
+        <div class="tl-card">
+          <div class="tl-card__title">Arrived to local depot</div>
+          <div class="tl-card__addr">1352 Elm Street, Springfield</div>
+        </div>
+      </pk-timeline-item>
+
+      <pk-timeline-item label="Nov 17" sublabel="17:04" icon="arrow_upward">
+        <div class="tl-card">
+          <div class="tl-card__title">In transit with carrier</div>
+          <div class="tl-card__addr">6813 Oakmont Avenue, Springfield</div>
+        </div>
+      </pk-timeline-item>
+
+      <pk-timeline-item label="Nov 17" sublabel="12:18" icon="inventory_2">
+        <div class="tl-card">
+          <div class="tl-card__title">Package confirmed</div>
+          <div class="tl-card__addr">8429 Maple Lane, Springfield</div>
+        </div>
+      </pk-timeline-item>
+    </pk-timeline>
+  </section>
+
+  <!-- ── Demo 3: Vertical with avatar images ── -->
+  <section class="demo-section">
+    <h2>Demo — Vertical with avatar images</h2>
+    <pk-timeline>
+      <pk-timeline-item
+        label="Nov 2"
+        image="https://i.pravatar.cc/100?img=3">
+        <div class="tl-card">
+          <div class="tl-card__title">First pass at API documentation</div>
+          <div class="tl-card__meta">poppajun &amp; kate1993</div>
+        </div>
+      </pk-timeline-item>
+
+      <pk-timeline-item
+        label="Nov 2"
+        image="https://i.pravatar.cc/100?img=7">
+        <div class="tl-card">
+          <div class="tl-card__title">Robert book delivery</div>
+          <div class="tl-card__meta">shapppkin&#64;yahoo.com <span class="tl-tag tl-tag--warn">PENDING</span></div>
+        </div>
+      </pk-timeline-item>
+
+      <pk-timeline-item
+        label="Dec 13"
+        image="https://i.pravatar.cc/100?img=12">
+        <div class="tl-card">
+          <div class="tl-card__title">Create backup strategy for backend</div>
+          <div class="tl-card__meta">bubblegumboy &amp; coldbrew <span class="tl-tag tl-tag--success">DONE</span></div>
+        </div>
+      </pk-timeline-item>
+
+      <pk-timeline-item
+        label="Dec 13"
+        image="https://i.pravatar.cc/100?img=5">
+        <div class="tl-card">
+          <div class="tl-card__title">Finalize branding fonts and colors by the weekend</div>
+          <div class="tl-card__meta">bubblegumboy <span class="tl-tag tl-tag--warn">PENDING</span></div>
+        </div>
+      </pk-timeline-item>
+    </pk-timeline>
+  </section>
+
+  <!-- ── Demo 4: Horizontal ── -->
+  <section class="demo-section">
+    <h2>Demo — Horizontal (process steps)</h2>
+    <pk-timeline direction="horizontal">
+      <pk-timeline-item label="Order placed" icon="shopping_cart" [active]="true">
+        <div class="tl-step">Order #1234 received</div>
+      </pk-timeline-item>
+      <pk-timeline-item label="Processing" icon="settings">
+        <div class="tl-step">Preparing your order</div>
+      </pk-timeline-item>
+      <pk-timeline-item label="Shipped" icon="local_shipping">
+        <div class="tl-step">On the way</div>
+      </pk-timeline-item>
+      <pk-timeline-item label="Delivered" icon="check_circle">
+        <div class="tl-step">Package arrived</div>
+      </pk-timeline-item>
+    </pk-timeline>
+  </section>
+
+  <!-- ── Demo 5: Horizontal dashed ── -->
+  <section class="demo-section">
+    <h2>Demo — Horizontal + dashed line</h2>
+    <pk-timeline direction="horizontal" lineStyle="dashed">
+      <pk-timeline-item label="Draft" icon="edit" [active]="true" dotColor="#6366f1">
+        <div class="tl-step">Create</div>
+      </pk-timeline-item>
+      <pk-timeline-item label="Review" icon="rate_review" dotColor="#6366f1">
+        <div class="tl-step">Approve</div>
+      </pk-timeline-item>
+      <pk-timeline-item label="Publish" icon="publish" dotColor="#6366f1">
+        <div class="tl-step">Go live</div>
+      </pk-timeline-item>
+    </pk-timeline>
+  </section>
+
+  <!-- ── Installation ── -->
+  <section class="demo-section">
+    <h2>Installation</h2>
+    <pre class="code-block"><code>import {{ '{' }} PkTimeline, PkTimelineItem {{ '}' }} from 'ngx-pk-ui';
+
+&#64;Component({{ '{' }}
+  imports: [PkTimeline, PkTimelineItem],
+{{ '}' }})</code></pre>
+  </section>
+
+  <!-- ── Usage ── -->
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>&lt;pk-timeline direction="vertical" lineStyle="solid"&gt;
+  &lt;pk-timeline-item
+    label="16 Oct"
+    sublabel="09:15"
+    icon="check_circle"
+    [active]="true"
+    dotColor="#10b981"&gt;
+    &lt;p&gt;Content goes here&lt;/p&gt;
+  &lt;/pk-timeline-item&gt;
+
+  &lt;!-- with avatar image --&gt;
+  &lt;pk-timeline-item label="15 Oct" image="https://example.com/avatar.jpg"&gt;
+    &lt;p&gt;Content goes here&lt;/p&gt;
+  &lt;/pk-timeline-item&gt;
+&lt;/pk-timeline&gt;</code></pre>
+  </section>
+
+  <!-- ── API: PkTimeline ── -->
+  <section class="demo-section">
+    <h2>API — <code>pk-timeline</code> (PkTimeline)</h2>
+    <h3>Inputs</h3>
+    <table class="api-table">
+      <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>direction</code></td><td><code>'vertical' | 'horizontal'</code></td><td><code>'vertical'</code></td><td>Layout direction of the timeline</td></tr>
+      <tr><td><code>lineStyle</code></td><td><code>'solid' | 'dashed'</code></td><td><code>'solid'</code></td><td>Style of the connecting line between items</td></tr>
+    </table>
+  </section>
+
+  <!-- ── API: PkTimelineItem ── -->
+  <section class="demo-section">
+    <h2>API — <code>pk-timeline-item</code> (PkTimelineItem)</h2>
+    <h3>Inputs</h3>
+    <table class="api-table">
+      <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>label</code></td><td><code>string</code></td><td><code>''</code></td><td>Primary label (date, time, step name) shown beside the dot</td></tr>
+      <tr><td><code>sublabel</code></td><td><code>string</code></td><td><code>''</code></td><td>Secondary label shown below the main label</td></tr>
+      <tr><td><code>icon</code></td><td><code>string</code></td><td><code>''</code></td><td>Material Symbols icon name — shown inside the dot (overridden by <code>image</code>)</td></tr>
+      <tr><td><code>image</code></td><td><code>string</code></td><td><code>''</code></td><td>URL of an avatar/photo — displayed as a circular image in the dot (highest priority)</td></tr>
+      <tr><td><code>dotColor</code></td><td><code>string</code></td><td><code>''</code></td><td>CSS color override for the dot border and fill (e.g. <code>'#10b981'</code>)</td></tr>
+      <tr><td><code>active</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Filled dot with primary color background; icon turns white</td></tr>
+    </table>
+    <p class="demo-note"><strong>Dot priority:</strong> <code>image</code> &gt; <code>icon</code> &gt; empty bordered circle</p>
+  </section>
+
+  <!-- ── CSS variables ── -->
+  <section class="demo-section">
+    <h2>CSS Custom Properties</h2>
+    <table class="api-table">
+      <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>--pk-timeline-color</code></td><td><code>var(--pk-btn-primary, #1976d2)</code></td><td>Global dot and line color — override per-item with <code>dotColor</code> input</td></tr>
+    </table>
+  </section>
+</div>
+
+<style>
+  /* ── Demo-only card styles (not part of the library) ── */
+  .tl-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08), 0 0 0 1px #f0f0f0;
+    padding: 14px 16px;
+    margin-bottom: 4px;
+  }
+  .tl-card--success { border-left: 3px solid #10b981; }
+  .tl-card--error   { border-left: 3px solid #ef4444; }
+  .tl-card--warn    { border-left: 3px solid #f59e0b; }
+
+  .tl-card__title {
+    font-weight: 600;
+    font-size: 0.97rem;
+    color: #111827;
+    margin-bottom: 6px;
+  }
+  .tl-card__meta {
+    font-size: 0.82rem;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .tl-card__addr {
+    font-size: 0.83rem;
+    color: #6b7280;
+    margin-top: 2px;
+  }
+
+  .tl-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .tl-badge--success { background: #10b981; }
+  .tl-badge--error   { background: #ef4444; }
+  .tl-badge--warn    { background: #f59e0b; }
+
+  .tl-tag {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    border: 1.5px solid #d1d5db;
+    color: #374151;
+    background: #fff;
+  }
+  .tl-tag--success { background: #d1fae5; border-color: #10b981; color: #065f46; }
+  .tl-tag--warn    { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
+
+  .tl-step {
+    font-size: 0.85rem;
+    color: #4b5563;
+    text-align: center;
+    padding: 0 4px 8px;
+  }
+</style>

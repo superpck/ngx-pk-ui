@@ -22,6 +22,7 @@ export class App {
     { label: 'progress', link: '/pk-progress' },
     { label: 'select', link: '/pk-select' },
     { label: 'tabs', link: '/pk-tabs' },
+    { label: 'timeline', link: '/pk-timeline' },
     { label: 'toastr', link: '/pk-toastr' },
     { label: 'tooltip', link: '/pk-tooltip' },
     { label: 'treeview', link: '/pk-treeview' },
@@ -29,7 +30,6 @@ export class App {
   ];
 
   readonly cssClassList = [
-    { label: 'layout', link: '/pk-layout' },
     { label: 'badge', link: '/pk-badge' },
     { label: 'breadcrumb', link: '/pk-breadcrumb' },
     { label: 'button', link: '/pk-btn' },
@@ -37,6 +37,7 @@ export class App {
     { label: 'font', link: '/pk-font' },
     { label: 'form', link: '/pk-form' },
     { label: 'grid', link: '/pk-grid' },
+    { label: 'layout', link: '/pk-layout' },
     { label: 'spinner', link: '/pk-spinner' },
     { label: 'table', link: '/pk-table' },
     { label: 'toggle switch', link: '/pk-toggle' },
