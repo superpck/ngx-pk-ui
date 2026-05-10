@@ -7,7 +7,7 @@
   <section class="demo-section">
     <h2>Demo — Basic</h2>
     <pk-tabs>
-      <pk-tab>
+      <pk-tab [active]="true">
         <pk-tab-title>Profile</pk-tab-title>
         <pk-tab-body>
           <p>👤 Profile content — name, avatar, bio.</p>
@@ -35,9 +35,43 @@
   </section>
 
   <section class="demo-section">
+    <h2>Demo — [active] (default active tab)</h2>
+    <pk-tabs>
+      <pk-tab>
+        <pk-tab-title>First</pk-tab-title>
+        <pk-tab-body><p>First tab content.</p></pk-tab-body>
+      </pk-tab>
+      <pk-tab [active]="true">
+        <pk-tab-title>Second (active)</pk-tab-title>
+        <pk-tab-body><p>Second tab — opened by default via <code>[active]="true"</code>.</p></pk-tab-body>
+      </pk-tab>
+      <pk-tab>
+        <pk-tab-title>Third</pk-tab-title>
+        <pk-tab-body><p>Third tab content.</p></pk-tab-body>
+      </pk-tab>
+      <pk-tab>
+        <pk-tab-title>Fourth</pk-tab-title>
+        <pk-tab-body><p>Fourth tab content.</p></pk-tab-body>
+      </pk-tab>
+      <pk-tab>
+        <pk-tab-title>Fifth</pk-tab-title>
+        <pk-tab-body><p>Fifth tab content.</p></pk-tab-body>
+      </pk-tab>
+      <pk-tab>
+        <pk-tab-title>Sixth</pk-tab-title>
+        <pk-tab-body><p>Sixth tab content.</p></pk-tab-body>
+      </pk-tab>
+      <pk-tab>
+        <pk-tab-title>Seventh</pk-tab-title>
+        <pk-tab-body><p>Seventh tab content.</p></pk-tab-body>
+      </pk-tab>
+    </pk-tabs>
+  </section>
+
+  <section class="demo-section">
     <h2>Demo — overflow: newline</h2>
     <pk-tabs overflow="newline">
-      <pk-tab>
+      <pk-tab [active]="true">
         <pk-tab-title>Tab One</pk-tab-title>
         <pk-tab-body><p>Content for tab one.</p></pk-tab-body>
       </pk-tab>
@@ -48,6 +82,18 @@
       <pk-tab>
         <pk-tab-title>Tab Three</pk-tab-title>
         <pk-tab-body><p>Content for tab three.</p></pk-tab-body>
+      </pk-tab>
+      <pk-tab>
+        <pk-tab-title>Tab Four</pk-tab-title>
+        <pk-tab-body><p>Content for tab four.</p></pk-tab-body>
+      </pk-tab>
+      <pk-tab>
+        <pk-tab-title>Tab Five</pk-tab-title>
+        <pk-tab-body><p>Content for tab five.</p></pk-tab-body>
+      </pk-tab>
+      <pk-tab>
+        <pk-tab-title>Tab Six</pk-tab-title>
+        <pk-tab-body><p>Content for tab six.</p></pk-tab-body>
       </pk-tab>
     </pk-tabs>
   </section>
