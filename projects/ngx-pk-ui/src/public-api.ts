@@ -6,6 +6,10 @@
 export * from './lib/pk-accordion/pk-accordion-item';
 export * from './lib/pk-accordion/pk-accordion';
 
+// pk-timeline
+export * from './lib/pk-timeline/pk-timeline-item';
+export * from './lib/pk-timeline/pk-timeline';
+
 // pk-tabs
 export * from './lib/pk-tabs/pk-tab/pk-tab.component';
 export * from './lib/pk-tabs/pk-tab/pk-tab-body.component';
@@ -66,6 +70,10 @@ export * from './lib/pk-treeview/pk-treeview.model';
 // pk-select
 export * from './lib/pk-select/pk-select.interface';
 export * from './lib/pk-select/pk-select.component';
+
+// pk-calendar
+export * from './lib/pk-calendar/pk-calendar.model';
+export * from './lib/pk-calendar/pk-calendar';
 
 // pk-tooltip
 export * from './lib/pk-tooltip/pk-tooltip.directive';

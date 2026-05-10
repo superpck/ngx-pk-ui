@@ -1,0 +1,176 @@
+<div class="pk-cal-form">
+  <div class="pk-cal-form__header">
+    <h3 class="pk-cal-form__title">
+      {{ isEditing() ? (locale() === 'TH' ? 'แก้ไขนัดหมาย' : 'Edit Event') : (locale() === 'TH' ? 'สร้างนัดหมาย' : 'New Event') }}
+    </h3>
+    <button class="pk-cal-form__close" type="button" (click)="cancel()">✕</button>
+  </div>
+
+  <div class="pk-cal-form__body">
+    <!-- Title -->
+    <div class="pk-cal-form__field">
+      <input
+        class="pk-cal-form__input"
+        type="text"
+        [placeholder]="locale() === 'TH' ? 'ชื่อนัดหมาย...' : 'Event title...'"
+        [value]="title()"
+        (input)="title.set($any($event.target).value)"
+        [disabled]="!canEdit()"
+      />
+    </div>
+
+    <!-- Type + Priority row -->
+    <div class="pk-cal-form__row">
+      <div class="pk-cal-form__field pk-cal-form__field--flex1">
+        <label class="pk-cal-form__label">{{ locale() === 'TH' ? 'ประเภท' : 'Type' }}</label>
+        <select class="pk-cal-form__select" [value]="type()" (change)="type.set($any($event.target).value)" [disabled]="!canEdit()">
+          @for (t of eventTypes; track t) {
+            <option [value]="t">{{ typeLabel(t) }}</option>
+          }
+        </select>
+      </div>
+      <div class="pk-cal-form__field pk-cal-form__field--flex1">
+        <label class="pk-cal-form__label">{{ locale() === 'TH' ? 'ความสำคัญ' : 'Priority' }}</label>
+        <select class="pk-cal-form__select" [value]="priority()" (change)="priority.set($any($event.target).value)" [disabled]="!canEdit()">
+          <option value="">{{ locale() === 'TH' ? '— ไม่ระบุ —' : '— None —' }}</option>
+          <option value="low">{{ locale() === 'TH' ? 'ต่ำ' : 'Low' }}</option>
+          <option value="medium">{{ locale() === 'TH' ? 'ปานกลาง' : 'Medium' }}</option>
+          <option value="high">{{ locale() === 'TH' ? 'สูง' : 'High' }}</option>
+          <option value="urgent">{{ locale() === 'TH' ? 'เร่งด่วน' : 'Urgent' }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- All-day toggle -->
+    <div class="pk-cal-form__field pk-cal-form__field--row">
+      <label class="pk-cal-form__label">{{ locale() === 'TH' ? 'ทั้งวัน' : 'All day' }}</label>
+      <label class="pk-cal-form__toggle">
+        <input type="checkbox" [checked]="allDay()" (change)="allDay.set($any($event.target).checked)" [disabled]="!canEdit()" />
+        <span class="pk-cal-form__toggle-track"></span>
+      </label>
+    </div>
+
+    <!-- Date / Time -->
+    <div class="pk-cal-form__row">
+      <div class="pk-cal-form__field pk-cal-form__field--flex1">
+        <label class="pk-cal-form__label">{{ locale() === 'TH' ? 'วันที่เริ่ม' : 'Start date' }}</label>
+        <input class="pk-cal-form__input" type="date" [value]="startDate()" (change)="startDate.set($any($event.target).value)" [disabled]="!canEdit()" />
+      </div>
+      @if (!allDay()) {
+        <div class="pk-cal-form__field" style="width:90px">
+          <label class="pk-cal-form__label">{{ locale() === 'TH' ? 'เวลา' : 'Time' }}</label>
+          <input class="pk-cal-form__input" type="time" [value]="startTime()" (change)="startTime.set($any($event.target).value)" [disabled]="!canEdit()" />
+        </div>
+      }
+    </div>
+    <div class="pk-cal-form__row">
+      <div class="pk-cal-form__field pk-cal-form__field--flex1">
+        <label class="pk-cal-form__label">{{ locale() === 'TH' ? 'วันที่สิ้นสุด' : 'End date' }}</label>
+        <input class="pk-cal-form__input" type="date" [value]="endDate()" (change)="endDate.set($any($event.target).value)" [disabled]="!canEdit()" />
+      </div>
+      @if (!allDay()) {
+        <div class="pk-cal-form__field" style="width:90px">
+          <label class="pk-cal-form__label">{{ locale() === 'TH' ? 'เวลา' : 'Time' }}</label>
+          <input class="pk-cal-form__input" type="time" [value]="endTime()" (change)="endTime.set($any($event.target).value)" [disabled]="!canEdit()" />
+        </div>
+      }
+    </div>
+
+    <!-- Color swatches -->
+    <div class="pk-cal-form__field">
+      <label class="pk-cal-form__label">{{ locale() === 'TH' ? 'สี' : 'Color' }}</label>
+      <div class="pk-cal-form__colors">
+        @for (c of presetColors; track c) {
+          <button
+            type="button"
+            class="pk-cal-form__color-swatch"
+            [class.pk-cal-form__color-swatch--active]="color() === c"
+            [style.background]="c"
+            (click)="selectColor(c)"
+            [disabled]="!canEdit()"
+          ></button>
+        }
+        <input
+          type="color"
+          class="pk-cal-form__color-picker"
+          [value]="customColor() || '#6b7280'"
+          (input)="onCustomColorChange($any($event.target).value)"
+          [disabled]="!canEdit()"
+          [title]="locale() === 'TH' ? 'เลือกสีกำหนดเอง' : 'Custom color'"
+        />
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="pk-cal-form__field">
+      <label class="pk-cal-form__label">{{ locale() === 'TH' ? 'รายละเอียด' : 'Description' }}</label>
+      <textarea
+        class="pk-cal-form__textarea"
+        rows="2"
+        [value]="description()"
+        (input)="description.set($any($event.target).value)"
+        [disabled]="!canEdit()"
+      ></textarea>
+    </div>
+
+    <!-- Location -->
+    <div class="pk-cal-form__field">
+      <label class="pk-cal-form__label">{{ locale() === 'TH' ? 'สถานที่' : 'Location' }}</label>
+      <input class="pk-cal-form__input" type="text" [value]="location()" (input)="location.set($any($event.target).value)" [disabled]="!canEdit()" />
+    </div>
+
+    <!-- Image URL -->
+    <div class="pk-cal-form__field">
+      <label class="pk-cal-form__label">{{ locale() === 'TH' ? 'รูปภาพ (URL)' : 'Image URL' }}</label>
+      <input class="pk-cal-form__input" type="url" [value]="image()" (input)="image.set($any($event.target).value)" [disabled]="!canEdit()" />
+    </div>
+
+    <!-- Attachments -->
+    <div class="pk-cal-form__field">
+      <div class="pk-cal-form__field-header">
+        <label class="pk-cal-form__label">{{ locale() === 'TH' ? 'ไฟล์แนบ / ลิงก์' : 'Attachments / Links' }}</label>
+        @if (canEdit()) {
+          <button type="button" class="pk-cal-form__add-btn" (click)="addAttachment()">+ {{ locale() === 'TH' ? 'เพิ่ม' : 'Add' }}</button>
+        }
+      </div>
+      @for (att of attachments(); track $index) {
+        <div class="pk-cal-form__attachment-row">
+          <input class="pk-cal-form__input" type="text" [placeholder]="locale() === 'TH' ? 'ชื่อไฟล์/ลิงก์' : 'Label'" [value]="att.label" (input)="updateAttachment($index, 'label', $any($event.target).value)" [disabled]="!canEdit()" style="flex:1" />
+          <input class="pk-cal-form__input" type="url"  [placeholder]="locale() === 'TH' ? 'URL (Google Drive ฯลฯ)' : 'URL'" [value]="att.url"   (input)="updateAttachment($index, 'url',   $any($event.target).value)" [disabled]="!canEdit()" style="flex:2" />
+          @if (canEdit()) {
+            <button type="button" class="pk-cal-form__remove-btn" (click)="removeAttachment($index)">✕</button>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Tags -->
+    <div class="pk-cal-form__row">
+      <div class="pk-cal-form__field pk-cal-form__field--flex1">
+        <label class="pk-cal-form__label">{{ locale() === 'TH' ? 'แท็ก (คั่นด้วย ,)' : 'Tags (comma-separated)' }}</label>
+        <input class="pk-cal-form__input" type="text" [value]="tags()" (input)="tags.set($any($event.target).value)" [disabled]="!canEdit()" />
+      </div>
+      <div class="pk-cal-form__field pk-cal-form__field--flex1">
+        <label class="pk-cal-form__label">{{ locale() === 'TH' ? 'ผู้เข้าร่วม (คั่นด้วย ,)' : 'Attendees (comma-separated)' }}</label>
+        <input class="pk-cal-form__input" type="text" [value]="attendees()" (input)="attendees.set($any($event.target).value)" [disabled]="!canEdit()" />
+      </div>
+    </div>
+  </div>
+
+  <div class="pk-cal-form__footer">
+    @if (isEditing() && canDelete()) {
+      <button type="button" class="pk-cal-form__btn pk-cal-form__btn--danger" (click)="deleteSelf()">
+        {{ locale() === 'TH' ? 'ลบ' : 'Delete' }}
+      </button>
+    }
+    <span class="pk-cal-form__spacer"></span>
+    <button type="button" class="pk-cal-form__btn pk-cal-form__btn--ghost" (click)="cancel()">
+      {{ locale() === 'TH' ? 'ยกเลิก' : 'Cancel' }}
+    </button>
+    @if (!isEditing() || canEdit()) {
+      <button type="button" class="pk-cal-form__btn pk-cal-form__btn--primary" (click)="save()">
+        {{ locale() === 'TH' ? 'บันทึก' : 'Save' }}
+      </button>
+    }
+  </div>
+</div>

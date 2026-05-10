@@ -1,0 +1,103 @@
+<section class="page-section">
+  <h1 class="page-title">pk-calendar</h1>
+  <p class="page-desc">
+    Modern calendar component with Year / Month / Week / Day views, built-in event form,
+    drag &amp; drop, multi-day event bars, and TH/EN locale support.
+  </p>
+
+  <!-- Demo controls -->
+  <div style="display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; align-items:center;">
+    <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="toggleLocale()">
+      Locale: {{ locale() }}
+    </button>
+    <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="toggleStartOfWeek()">
+      Start: {{ startOfWeek() === 'sunday' ? 'Sunday' : 'Monday' }}
+    </button>
+    <span style="font-size:12px; color:#6b7280;">
+      Click a date to create · Click an event to edit · Drag events to reschedule
+    </span>
+  </div>
+
+  <!-- Calendar -->
+  <div style="height: 680px; border-radius: 12px; overflow: hidden;">
+    <pk-calendar
+      [events]="events()"
+      [view]="view()"
+      [locale]="locale()"
+      [startOfWeek]="startOfWeek()"
+      (onEventCreate)="onEventCreate($event)"
+      (onEventUpdate)="onEventUpdate($event)"
+      (onEventDelete)="onEventDelete($event)"
+      (onEventMove)="onEventMove($event)"
+      (onEventClick)="onEventClick($event)"
+      (onDateClick)="onDateClick($event)"
+      (onViewChange)="onViewChange($event)"
+      (onNavigate)="onNavigate($event)"
+    />
+  </div>
+
+  <!-- API Reference -->
+  <h2 style="margin-top:40px;">PkCalendar — Inputs</h2>
+  <div class="pk-table-responsive">
+    <table class="pk-table pk-table-striped pk-table-bordered pk-table-sm">
+      <thead class="pk-table-primary">
+        <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>events</td><td>PkCalendarEvent[]</td><td>[]</td><td>Array of events to display</td></tr>
+        <tr><td>view</td><td>'year'|'month'|'week'|'day'</td><td>'month'</td><td>Active calendar view</td></tr>
+        <tr><td>currentDate</td><td>Date</td><td>new Date()</td><td>Date to navigate to on init</td></tr>
+        <tr><td>locale</td><td>'EN'|'TH'</td><td>'EN'</td><td>Language for labels and month names</td></tr>
+        <tr><td>startOfWeek</td><td>'sunday'|'monday'</td><td>'sunday'</td><td>First day of the week</td></tr>
+        <tr><td>readonly</td><td>boolean</td><td>false</td><td>Disable all create/edit actions</td></tr>
+        <tr><td>showWeekNumbers</td><td>boolean</td><td>false</td><td>Show week number column in month view</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 style="margin-top:32px;">PkCalendar — Outputs</h2>
+  <div class="pk-table-responsive">
+    <table class="pk-table pk-table-striped pk-table-bordered pk-table-sm">
+      <thead class="pk-table-primary">
+        <tr><th>Output</th><th>Payload</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>(onEventCreate)</td><td>PkCalendarEvent</td><td>User submitted new event form</td></tr>
+        <tr><td>(onEventUpdate)</td><td>PkCalendarEvent</td><td>User edited an existing event</td></tr>
+        <tr><td>(onEventDelete)</td><td>PkCalendarEvent</td><td>User deleted an event</td></tr>
+        <tr><td>(onEventMove)</td><td>PkEventMoveResult</td><td>Event was dragged to a new date</td></tr>
+        <tr><td>(onEventClick)</td><td>PkCalendarEvent</td><td>User clicked an event chip</td></tr>
+        <tr><td>(onDateClick)</td><td>Date</td><td>User clicked an empty day cell</td></tr>
+        <tr><td>(onViewChange)</td><td>PkCalendarView</td><td>User switched the view</td></tr>
+        <tr><td>(onNavigate)</td><td>Date</td><td>User navigated prev/next/today</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 style="margin-top:32px;">PkCalendarEvent interface</h2>
+  <div class="pk-table-responsive">
+    <table class="pk-table pk-table-striped pk-table-bordered pk-table-sm">
+      <thead class="pk-table-primary">
+        <tr><th>Property</th><th>Type</th><th>Required</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>id</td><td>string | number</td><td>✓</td><td>Unique identifier</td></tr>
+        <tr><td>title</td><td>string</td><td>✓</td><td>Event title</td></tr>
+        <tr><td>type</td><td>PkEventType</td><td>✓</td><td>meeting | appointment | birthday | holiday | festival | event | task | reminder | other</td></tr>
+        <tr><td>start</td><td>Date | string</td><td>✓</td><td>Start date/time</td></tr>
+        <tr><td>end</td><td>Date | string</td><td>—</td><td>End date/time (optional)</td></tr>
+        <tr><td>allDay</td><td>boolean</td><td>—</td><td>Render as full-day bar</td></tr>
+        <tr><td>priority</td><td>PkEventPriority</td><td>—</td><td>low | medium | high | urgent</td></tr>
+        <tr><td>color</td><td>string</td><td>—</td><td>Override default type color (CSS color)</td></tr>
+        <tr><td>description</td><td>string</td><td>—</td><td>Long description shown in form</td></tr>
+        <tr><td>location</td><td>string</td><td>—</td><td>Location string</td></tr>
+        <tr><td>image</td><td>string</td><td>—</td><td>Image URL shown in event</td></tr>
+        <tr><td>attachments</td><td>PkCalendarAttachment[]</td><td>—</td><td>Array of {{ '{' }}label, url{{ '}' }} links</td></tr>
+        <tr><td>tags</td><td>string[]</td><td>—</td><td>Tags / keywords</td></tr>
+        <tr><td>attendees</td><td>string[]</td><td>—</td><td>Email list of attendees</td></tr>
+        <tr><td>canEdit</td><td>boolean</td><td>—</td><td>Allow editing (default true)</td></tr>
+        <tr><td>canDelete</td><td>boolean</td><td>—</td><td>Allow deletion (default true)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>

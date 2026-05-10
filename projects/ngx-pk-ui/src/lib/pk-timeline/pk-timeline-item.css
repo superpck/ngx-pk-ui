@@ -1,0 +1,183 @@
+/* ─────────────────────────────────────────────────────────
+   pk-timeline-item — host is the grid/flex cell
+   ───────────────────────────────────────────────────────── */
+
+:host {
+  display: grid;
+  grid-template-columns: 72px 44px 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: "label connector content";
+  gap: 0 4px;
+  min-height: 72px;
+}
+
+/* ── Label column ── */
+.pk-timeline__label-col {
+  grid-area: label;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-top: 10px;
+  padding-right: 4px;
+  min-width: 0;
+}
+
+.pk-timeline__label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #374151;
+  white-space: nowrap;
+}
+
+.pk-timeline__sublabel {
+  font-size: 0.7rem;
+  color: #9ca3af;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+/* ── Connector (dot + line) ── */
+.pk-timeline__connector {
+  grid-area: connector;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Dot ── */
+.pk-timeline__dot {
+  --_dot-color: var(--pk-timeline-color, var(--pk-btn-primary, #1976d2));
+
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2.5px solid var(--_dot-color);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--_dot-color) 12%, transparent);
+  position: relative;
+  z-index: 1;
+}
+
+.pk-timeline__dot--filled {
+  background: var(--_dot-color);
+}
+
+.pk-timeline__dot--image {
+  border: none;
+  box-shadow: 0 0 0 3px #e5e7eb, 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Icon inside dot ── */
+.pk-timeline__dot-icon {
+  font-size: 18px;
+  color: var(--_dot-color);
+  transition: color 0.2s;
+  user-select: none;
+}
+
+:host(.pk-timeline__item--active) .pk-timeline__dot-icon {
+  color: #fff;
+}
+
+/* ── Image inside dot ── */
+.pk-timeline__dot-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+/* ── Vertical line ── */
+.pk-timeline__line {
+  flex: 1;
+  width: 2px;
+  background: #e5e7eb;
+  margin-top: 2px;
+  margin-bottom: -8px;
+  border-radius: 2px;
+  min-height: 24px;
+}
+
+.pk-timeline__line--dashed {
+  background: repeating-linear-gradient(
+    to bottom,
+    #d1d5db 0px,
+    #d1d5db 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+/* ── Content column ── */
+.pk-timeline__content {
+  grid-area: content;
+  padding: 6px 0 24px 4px;
+  min-width: 0;
+}
+
+/* ─────────────────────────────────────────────────────────
+   HORIZONTAL MODE
+   pk-timeline--horizontal sets flex-direction on the container.
+   Each item becomes a flex column.
+   ───────────────────────────────────────────────────────── */
+
+:host-context(.pk-timeline--horizontal) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-height: unset;
+  grid-template-columns: unset;
+  grid-template-areas: unset;
+}
+
+:host-context(.pk-timeline--horizontal) .pk-timeline__label-col {
+  order: 3;
+  align-items: center;
+  padding: 8px 0 0;
+  text-align: center;
+}
+
+:host-context(.pk-timeline--horizontal) .pk-timeline__connector {
+  order: 2;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+:host-context(.pk-timeline--horizontal) .pk-timeline__line {
+  flex: 1;
+  width: auto;
+  height: 2px;
+  margin: 0 2px 0 2px;
+  min-height: unset;
+  min-width: 16px;
+}
+
+:host-context(.pk-timeline--horizontal) .pk-timeline__line--dashed {
+  background: repeating-linear-gradient(
+    to right,
+    #d1d5db 0px,
+    #d1d5db 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+:host-context(.pk-timeline--horizontal) .pk-timeline__content {
+  order: 1;
+  padding: 0 8px 12px;
+  text-align: center;
+}
+
+/* Last item in horizontal: no line */
+:host-context(.pk-timeline--horizontal):host(.pk-timeline__item--last) .pk-timeline__connector {
+  justify-content: center;
+}

@@ -46,11 +46,13 @@ npm publish dist/ngx-pk-ui
 
 ## Exported API groups
 
-- Tabs: `PkTabs`, `PkTab`, `PkTabsModule`
+- Accordion: `PkAccordion`, `PkAccordionItem`
+- Timeline: `PkTimeline`, `PkTimelineItem`
+- Tabs: `PkTabsModule` → `PkTabsComponent`, `PkTabComponent`, `PkTabTitleComponent`, `PkTabBodyComponent`
 - Toastr: `PkToastr`, `PkToastrService`
 - Alert: `PkAlert`, `PkAlertService`
 - Modal: `PkModal`, `PkModalHeader`, `PkModalBody`, `PkModalFooter`, `PkModalModule`
-- Icon: `PkIcon`, icon model types
+- Icon: `PkIcon`, `PkIconModel`
 - Datagrid: `PkDatagridModule` and datagrid subcomponents/directives
 - Datepicker: `PkDatepickerComponent`, services
 - Progress: `PkProgressComponent`
@@ -58,16 +60,24 @@ npm publish dist/ngx-pk-ui
 - Select: `PkSelectComponent`
 - Autocomplete: `PkAutocompleteComponent`
 - Typeahead: `PkTypeaheadComponent`
+- Calendar: `PkCalendar`, `PkCalendarEvent`, `PkCalendarView`, `PkEventType`, `PkEventPriority`, `PkCalendarAttachment`, `PkEventMoveResult`
 
 ## CSS utility files
 
-- `styles/pk-ui.css` (all-in-one)
+- `styles/pk-ui.css` (all-in-one — includes grid, btn, form, layout, spinner, badge, card, table, toggle, breadcrumb, tooltip, icon-font)
 - `styles/pk-grid.css`
 - `styles/pk-btn.css`
 - `styles/pk-spinner.css`
 - `styles/pk-badge.css`
 - `styles/pk-card.css`
+- `styles/pk-table.css`
+- `styles/pk-toggle.css`
+- `styles/pk-breadcrumb.css`
+- `styles/pk-form.css`
+- `styles/pk-layout.css`
+- `styles/pk-tooltip.css`
 - `styles/pk-icon-font.css`
+- `styles/pk-font.css` *(opt-in — Thai & Lao Google Fonts, NOT included in pk-ui.css)*
 
 ## Consumer setup example
 
@@ -76,10 +86,105 @@ npm publish dist/ngx-pk-ui
 ```
 
 ```ts
-// Individual imports
+// Standalone components (preferred — tree-shakeable)
+import { PkAccordion, PkAccordionItem } from 'ngx-pk-ui';
+import { PkTimeline, PkTimelineItem } from 'ngx-pk-ui';
 import { PkModal, PkModalHeader, PkModalBody, PkModalFooter } from 'ngx-pk-ui';
+import { PkToastrService } from 'ngx-pk-ui';
+import { PkAlertService } from 'ngx-pk-ui';
 
-// Or convenience modules (single import)
-import { PkTabsModule } from 'ngx-pk-ui';
-import { PkModalModule } from 'ngx-pk-ui';
+// NgModule imports (required for NgModule-based components)
+import { PkTabsModule } from 'ngx-pk-ui';      // pk-tabs
+import { PkModalModule } from 'ngx-pk-ui';     // pk-modal (convenience)
+import { PkDatagridModule } from 'ngx-pk-ui';  // pk-datagrid
+import { PkTreeviewModule } from 'ngx-pk-ui';  // pk-treeview
 ```
+
+## pk-calendar quick start
+
+```ts
+import { PkCalendar } from 'ngx-pk-ui';
+import type { PkCalendarEvent, PkCalendarView, PkEventMoveResult } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkCalendar],
+})
+export class MyComponent {
+  events: PkCalendarEvent[] = [
+    {
+      id: 1,
+      title: 'Team Meeting',
+      type: 'meeting',
+      start: new Date(),
+      priority: 'high',
+    },
+  ];
+
+  onMove(result: PkEventMoveResult) {
+    // update events array with result.newStart / result.newEnd
+  }
+}
+```
+
+```html
+<pk-calendar
+  [events]="events"
+  locale="EN"
+  startOfWeek="monday"
+  (onEventCreate)="onCreate($event)"
+  (onEventUpdate)="onUpdate($event)"
+  (onEventDelete)="onDelete($event)"
+  (onEventMove)="onMove($event)"
+/>
+```
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `events` | `PkCalendarEvent[]` | `[]` | Events to display |
+| `view` | `'year'\|'month'\|'week'\|'day'\|'agenda'` | `'month'` | Active view |
+| `currentDate` | `Date` | `new Date()` | Initial navigation date |
+| `locale` | `'EN'\|'TH'` | `'EN'` | Language for labels |
+| `startOfWeek` | `'sunday'\|'monday'` | `'sunday'` | First day of the week |
+| `readonly` | `boolean` | `false` | Disable create/edit actions |
+| `showWeekNumbers` | `boolean` | `false` | Show week number column |
+
+**Outputs:** `(onEventCreate)`, `(onEventUpdate)`, `(onEventDelete)`, `(onEventMove)`, `(onEventClick)`, `(onDateClick)`, `(onViewChange)`, `(onNavigate)`
+
+**`PkEventType` values:** `meeting` · `appointment` · `birthday` · `holiday` · `festival` · `event` · `task` · `reminder` · `other`
+
+**`PkEventPriority` values:** `low` · `medium` · `high` · `urgent`
+
+## pk-timeline quick start
+
+```html
+<!-- Vertical (default) -->
+<pk-timeline>
+  <pk-timeline-item label="16 Oct" sublabel="09:15" icon="check_circle" [active]="true" dotColor="#10b981">
+    <p>Event content here</p>
+  </pk-timeline-item>
+  <pk-timeline-item label="15 Oct" image="https://example.com/avatar.jpg">
+    <p>Event with avatar</p>
+  </pk-timeline-item>
+</pk-timeline>
+
+<!-- Horizontal + dashed -->
+<pk-timeline direction="horizontal" lineStyle="dashed">
+  <pk-timeline-item label="Step 1" icon="shopping_cart" [active]="true">...</pk-timeline-item>
+  <pk-timeline-item label="Step 2" icon="local_shipping">...</pk-timeline-item>
+  <pk-timeline-item label="Step 3" icon="check_circle">...</pk-timeline-item>
+</pk-timeline>
+```
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `direction` | `'vertical'\|'horizontal'` | `'vertical'` | Layout direction |
+| `lineStyle` | `'solid'\|'dashed'` | `'solid'` | Connecting line style |
+
+| Item Input | Type | Default | Description |
+|---|---|---|---|
+| `label` | `string` | `''` | Date / step name beside dot |
+| `sublabel` | `string` | `''` | Secondary label line |
+| `icon` | `string` | `''` | Material Symbols icon name |
+| `image` | `string` | `''` | Avatar/photo URL (circular) |
+| `dotColor` | `string` | `''` | CSS color override |
+| `active` | `boolean` | `false` | Filled dot; icon turns white |
