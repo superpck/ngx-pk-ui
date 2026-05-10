@@ -1,0 +1,329 @@
+<div class="pk-calendar">
+
+  <!-- ═══════════════════════════════════════════════════════ TOOLBAR -->
+  <div class="pk-cal__toolbar">
+    <div class="pk-cal__toolbar-left">
+      <button class="pk-cal__nav-btn" (click)="prev()">&#8249;</button>
+      <button class="pk-cal__nav-btn pk-cal__nav-btn--today" (click)="goToday()">
+        {{ locale() === 'TH' ? 'วันนี้' : 'Today' }}
+      </button>
+      <button class="pk-cal__nav-btn" (click)="next()">&#8250;</button>
+      <span class="pk-cal__title">{{ _toolbarTitle() }}</span>
+    </div>
+    <div class="pk-cal__toolbar-right">
+      <div class="pk-cal__view-tabs">
+        @for (v of ['year','month','week','day','agenda']; track v) {
+          <button
+            class="pk-cal__view-tab"
+            [class.pk-cal__view-tab--active]="_view() === v"
+            (click)="setView($any(v))"
+          >
+            @if (locale() === 'TH') {
+              {{ v === 'year' ? 'ปี' : v === 'month' ? 'เดือน' : v === 'week' ? 'สัปดาห์' : v === 'day' ? 'วัน' : 'กำหนดการ' }}
+            } @else {
+              {{ v === 'year' ? 'Year' : v === 'month' ? 'Month' : v === 'week' ? 'Week' : v === 'day' ? 'Day' : 'Agenda' }}
+            }
+          </button>
+        }
+      </div>
+      @if (!readonly()) {
+        <button class="pk-cal__add-btn" (click)="openCreate(_currentDate())">
+          + {{ locale() === 'TH' ? 'เพิ่ม' : 'New' }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ CONTENT -->
+  <div class="pk-cal__body">
+
+    <!-- ──────────────────────────────────────────────── YEAR VIEW -->
+    @if (_view() === 'year') {
+      <div class="pk-cal__year-grid">
+        @for (m of _yearMonths(); track m.month) {
+          <div class="pk-cal__mini-month" (click)="goToMonth(m.month, m.year)">
+            <div class="pk-cal__mini-month-name">{{ _monthNamesShort()[m.month] }}</div>
+            <div class="pk-cal__mini-dots">
+              @for (c of m.dots; track c) {
+                <span class="pk-cal__mini-dot" [style.background]="c"></span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- ──────────────────────────────────────────────── MONTH VIEW -->
+    @if (_view() === 'month') {
+      <div class="pk-cal__month">
+        <!-- Weekday headers -->
+        <div class="pk-cal__weekday-row">
+          @if (showWeekNumbers()) { <div class="pk-cal__week-num-header">#</div> }
+          @for (wd of _weekdays(); track wd) {
+            <div class="pk-cal__weekday-header">{{ wd }}</div>
+          }
+        </div>
+
+        <!-- Week rows -->
+        @for (week of _monthGrid(); track $index; let wi = $index) {
+          <div class="pk-cal__week-row">
+            @if (showWeekNumbers()) {
+              <div class="pk-cal__week-num">{{ wi + 1 }}</div>
+            }
+
+            <!-- Day cells (date numbers only layer) -->
+            @for (day of week.days; track day.date.toISOString()) {
+              <div
+                class="pk-cal__day-cell"
+                [class.pk-cal__day-cell--other-month]="!day.isCurrentMonth"
+                [class.pk-cal__day-cell--today]="day.isToday"
+                [class.pk-cal__day-cell--weekend]="day.isWeekend"
+                (click)="openCreate(day.date)"
+                (dragover)="onDragOver($event)"
+                (drop)="onDrop($event, day.date)"
+              >
+                <span class="pk-cal__day-number">{{ day.date.getDate() }}</span>
+                <!-- overflow badge -->
+                @if (week.overflow[dayKey(day.date)]) {
+                  <span class="pk-cal__overflow-badge">
+                    +{{ week.overflow[dayKey(day.date)] }}
+                  </span>
+                }
+              </div>
+            }
+
+            <!-- Event bars layer (absolute over cells) -->
+            <div class="pk-cal__bars-layer" [attr.aria-hidden]="true">
+              @for (bar of week.bars; track bar.event.id + '_' + bar.slotRow) {
+                @if (bar.slotRow < 3) {
+                  <div
+                    class="pk-cal__event-bar"
+                    [class.pk-cal__event-bar--start]="bar.isStart"
+                    [class.pk-cal__event-bar--end]="bar.isEnd"
+                    [ngStyle]="{
+                      background: eventColor(bar.event),
+                      left: (bar.colStart / 7 * 100) + '%',
+                      width: (bar.colSpan / 7 * 100) + '%',
+                      top: 'calc(26px + ' + bar.slotRow + ' * 22px)'
+                    }"
+                    [draggable]="!readonly()"
+                    (dragstart)="onDragStart($event, bar.event)"
+                    (click)="openEdit(bar.event, $event)"
+                    [title]="bar.event.title"
+                  >
+                    @if (bar.isStart) {
+                      @if (bar.event.priority) {
+                        <span class="pk-cal__bar-priority" [style.background]="priorityColor(bar.event)"></span>
+                      }
+                      <span class="pk-cal__bar-time">{{ formatTime(bar.event) }}</span>
+                      <span class="pk-cal__bar-title">{{ bar.event.title }}</span>
+                    }
+                  </div>
+                }
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- ──────────────────────────────────────────────── WEEK VIEW -->
+    @if (_view() === 'week') {
+      <div class="pk-cal__week">
+        <!-- Column headers -->
+        <div class="pk-cal__week-header">
+          <div class="pk-cal__time-gutter"></div>
+          @for (day of _weekDays(); track day.toISOString()) {
+            <div class="pk-cal__week-col-header" [class.pk-cal__week-col-header--today]="isToday(day)">
+              <span class="pk-cal__week-dow">{{ weekDayLabel(day) }}</span>
+              <span class="pk-cal__week-date" [class.pk-cal__week-date--today]="isToday(day)">{{ day.getDate() }}</span>
+            </div>
+          }
+        </div>
+
+        <!-- All-day row -->
+        <div class="pk-cal__allday-row">
+          <div class="pk-cal__time-gutter pk-cal__time-gutter--allday">
+            {{ locale() === 'TH' ? 'ทั้งวัน' : 'All day' }}
+          </div>
+          @for (day of _weekDays(); track day.toISOString()) {
+            <div class="pk-cal__allday-cell">
+              @for (ev of _weekAllDay().get(dayKey(day)); track ev.id) {
+                <div
+                  class="pk-cal__allday-chip"
+                  [style.background]="eventColor(ev)"
+                  (click)="openEdit(ev, $event)"
+                >{{ ev.title }}</div>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Time grid -->
+        <div class="pk-cal__time-grid">
+          <!-- Hour labels -->
+          <div class="pk-cal__gutter-col">
+            @for (h of timeHours(); track h) {
+              <div class="pk-cal__hour-label">
+                {{ h === 0 ? '' : (h < 10 ? '0'+h : h) + ':00' }}
+              </div>
+            }
+          </div>
+
+          <!-- Day columns -->
+          @for (day of _weekDays(); track day.toISOString()) {
+            <div
+              class="pk-cal__day-col"
+              [class.pk-cal__day-col--today]="isToday(day)"
+              (click)="openCreate(day)"
+              (dragover)="onDragOver($event)"
+              (drop)="onDrop($event, day)"
+            >
+              <!-- hour lines -->
+              @for (h of timeHours(); track h) {
+                <div class="pk-cal__hour-line"></div>
+              }
+              <!-- timed event blocks -->
+              @for (blk of _weekBlocks().get(dayKey(day)); track blk.event.id) {
+                <div
+                  class="pk-cal__event-block"
+                  [ngStyle]="{
+                    top: blk.top + '%',
+                    height: blk.height + '%',
+                    left: blk.left + '%',
+                    width: blk.width + '%',
+                    background: eventColor(blk.event)
+                  }"
+                  [draggable]="!readonly()"
+                  (dragstart)="onDragStart($event, blk.event)"
+                  (click)="openEdit(blk.event, $event)"
+                >
+                  @if (blk.event.priority) {
+                    <span class="pk-cal__block-priority" [style.background]="priorityColor(blk.event)"></span>
+                  }
+                  <span class="pk-cal__block-title">{{ blk.event.title }}</span>
+                  <span class="pk-cal__block-time">{{ formatTime(blk.event) }}</span>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- ──────────────────────────────────────────────── DAY VIEW -->
+    @if (_view() === 'day') {
+      <div class="pk-cal__day-view">
+        <div class="pk-cal__day-view-header">
+          <span class="pk-cal__day-view-title" [class.pk-cal__day-view-title--today]="isToday(_currentDate())">
+            {{ formatDateLabel(_currentDate()) }}
+          </span>
+        </div>
+        <!-- All-day -->
+        @if (_weekAllDay().get(dayKey(_currentDate()))?.length) {
+          <div class="pk-cal__allday-row pk-cal__allday-row--day">
+            <div class="pk-cal__time-gutter pk-cal__time-gutter--allday">{{ locale() === 'TH' ? 'ทั้งวัน' : 'All day' }}</div>
+            <div class="pk-cal__allday-cell pk-cal__allday-cell--day">
+              @for (ev of _weekAllDay().get(dayKey(_currentDate())); track ev.id) {
+                <div class="pk-cal__allday-chip" [style.background]="eventColor(ev)" (click)="openEdit(ev, $event)">{{ ev.title }}</div>
+              }
+            </div>
+          </div>
+        }
+        <div class="pk-cal__time-grid pk-cal__time-grid--day">
+          <div class="pk-cal__gutter-col">
+            @for (h of timeHours(); track h) {
+              <div class="pk-cal__hour-label">{{ h === 0 ? '' : (h < 10 ? '0'+h : h) + ':00' }}</div>
+            }
+          </div>
+          <div
+            class="pk-cal__day-col pk-cal__day-col--single"
+            (click)="openCreate(_currentDate())"
+            (dragover)="onDragOver($event)"
+            (drop)="onDrop($event, _currentDate())"
+          >
+            @for (h of timeHours(); track h) { <div class="pk-cal__hour-line"></div> }
+            @for (blk of _dayBlocks(); track blk.event.id) {
+              <div
+                class="pk-cal__event-block"
+                [ngStyle]="{
+                  top: blk.top + '%',
+                  height: blk.height + '%',
+                  left: blk.left + '%',
+                  width: blk.width + '%',
+                  background: eventColor(blk.event)
+                }"
+                [draggable]="!readonly()"
+                (dragstart)="onDragStart($event, blk.event)"
+                (click)="openEdit(blk.event, $event)"
+              >
+                @if (blk.event.priority) {
+                  <span class="pk-cal__block-priority" [style.background]="priorityColor(blk.event)"></span>
+                }
+                <span class="pk-cal__block-title">{{ blk.event.title }}</span>
+                <span class="pk-cal__block-time">{{ formatTime(blk.event) }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- ──────────────────────────────────────────────── AGENDA VIEW (list) -->
+    @if (_view() === 'agenda') {
+      <div class="pk-cal__agenda">
+        @if (_agendaDays().length === 0) {
+          <div class="pk-cal__agenda-empty">
+            {{ locale() === 'TH' ? 'ไม่มีนัดหมายใน 60 วันข้างหน้า' : 'No events in the next 60 days' }}
+          </div>
+        }
+        @for (group of _agendaDays(); track group.date.toISOString()) {
+          <div class="pk-cal__agenda-group">
+            <div class="pk-cal__agenda-date" [class.pk-cal__agenda-date--today]="isToday(group.date)">
+              {{ formatDateLabel(group.date) }}
+            </div>
+            @for (ev of group.events; track ev.id) {
+              <div
+                class="pk-cal__agenda-event"
+                [class.pk-cal__agenda-event--readonly]="readonly()"
+                (click)="openEdit(ev, $event)"
+              >
+                <span class="pk-cal__agenda-color" [style.background]="eventColor(ev)"></span>
+                <div class="pk-cal__agenda-info">
+                  <span class="pk-cal__agenda-title">{{ ev.title }}</span>
+                  <div class="pk-cal__agenda-meta">
+                    <span class="pk-cal__agenda-type-badge" [style.background]="eventColor(ev)">{{ eventTypeLabel(ev) }}</span>
+                    @if (ev.priority) {
+                      <span class="pk-cal__agenda-priority" [style.color]="priorityColor(ev)">● {{ ev.priority }}</span>
+                    }
+                    @if (!ev.allDay) { <span class="pk-cal__agenda-time">{{ formatTime(ev) }}</span> }
+                    @if (ev.location) { <span class="pk-cal__agenda-location">📍 {{ ev.location }}</span> }
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ FORM PANEL -->
+  @if (_showForm()) {
+    <div class="pk-cal__form-overlay" (click)="closeForm()">
+      <div class="pk-cal__form-panel" (click)="$event.stopPropagation()">
+        <pk-calendar-form
+          [event]="_editingEvent()"
+          [initialDate]="_formDate()"
+          [locale]="locale()"
+          [readonly]="readonly()"
+          (onSave)="handleSave($event)"
+          (onDelete)="handleDelete($event)"
+          (onCancel)="closeForm()"
+        />
+      </div>
+    </div>
+  }
+
+</div>

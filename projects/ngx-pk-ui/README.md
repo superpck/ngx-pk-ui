@@ -60,6 +60,7 @@ npm publish dist/ngx-pk-ui
 - Select: `PkSelectComponent`
 - Autocomplete: `PkAutocompleteComponent`
 - Typeahead: `PkTypeaheadComponent`
+- Calendar: `PkCalendar`, `PkCalendarEvent`, `PkCalendarView`, `PkEventType`, `PkEventPriority`, `PkCalendarAttachment`, `PkEventMoveResult`
 
 ## CSS utility files
 
@@ -98,6 +99,60 @@ import { PkModalModule } from 'ngx-pk-ui';     // pk-modal (convenience)
 import { PkDatagridModule } from 'ngx-pk-ui';  // pk-datagrid
 import { PkTreeviewModule } from 'ngx-pk-ui';  // pk-treeview
 ```
+
+## pk-calendar quick start
+
+```ts
+import { PkCalendar } from 'ngx-pk-ui';
+import type { PkCalendarEvent, PkCalendarView, PkEventMoveResult } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkCalendar],
+})
+export class MyComponent {
+  events: PkCalendarEvent[] = [
+    {
+      id: 1,
+      title: 'Team Meeting',
+      type: 'meeting',
+      start: new Date(),
+      priority: 'high',
+    },
+  ];
+
+  onMove(result: PkEventMoveResult) {
+    // update events array with result.newStart / result.newEnd
+  }
+}
+```
+
+```html
+<pk-calendar
+  [events]="events"
+  locale="EN"
+  startOfWeek="monday"
+  (onEventCreate)="onCreate($event)"
+  (onEventUpdate)="onUpdate($event)"
+  (onEventDelete)="onDelete($event)"
+  (onEventMove)="onMove($event)"
+/>
+```
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `events` | `PkCalendarEvent[]` | `[]` | Events to display |
+| `view` | `'year'\|'month'\|'week'\|'day'\|'agenda'` | `'month'` | Active view |
+| `currentDate` | `Date` | `new Date()` | Initial navigation date |
+| `locale` | `'EN'\|'TH'` | `'EN'` | Language for labels |
+| `startOfWeek` | `'sunday'\|'monday'` | `'sunday'` | First day of the week |
+| `readonly` | `boolean` | `false` | Disable create/edit actions |
+| `showWeekNumbers` | `boolean` | `false` | Show week number column |
+
+**Outputs:** `(onEventCreate)`, `(onEventUpdate)`, `(onEventDelete)`, `(onEventMove)`, `(onEventClick)`, `(onDateClick)`, `(onViewChange)`, `(onNavigate)`
+
+**`PkEventType` values:** `meeting` · `appointment` · `birthday` · `holiday` · `festival` · `event` · `task` · `reminder` · `other`
+
+**`PkEventPriority` values:** `low` · `medium` · `high` · `urgent`
 
 ## pk-timeline quick start
 

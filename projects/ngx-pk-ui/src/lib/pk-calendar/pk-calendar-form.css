@@ -1,0 +1,227 @@
+.pk-cal-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--pk-cal-text, #111827);
+}
+
+.pk-cal-form__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--pk-cal-border, #e5e7eb);
+  flex-shrink: 0;
+}
+
+.pk-cal-form__title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.pk-cal-form__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #9ca3af;
+  padding: 2px 6px;
+  border-radius: 4px;
+  line-height: 1;
+}
+.pk-cal-form__close:hover { color: #374151; background: #f3f4f6; }
+
+.pk-cal-form__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pk-cal-form__footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--pk-cal-border, #e5e7eb);
+  flex-shrink: 0;
+}
+
+.pk-cal-form__spacer { flex: 1; }
+
+.pk-cal-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pk-cal-form__field--flex1 { flex: 1; }
+
+.pk-cal-form__field--row {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.pk-cal-form__field-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pk-cal-form__row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.pk-cal-form__label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #6b7280;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.pk-cal-form__input,
+.pk-cal-form__select,
+.pk-cal-form__textarea {
+  border: 1.5px solid var(--pk-cal-border, #d1d5db);
+  border-radius: 6px;
+  padding: 6px 9px;
+  font-size: 13px;
+  font-family: inherit;
+  color: inherit;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+.pk-cal-form__input:focus,
+.pk-cal-form__select:focus,
+.pk-cal-form__textarea:focus {
+  border-color: var(--pk-cal-primary, #4f46e5);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pk-cal-primary, #4f46e5) 12%, transparent);
+}
+.pk-cal-form__input:disabled,
+.pk-cal-form__select:disabled,
+.pk-cal-form__textarea:disabled { background: #f9fafb; color: #9ca3af; cursor: not-allowed; }
+
+.pk-cal-form__textarea { resize: vertical; min-height: 52px; }
+
+/* Toggle */
+.pk-cal-form__toggle { display: flex; align-items: center; cursor: pointer; }
+.pk-cal-form__toggle input { display: none; }
+.pk-cal-form__toggle-track {
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  background: #d1d5db;
+  border-radius: 10px;
+  position: relative;
+  transition: background 0.2s;
+}
+.pk-cal-form__toggle-track::after {
+  content: '';
+  position: absolute;
+  left: 3px; top: 3px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,.25);
+}
+.pk-cal-form__toggle input:checked + .pk-cal-form__toggle-track { background: var(--pk-cal-primary, #4f46e5); }
+.pk-cal-form__toggle input:checked + .pk-cal-form__toggle-track::after { transform: translateX(16px); }
+
+/* Color swatches */
+.pk-cal-form__colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.pk-cal-form__color-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.pk-cal-form__color-swatch:hover { transform: scale(1.15); }
+.pk-cal-form__color-swatch--active { border-color: #fff; box-shadow: 0 0 0 2px #374151; }
+.pk-cal-form__color-picker {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 2px solid #d1d5db;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* Attachments */
+.pk-cal-form__attachment-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.pk-cal-form__add-btn {
+  font-size: 11px;
+  color: var(--pk-cal-primary, #4f46e5);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 4px;
+  font-weight: 500;
+}
+.pk-cal-form__add-btn:hover { text-decoration: underline; }
+
+.pk-cal-form__remove-btn {
+  width: 24px; height: 24px;
+  border-radius: 4px;
+  border: none;
+  background: none;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.pk-cal-form__remove-btn:hover { color: #ef4444; background: #fee2e2; }
+
+/* Footer buttons */
+.pk-cal-form__btn {
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.pk-cal-form__btn--primary {
+  background: var(--pk-cal-primary, #4f46e5);
+  color: #fff;
+}
+.pk-cal-form__btn--primary:hover { filter: brightness(1.1); }
+.pk-cal-form__btn--ghost {
+  background: none;
+  color: #374151;
+  border: 1.5px solid #d1d5db;
+}
+.pk-cal-form__btn--ghost:hover { background: #f3f4f6; }
+.pk-cal-form__btn--danger {
+  background: #fee2e2;
+  color: #ef4444;
+}
+.pk-cal-form__btn--danger:hover { background: #fecaca; }

@@ -15,6 +15,7 @@ export class App {
     { label: 'accordion', link: '/pk-accordion' },
     { label: 'alert', link: '/pk-alert' },
     { label: 'autocomplete', link: '/pk-autocomplete' },
+    { label: 'calendar', link: '/pk-calendar' },
     { label: 'datagrid', link: '/pk-datagrid' },
     { label: 'datepicker', link: '/pk-datepicker' },
     { label: 'icon', link: '/pk-icon' },

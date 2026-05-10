@@ -71,6 +71,10 @@ export * from './lib/pk-treeview/pk-treeview.model';
 export * from './lib/pk-select/pk-select.interface';
 export * from './lib/pk-select/pk-select.component';
 
+// pk-calendar
+export * from './lib/pk-calendar/pk-calendar.model';
+export * from './lib/pk-calendar/pk-calendar';
+
 // pk-tooltip
 export * from './lib/pk-tooltip/pk-tooltip.directive';
 

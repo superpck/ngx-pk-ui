@@ -79,6 +79,12 @@ projects/
         pk-autocomplete/        ← Local/async autocomplete input
         pk-typeahead/           ← Typeahead input with keyboard navigation
         pk-tooltip/             ← Hover tooltip (CSS-driven + Angular component)
+        pk-calendar/
+          pk-calendar.model.ts  ← all types: PkCalendarEvent, PkCalendarView, PkEventType, PkEventPriority, PkCalendarAttachment, PkEventMoveResult
+          pk-calendar-form.ts   ← internal form component (NOT exported from public-api)
+          pk-calendar-form.html / .css
+          pk-calendar.ts        ← main standalone component: Year/Month/Week/Day/Agenda views
+          pk-calendar.html / .css
     src/styles/
       pk-ui.css                   ← single entry point — @imports all modules below
       pk-grid.css                 ← responsive 12-column grid
@@ -101,7 +107,7 @@ projects/
       pages/
         Components: home/ pk-accordion/ pk-tabs/ pk-toastr/ pk-alert/ pk-modal/
                     pk-icon/ pk-datagrid/ pk-datepicker/ pk-progress/ pk-treeview/
-                    pk-select/ pk-autocomplete/ pk-typeahead/ pk-tooltip/ pk-timeline/
+                    pk-select/ pk-autocomplete/ pk-typeahead/ pk-tooltip/ pk-timeline/ pk-calendar/
         CSS pages:  pk-grid/ pk-btn/ pk-spinner/ pk-badge/ pk-card/
                     pk-table/ pk-toggle/ pk-breadcrumb/ pk-font/ pk-form/ pk-layout/
 ```
@@ -392,7 +398,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.1.0` |
+| Library version | `2.2.0` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -409,6 +415,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-autocomplete` | ✅ Built |
 | `pk-typeahead` | ✅ Built |
 | `pk-tooltip` | ✅ Built |
+| `pk-calendar` | ✅ Built — Year/Month/Week/Day/Agenda views, drag & drop, multi-day bars, built-in form, TH/EN locale |
 | `pk-grid` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | `pk-btn` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
 | `pk-spinner` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
@@ -430,6 +437,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - `pk-stepper` — multi-step wizard / stepper
 - `pk-pagination` — standalone pagination component (reuse datagrid logic)
 - `pk-drawer` — slide-in side panel / off-canvas drawer
+- `pk-kanban` — drag-and-drop kanban board
 
 ---
 
@@ -617,7 +625,7 @@ export class MyComponent {
 <span class="pk-badge pk-badge-lg">New</span>
 
 <!-- Pill (rectangular, rounded ends) -->
-<span class="pk-badge pk-badge-success pk-badge-pill">v2.1.0</span>
+<span class="pk-badge pk-badge-success pk-badge-pill">v2.2.0</span>
 
 <!-- Dot (empty indicator, no text) -->
 <span class="pk-badge pk-badge-dot pk-badge-success"></span>
