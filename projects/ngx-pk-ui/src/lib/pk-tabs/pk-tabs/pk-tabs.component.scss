@@ -1,0 +1,57 @@
+.pk-tabs-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 4px;
+  overflow: visible;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pk-tabs-header {
+  display: flex;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  position: relative;
+}
+
+.pk-tabs-header.scrollx {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.pk-tabs-header.newline {
+  flex-wrap: wrap;
+}
+
+.pk-tab-caption-wrapper {
+  padding: 8px 15px 2px 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+
+.pk-tab-caption-wrapper:hover {
+  background-color: rgba(0, 0, 0, 0.063);
+}
+
+.pk-tab-caption-wrapper.active {
+  background-color: #0066ff1e; /* อัปเดตตามคำขอ */
+  border-bottom: 3px solid #0d6efd; /* อัปเดตตามคำขอ */
+  font-weight: 500;
+}
+
+.pk-tab-caption-wrapper.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.pk-tabs-content {
+  background-color: #ffffff;
+  padding: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}

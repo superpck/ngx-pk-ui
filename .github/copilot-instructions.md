@@ -527,7 +527,7 @@ export class MyComponent {
 <span class="pk-badge pk-badge-lg">New</span>
 
 <!-- Pill (rectangular, rounded ends) -->
-<span class="pk-badge pk-badge-success pk-badge-pill">v2.0.1</span>
+<span class="pk-badge pk-badge-success pk-badge-pill">v2.0.2</span>
 
 <!-- Dot (empty indicator, no text) -->
 <span class="pk-badge pk-badge-dot pk-badge-success"></span>

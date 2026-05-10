@@ -7,8 +7,10 @@ export * from './lib/pk-accordion/pk-accordion-item';
 export * from './lib/pk-accordion/pk-accordion';
 
 // pk-tabs
-export * from './lib/pk-tabs/pk-tab';
-export * from './lib/pk-tabs/pk-tabs';
+export * from './lib/pk-tabs/pk-tab/pk-tab.component';
+export * from './lib/pk-tabs/pk-tab/pk-tab-body.component';
+export * from './lib/pk-tabs/pk-tab/pk-tab-title.component';
+export * from './lib/pk-tabs/pk-tabs/pk-tabs.component';
 export * from './lib/pk-tabs/pk-tabs.module';
 
 // pk-toastr

@@ -1,67 +1,117 @@
 <div class="demo-page">
   <div class="demo-page-header">
     <h1 class="demo-page-title">pk-tabs</h1>
-    <p class="demo-page-desc">Accessible tabbed navigation using content projection and Angular signals.</p>
+    <p class="demo-page-desc">Tabbed navigation using NgModule with content projection via <code>pk-tab-title</code> and <code>pk-tab-body</code>.</p>
   </div>
 
   <section class="demo-section">
-    <h2>Demo</h2>
+    <h2>Demo — Basic</h2>
     <pk-tabs>
-      <pk-tab label="Profile">
-        <p>👤 Profile content — name, avatar, bio.</p>
+      <pk-tab>
+        <pk-tab-title>Profile</pk-tab-title>
+        <pk-tab-body>
+          <p>👤 Profile content — name, avatar, bio.</p>
+        </pk-tab-body>
       </pk-tab>
-      <pk-tab label="Settings">
-        <p>⚙️ Settings content — preferences, notifications.</p>
+      <pk-tab>
+        <pk-tab-title>Settings</pk-tab-title>
+        <pk-tab-body>
+          <p>⚙️ Settings content — preferences, notifications.</p>
+        </pk-tab-body>
       </pk-tab>
-      <pk-tab label="Disabled" [disabled]="true">
-        <p>This content is never shown.</p>
+      <pk-tab [disabled]="true">
+        <pk-tab-title>Disabled</pk-tab-title>
+        <pk-tab-body>
+          <p>This content is never shown.</p>
+        </pk-tab-body>
       </pk-tab>
-      <pk-tab label="Billing">
-        <p>💳 Billing content — plan, invoices.</p>
+      <pk-tab>
+        <pk-tab-title>Billing</pk-tab-title>
+        <pk-tab-body>
+          <p>💳 Billing content — plan, invoices.</p>
+        </pk-tab-body>
+      </pk-tab>
+    </pk-tabs>
+  </section>
+
+  <section class="demo-section">
+    <h2>Demo — overflow: newline</h2>
+    <pk-tabs overflow="newline">
+      <pk-tab>
+        <pk-tab-title>Tab One</pk-tab-title>
+        <pk-tab-body><p>Content for tab one.</p></pk-tab-body>
+      </pk-tab>
+      <pk-tab>
+        <pk-tab-title>Tab Two</pk-tab-title>
+        <pk-tab-body><p>Content for tab two.</p></pk-tab-body>
+      </pk-tab>
+      <pk-tab>
+        <pk-tab-title>Tab Three</pk-tab-title>
+        <pk-tab-body><p>Content for tab three.</p></pk-tab-body>
       </pk-tab>
     </pk-tabs>
   </section>
 
   <section class="demo-section">
     <h2>Installation</h2>
-    <pre class="code-block"><code>import &#123; PkTabsModule &#125; from 'ngx-pk-ui';
+    <pre class="code-block"><code>import {{ '{' }} PkTabsModule {{ '}' }} from 'ngx-pk-ui';
 
-&#64;Component(&#123;
+&#64;Component({{ '{' }}
   imports: [PkTabsModule],
   // ...
-&#125;)</code></pre>
+{{ '}' }})</code></pre>
   </section>
 
   <section class="demo-section">
     <h2>Usage</h2>
     <pre class="code-block"><code>&lt;pk-tabs&gt;
-  &lt;pk-tab label="Profile"&gt;
-    &lt;p&gt;Profile content here&lt;/p&gt;
+  &lt;pk-tab&gt;
+    &lt;pk-tab-title&gt;Profile&lt;/pk-tab-title&gt;
+    &lt;pk-tab-body&gt;
+      &lt;p&gt;Profile content here&lt;/p&gt;
+    &lt;/pk-tab-body&gt;
   &lt;/pk-tab&gt;
-  &lt;pk-tab label="Settings"&gt;
-    &lt;p&gt;Settings content here&lt;/p&gt;
+  &lt;pk-tab&gt;
+    &lt;pk-tab-title&gt;Settings&lt;/pk-tab-title&gt;
+    &lt;pk-tab-body&gt;
+      &lt;p&gt;Settings content here&lt;/p&gt;
+    &lt;/pk-tab-body&gt;
   &lt;/pk-tab&gt;
-  &lt;pk-tab label="Disabled" [disabled]="true"&gt;
-    &lt;p&gt;Never shown&lt;/p&gt;
+  &lt;pk-tab [disabled]="true"&gt;
+    &lt;pk-tab-title&gt;Disabled&lt;/pk-tab-title&gt;
+    &lt;pk-tab-body&gt;
+      &lt;p&gt;Never shown&lt;/p&gt;
+    &lt;/pk-tab-body&gt;
   &lt;/pk-tab&gt;
 &lt;/pk-tabs&gt;</code></pre>
   </section>
 
   <section class="demo-section">
-    <h2>API — PkTab inputs</h2>
+    <h2>API — PkTabs inputs</h2>
     <table class="api-table">
-      <tr><th>Input</th><th>Type</th><th>Required</th><th>Default</th><th>Description</th></tr>
-      <tr><td><code>label</code></td><td><code>string</code></td><td>✅</td><td>—</td><td>Tab header label text</td></tr>
-      <tr><td><code>disabled</code></td><td><code>boolean</code></td><td>❌</td><td><code>false</code></td><td>Prevents tab from being selected</td></tr>
+      <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>overflow</code></td><td><code>'scrollx' | 'newline'</code></td><td><code>'scrollx'</code></td><td>Tab header overflow behavior</td></tr>
+      <tr><td><code>customClass</code></td><td><code>string</code></td><td><code>''</code></td><td>Extra CSS class on container</td></tr>
+      <tr><td><code>customStyle</code></td><td><code>object</code></td><td><code>{{ '{' }}{{ '}' }}</code></td><td>Inline styles on container</td></tr>
     </table>
   </section>
 
   <section class="demo-section">
-    <h2>API — PkTabs public members</h2>
+    <h2>API — PkTabs outputs</h2>
     <table class="api-table">
-      <tr><th>Member</th><th>Type</th><th>Description</th></tr>
-      <tr><td><code>activeIndex</code></td><td><code>WritableSignal&lt;number&gt;</code></td><td>Index of the active tab (writable)</td></tr>
-      <tr><td><code>selectTab(i)</code></td><td><code>void</code></td><td>Programmatically activate a tab by index</td></tr>
+      <tr><th>Output</th><th>Type</th><th>Description</th></tr>
+      <tr><td><code>(onSelectTab)</code></td><td><code>number</code></td><td>Emits the index of the newly selected tab</td></tr>
+    </table>
+  </section>
+
+  <section class="demo-section">
+    <h2>API — PkTab inputs</h2>
+    <table class="api-table">
+      <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>active</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Set tab as initially active</td></tr>
+      <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Prevents tab from being selected</td></tr>
+      <tr><td><code>customClass</code></td><td><code>string</code></td><td><code>''</code></td><td>Extra CSS class on tab panel</td></tr>
+      <tr><td><code>customStyle</code></td><td><code>object</code></td><td><code>{{ '{' }}{{ '}' }}</code></td><td>Inline styles on tab panel</td></tr>
     </table>
   </section>
 </div>

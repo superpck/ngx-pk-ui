@@ -1,0 +1,14 @@
+<div class="pk-tabs-container" [ngClass]="customClass" [ngStyle]="customStyle" [style]="style">
+  <div class="pk-tabs-header" [ngClass]="{'scrollx': overflow === 'scrollx', 'newline': overflow === 'newline'}" [style]="style">
+    <div *ngFor="let tab of tabs" 
+         class="pk-tab-caption-wrapper" 
+         [class.active]="tab.active"
+         [class.disabled]="tab.disabled"
+         (click)="selectTab(tab)">
+      <ng-container *ngTemplateOutlet="tab.captionTemplate"></ng-container>
+    </div>
+  </div>
+  <div class="pk-tabs-content">
+    <ng-content></ng-content>
+  </div>
+</div>
