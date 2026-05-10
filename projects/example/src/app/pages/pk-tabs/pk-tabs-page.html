@@ -87,31 +87,59 @@
   </section>
 
   <section class="demo-section">
-    <h2>API — PkTabs inputs</h2>
+    <h2>API — <code>pk-tabs</code> (PkTabsComponent)</h2>
+    <h3>Inputs</h3>
     <table class="api-table">
       <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
-      <tr><td><code>overflow</code></td><td><code>'scrollx' | 'newline'</code></td><td><code>'scrollx'</code></td><td>Tab header overflow behavior</td></tr>
-      <tr><td><code>customClass</code></td><td><code>string</code></td><td><code>''</code></td><td>Extra CSS class on container</td></tr>
-      <tr><td><code>customStyle</code></td><td><code>object</code></td><td><code>{{ '{' }}{{ '}' }}</code></td><td>Inline styles on container</td></tr>
+      <tr><td><code>overflow</code></td><td><code>'scrollx' | 'newline'</code></td><td><code>'scrollx'</code></td><td>Tab header overflow behavior — horizontal scroll or wrap to new line</td></tr>
+      <tr><td><code>customClass</code></td><td><code>string</code></td><td><code>''</code></td><td>Extra CSS class on the container element</td></tr>
+      <tr><td><code>customStyle</code></td><td><code>{{ '{' }} [key: string]: any {{ '}' }}</code></td><td><code>{{ '{' }}{{ '}' }}</code></td><td>Inline styles on the container element</td></tr>
+      <tr><td><code>style</code></td><td><code>string</code></td><td><code>''</code></td><td>Raw style string on the container and header</td></tr>
+    </table>
+    <h3>Outputs</h3>
+    <table class="api-table">
+      <tr><th>Output</th><th>Emits</th><th>Description</th></tr>
+      <tr><td><code>(onSelectTab)</code></td><td><code>number</code></td><td>Emits the zero-based index of the newly selected tab</td></tr>
     </table>
   </section>
 
   <section class="demo-section">
-    <h2>API — PkTabs outputs</h2>
+    <h2>API — <code>pk-tab</code> (PkTabComponent)</h2>
+    <h3>Inputs</h3>
     <table class="api-table">
-      <tr><th>Output</th><th>Type</th><th>Description</th></tr>
-      <tr><td><code>(onSelectTab)</code></td><td><code>number</code></td><td>Emits the index of the newly selected tab</td></tr>
+      <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>active</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Set this tab as the initially active tab</td></tr>
+      <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Prevent the tab from being selected</td></tr>
+      <tr><td><code>customClass</code></td><td><code>string</code></td><td><code>''</code></td><td>Extra CSS class on the tab panel</td></tr>
+      <tr><td><code>customStyle</code></td><td><code>{{ '{' }} [key: string]: any {{ '}' }}</code></td><td><code>{{ '{' }}{{ '}' }}</code></td><td>Inline styles on the tab panel</td></tr>
+      <tr><td><code>style</code></td><td><code>string</code></td><td><code>''</code></td><td>Raw style string on the tab panel</td></tr>
+    </table>
+    <p class="demo-note">Content projection: place <code>&lt;pk-tab-title&gt;</code> and <code>&lt;pk-tab-body&gt;</code> inside <code>&lt;pk-tab&gt;</code>.</p>
+  </section>
+
+  <section class="demo-section">
+    <h2>API — <code>pk-tab-title</code> (PkTabTitleComponent)</h2>
+    <h3>Inputs</h3>
+    <table class="api-table">
+      <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>customClass</code></td><td><code>string</code></td><td><code>''</code></td><td>Extra CSS class on the title element</td></tr>
+      <tr><td><code>customStyle</code></td><td><code>{{ '{' }} [key: string]: string {{ '}' }}</code></td><td><code>{{ '{' }}{{ '}' }}</code></td><td>Inline styles on the title element</td></tr>
+      <tr><td><code>style</code></td><td><code>string</code></td><td><code>''</code></td><td>Raw style string on the title element</td></tr>
+    </table>
+    <h3>Outputs</h3>
+    <table class="api-table">
+      <tr><th>Output</th><th>Emits</th><th>Description</th></tr>
+      <tr><td><code>(tabClick)</code></td><td><code>void</code></td><td>Emits when the title is clicked</td></tr>
     </table>
   </section>
 
   <section class="demo-section">
-    <h2>API — PkTab inputs</h2>
+    <h2>API — <code>pk-tab-body</code> (PkTabBodyComponent)</h2>
+    <h3>Inputs</h3>
     <table class="api-table">
       <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
-      <tr><td><code>active</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Set tab as initially active</td></tr>
-      <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Prevents tab from being selected</td></tr>
-      <tr><td><code>customClass</code></td><td><code>string</code></td><td><code>''</code></td><td>Extra CSS class on tab panel</td></tr>
-      <tr><td><code>customStyle</code></td><td><code>object</code></td><td><code>{{ '{' }}{{ '}' }}</code></td><td>Inline styles on tab panel</td></tr>
+      <tr><td><code>customClass</code></td><td><code>string</code></td><td><code>''</code></td><td>Extra CSS class on the body element</td></tr>
+      <tr><td><code>customStyle</code></td><td><code>{{ '{' }} [key: string]: any {{ '}' }}</code></td><td><code>{{ '{' }}{{ '}' }}</code></td><td>Inline styles on the body element</td></tr>
     </table>
   </section>
 </div>
