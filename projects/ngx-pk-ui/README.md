@@ -62,6 +62,7 @@ npm publish dist/ngx-pk-ui
 - Typeahead: `PkTypeaheadComponent`
 - Calendar: `PkCalendar`, `PkCalendarEvent`, `PkCalendarView`, `PkEventType`, `PkEventPriority`, `PkCalendarAttachment`, `PkEventMoveResult`
 - File Upload: `PkFileUpload`, `PkUploadFile`, `PkUploadPreviewType`, `PkFileUploadPreviewSize`
+- Sidenav: `PkSidenav`, `PkSidenavGroup`, `PkSidenavItem`, `PkSidenavTheme`, `PkSidenavMode`, `PkSidenavPosition`, `PkSidenavThemeConfig`
 
 ## CSS utility files
 
@@ -99,6 +100,7 @@ import { PkTabsModule } from 'ngx-pk-ui';      // pk-tabs
 import { PkModalModule } from 'ngx-pk-ui';     // pk-modal (convenience)
 import { PkDatagridModule } from 'ngx-pk-ui';  // pk-datagrid
 import { PkTreeviewModule } from 'ngx-pk-ui';  // pk-treeview
+import { PkSidenav } from 'ngx-pk-ui';         // pk-sidenav
 ```
 
 ## pk-calendar quick start
@@ -247,3 +249,87 @@ export class MyPage {
 - **`single`** — radio input per row; click again to deselect. Emits `any[]` of 0 or 1 item.
 - **`multiple`** — checkbox per row + indeterminate "select all" header checkbox. Emits all selected items.
 - Selected rows highlighted with light-blue background.
+
+## pk-sidenav quick start
+
+```ts
+import { PkSidenav } from 'ngx-pk-ui';
+import type { PkSidenavGroup } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkSidenav],
+})
+export class MyComponent {
+  activeKey = signal('home');
+
+  readonly groups: PkSidenavGroup[] = [
+    {
+      heading: 'Main',
+      items: [
+        { key: 'home',     label: 'Home',     icon: 'home' },
+        { key: 'notif',    label: 'Notifications', icon: 'notifications', badge: 5 },
+        { key: 'analytics',label: 'Analytics',     icon: 'bar_chart' },
+      ],
+    },
+    {
+      heading: 'Settings',
+      items: [
+        {
+          key: 'reports', label: 'Reports', icon: 'folder',
+          children: [
+            { key: 'r-all',  label: 'All reports', icon: 'list' },
+            { key: 'r-saved',label: 'Saved',       icon: 'bookmark' },
+          ],
+        },
+        { key: 'settings', label: 'Settings', icon: 'settings' },
+      ],
+    },
+  ];
+
+  onItemClick(item: any) { this.activeKey.set(item.key); }
+}
+```
+
+```html
+<pk-sidenav
+  [groups]="groups"
+  theme="dark"
+  mode="auto"
+  position="left"
+  [activeKey]="activeKey()"
+  (itemClick)="onItemClick($event)"
+>
+  <!-- optional slots -->
+  <div pkSidenavHeader>
+    <img src="logo.svg" alt="Logo" />
+    <span class="pk-snv-hide-on-icon">My App</span>
+  </div>
+  <div pkSidenavUser>
+    <img src="avatar.jpg" />
+    <span class="pk-snv-hide-on-icon">John Doe</span>
+  </div>
+</pk-sidenav>
+```
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `groups` | `PkSidenavGroup[]` | `[]` | Navigation groups |
+| `theme` | `'light'\|'dark'\|'primary'\|'custom'` | `'light'` | Built-in color theme |
+| `themeConfig` | `PkSidenavThemeConfig` | `{}` | CSS-variable overrides (use with `theme='custom'`) |
+| `mode` | `'full'\|'icon'\|'auto'` | `'full'` | Display mode — `auto` collapses below `breakpoint` |
+| `position` | `'left'\|'right'` | `'left'` | Side of layout |
+| `width` | `string` | `'220px'` | Full-mode width |
+| `iconWidth` | `string` | `'64px'` | Icon-only width |
+| `breakpoint` | `number` | `768` | px — collapse threshold for `mode='auto'` |
+| `activeKey` | `string` | `''` | Active item key |
+| `showUser` | `boolean` | `true` | Show footer user slot |
+
+**Outputs:** `(itemClick): PkSidenavItem` · `(modeChange): PkSidenavMode`
+
+**`PkSidenavItem` properties:** `key` · `label` · `icon?` · `badge?` · `disabled?` · `children?: PkSidenavItem[]`
+
+**Content projection slots:**
+- `[pkSidenavHeader]` — top brand/logo area
+- `[pkSidenavUser]` — bottom user info footer
+
+**Utility class:** add `class="pk-snv-hide-on-icon"` to any projected child to hide it in icon-only mode (`::ng-deep` is handled internally).

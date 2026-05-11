@@ -1,0 +1,325 @@
+/* ─── pk-sidenav CSS variables (light theme defaults) ────────────────── */
+:host {
+  --pk-snv-width:          220px;
+  --pk-snv-icon-width:     64px;
+
+  --pk-snv-bg:             #ffffff;
+  --pk-snv-color:          #374151;
+
+  --pk-snv-active-color:   #1d4ed8;
+  --pk-snv-active-bg:      rgba(29, 78, 216, 0.08);
+  --pk-snv-active-border:  #1d4ed8;
+
+  --pk-snv-hover-bg:       rgba(0, 0, 0, 0.05);
+  --pk-snv-hover-color:    inherit;
+
+  --pk-snv-heading-color:  #9ca3af;
+  --pk-snv-divider-color:  rgba(0, 0, 0, 0.07);
+
+  --pk-snv-icon-bg:        transparent;
+  --pk-snv-icon-color:     inherit;
+
+  --pk-snv-badge-bg:       #ef4444;
+  --pk-snv-badge-color:    #fff;
+  --pk-snv-item-radius:    8px;
+  --pk-snv-transition:     0.22s ease;
+
+  display: block;
+}
+
+/* ─── Shell ──────────────────────────────────────────────────────────── */
+.pk-sidenav {
+  display: flex;
+  flex-direction: column;
+  width: var(--pk-snv-width);
+  min-height: 100%;
+  background: var(--pk-snv-bg);
+  color: var(--pk-snv-color);
+  transition: width var(--pk-snv-transition);
+  overflow: hidden;
+  box-sizing: border-box;
+  border-right: 1px solid var(--pk-snv-divider-color);
+}
+
+.pk-sidenav--right {
+  border-right: none;
+  border-left: 1px solid var(--pk-snv-divider-color);
+}
+
+/* Collapsed / icon-only */
+.pk-sidenav--icon {
+  width: var(--pk-snv-icon-width);
+}
+
+/* ─── Themes ─────────────────────────────────────────────────────────── */
+.pk-sidenav--dark {
+  --pk-snv-bg:             #1e293b;
+  --pk-snv-color:          #e2e8f0;
+  --pk-snv-active-color:   #60a5fa;
+  --pk-snv-active-bg:      rgba(96, 165, 250, 0.12);
+  --pk-snv-active-border:  #60a5fa;
+  --pk-snv-hover-bg:       rgba(255, 255, 255, 0.07);
+  --pk-snv-heading-color:  #64748b;
+  --pk-snv-divider-color:  rgba(255, 255, 255, 0.08);
+  border-color: var(--pk-snv-divider-color);
+}
+
+.pk-sidenav--primary {
+  --pk-snv-bg:             #166534;
+  --pk-snv-color:          #dcfce7;
+  --pk-snv-active-color:   #ffffff;
+  --pk-snv-active-bg:      rgba(255, 255, 255, 0.15);
+  --pk-snv-active-border:  #ffffff;
+  --pk-snv-hover-bg:       rgba(255, 255, 255, 0.1);
+  --pk-snv-hover-color:    #ffffff;
+  --pk-snv-heading-color:  #86efac;
+  --pk-snv-divider-color:  rgba(255, 255, 255, 0.12);
+  border-color: transparent;
+}
+
+/* ─── Header (brand/logo slot) ───────────────────────────────────────── */
+.pk-snv-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 8px 12px 12px;
+  min-height: 56px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.pk-snv-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  color: var(--pk-snv-color);
+  cursor: pointer;
+  flex-shrink: 0;
+  opacity: 0.7;
+  transition: background var(--pk-snv-transition), opacity var(--pk-snv-transition);
+}
+
+.pk-snv-toggle:hover {
+  background: var(--pk-snv-hover-bg);
+  opacity: 1;
+}
+
+/* ─── Body (scrollable nav) ──────────────────────────────────────────── */
+.pk-snv-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pk-snv-divider-color) transparent;
+}
+
+.pk-snv-body::-webkit-scrollbar { width: 4px; }
+.pk-snv-body::-webkit-scrollbar-thumb { background: var(--pk-snv-divider-color); border-radius: 4px; }
+
+/* ─── Group heading ──────────────────────────────────────────────────── */
+.pk-snv-group-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 8px 4px;
+  cursor: default;
+  user-select: none;
+}
+
+.pk-snv-heading-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pk-snv-heading-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Collapsible group heading pointer */
+.pk-snv-group-heading:has(+ *) {
+  cursor: pointer;
+}
+
+/* ─── Divider ────────────────────────────────────────────────────────── */
+.pk-snv-divider {
+  height: 1px;
+  background: var(--pk-snv-divider-color);
+  margin: 6px 4px;
+}
+
+/* ─── Nav item ───────────────────────────────────────────────────────── */
+.pk-snv-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px 0 16px;
+  height: 40px;
+  border-radius: var(--pk-snv-item-radius);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  color: var(--pk-snv-color);
+  transition:
+    background var(--pk-snv-transition),
+    color var(--pk-snv-transition);
+  box-sizing: border-box;
+}
+
+.pk-snv-item:hover {
+  background: var(--pk-snv-hover-bg);
+  color: var(--pk-snv-hover-color);
+}
+
+/* Active */
+.pk-snv-item--active {
+  background: var(--pk-snv-active-bg);
+  color: var(--pk-snv-active-color);
+  font-weight: 600;
+}
+
+.pk-snv-item--active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--pk-snv-active-border);
+}
+
+/* Disabled */
+.pk-snv-item--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Icon-only mode — center everything */
+.pk-sidenav--icon .pk-snv-item {
+  justify-content: center;
+  padding: 0 !important;
+  position: relative;
+}
+
+/* ─── Icon bubble ────────────────────────────────────────────────────── */
+.pk-snv-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--pk-snv-icon-bg);
+  color: var(--pk-snv-icon-color, currentColor);
+  flex-shrink: 0;
+  transition: background var(--pk-snv-transition);
+}
+
+.pk-snv-item--active .pk-snv-icon {
+  background: var(--pk-snv-active-bg);
+  color: var(--pk-snv-active-color);
+}
+
+/* ─── Label ──────────────────────────────────────────────────────────── */
+.pk-snv-label {
+  flex: 1;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ─── Badge ──────────────────────────────────────────────────────────── */
+.pk-snv-badge {
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--pk-snv-badge-bg);
+  color: var(--pk-snv-badge-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* Badge in icon mode — small dot top-right of icon */
+.pk-sidenav--icon .pk-snv-badge--dot {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  min-width: 8px;
+  height: 8px;
+  padding: 0;
+  font-size: 0;
+  border-radius: 50%;
+}
+
+/* ─── Chevron ────────────────────────────────────────────────────────── */
+.pk-snv-chevron {
+  flex-shrink: 0;
+  transition: transform var(--pk-snv-transition);
+  opacity: 0.6;
+}
+
+.pk-snv-item--open .pk-snv-chevron {
+  transform: rotate(180deg);
+}
+
+/* ─── Submenu ────────────────────────────────────────────────────────── */
+.pk-snv-submenu {
+  overflow: hidden;
+  animation: pk-snv-slide-down 0.18s ease;
+}
+
+@keyframes pk-snv-slide-down {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Submenu items get a connecting line */
+.pk-snv-submenu .pk-snv-item::after {
+  content: '';
+  position: absolute;
+  left: 24px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--pk-snv-divider-color);
+}
+
+/* ─── Utility: hide in icon-only mode ───────────────────────────────── */
+/*
+  Add class="pk-snv-hide-on-icon" to any child inside pkSidenavHeader / pkSidenavUser
+  to hide it automatically when the nav is collapsed to icon-only.
+  ::ng-deep is required because the element lives in projected (consumer) content.
+*/
+.pk-sidenav--icon ::ng-deep .pk-snv-hide-on-icon {
+  display: none !important;
+}
+
+.pk-sidenav--icon .pk-snv-header {
+  justify-content: center;
+  padding: 12px 0;
+}
+
+/* ─── Footer (user slot) ─────────────────────────────────────────────── */
+.pk-snv-footer {
+  padding: 10px 12px;
+  border-top: 1px solid var(--pk-snv-divider-color);
+  flex-shrink: 0;
+}

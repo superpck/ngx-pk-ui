@@ -89,6 +89,10 @@ projects/
           pk-file-upload.model.ts  ← PkUploadFile, PkUploadPreviewType, PkFileUploadPreviewSize
           pk-file-upload.ts        ← standalone component: drag & drop, browser-native preview, upload button
           pk-file-upload.html / .css / .spec.ts
+        pk-sidenav/
+          pk-sidenav.model.ts   ← PkSidenavGroup, PkSidenavItem, PkSidenavTheme, PkSidenavMode, PkSidenavPosition, PkSidenavThemeConfig
+          pk-sidenav.ts         ← standalone component: left/right, full/icon/auto, multi-level, 4 themes, CSS-variable override
+          pk-sidenav.html / .css
     src/styles/
       pk-ui.css                   ← single entry point — @imports all modules below
       pk-grid.css                 ← responsive 12-column grid
@@ -390,6 +394,13 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `PkUploadPreviewType` | Type alias | `pk-file-upload/pk-file-upload.model` |
 | `PkFileUploadPreviewSize` | Type alias | `pk-file-upload/pk-file-upload.model` |
 | `PkFileUpload` | Component | `pk-file-upload/pk-file-upload` |
+| `PkSidenavGroup` | Interface | `pk-sidenav/pk-sidenav.model` |
+| `PkSidenavItem` | Interface | `pk-sidenav/pk-sidenav.model` |
+| `PkSidenavTheme` | Type alias | `pk-sidenav/pk-sidenav.model` |
+| `PkSidenavMode` | Type alias | `pk-sidenav/pk-sidenav.model` |
+| `PkSidenavPosition` | Type alias | `pk-sidenav/pk-sidenav.model` |
+| `PkSidenavThemeConfig` | Interface | `pk-sidenav/pk-sidenav.model` |
+| `PkSidenav` | Component | `pk-sidenav/pk-sidenav` |
 
 ---
 
@@ -414,7 +425,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.3.0` |
+| Library version | `2.4.0` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -433,6 +444,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-tooltip` | ✅ Built |
 | `pk-calendar` | ✅ Built — Year/Month/Week/Day/Agenda views, drag & drop, multi-day bars, built-in form, TH/EN locale |
 | `pk-file-upload` | ✅ Built, tested (14 tests) — drag & drop, browser-native preview (image/PDF/text), upload button, maxSize/maxFiles validation |
+| `pk-sidenav` | ✅ Built — left/right, full/icon/auto mode, multi-level, badge, 4 themes, CSS-variable override, content slots |
 | `pk-grid` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | `pk-btn` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
 | `pk-spinner` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
@@ -456,6 +468,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - `pk-drawer` — slide-in side panel / off-canvas drawer
 - `pk-kanban` — drag-and-drop kanban board
 - `pk-image-viewer` — lightbox / image viewer (works with pk-file-upload previews)
+- `pk-command-palette` — keyboard-driven command palette (works with pk-sidenav)
 
 ---
 
@@ -643,7 +656,7 @@ export class MyComponent {
 <span class="pk-badge pk-badge-lg">New</span>
 
 <!-- Pill (rectangular, rounded ends) -->
-<span class="pk-badge pk-badge-success pk-badge-pill">v2.3.0</span>
+<span class="pk-badge pk-badge-success pk-badge-pill">v2.4.0</span>
 
 <!-- Dot (empty indicator, no text) -->
 <span class="pk-badge pk-badge-dot pk-badge-success"></span>
@@ -1161,3 +1174,94 @@ Preview detection:
 - **pdf** — `file.type === 'application/pdf'`
 - **text** — `file.type.startsWith('text/')` or extension in `[json, xml, yaml, yml, csv, md, ts, js, html, css]`
 - **none** — everything else
+
+---
+
+## pk-sidenav API reference
+
+Standalone component — left/right side navigation with multi-level items, 4 built-in themes, CSS-variable override.
+
+```ts
+import { PkSidenav } from 'ngx-pk-ui';
+import type { PkSidenavGroup } from 'ngx-pk-ui';
+
+@Component({ imports: [PkSidenav] })
+```
+
+```html
+<pk-sidenav
+  [groups]="groups"
+  theme="dark"
+  mode="auto"
+  position="left"
+  [activeKey]="activeKey()"
+  (itemClick)="onItemClick($event)"
+>
+  <div pkSidenavHeader>
+    <span class="pk-snv-hide-on-icon">My App</span>
+  </div>
+  <div pkSidenavUser>
+    <span class="pk-snv-hide-on-icon">John Doe</span>
+  </div>
+</pk-sidenav>
+```
+
+### PkSidenav inputs / outputs
+
+| Input/Output | Type | Default | Description |
+|---|---|---|---|
+| `groups` | `PkSidenavGroup[]` | `[]` | Navigation groups with items |
+| `theme` | `'light'\|'dark'\|'primary'\|'custom'` | `'light'` | Built-in color theme |
+| `themeConfig` | `PkSidenavThemeConfig` | `{}` | CSS-variable overrides (use with `theme='custom'`) |
+| `mode` | `'full'\|'icon'\|'auto'` | `'full'` | `full`=label+icon · `icon`=icon-only · `auto`=responsive |
+| `position` | `'left'\|'right'` | `'left'` | Side of layout |
+| `width` | `string` | `'220px'` | Full-mode width |
+| `iconWidth` | `string` | `'64px'` | Icon-only width |
+| `breakpoint` | `number` | `768` | px — auto-collapse threshold (mode='auto') |
+| `activeKey` | `string` | `''` | Active item key |
+| `showUser` | `boolean` | `true` | Show footer user slot |
+| `(itemClick)` | `PkSidenavItem` | — | Emits item on click |
+| `(modeChange)` | `PkSidenavMode` | — | Emits new mode after auto-collapse/expand |
+
+### PkSidenavGroup interface
+
+| Property | Type | Description |
+|---|---|---|
+| `heading` | `string?` | Section heading (uppercase) |
+| `collapsible` | `boolean?` | Allow heading click to collapse group |
+| `collapsed` | `boolean?` | Start collapsed |
+| `items` | `PkSidenavItem[]` | Nav items in this group |
+
+### PkSidenavItem interface
+
+| Property | Type | Description |
+|---|---|---|
+| `key` | `string` | Unique key for active state tracking |
+| `label` | `string` | Display label |
+| `icon` | `string?` | Material Symbols icon name |
+| `badge` | `number\|string?` | Badge count shown on item |
+| `disabled` | `boolean?` | Prevent selection |
+| `children` | `PkSidenavItem[]?` | Nested items (multi-level) |
+
+### PkSidenavThemeConfig interface (for `theme='custom'`)
+
+All fields are optional CSS-value strings:
+`bg` · `color` · `activeColor` · `activeBg` · `activeBorder` · `hoverBg` · `hoverColor` · `headingColor` · `dividerColor` · `iconBg` · `iconColor`
+
+### Content projection slots
+
+| Selector | Description |
+|---|---|
+| `[pkSidenavHeader]` | Top slot — logo / brand area |
+| `[pkSidenavUser]` | Bottom footer slot — user info |
+
+### Utility class
+
+Add `class="pk-snv-hide-on-icon"` to any projected element to auto-hide it in icon-only mode.
+Internal `::ng-deep` is used — no extra CSS needed in consumer.
+
+### Behaviour notes
+- **Click in icon-only mode (auto)** → auto-expands to full mode, then selects item / opens submenu
+- **Active border** — 3px left bar on active item (right bar when `position='right'`)
+- **Submenu animation** — slide-down on open, `@keyframes pk-snv-slide-down`
+- **Themes**: `light` (white) · `dark` (slate-800) · `primary` (green-800) · `custom` (fully overridable via `themeConfig`)
