@@ -18,6 +18,7 @@ export class App {
     { label: 'calendar', link: '/pk-calendar' },
     { label: 'datagrid', link: '/pk-datagrid' },
     { label: 'datepicker', link: '/pk-datepicker' },
+    { label: 'file upload', link: '/pk-file-upload' },
     { label: 'icon', link: '/pk-icon' },
     { label: 'modal', link: '/pk-modal' },
     { label: 'progress', link: '/pk-progress' },

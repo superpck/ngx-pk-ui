@@ -1,0 +1,179 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-file-upload</h1>
+    <p class="demo-page-desc">File upload with drag &amp; drop and browser-native thumbnail preview (image, PDF, text). No extra libraries required.</p>
+  </div>
+
+  <!-- ── Demo 1: Images only ───────────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2>Images only (max 2 MB)</h2>
+    <p>Accept only image files, limit size to 2 MB per file.</p>
+    <pk-file-upload
+      accept="image/*"
+      [maxSize]="2_000_000"
+      [multiple]="true"
+      previewSize="md"
+    />
+  </section>
+
+  <!-- ── Demo 2: Multi-type + simulated upload ─────────────────────────── -->
+  <section class="demo-section">
+    <h2>Any file type — with simulated upload</h2>
+    <p>Add image, PDF, text, or other files then click <strong>Upload files</strong> to simulate an HTTP request (1.5 s delay).</p>
+    <pk-file-upload
+      #uploader
+      [multiple]="true"
+      [uploading]="isUploading()"
+      (filesChange)="onFilesChange($event)"
+      (onUpload)="onUpload($event)"
+      uploadLabel="Upload files"
+      previewSize="md"
+    />
+    @if (lastUploadedFiles().length > 0) {
+      <div class="result-box" style="margin-top: 16px; background: #f0fdf4; border-color: #86efac;">
+        <strong style="color: #166534;">
+          ✓ Uploaded {{ lastUploadedFiles().length }} file(s) successfully
+        </strong>
+        <ul style="margin: 8px 0 0; padding-left: 20px; font-size: 12px; color: #374151;">
+          @for (f of lastUploadedFiles(); track f.id) {
+            <li>{{ f.file.name }} — {{ f.previewType }}</li>
+          }
+        </ul>
+      </div>
+    }
+  </section>
+
+  <!-- ── Demo 3: Single file, large preview ────────────────────────────── -->
+  <section class="demo-section">
+    <h2>Single file — large preview</h2>
+    <p>When <code>[multiple]="false"</code>, selecting a new file replaces the previous one.</p>
+    <pk-file-upload
+      [multiple]="false"
+      previewSize="lg"
+    />
+  </section>
+
+  <!-- ── Demo 4: Disabled ───────────────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2>Disabled state</h2>
+    <p>The drop zone and buttons are non-interactive when <code>[disabled]="true"</code>.</p>
+    <pk-file-upload [disabled]="true" />
+  </section>
+
+  <!-- ── Installation ──────────────────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2>Installation</h2>
+    <pre class="code-block"><code>import &#123; PkFileUpload &#125; from 'ngx-pk-ui';
+import type &#123; PkUploadFile &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123;
+  imports: [PkFileUpload],
+  // ...
+&#125;)</code></pre>
+  </section>
+
+  <!-- ── Usage ─────────────────────────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2>Basic usage</h2>
+    <pre class="code-block"><code>&lt;!-- Simple image upload --&gt;
+&lt;pk-file-upload
+  accept="image/*"
+  [multiple]="true"
+  [maxSize]="5_000_000"
+  previewSize="md"
+/&gt;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>Upload with HTTP request</h2>
+    <h3>Template</h3>
+    <pre class="code-block"><code>&lt;pk-file-upload
+  #uploader
+  accept="image/*,.pdf"
+  [multiple]="true"
+  [maxSize]="10_000_000"
+  [uploading]="isUploading()"
+  (onUpload)="handleUpload($event)"
+/&gt;</code></pre>
+    <h3>Component</h3>
+    <pre class="code-block"><code>import &#123; Component, inject, signal, viewChild &#125; from '&#64;angular/core';
+import &#123; HttpClient &#125; from '&#64;angular/common/http';
+import &#123; PkFileUpload, type PkUploadFile &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123;
+  imports: [PkFileUpload],
+  template: `...`,
+&#125;)
+export class MyComponent &#123;
+  private http = inject(HttpClient);
+  readonly uploader = viewChild&lt;PkFileUpload&gt;('uploader');
+  isUploading = signal(false);
+
+  async handleUpload(files: PkUploadFile[]): Promise&lt;void&gt; &#123;
+    this.isUploading.set(true);
+    const formData = new FormData();
+    files.map(f =&gt; f.file).forEach(f =&gt; formData.append('files', f));
+    await this.http.post('/api/upload', formData).toPromise();
+    this.isUploading.set(false);
+    this.uploader()?.clear();  // reset after success
+  &#125;
+&#125;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>React to every add / remove</h2>
+    <pre class="code-block"><code>&lt;pk-file-upload
+  [multiple]="true"
+  [maxFiles]="5"
+  (filesChange)="onFilesChange($event)"
+/&gt;</code></pre>
+    <pre class="code-block" style="margin-top:8px"><code>onFilesChange(files: PkUploadFile[]): void &#123;
+  // fires on every add/remove — files includes both valid and errored entries
+  const valid = files.filter(f =&gt; !f.error);
+  console.log(valid.length, 'ready to upload');
+&#125;</code></pre>
+  </section>
+
+  <!-- ── PkUploadFile interface ─────────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2>PkUploadFile interface</h2>
+    <pre class="code-block"><code>interface PkUploadFile &#123;
+  id: number;                          // unique auto-increment id
+  file: File;                          // original File object
+  previewType: 'image'|'pdf'|'text'|'none';
+  previewUrl: string | null;           // blob: URL for image/pdf, null otherwise
+  textContent: string | null;          // first 300 chars for text files
+  error: string | null;                // set when file fails validation
+&#125;</code></pre>
+  </section>
+
+  <!-- ── API reference ─────────────────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2>API</h2>
+    <table class="api-table">
+      <thead>
+        <tr>
+          <th>Input / Output</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>accept</code></td><td>string</td><td>''</td><td>Same as native input <code>accept</code> attribute (e.g. <code>"image/*,.pdf"</code>)</td></tr>
+        <tr><td><code>multiple</code></td><td>boolean</td><td>true</td><td>Allow multiple files; <code>false</code> replaces the previous file</td></tr>
+        <tr><td><code>maxSize</code></td><td>number</td><td>0</td><td>Max bytes per file. <code>0</code> = no limit</td></tr>
+        <tr><td><code>maxFiles</code></td><td>number</td><td>0</td><td>Max total files allowed. <code>0</code> = no limit</td></tr>
+        <tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disables drop zone and all buttons</td></tr>
+        <tr><td><code>uploading</code></td><td>boolean</td><td>false</td><td>Shows spinner on Upload button and disables it</td></tr>
+        <tr><td><code>previewSize</code></td><td>'sm'|'md'|'lg'</td><td>'md'</td><td>Thumbnail card width (100 / 140 / 180 px)</td></tr>
+        <tr><td><code>uploadLabel</code></td><td>string</td><td>'Upload'</td><td>Upload button label text</td></tr>
+        <tr><td><code>browseLabel</code></td><td>string</td><td>'Browse files'</td><td>Clickable browse link text in drop zone</td></tr>
+        <tr><td><code>dropLabel</code></td><td>string</td><td>'Drag &amp; drop files here, or'</td><td>Main drop zone instruction text</td></tr>
+        <tr><td><code>(filesChange)</code></td><td>PkUploadFile[]</td><td>—</td><td>Emits on every file add or remove</td></tr>
+        <tr><td><code>(onUpload)</code></td><td>PkUploadFile[]</td><td>—</td><td>Emits valid files (no errors) when Upload is clicked</td></tr>
+        <tr><td><code>clear()</code></td><td>void</td><td>—</td><td>Public method — resets all files (call after upload success)</td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>

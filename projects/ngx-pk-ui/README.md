@@ -61,6 +61,7 @@ npm publish dist/ngx-pk-ui
 - Autocomplete: `PkAutocompleteComponent`
 - Typeahead: `PkTypeaheadComponent`
 - Calendar: `PkCalendar`, `PkCalendarEvent`, `PkCalendarView`, `PkEventType`, `PkEventPriority`, `PkCalendarAttachment`, `PkEventMoveResult`
+- File Upload: `PkFileUpload`, `PkUploadFile`, `PkUploadPreviewType`, `PkFileUploadPreviewSize`
 
 ## CSS utility files
 

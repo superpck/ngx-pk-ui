@@ -99,7 +99,7 @@ describe('PkIcon', () => {
 
   it('should have SVG path data defined for every icon name', () => {
     const allNames = Object.keys(PK_ICONS) as PkIconName[];
-    expect(allNames.length).toBe(67);
+    expect(allNames.length).toBe(92);
     allNames.forEach(name => {
       expect(PK_ICONS[name].trim().length).toBeGreaterThan(0);
     });
