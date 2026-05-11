@@ -39,7 +39,7 @@
     </div>
 
     <div class="pk-sidebar__section">
-      <span class="pk-sidebar__heading">Example Page</span>
+      <span class="pk-sidebar__heading">Example Pages</span>
       @for (item of examplesList; track item.link) {
       <a class="pk-sidebar__link" [routerLink]="item.link" routerLinkActive="active">{{ item.label }}</a>
       }

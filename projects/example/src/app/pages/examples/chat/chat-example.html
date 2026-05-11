@@ -1,0 +1,363 @@
+<div class="chat-shell">
+
+  <!-- ── Left icon sidenav ──────────────────────────────────────────────────── -->
+  <pk-sidenav
+    [groups]="navGroups"
+    mode="icon"
+    theme="dark"
+    [activeKey]="navKey()"
+    [showUser]="false"
+    (itemClick)="onNavClick($event)"
+    style="height: 100%;"
+  >
+    <div pkSidenavHeader class="chat-brand">
+      <div class="chat-brand-icon">W</div>
+    </div>
+  </pk-sidenav>
+
+  <!-- ── Main area ──────────────────────────────────────────────────────────── -->
+  <div class="chat-main">
+
+    <!-- Top bar (not fixed, renders below sidenav) -->
+    <header class="chat-topbar">
+      <div class="chat-topbar__search">
+        <pk-icon name="search" iconSet="material-symbols" [size]="18" />
+        <input type="text" placeholder="Search here" />
+      </div>
+      <div class="chat-topbar__end">
+        <a
+          class="chat-source-link"
+          href="https://github.com/superpck/ngx-pk-ui/tree/master/projects/example/src/app/pages/examples/chat"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="View source on GitHub"
+        >
+          <pk-icon name="code" iconSet="material-symbols" [size]="15" />
+          View source
+        </a>
+        <div class="chat-notif-wrap">
+          <button class="chat-icon-btn" aria-label="Notifications">
+            <pk-icon name="notifications" iconSet="material-symbols" [size]="20" />
+          </button>
+          <span class="chat-notif-badge">3</span>
+        </div>
+        <div class="chat-topbar__user">
+          <div class="cht-avatar cht-avatar--sm" style="background:#6366f1">ZR</div>
+          <span>Zarela Reed</span>
+          <pk-icon name="keyboard_arrow_down" iconSet="material-symbols" [size]="18" />
+        </div>
+      </div>
+    </header>
+
+    <!-- Body -->
+    <div class="chat-body">
+
+      <!-- ── Conversation list ───────────────────────────────────────────────── -->
+      <aside class="chat-conv-list">
+        <div class="chat-conv-list__header">
+          <h2>Conversation</h2>
+        </div>
+
+        <div class="chat-conv-list__search">
+          <pk-icon name="search" iconSet="material-symbols" [size]="16" />
+          <input
+            type="text"
+            placeholder="Search here"
+            [value]="searchQuery()"
+            (input)="searchQuery.set($any($event.target).value)"
+          />
+        </div>
+
+        <div class="chat-conv-list__tabs">
+          <button class="chat-tab chat-tab--active">
+            Recent Chats&nbsp;
+            <pk-icon name="expand_more" iconSet="material-symbols" [size]="14" />
+          </button>
+          <button class="chat-tab">
+            New Chat&nbsp;
+            <pk-icon name="expand_more" iconSet="material-symbols" [size]="14" />
+          </button>
+        </div>
+
+        <div class="chat-conv-list__items">
+          @for (conv of filteredConversations(); track conv.id) {
+            <button
+              class="conv-item"
+              [class.conv-item--active]="activeConvId() === conv.id"
+              (click)="selectConv(conv)"
+            >
+              <div class="conv-item__avatar">
+                <div class="cht-avatar" [style.background]="conv.avatarColor">{{ conv.initials }}</div>
+                @if (conv.status === 'online') {
+                  <span class="online-dot"></span>
+                }
+              </div>
+
+              <div class="conv-item__info">
+                <div class="conv-item__name">
+                  @if (conv.type === 'group') {
+                    <pk-icon name="group" iconSet="material-symbols" [size]="12" style="opacity:0.5" />&nbsp;
+                  }{{ conv.name }}
+                </div>
+                <div class="conv-item__last">{{ conv.lastMessage }}</div>
+              </div>
+
+              <div class="conv-item__meta">
+                <span class="conv-item__time">{{ conv.lastTime }}</span>
+                @if (conv.unread > 0) {
+                  <span class="cht-badge">{{ conv.unread }}</span>
+                }
+              </div>
+
+              <button class="conv-item__more" (click)="$event.stopPropagation()" aria-label="More options">
+                <pk-icon name="more_horiz" iconSet="material-symbols" [size]="16" />
+              </button>
+            </button>
+          }
+        </div>
+      </aside>
+
+      <!-- ── Chat window ────────────────────────────────────────────────────── -->
+      <main class="chat-window">
+        @if (activeConv(); as conv) {
+
+          <!-- Header -->
+          <div class="chat-win-header">
+            <div class="chat-win-header__user">
+              <div class="cht-avatar cht-avatar--md" [style.background]="conv.avatarColor">{{ conv.initials }}</div>
+              <div>
+                <div class="chat-win-header__name">{{ conv.name }}</div>
+                <div class="chat-win-header__status">
+                  @if (conv.status === 'online') {
+                    <span class="online-dot online-dot--inline"></span>Online
+                  } @else {
+                    Offline
+                  }
+                </div>
+              </div>
+            </div>
+            <div class="chat-win-header__actions">
+              @if (conv.type === 'peer') {
+                <button class="chat-icon-btn" aria-label="Video call">
+                  <pk-icon name="videocam" iconSet="material-symbols" [size]="20" />
+                </button>
+                <button class="chat-icon-btn" aria-label="Voice call">
+                  <pk-icon name="call" iconSet="material-symbols" [size]="20" />
+                </button>
+              }
+              <button class="chat-icon-btn" (click)="toggleProfile()" aria-label="Profile info">
+                <pk-icon name="info" iconSet="material-symbols" [size]="20" />
+              </button>
+            </div>
+          </div>
+
+          <!-- Messages -->
+          <div class="chat-messages" #msgContainer>
+            @for (msg of conv.messages; track msg.id) {
+
+              @if (msg.senderId === 0) {
+                <!-- Sent -->
+                <div class="msg msg--sent">
+                  <div class="msg__col msg__col--sent">
+                    <div class="msg__bubble msg__bubble--sent">
+                      @if (msg.file) {
+                        <div class="msg__file">
+                          <pk-icon name="description" iconSet="material-symbols" [size]="26" />
+                          <div>
+                            <div class="msg__file-name">{{ msg.file.name }}</div>
+                            <div class="msg__file-size">{{ msg.file.size }}</div>
+                          </div>
+                        </div>
+                      } @else {
+                        {{ msg.text }}
+                      }
+                    </div>
+                    <div class="msg__meta msg__meta--sent">
+                      @if (msg.seen) {
+                        Message seen {{ msg.timestamp }}
+                      } @else {
+                        Message sent {{ msg.timestamp }}
+                      }
+                    </div>
+                  </div>
+                  <div class="cht-avatar cht-avatar--xs" [style.background]="me.avatarColor">{{ me.initials }}</div>
+                </div>
+
+              } @else {
+                <!-- Received -->
+                @let sender = getUser(msg.senderId);
+                <div class="msg msg--received">
+                  <div class="cht-avatar cht-avatar--xs" [style.background]="sender?.avatarColor ?? '#9ca3af'">
+                    {{ sender?.initials ?? '?' }}
+                  </div>
+                  <div class="msg__col">
+                    @if (conv.type === 'group' && sender) {
+                      <div class="msg__sender-name">{{ sender.name }}</div>
+                    }
+                    <div class="msg__bubble msg__bubble--received">
+                      @if (msg.file) {
+                        <div class="msg__file">
+                          <pk-icon name="description" iconSet="material-symbols" [size]="26" />
+                          <div>
+                            <div class="msg__file-name">{{ msg.file.name }}</div>
+                            <div class="msg__file-size">{{ msg.file.size }}</div>
+                          </div>
+                        </div>
+                      } @else {
+                        {{ msg.text }}
+                      }
+                    </div>
+                    <div class="msg__meta">Message seen {{ msg.timestamp }}</div>
+                  </div>
+                </div>
+              }
+
+            }
+          </div>
+
+          <!-- Input bar -->
+          <div class="chat-input-bar">
+            <button class="chat-icon-btn" aria-label="Schedule">
+              <pk-icon name="schedule" iconSet="material-symbols" [size]="20" />
+            </button>
+            <button class="chat-icon-btn" aria-label="Attach file">
+              <pk-icon name="description" iconSet="material-symbols" [size]="20" />
+            </button>
+            <button class="chat-icon-btn" aria-label="Photo">
+              <pk-icon name="photo_camera" iconSet="material-symbols" [size]="20" />
+            </button>
+            <button class="chat-icon-btn chat-icon-btn--add" aria-label="More">
+              <pk-icon name="add" iconSet="material-symbols" [size]="20" />
+            </button>
+            <div class="chat-input-field">
+              <input
+                type="text"
+                placeholder="Type a message here"
+                [value]="newMessage()"
+                (input)="newMessage.set($any($event.target).value)"
+                (keydown)="onKeydown($event)"
+              />
+              <button class="chat-icon-btn" aria-label="Emoji">
+                <pk-icon name="sentiment_satisfied" iconSet="material-symbols" [size]="20" />
+              </button>
+            </div>
+            <button class="chat-send-btn" (click)="sendMessage()" aria-label="Send">
+              <pk-icon name="send" iconSet="material-symbols" [size]="18" />
+            </button>
+          </div>
+
+        } @else {
+
+          <!-- Empty state -->
+          <div class="chat-empty">
+            <pk-icon name="chat_bubble_outline" iconSet="material-symbols" [size]="64" />
+            <p>Select a conversation to start chatting</p>
+          </div>
+
+        }
+      </main>
+
+      <!-- ── Profile / Info panel ───────────────────────────────────────────── -->
+      @if (showProfile() && activeConv(); as conv) {
+        <aside class="chat-profile">
+
+          <div class="chat-profile__toolbar">
+            <button class="chat-icon-btn" aria-label="Settings">
+              <pk-icon name="settings" iconSet="material-symbols" [size]="18" />
+            </button>
+          </div>
+
+          <div class="chat-profile__hero">
+            <div class="chat-profile__avatar-wrap">
+              <div class="cht-avatar cht-avatar--xl" [style.background]="conv.avatarColor">{{ conv.initials }}</div>
+              @if (conv.status === 'online') {
+                <span class="online-dot online-dot--hero"></span>
+              }
+            </div>
+            <div class="chat-profile__name">{{ conv.name }}</div>
+            <div class="chat-profile__sub">
+              @if (conv.type === 'peer' && conv.peer) {
+                {{ conv.peer.role }}
+              } @else {
+                Group &middot; {{ conv.participants?.length }} members
+              }
+            </div>
+          </div>
+
+          @if (conv.type === 'peer' && conv.peer) {
+            <div class="chat-profile__section">
+              <div class="chat-profile__section-hd">
+                Personal Information
+                <pk-icon name="expand_less" iconSet="material-symbols" [size]="16" />
+              </div>
+              @if (conv.peer.email) {
+                <div class="chat-profile__row">
+                  <pk-icon name="mail_outline" iconSet="material-symbols" [size]="16" />
+                  <span>{{ conv.peer.email }}</span>
+                </div>
+              }
+              @if (conv.peer.phone) {
+                <div class="chat-profile__row">
+                  <pk-icon name="call" iconSet="material-symbols" [size]="16" />
+                  <span>{{ conv.peer.phone }}</span>
+                </div>
+              }
+              @if (conv.peer.hours) {
+                <div class="chat-profile__row">
+                  <pk-icon name="schedule" iconSet="material-symbols" [size]="16" />
+                  <span>{{ conv.peer.hours }}</span>
+                </div>
+              }
+            </div>
+          }
+
+          @if (conv.type === 'group') {
+            <div class="chat-profile__section">
+              <div class="chat-profile__section-hd">
+                Members ({{ conv.participants?.length }})
+                <pk-icon name="expand_less" iconSet="material-symbols" [size]="16" />
+              </div>
+              @for (p of conv.participants ?? []; track p.id) {
+                <div class="chat-profile__member">
+                  <div class="cht-avatar cht-avatar--xs" [style.background]="p.avatarColor">{{ p.initials }}</div>
+                  <div>
+                    <div class="chat-profile__member-name">{{ p.name }}</div>
+                    <div class="chat-profile__member-role">{{ p.role }}</div>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+
+          <div class="chat-profile__actions">
+            <button class="chat-profile__action">
+              <pk-icon name="sell" iconSet="material-symbols" [size]="15" />
+              <span>Add Tag</span>
+              <pk-icon name="more_horiz" iconSet="material-symbols" [size]="14" style="margin-left:auto" />
+            </button>
+            <button class="chat-profile__action">
+              <pk-icon name="star_outline" iconSet="material-symbols" [size]="15" />
+              <span>Chat Rating</span>
+              <pk-icon name="more_horiz" iconSet="material-symbols" [size]="14" style="margin-left:auto" />
+            </button>
+            <button class="chat-profile__action">
+              <pk-icon name="open_in_new" iconSet="material-symbols" [size]="15" />
+              <span>View Pages</span>
+              <pk-icon name="more_horiz" iconSet="material-symbols" [size]="14" style="margin-left:auto" />
+            </button>
+          </div>
+
+          <div class="chat-profile__section">
+            <div class="chat-profile__section-hd">
+              Shared Document
+              <pk-icon name="expand_more" iconSet="material-symbols" [size]="16" />
+            </div>
+            <div style="text-align:center;padding:16px 0;color:#9ca3af;font-size:13px;">No shared documents yet</div>
+          </div>
+
+        </aside>
+      }
+
+    </div><!-- /chat-body -->
+  </div><!-- /chat-main -->
+</div><!-- /chat-shell -->
