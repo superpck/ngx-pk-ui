@@ -396,6 +396,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - **`provideHttpClient()` required for HttpClient** — add to `providers` in `app.config.ts` when any component uses `inject(HttpClient)`.
 - **Datagrid NG0100 fix** — `PkDgHeaderComponent` reads `textContent` in `ngAfterViewInit` (fires after parent CD). Fix: moved to `ngAfterContentInit`. This prevents ExpressionChangedAfterItHasBeenCheckedError in Angular 19+.
 - **Datagrid pagination CSS** — internal buttons use `pk-dg-btn` / `pk-dg-btn-active` / `pk-dg-btn-nav` (self-contained SCSS). No dependency on external `btn` classes — safe alongside Bootstrap or any other CSS framework.
+- **Datagrid row selection DI** — `PkDgRowComponent` injects `PkDatagridComponent` via `@Optional() @Inject(forwardRef(() => PkDatagridComponent))`. Do NOT add `providers: [{ provide: forwardRef(…), useExisting: … }]` to `PkDatagridComponent` — that creates a circular dependency (NG0200). Angular resolves the ancestor component via the injector tree automatically without any explicit provider registration.
 
 ---
 
@@ -404,7 +405,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.2.2` |
+| Library version | `2.2.3` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -413,7 +414,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-alert` | ✅ Built, tested (13 tests) |
 | `pk-modal` | ✅ Built, tested (12 tests) |
 | `pk-icon` | ✅ Built |
-| `pk-datagrid` | ✅ Built (NgModule) |
+| `pk-datagrid` | ✅ Built (NgModule) — row selection (single/multiple) added |
 | `pk-datepicker` | ✅ Built |
 | `pk-progress` | ✅ Built |
 | `pk-treeview` | ✅ Built (NgModule) |
@@ -631,7 +632,7 @@ export class MyComponent {
 <span class="pk-badge pk-badge-lg">New</span>
 
 <!-- Pill (rectangular, rounded ends) -->
-<span class="pk-badge pk-badge-success pk-badge-pill">v2.2.2</span>
+<span class="pk-badge pk-badge-success pk-badge-pill">v2.2.3</span>
 
 <!-- Dot (empty indicator, no text) -->
 <span class="pk-badge pk-badge-dot pk-badge-success"></span>
@@ -875,6 +876,13 @@ import { PkTooltip } from 'ngx-pk-ui';
 
 ## pk-datagrid key API
 
+### `<pk-datagrid>` inputs / outputs
+| Input/Output | Type | Default | Description |
+|-------|------|---------|-------------|
+| `pkDgLoading` | `boolean` | `false` | Show loading overlay |
+| `pkDgSelect` | `'none'\|'single'\|'multiple'` | `'none'` | Row selection mode — adds checkbox/radio column |
+| `(pkDgSelectionChange)` | `any[]` | — | Emits array of selected row objects when selection changes |
+
 ### `<pk-dg-rows>` inputs
 | Input | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -900,6 +908,24 @@ import { PkTooltip } from 'ngx-pk-ui';
 |-----------|-------|
 | `*pkDgRows` | `*pkDgRows="let row of rows"` — renders visible paged rows |
 | `*pkDgRowIsExpand` | On `<pk-dg-row-expand>` — renders only when row is expanded |
+
+### Row selection usage
+```html
+<!-- Single select — radio button per row, click again to deselect -->
+<pk-datagrid pkDgSelect="single" (pkDgSelectionChange)="onSelect($event)">
+  ...
+</pk-datagrid>
+
+<!-- Multiple select — checkbox per row + "select all" header checkbox -->
+<pk-datagrid pkDgSelect="multiple" (pkDgSelectionChange)="onSelect($event)">
+  ...
+</pk-datagrid>
+```
+
+- **`single`** — radio input, click selected row again = deselect. Emits array of 0 or 1 item.
+- **`multiple`** — checkbox inputs + indeterminate "select all" in header. Emits array of all selected items.
+- Selected rows highlighted with light-blue background (`pk-dg-row--selected`).
+- **DI gotcha**: `PkDgRowComponent` injects `PkDatagridComponent` via `@Optional() @Inject(forwardRef(() => PkDatagridComponent))`. Do NOT add `providers` in `PkDatagridComponent` — that causes NG0200 circular dependency. Angular walks the injector tree automatically.
 
 ---
 

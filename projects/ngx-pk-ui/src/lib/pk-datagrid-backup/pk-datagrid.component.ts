@@ -26,24 +26,17 @@ export class PkDatagridComponent implements AfterContentInit, AfterViewInit, OnC
     if (this.expandDirectives && this.expandDirectives.length > 0) return true;
     return this.rowDetails ? this.rowDetails.length > 0 : false;
   }
-
-  get hasSelectCol(): boolean {
-    return this.pkDgSelect !== 'none';
-  }
   
   @Input() pkDgLoading: boolean = false;
-  @Input() pkDgSelect: 'none' | 'single' | 'multiple' = 'none';
   @Input() items: any[] = [];
   @Input() filterValues: Record<string, string> = {};
 
   @Output() pkDgRefresh = new EventEmitter<void>();
-  @Output() pkDgSelectionChange = new EventEmitter<any[]>();
   @Output() filterChange = new EventEmitter<{ key: string; value: string }>();
 
   displayedItems: any[] = [];
   displayedItemsVersion = 0;
   expandedRows: Set<any> = new Set();
-  selectedRows: Set<any> = new Set();
   sortColumn: string | null = null;
   sortDirection: 'asc' | 'desc' | null = null;
 
@@ -61,10 +54,7 @@ export class PkDatagridComponent implements AfterContentInit, AfterViewInit, OnC
 
   get totalWidth(): number {
     const sum = this.columnWidths.reduce((acc, w) => acc + w, 0);
-    return sum
-      + (this.hasSelectCol  ? 40 : 0)
-      + (this.hasExpandCol  ? 32 : 0)
-      + (this.hasActionCol  ? 32 : 0);
+    return sum + (this.hasExpandCol ? 32 : 0) + (this.hasActionCol ? 32 : 0);
   }
 
   private _initColumnWidths() {
@@ -202,55 +192,6 @@ export class PkDatagridComponent implements AfterContentInit, AfterViewInit, OnC
   getSortIcon(field: string): string {
     if (this.sortColumn !== field) return '';
     return this.sortDirection === 'asc' ? '▲' : '▼';
-  }
-
-  // ── Row selection ───────────────────────────────────────────────
-  isSelected(row: any): boolean {
-    return this.selectedRows.has(row);
-  }
-
-  isAllSelected(): boolean {
-    if (!this.displayedItems.length) return false;
-    return this.displayedItems.every(r => this.selectedRows.has(r));
-  }
-
-  isSomeSelected(): boolean {
-    return this.displayedItems.some(r => this.selectedRows.has(r)) && !this.isAllSelected();
-  }
-
-  toggleSelectRow(row: any) {
-    if (this.pkDgSelect === 'single') {
-      this.selectedRows.clear();
-      if (!this.selectedRows.has(row)) this.selectedRows.add(row);
-      // If already selected, clicking again deselects
-      // re-check: we cleared first, so just add always then
-    } else if (this.pkDgSelect === 'multiple') {
-      if (this.selectedRows.has(row)) {
-        this.selectedRows.delete(row);
-      } else {
-        this.selectedRows.add(row);
-      }
-    }
-    this.pkDgSelectionChange.emit([...this.selectedRows]);
-  }
-
-  toggleSelectSingle(row: any) {
-    if (this.selectedRows.has(row)) {
-      this.selectedRows.clear();
-    } else {
-      this.selectedRows.clear();
-      this.selectedRows.add(row);
-    }
-    this.pkDgSelectionChange.emit([...this.selectedRows]);
-  }
-
-  toggleSelectAll() {
-    if (this.isAllSelected()) {
-      this.displayedItems.forEach(r => this.selectedRows.delete(r));
-    } else {
-      this.displayedItems.forEach(r => this.selectedRows.add(r));
-    }
-    this.pkDgSelectionChange.emit([...this.selectedRows]);
   }
 
   toggleRowExpansion(row: any) {

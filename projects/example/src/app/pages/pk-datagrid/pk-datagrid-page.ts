@@ -35,6 +35,10 @@ export class PkDatagridPage implements OnInit {
   users: UserRow[] = [];
   selectedUser: UserRow | null = null;
 
+  // row selection demo
+  singleSelected: UserRow[] = [];
+  multiSelected: UserRow[] = [];
+
   ngOnInit() {
     this.fetchUsers();
   }

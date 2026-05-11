@@ -188,3 +188,61 @@ export class MyComponent {
 | `image` | `string` | `''` | Avatar/photo URL (circular) |
 | `dotColor` | `string` | `''` | CSS color override |
 | `active` | `boolean` | `false` | Filled dot; icon turns white |
+
+## pk-datagrid quick start
+
+```ts
+import { PkDatagridModule } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkDatagridModule],
+})
+export class MyPage {
+  rows = [
+    { name: 'Alice', role: 'Admin' },
+    { name: 'Bob',   role: 'Developer' },
+  ];
+  selected: any[] = [];
+}
+```
+
+```html
+<!-- Basic -->
+<pk-datagrid [pkDgLoading]="loading">
+  <pk-dg-header [pkDgSort]="'name'" [pkDgFilter]="'name'" [style.width.px]="200">Name</pk-dg-header>
+  <pk-dg-header [pkDgSort]="'role'" [style.width.px]="140">Role</pk-dg-header>
+
+  <pk-dg-rows *pkDgRows="let row of rows" [pkDgRow]="row">
+    <pk-dg-column>{{ row.name }}</pk-dg-column>
+    <pk-dg-column>{{ row.role }}</pk-dg-column>
+  </pk-dg-rows>
+
+  <pk-dg-footer>
+    <pk-dg-pagination #p [pkDgPageSize]="10" [rowCount]="rows.length">
+      {{ p.firstItem + 1 }} - {{ p.lastItem + 1 }} of {{ rows.length }} rows
+    </pk-dg-pagination>
+  </pk-dg-footer>
+</pk-datagrid>
+
+<!-- Single row selection -->
+<pk-datagrid pkDgSelect="single" (pkDgSelectionChange)="selected = $event">
+  ...
+</pk-datagrid>
+
+<!-- Multiple row selection -->
+<pk-datagrid pkDgSelect="multiple" (pkDgSelectionChange)="selected = $event">
+  ...
+</pk-datagrid>
+```
+
+**`<pk-datagrid>` inputs / outputs:**
+
+| Input/Output | Type | Default | Description |
+|---|---|---|---|
+| `pkDgLoading` | `boolean` | `false` | Show loading overlay |
+| `pkDgSelect` | `'none'\|'single'\|'multiple'` | `'none'` | Row selection mode |
+| `(pkDgSelectionChange)` | `any[]` | — | Emits selected row objects |
+
+- **`single`** — radio input per row; click again to deselect. Emits `any[]` of 0 or 1 item.
+- **`multiple`** — checkbox per row + indeterminate "select all" header checkbox. Emits all selected items.
+- Selected rows highlighted with light-blue background.

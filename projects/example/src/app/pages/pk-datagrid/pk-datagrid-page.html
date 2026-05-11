@@ -118,6 +118,93 @@
   </section>
 
   <section class="demo-section">
+    <h2>Row Selection — single</h2>
+    <p style="font-size:14px;color:#555;margin-bottom:12px;">
+      Use <code>pkDgSelect="single"</code> + <code>(pkDgSelectionChange)</code> to capture the selected row.
+    </p>
+
+    @if (singleSelected.length) {
+      <div style="margin-bottom:12px;padding:10px 14px;background:#e8f4ff;border-radius:6px;font-size:13px;">
+        <strong>Selected:</strong> {{ singleSelected[0].firstName }} {{ singleSelected[0].lastName }} — {{ singleSelected[0].email }}
+      </div>
+    }
+
+    <pk-datagrid pkDgSelect="single" (pkDgSelectionChange)="singleSelected = $any($event)" [pkDgLoading]="loading()">
+      <pk-dg-header [style.width.px]="50">Photo</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'username'" [pkDgFilter]="'username'" [style.width.px]="150">Username</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'firstName'" [style.width.px]="120">First name</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'lastName'" [style.width.px]="120">Last name</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'gender'" [style.width.px]="90">Gender</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'country'" [pkDgFilter]="'country'" [style.width.px]="150">Country</pk-dg-header>
+
+      <pk-dg-rows *pkDgRows="let user of users" [pkDgRow]="user">
+        <pk-dg-column><img [src]="user.thumbnail" style="width:30px;height:30px;border-radius:50%;display:block;" alt=""></pk-dg-column>
+        <pk-dg-column>{{ user.username }}</pk-dg-column>
+        <pk-dg-column>{{ user.firstName }}</pk-dg-column>
+        <pk-dg-column>{{ user.lastName }}</pk-dg-column>
+        <pk-dg-column>
+          <span class="pk-badge pk-badge-sm"
+            [class.pk-badge-primary]="user.gender === 'male'"
+            [class.pk-badge-success]="user.gender === 'female'">
+            {{ user.gender }}
+          </span>
+        </pk-dg-column>
+        <pk-dg-column>{{ user.country }}</pk-dg-column>
+      </pk-dg-rows>
+
+      <pk-dg-footer>
+        <pk-dg-pagination #pSingle [pkDgPageSize]="10" [rowCount]="users.length">
+          {{ pSingle.firstItem + 1 }} - {{ pSingle.lastItem + 1 }} of {{ users.length }} rows
+        </pk-dg-pagination>
+      </pk-dg-footer>
+    </pk-datagrid>
+  </section>
+
+  <section class="demo-section">
+    <h2>Row Selection — multiple</h2>
+    <p style="font-size:14px;color:#555;margin-bottom:12px;">
+      Use <code>pkDgSelect="multiple"</code> for multi-row selection with a "select all" header checkbox.
+    </p>
+
+    @if (multiSelected.length) {
+      <div style="margin-bottom:12px;padding:10px 14px;background:#e8f4ff;border-radius:6px;font-size:13px;">
+        <strong>{{ multiSelected.length }} selected:</strong>
+        {{ multiSelected.slice(0, 3).map(u => u.firstName + ' ' + u.lastName).join(', ') }}{{ multiSelected.length > 3 ? ' …' : '' }}
+      </div>
+    }
+
+    <pk-datagrid pkDgSelect="multiple" (pkDgSelectionChange)="multiSelected = $any($event)" [pkDgLoading]="loading()">
+      <pk-dg-header [style.width.px]="50">Photo</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'username'" [pkDgFilter]="'username'" [style.width.px]="150">Username</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'firstName'" [style.width.px]="120">First name</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'lastName'" [style.width.px]="120">Last name</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'gender'" [style.width.px]="90">Gender</pk-dg-header>
+      <pk-dg-header [pkDgSort]="'country'" [pkDgFilter]="'country'" [style.width.px]="150">Country</pk-dg-header>
+
+      <pk-dg-rows *pkDgRows="let user of users" [pkDgRow]="user">
+        <pk-dg-column><img [src]="user.thumbnail" style="width:30px;height:30px;border-radius:50%;display:block;" alt=""></pk-dg-column>
+        <pk-dg-column>{{ user.username }}</pk-dg-column>
+        <pk-dg-column>{{ user.firstName }}</pk-dg-column>
+        <pk-dg-column>{{ user.lastName }}</pk-dg-column>
+        <pk-dg-column>
+          <span class="pk-badge pk-badge-sm"
+            [class.pk-badge-primary]="user.gender === 'male'"
+            [class.pk-badge-success]="user.gender === 'female'">
+            {{ user.gender }}
+          </span>
+        </pk-dg-column>
+        <pk-dg-column>{{ user.country }}</pk-dg-column>
+      </pk-dg-rows>
+
+      <pk-dg-footer>
+        <pk-dg-pagination #pMulti [pkDgPageSize]="10" [rowCount]="users.length">
+          {{ pMulti.firstItem + 1 }} - {{ pMulti.lastItem + 1 }} of {{ users.length }} rows
+        </pk-dg-pagination>
+      </pk-dg-footer>
+    </pk-datagrid>
+  </section>
+
+  <section class="demo-section">
     <h2>Usage</h2>
     <pre class="code-block"><code>import &#123; PkDatagridModule &#125; from 'ngx-pk-ui';
 
@@ -194,6 +281,18 @@ export class AnyPage &#123;
         <td><code>boolean</code></td>
         <td><code>false</code></td>
         <td>Show loading overlay</td>
+      </tr>
+      <tr>
+        <td><code>pkDgSelect</code></td>
+        <td><code>'none' | 'single' | 'multiple'</code></td>
+        <td><code>'none'</code></td>
+        <td>Row selection mode — adds a checkbox / radio column</td>
+      </tr>
+      <tr>
+        <td><code>(pkDgSelectionChange)</code></td>
+        <td><code>any[]</code></td>
+        <td>—</td>
+        <td>Emits array of selected row objects when selection changes</td>
       </tr>
     </table>
 

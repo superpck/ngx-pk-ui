@@ -1,17 +1,4 @@
-<tr class="pk-dg-row" [class]="rowClass" [class.pk-dg-row--selected]="datagrid?.isSelected(pkDgRow)">
-  @if (datagrid?.hasSelectCol) {
-    <td class="pk-dg-select-cell" (click)="$event.stopPropagation()">
-      @if (datagrid?.pkDgSelect === 'multiple') {
-        <input type="checkbox"
-          [checked]="datagrid?.isSelected(pkDgRow)"
-          (change)="datagrid?.toggleSelectRow(pkDgRow)" />
-      } @else {
-        <input type="radio"
-          [checked]="datagrid?.isSelected(pkDgRow)"
-          (change)="datagrid?.toggleSelectSingle(pkDgRow)" />
-      }
-    </td>
-  }
+<tr class="pk-dg-row" [class]="rowClass">
   <ng-content select="pk-dg-action"></ng-content>
   @if (hasDetail) {
     <td class="pk-dg-expand-btn-cell">
