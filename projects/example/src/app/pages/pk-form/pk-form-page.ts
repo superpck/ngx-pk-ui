@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-pk-form-page',
   imports: [],
   templateUrl: './pk-form-page.html',
 })
-export class PkFormPage {}
+export class PkFormPage {
+  showPwd  = signal(false);
+  showPwd2 = signal(false);
+}

@@ -173,6 +173,37 @@
     </div>
   </section>
 
+  <!-- Password toggle -->
+  <section class="demo-section">
+    <h2>Password with show / hide toggle</h2>
+    <p class="demo-desc">Use <code>.pk-field__toggle</code> inside <code>.pk-field__wrap</code>. Bind <code>[type]</code> and toggle with a signal.</p>
+    <div class="demo-row" style="gap:16px; flex-wrap:wrap; align-items:flex-start;">
+
+      <!-- Outlined (default) -->
+      <div class="pk-field" style="width:280px;">
+        <div class="pk-field__wrap">
+          <input class="pk-field__input" [type]="showPwd() ? 'text' : 'password'" placeholder=" " id="f-pwd1" />
+          <button type="button" class="pk-field__toggle" [class.pk-field__toggle--shown]="showPwd()" (click)="showPwd.set(!showPwd())">
+            <span class="material-symbols-outlined">{{ showPwd() ? 'visibility_off' : 'visibility' }}</span>
+          </button>
+        </div>
+        <label class="pk-field__label" for="f-pwd1">Password</label>
+      </div>
+
+      <!-- Filled -->
+      <div class="pk-field pk-field--filled" style="width:280px;">
+        <div class="pk-field__wrap">
+          <input class="pk-field__input" [type]="showPwd2() ? 'text' : 'password'" placeholder=" " id="f-pwd2" />
+          <button type="button" class="pk-field__toggle" [class.pk-field__toggle--shown]="showPwd2()" (click)="showPwd2.set(!showPwd2())">
+            <span class="material-symbols-outlined">{{ showPwd2() ? 'visibility_off' : 'visibility' }}</span>
+          </button>
+        </div>
+        <label class="pk-field__label" for="f-pwd2">Password (filled)</label>
+      </div>
+
+    </div>
+  </section>
+
   <!-- Character counter -->
   <section class="demo-section">
     <h2>Character counter</h2>
@@ -362,6 +393,8 @@
       <tr><td><code>pk-field__error</code></td><td><code>span</code></td><td>Error message (red)</td></tr>
       <tr><td><code>pk-field__footer</code></td><td><code>div</code></td><td>Flex row: hint left + counter right</td></tr>
       <tr><td><code>pk-field__counter</code></td><td><code>span</code></td><td>Character counter (right-aligned)</td></tr>
+      <tr><td><code>pk-field__toggle</code></td><td><code>button</code></td><td>Password show/hide icon button — place inside <code>pk-field__wrap</code></td></tr>
+      <tr><td><code>pk-field__toggle--shown</code></td><td>—</td><td>Modifier: accent colour when password is visible</td></tr>
     </table>
 
     <h3>Layout helpers</h3>

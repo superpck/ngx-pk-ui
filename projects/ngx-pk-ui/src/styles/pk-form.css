@@ -496,3 +496,51 @@ select.pk-field__input ~ .pk-field__label {
   margin-bottom: 12px;
   margin-top: 4px;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   PASSWORD TOGGLE BUTTON
+   ═══════════════════════════════════════════════════════════════════
+
+   Structure (Angular):
+     <div class="pk-field">
+       <div class="pk-field__wrap">
+         <input class="pk-field__input" [type]="showPwd() ? 'text' : 'password'" placeholder=" " />
+         <button type="button" class="pk-field__toggle"
+                 [class.pk-field__toggle--shown]="showPwd()"
+                 (click)="showPwd.set(!showPwd())">
+           <span class="material-symbols-outlined">
+             {{ showPwd() ? 'visibility_off' : 'visibility' }}
+           </span>
+         </button>
+       </div>
+       <label class="pk-field__label">Password</label>
+     </div>
+   ═══════════════════════════════════════════════════════════════════ */
+
+.pk-field__toggle {
+  background: transparent;
+  border: none;
+  padding: 0 10px;
+  cursor: pointer;
+  color: var(--pk-field-label-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: color 0.18s;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pk-field__toggle:hover {
+  color: var(--pk-field-text);
+}
+
+.pk-field__toggle--shown {
+  color: var(--pk-field-border-focus);
+}
+
+.pk-field__toggle .material-symbols-outlined {
+  font-size: 20px;
+  user-select: none;
+}
