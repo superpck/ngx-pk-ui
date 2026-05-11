@@ -1,0 +1,112 @@
+<nav
+  class="pk-sidenav"
+  [ngClass]="hostClass()"
+  [ngStyle]="hostStyle()"
+>
+  <!-- Top slot (logo / brand) -->
+  <div class="pk-snv-header">
+    <ng-content select="[pkSidenavHeader]" />
+    @if (mode() === 'auto') {
+      <button class="pk-snv-toggle" (click)="toggle()" title="Toggle nav">
+        <pk-icon
+          [name]="isIconOnly() ? 'menu_open' : 'menu'"
+          iconSet="material-symbols"
+          [size]="20"
+          color="currentColor"
+        />
+      </button>
+    }
+  </div>
+
+  <!-- Groups -->
+  <div class="pk-snv-body">
+    @for (group of groups(); track group.heading ?? $index) {
+
+      <!-- Group heading -->
+      @if (group.heading) {
+        <div class="pk-snv-group-heading" (click)="group.collapsible && toggleGroup(group)">
+          @if (!isIconOnly()) {
+            <span class="pk-snv-heading-label">{{ group.heading }}</span>
+          }
+          @if (group.collapsible) {
+            <pk-icon
+              [name]="group.collapsed ? 'add' : 'remove'"
+              iconSet="material-symbols"
+              [size]="14"
+              color="currentColor"
+            />
+          }
+        </div>
+      }
+
+      @if (!group.collapsible || !group.collapsed) {
+        @for (item of group.items; track item.key) {
+          <ng-container *ngTemplateOutlet="itemTpl; context: { $implicit: item, depth: 0 }" />
+        }
+      }
+
+      <div class="pk-snv-divider"></div>
+    }
+  </div>
+
+  <!-- Bottom user slot -->
+  @if (showUser()) {
+    <div class="pk-snv-footer">
+      <ng-content select="[pkSidenavUser]" />
+    </div>
+  }
+</nav>
+
+<!-- Recursive item template -->
+<ng-template #itemTpl let-item let-depth="depth">
+  <div
+    class="pk-snv-item"
+    [class.pk-snv-item--active]="isActive(item)"
+    [class.pk-snv-item--disabled]="item.disabled"
+    [class.pk-snv-item--has-children]="item.children?.length"
+    [class.pk-snv-item--open]="isOpen(item.key)"
+    [style.padding-left.px]="isIconOnly() ? 0 : 16 + depth * 14"
+    (click)="onItemClick(item)"
+  >
+    <!-- Icon bubble -->
+    <span class="pk-snv-icon">
+      <pk-icon
+        [name]="iconName(item)"
+        iconSet="material-symbols"
+        [size]="18"
+        color="currentColor"
+      />
+    </span>
+
+    @if (!isIconOnly()) {
+      <span class="pk-snv-label">{{ item.label }}</span>
+
+      @if (item.badge !== undefined && item.badge !== null) {
+        <span class="pk-snv-badge">{{ item.badge }}</span>
+      }
+
+      @if (item.children?.length) {
+        <pk-icon
+          class="pk-snv-chevron"
+          [name]="isOpen(item.key) ? 'expand_less' : 'expand_more'"
+          iconSet="material-symbols"
+          [size]="16"
+          color="currentColor"
+        />
+      }
+    } @else {
+      @if (item.badge !== undefined && item.badge !== null) {
+        <span class="pk-snv-badge pk-snv-badge--dot">{{ item.badge }}</span>
+      }
+    }
+  </div>
+
+  <!-- Children (submenu) -->
+  @if (item.children?.length && isOpen(item.key) && !isIconOnly()) {
+    <div class="pk-snv-submenu">
+      @for (child of item.children; track child.key) {
+        <ng-container *ngTemplateOutlet="itemTpl; context: { $implicit: child, depth: depth + 1 }" />
+      }
+    </div>
+  }
+</ng-template>

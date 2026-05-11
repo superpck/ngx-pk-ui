@@ -88,3 +88,7 @@ export * from './lib/pk-typeahead/pk-typeahead.component';
 // pk-file-upload
 export * from './lib/pk-file-upload/pk-file-upload.model';
 export * from './lib/pk-file-upload/pk-file-upload';
+
+// pk-sidenav
+export * from './lib/pk-sidenav/pk-sidenav.model';
+export * from './lib/pk-sidenav/pk-sidenav';

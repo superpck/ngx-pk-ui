@@ -1,0 +1,243 @@
+<div class="demo-page">
+  <h1 class="demo-title">pk-sidenav</h1>
+  <p class="demo-desc">
+    Side navigation component — left/right position, full/icon/auto mode,
+    multi-level items, badge support, and 4 built-in themes with full CSS-variable override.
+  </p>
+
+  <!-- Controls -->
+  <div class="demo-controls">
+    <div class="ctrl-group">
+      <span class="ctrl-label">Theme</span>
+      <div class="ctrl-row">
+        @for (t of themes; track t.value) {
+          <button
+            class="pk-btn pk-btn-sm"
+            [class.pk-btn-primary]="theme() === t.value"
+            [class.pk-btn-secondary]="theme() !== t.value"
+            [class.pk-btn-outline]="theme() !== t.value"
+            (click)="setTheme(t.value)"
+          >{{ t.label }}</button>
+        }
+      </div>
+    </div>
+
+    <div class="ctrl-group">
+      <span class="ctrl-label">Mode</span>
+      <div class="ctrl-row">
+        @for (m of modes; track m.value) {
+          <button
+            class="pk-btn pk-btn-sm"
+            [class.pk-btn-primary]="mode() === m.value"
+            [class.pk-btn-secondary]="mode() !== m.value"
+            [class.pk-btn-outline]="mode() !== m.value"
+            (click)="setMode(m.value)"
+          >{{ m.label }}</button>
+        }
+      </div>
+    </div>
+
+    <div class="ctrl-group">
+      <span class="ctrl-label">Position</span>
+      <div class="ctrl-row">
+        <button
+          class="pk-btn pk-btn-sm"
+          [class.pk-btn-primary]="position() === 'left'"
+          [class.pk-btn-secondary]="position() !== 'left'"
+          [class.pk-btn-outline]="position() !== 'left'"
+          (click)="setPosition('left')"
+        >Left</button>
+        <button
+          class="pk-btn pk-btn-sm"
+          [class.pk-btn-primary]="position() === 'right'"
+          [class.pk-btn-secondary]="position() !== 'right'"
+          [class.pk-btn-outline]="position() !== 'right'"
+          (click)="setPosition('right')"
+        >Right</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live preview frame -->
+  <div class="demo-frame">
+    <div class="demo-content" [class.demo-content--right]="position() === 'right'">
+
+      <pk-sidenav
+        [groups]="groups"
+        [theme]="theme()"
+        [themeConfig]="activeThemeCfg"
+        [mode]="mode()"
+        [position]="position()"
+        [activeKey]="activeKey()"
+        (itemClick)="onItemClick($event)"
+        style="height: 600px; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.10);"
+      >
+        <!-- Brand header -->
+        <div pkSidenavHeader style="display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;">
+          <span style="width:32px;height:32px;border-radius:8px;background:#16a34a;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0;">N</span>
+          <span class="pk-snv-hide-on-icon" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">ngx-pk-ui</span>
+        </div>
+
+        <!-- User footer -->
+        <div pkSidenavUser style="display:flex;align-items:center;gap:10px;">
+          <div style="width:34px;height:34px;border-radius:50%;background:#16a34a;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;flex-shrink:0;">O</div>
+          <div class="pk-snv-hide-on-icon" style="overflow:hidden;">
+            <div style="font-size:13px;font-weight:600;white-space:nowrap;">Olivia Rhye</div>
+            <div style="font-size:11px;opacity:0.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">olivia&#64;example.com</div>
+          </div>
+        </div>
+      </pk-sidenav>
+
+      <div class="demo-page-area">
+        <div class="demo-placeholder"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Active item indicator -->
+  <p class="demo-active-info">
+    Active key: <code>{{ activeKey() }}</code>
+  </p>
+
+  <!-- Installation -->
+  <section class="demo-section">
+    <h2 class="demo-subtitle">Installation</h2>
+    <pre class="code-block"><code>import &#123; PkSidenav &#125; from 'ngx-pk-ui';
+import type &#123; PkSidenavGroup, PkSidenavItem &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123;
+  imports: [PkSidenav],
+&#125;)
+export class MyComponent &#123;
+  activeKey = signal('home');
+
+  readonly groups: PkSidenavGroup[] = [
+    &#123;
+      heading: 'Main',
+      items: [
+        &#123; key: 'home',     label: 'Home',          icon: 'home' &#125;,
+        &#123; key: 'notif',    label: 'Notifications', icon: 'notifications', badge: 5 &#125;,
+        &#123; key: 'analytics',label: 'Analytics',     icon: 'bar_chart' &#125;,
+      ],
+    &#125;,
+    &#123;
+      heading: 'Settings',
+      items: [
+        &#123;
+          key: 'reports', label: 'Reports', icon: 'folder',
+          children: [
+            &#123; key: 'r-all',  label: 'All reports', icon: 'list' &#125;,
+            &#123; key: 'r-saved',label: 'Saved',       icon: 'bookmark' &#125;,
+          ],
+        &#125;,
+        &#123; key: 'settings', label: 'Settings', icon: 'settings' &#125;,
+      ],
+    &#125;,
+  ];
+
+  onItemClick(item: PkSidenavItem) &#123; this.activeKey.set(item.key); &#125;
+&#125;</code></pre>
+  </section>
+
+  <!-- Usage -->
+  <section class="demo-section">
+    <h2 class="demo-subtitle">Usage</h2>
+    <pre class="code-block"><code>&lt;pk-sidenav
+  [groups]="groups"
+  theme="dark"
+  mode="auto"
+  position="left"
+  [activeKey]="activeKey()"
+  (itemClick)="onItemClick($event)"
+&gt;
+  &lt;!-- optional: brand header slot --&gt;
+  &lt;div pkSidenavHeader style="display:flex;align-items:center;gap:10px;font-weight:700;"&gt;
+    &lt;span&gt;Logo&lt;/span&gt;
+    &lt;span class="pk-snv-hide-on-icon"&gt;My App&lt;/span&gt;
+  &lt;/div&gt;
+
+  &lt;!-- optional: user footer slot --&gt;
+  &lt;div pkSidenavUser style="display:flex;align-items:center;gap:10px;"&gt;
+    &lt;img src="avatar.jpg" style="width:34px;height:34px;border-radius:50%;" /&gt;
+    &lt;span class="pk-snv-hide-on-icon"&gt;John Doe&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/pk-sidenav&gt;
+
+&lt;!-- custom theme example --&gt;
+&lt;pk-sidenav
+  theme="custom"
+  [themeConfig]="&#123; bg: '#1e1b4b', color: '#c7d2fe', activeColor: '#a5b4fc', activeBg: 'rgba(165,180,252,0.12)', activeBorder: '#a5b4fc' &#125;"
+  [groups]="groups"
+  [activeKey]="activeKey()"
+  (itemClick)="onItemClick($event)"
+/&gt;</code></pre>
+  </section>
+
+  <!-- API table -->
+  <div class="demo-section">
+    <h2 class="demo-subtitle">PkSidenav — Inputs</h2>
+    <table class="pk-table pk-table-bordered">
+      <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>groups</td><td>PkSidenavGroup[]</td><td>[]</td><td>Navigation groups with items</td></tr>
+        <tr><td>theme</td><td>'light'|'dark'|'primary'|'custom'</td><td>'light'</td><td>Built-in color theme</td></tr>
+        <tr><td>themeConfig</td><td>PkSidenavThemeConfig</td><td>{{ '{' }}{{ '}' }}</td><td>CSS-variable overrides for 'custom' theme</td></tr>
+        <tr><td>mode</td><td>'full'|'icon'|'auto'</td><td>'full'</td><td>Display mode — auto collapses below breakpoint</td></tr>
+        <tr><td>position</td><td>'left'|'right'</td><td>'left'</td><td>Side of the layout</td></tr>
+        <tr><td>width</td><td>string</td><td>'220px'</td><td>Full-mode width</td></tr>
+        <tr><td>iconWidth</td><td>string</td><td>'64px'</td><td>Icon-only width</td></tr>
+        <tr><td>breakpoint</td><td>number</td><td>768</td><td>px — auto-collapse below this (mode='auto')</td></tr>
+        <tr><td>activeKey</td><td>string</td><td>''</td><td>Currently active item key</td></tr>
+        <tr><td>showUser</td><td>boolean</td><td>true</td><td>Show footer user slot</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="demo-section">
+    <h2 class="demo-subtitle">PkSidenavGroup interface</h2>
+    <table class="pk-table pk-table-bordered">
+      <thead><tr><th>Property</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>heading</td><td>string?</td><td>Section heading label (uppercase)</td></tr>
+        <tr><td>collapsible</td><td>boolean?</td><td>Allow heading click to collapse group</td></tr>
+        <tr><td>collapsed</td><td>boolean?</td><td>Start collapsed</td></tr>
+        <tr><td>items</td><td>PkSidenavItem[]</td><td>Nav items in this group</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="demo-section">
+    <h2 class="demo-subtitle">PkSidenavItem interface</h2>
+    <table class="pk-table pk-table-bordered">
+      <thead><tr><th>Property</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>key</td><td>string</td><td>Unique key — used for active state tracking</td></tr>
+        <tr><td>label</td><td>string</td><td>Display label</td></tr>
+        <tr><td>icon</td><td>string?</td><td>Material Symbols icon name</td></tr>
+        <tr><td>badge</td><td>number|string?</td><td>Badge count shown on item</td></tr>
+        <tr><td>disabled</td><td>boolean?</td><td>Prevent selection</td></tr>
+        <tr><td>children</td><td>PkSidenavItem[]?</td><td>Nested items (multi-level)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="demo-section">
+    <h2 class="demo-subtitle">Content projection slots</h2>
+    <table class="pk-table pk-table-bordered">
+      <thead><tr><th>Selector</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>[pkSidenavHeader]</td><td>Top slot — logo / brand area</td></tr>
+        <tr><td>[pkSidenavUser]</td><td>Bottom footer slot — user info</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Source link -->
+  <a
+    class="demo-source-link"
+    href="https://github.com/superpck/ngx-pk-ui/tree/master/projects/ngx-pk-ui/src/lib/pk-sidenav"
+    target="_blank"
+    rel="noopener noreferrer"
+  >View source on GitHub ↗</a>
+</div>

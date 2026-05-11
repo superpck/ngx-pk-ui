@@ -23,6 +23,7 @@ export class App {
     { label: 'modal', link: '/pk-modal' },
     { label: 'progress', link: '/pk-progress' },
     { label: 'select', link: '/pk-select' },
+    { label: 'sidenav', link: '/pk-sidenav' },
     { label: 'tabs', link: '/pk-tabs' },
     { label: 'timeline', link: '/pk-timeline' },
     { label: 'toastr', link: '/pk-toastr' },
