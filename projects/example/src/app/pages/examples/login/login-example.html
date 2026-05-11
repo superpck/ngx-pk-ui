@@ -1,0 +1,140 @@
+<div class="login-shell">
+
+  <!-- Login card -->
+  <div class="login-card pk-card">
+
+    <!-- Logo / brand -->
+    <div class="login-brand">
+      <div class="login-brand-icon">
+        <pk-icon name="widgets" iconSet="material-symbols" [size]="28" color="#fff" />
+      </div>
+      <span class="login-brand-name">ngx-pk-ui</span>
+    </div>
+
+    <h1 class="login-title">Welcome back</h1>
+    <p class="login-subtitle">Sign in to your account to continue</p>
+
+    <!-- Email field -->
+    <div class="pk-field" [class.pk-field--error]="emailError()">
+      <input
+        class="pk-field__input"
+        type="email"
+        id="login-email"
+        placeholder=" "
+        autocomplete="email"
+        [value]="email()"
+        (input)="onEmailInput($event)"
+      />
+      <label class="pk-field__label" for="login-email">Email address</label>
+      @if (emailError()) {
+        <span class="pk-field__error">{{ emailError() }}</span>
+      }
+    </div>
+
+    <!-- Password field -->
+    <div class="pk-field" [class.pk-field--error]="passwordError()">
+      <div class="pk-field__wrap login-password-wrap">
+        <input
+          class="pk-field__input"
+          [type]="showPassword() ? 'text' : 'password'"
+          id="login-password"
+          placeholder=" "
+          autocomplete="current-password"
+          [value]="password()"
+          (input)="onPasswordInput($event)"
+        />
+        <button
+          type="button"
+          class="login-eye-btn"
+          (click)="toggleShowPassword()"
+          [title]="showPassword() ? 'Hide password' : 'Show password'"
+          tabindex="-1"
+        >
+          <pk-icon
+            [name]="showPassword() ? 'visibility_off' : 'visibility'"
+            iconSet="material-symbols"
+            [size]="18"
+            color="currentColor"
+          />
+        </button>
+      </div>
+      <label class="pk-field__label" for="login-password">Password</label>
+      @if (passwordError()) {
+        <span class="pk-field__error">{{ passwordError() }}</span>
+      }
+    </div>
+
+    <!-- Password strength -->
+    @if (password().length > 0) {
+      <div class="login-strength">
+        <pk-progress [config]="progressConfig()" />
+        <span class="login-strength-label" [class]="'login-strength--' + strengthStatus()">
+          {{ strengthLabel() }}
+        </span>
+      </div>
+    }
+
+    <!-- Remember me + Forgot password -->
+    <div class="login-row">
+      <label class="pk-toggle pk-toggle-success login-toggle" (click)="toggleRememberMe()">
+        <input type="checkbox" [checked]="rememberMe()" (change)="$event.preventDefault()" />
+        <span class="pk-toggle__track"></span>
+        <span class="pk-toggle__label">Remember me</span>
+      </label>
+      <button type="button" class="login-forgot-btn" (click)="forgotPassword()">
+        Forgot password?
+      </button>
+    </div>
+
+    <!-- Sign in button -->
+    <button
+      type="button"
+      class="pk-btn pk-btn-primary login-submit"
+      [disabled]="isLoading()"
+      (click)="signIn()"
+    >
+      @if (isLoading()) {
+        <span class="pk-spinner pk-spinner-sm pk-spinner-white pk-spinner-inline"></span>
+        Signing in…
+      } @else {
+        Sign in
+        <pk-icon name="arrow_forward" iconSet="material-symbols" [size]="16" color="#fff" />
+      }
+    </button>
+
+    <!-- Divider -->
+    <div class="login-divider">
+      <span>or continue with</span>
+    </div>
+
+    <!-- Social buttons -->
+    <div class="login-social">
+      <button type="button" class="pk-btn pk-btn-secondary pk-btn-outline login-social-btn" (click)="signInWithGitHub()">
+        <pk-icon name="code" iconSet="material-symbols" [size]="16" color="currentColor" />
+        GitHub
+      </button>
+      <button type="button" class="pk-btn pk-btn-secondary pk-btn-outline login-social-btn" (click)="signInWithGoogle()">
+        <pk-icon name="language" iconSet="material-symbols" [size]="16" color="currentColor" />
+        GMail
+      </button>
+    </div>
+
+    <p class="login-register">
+      Don't have an account? <a href="#" (click)="$event.preventDefault(); signInWithGitHub()">Create one</a>
+    </p>
+  </div>
+
+  <!-- Demo hint -->
+  <div class="login-hint">
+    <pk-icon name="info" iconSet="material-symbols" [size]="14" color="currentColor" />
+    <span>Use any email to sign in · Use <code>error@test.com</code> to trigger an error</span>
+  </div>
+
+  <!-- Components used badge list -->
+  <div class="login-badges">
+    @for (c of components; track c) {
+      <span class="pk-badge pk-badge-outline" style="font-size: 11px;">{{ c }}</span>
+    }
+  </div>
+
+</div>

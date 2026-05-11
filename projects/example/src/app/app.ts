@@ -31,6 +31,10 @@ export class App {
     { label: 'typeahead', link: '/pk-typeahead' },
   ];
 
+  readonly examplesList = [
+    { label: 'login page', link: '/examples/login' },
+  ];
+
   readonly cssClassList = [
     { label: 'badge', link: '/pk-badge' },
     { label: 'breadcrumb', link: '/pk-breadcrumb' },

@@ -31,4 +31,6 @@ export const routes: Routes = [
   { path: 'pk-tooltip', loadComponent: () => import('./pages/pk-tooltip/pk-tooltip-page').then(m => m.PkTooltipPage) },
   { path: 'pk-form', loadComponent: () => import('./pages/pk-form/pk-form-page').then(m => m.PkFormPage) },
   { path: 'pk-layout', loadComponent: () => import('./pages/pk-layout/pk-layout-page').then(m => m.PkLayoutPage) },
+  // Examples
+  { path: 'examples/login', loadComponent: () => import('./pages/examples/login/login-example').then(m => m.LoginExample) },
 ];
