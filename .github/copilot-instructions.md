@@ -882,6 +882,8 @@ import { PkTooltip } from 'ngx-pk-ui';
 | `pkDgLoading` | `boolean` | `false` | Show loading overlay |
 | `pkDgSelect` | `'none'\|'single'\|'multiple'` | `'none'` | Row selection mode — adds checkbox/radio column |
 | `(pkDgSelectionChange)` | `any[]` | — | Emits array of selected row objects when selection changes |
+| `(pkDgRefresh)` | `void` | — | Emits when the grid requests a data reload |
+| `(filterChange)` | `{ key: string; value: string }` | — | Emits on every filter input change — useful for server-side filtering |
 
 ### `<pk-dg-rows>` inputs
 | Input | Type | Default | Description |
