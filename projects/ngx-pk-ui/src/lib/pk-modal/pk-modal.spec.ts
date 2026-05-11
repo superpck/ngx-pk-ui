@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, signal } from '@angular/core';
-import { describe, it, expect, beforeEach } from 'vitest';
+import { DOCUMENT } from '@angular/common';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { By } from '@angular/platform-browser';
 import { PkModal } from './pk-modal';
 import { PkModalHeader } from './pk-modal-header';
@@ -19,6 +20,7 @@ import type { PkModalSize } from './pk-modal.model';
       [blur]="blur()"
       [size]="size()"
       [customClass]="customClass()"
+      [lockScroll]="lockScroll()"
       (onClose)="handleClose()"
     >
       <pk-modal-header>Test Header</pk-modal-header>
@@ -33,6 +35,7 @@ class TestHost {
   blur        = signal(true);
   size        = signal<PkModalSize>('md');
   customClass = signal<string | null>(null);
+  lockScroll  = signal(true);
   closeCount  = signal(0);
   handleClose() { this.closeCount.update(n => n + 1); }
 }
@@ -40,12 +43,20 @@ class TestHost {
 describe('PkModal', () => {
   let fixture: ComponentFixture<TestHost>;
   let host: TestHost;
+  let doc: Document;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({ imports: [TestHost] }).compileComponents();
     fixture = TestBed.createComponent(TestHost);
     host    = fixture.componentInstance;
+    doc     = TestBed.inject(DOCUMENT);
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    // clean up scroll-lock side effects between tests
+    doc.body.style.overflow = '';
+    doc.body.style.paddingRight = '';
   });
 
   it('should not render overlay when openModal is false', () => {
@@ -129,5 +140,36 @@ describe('PkModal', () => {
     host.customClass.set('my-modal');
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('.my-modal'))).not.toBeNull();
+  });
+
+  // ── Scroll lock ───────────────────────────────────────────
+
+  it('should set body overflow:hidden when modal opens (lockScroll=true)', () => {
+    host.open.set(true);
+    fixture.detectChanges();
+    expect(doc.body.style.overflow).toBe('hidden');
+  });
+
+  it('should restore body overflow when modal closes', () => {
+    host.open.set(true);
+    fixture.detectChanges();
+    host.open.set(false);
+    fixture.detectChanges();
+    expect(doc.body.style.overflow).toBe('');
+  });
+
+  it('should NOT lock body when lockScroll=false', () => {
+    host.lockScroll.set(false);
+    host.open.set(true);
+    fixture.detectChanges();
+    expect(doc.body.style.overflow).not.toBe('hidden');
+  });
+
+  it('should restore body if component is destroyed while modal is open', () => {
+    host.open.set(true);
+    fixture.detectChanges();
+    expect(doc.body.style.overflow).toBe('hidden');
+    fixture.destroy();
+    expect(doc.body.style.overflow).toBe('');
   });
 });
