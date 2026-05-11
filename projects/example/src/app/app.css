@@ -20,6 +20,14 @@
 }
 
 /* ── App-specific brand slot ───────────────────────────────── */
+.app-brand-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  display: block;
+  flex-shrink: 0;
+}
+
 .app-brand-name {
   font-size: 1.05rem;
   font-weight: 700;

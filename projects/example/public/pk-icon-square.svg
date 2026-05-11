@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="a-bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="a-shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="rgba(255,255,255,0.24)"/>
+      <stop offset="60%"  stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Shadow -->
+  <rect x="12" y="18" width="176" height="176" rx="44" fill="rgba(37,99,235,0.22)"/>
+
+  <!-- Main bg -->
+  <rect x="4" y="4" width="192" height="192" rx="42" fill="url(#a-bg)"/>
+
+  <!-- Shine overlay -->
+  <rect x="4" y="4" width="192" height="192" rx="42" fill="url(#a-shine)"/>
+
+  <!-- Inner border -->
+  <rect x="6" y="6" width="188" height="188" rx="40"
+        fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2"/>
+
+  <!--
+    "widgets" icon — original 24×24, scaled 4x → 96×96, centered at (100,100)
+    Offset: x0 = 100 - 48 = 52,  y0 = 100 - 48 = 52
+    Original shapes (24-space):
+      top-left rect:   x=2, y=2, w=9, h=9
+      diamond:         center=18,6, points (14,6)(18,2)(22,6)(18,10)
+      bottom rect:     x=2, y=13, w=18, h=9
+    Scaled (×4) + offset (52,52):
+      top-left rect:   x=60, y=60, w=36, h=36
+      diamond:         points (60+48,52+16)=(108,68) ...
+      bottom rect:     x=60, y=104, w=72, h=36
+  -->
+
+  <!-- Top-left square -->
+  <rect x="58" y="58" width="38" height="38" rx="6" fill="white"/>
+
+  <!-- Diamond (top-right) — center at (133, 77), half-diagonal 20 -->
+  <polygon points="133,57 153,77 133,97 113,77" fill="white"/>
+
+  <!-- Bottom wide rect -->
+  <rect x="58" y="106" width="84" height="36" rx="6" fill="white"/>
+</svg>
