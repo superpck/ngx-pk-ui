@@ -130,11 +130,16 @@
     <span>Use any email to sign in · Use <code>error@test.com</code> to trigger an error</span>
   </div>
 
-  <!-- Components used badge list -->
-  <div class="login-badges">
-    @for (c of components; track c) {
-      <span class="pk-badge pk-badge-outline" style="font-size: 11px;">{{ c }}</span>
-    }
-  </div>
+  <!-- Source code link -->
+  <a
+    class="login-source-link"
+    href="https://github.com/superpck/ngx-pk-ui/tree/master/projects/example/src/app/pages/examples/login"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <pk-icon name="code" iconSet="material-symbols" [size]="14" color="currentColor" />
+    View source on GitHub
+    <pk-icon name="open_in_new" iconSet="material-symbols" [size]="12" color="currentColor" />
+  </a>
 
 </div>

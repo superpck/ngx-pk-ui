@@ -139,16 +139,4 @@ export class LoginExample {
     this.toastr.info('Google OAuth is not connected in this demo.', 'Demo only');
   }
 
-  readonly components = [
-    'pk-form (floating labels)',
-    'pk-btn',
-    'pk-card',
-    'pk-spinner',
-    'pk-toggle',
-    'pk-progress',
-    'pk-icon',
-    'pk-badge',
-    'PkToastrService',
-    'PkAlertService',
-  ];
 }
