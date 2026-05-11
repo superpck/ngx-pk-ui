@@ -20,19 +20,21 @@
       <button class="pk-btn pk-btn-primary pk-btn-sm" (click)="toastr.info('Top Left', undefined, { position: 'top-left' })">top-left</button>
       <button class="pk-btn pk-btn-primary pk-btn-sm" (click)="toastr.info('Top Center', undefined, { position: 'top-center' })">top-center</button>
       <button class="pk-btn pk-btn-primary pk-btn-sm" (click)="toastr.info('Top Right', undefined, { position: 'top-right' })">top-right</button>
+      <button class="pk-btn pk-btn-primary pk-btn-sm" (click)="toastr.info('Top Full Width', undefined, { position: 'top-full' })">top-full</button>
       <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="toastr.info('Center Left', undefined, { position: 'center-left' })">center-left</button>
       <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="toastr.info('Center Center', undefined, { position: 'center-center' })">center-center</button>
       <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="toastr.info('Center Right', undefined, { position: 'center-right' })">center-right</button>
       <button class="pk-btn pk-btn-success pk-btn-sm" (click)="toastr.success('Bottom Left', undefined, { position: 'bottom-left' })">bottom-left</button>
       <button class="pk-btn pk-btn-success pk-btn-sm" (click)="toastr.success('Bottom Center', undefined, { position: 'bottom-center' })">bottom-center</button>
       <button class="pk-btn pk-btn-success pk-btn-sm" (click)="toastr.success('Bottom Right', undefined, { position: 'bottom-right' })">bottom-right</button>
+      <button class="pk-btn pk-btn-success pk-btn-sm" (click)="toastr.success('Bottom Full Width', undefined, { position: 'bottom-full' })">bottom-full</button>
     </div>
 
-    <h3 style="margin-top:20px; margin-bottom:10px; font-size:14px; font-weight:600; color:#555;">Progress bar</h3>
+    <h3 style="margin-top:20px; margin-bottom:10px; font-size:14px; font-weight:600; color:#555;">Progress bar off</h3>
     <div class="demo-row">
-      <button class="pk-btn pk-btn-success" (click)="toastr.success('Upload complete!', 'Success', { progress: true })">Progress — success</button>
-      <button class="pk-btn pk-btn-error" (click)="toastr.error('Request failed.', 'Error', { progress: true, duration: 6000 })">Progress — error (6s)</button>
-      <button class="pk-btn pk-btn-primary" (click)="toastr.info('Syncing data…', 'Info', { progress: true, position: 'bottom-right' })">Progress + bottom-right</button>
+      <button class="pk-btn pk-btn-success" (click)="toastr.success('Upload complete!', 'Success', { progress: false })">Progress off — success</button>
+      <button class="pk-btn pk-btn-error" (click)="toastr.error('Request failed.', 'Error', { progress: false, duration: 6000 })">Progress off — error (6s)</button>
+      <button class="pk-btn pk-btn-primary" (click)="toastr.info('Syncing data…', 'Info', { progress: false, position: 'bottom-right' })">Progress off + bottom-right</button>
     </div>
   </section>
 
@@ -66,13 +68,15 @@ export class MyComponent &#123;
 
   save() &#123;
     this.toastr.success('Saved!', 'Success');
-    this.toastr.error('Failed', 'Error', &#123; duration: 0 &#125;);         // persist
+    this.toastr.error('Failed', 'Error', &#123; duration: 0 &#125;);                    // persist
     this.toastr.warning('Check your input');
-    this.toastr.info('Processing…', undefined, &#123; duration: 8000 &#125;);
-    this.toastr.success('Bottom!', undefined, &#123; position: 'bottom-right' &#125;);
-    this.toastr.info('Progress!', undefined, &#123; progress: true &#125;);
-    this.toastr.dismiss(id);                       // remove one
-    this.toastr.clear();                           // remove all
+    this.toastr.info('Processing&#8230;', undefined, &#123; duration: 8000 &#125;);
+    this.toastr.success('Bottom right!', undefined, &#123; position: 'bottom-right' &#125;);
+    this.toastr.warning('No progress', undefined, &#123; progress: false &#125;);      // hide bar
+    this.toastr.success('Banner!', undefined, &#123; position: 'top-full' &#125;);      // full-width top
+    this.toastr.error('Offline', undefined, &#123; position: 'bottom-full', duration: 0 &#125;); // sticky bottom
+    this.toastr.dismiss(id);                                                   // remove one
+    this.toastr.clear();                                                       // remove all
   &#125;
 &#125;</code></pre>
   </section>
@@ -92,8 +96,8 @@ export class MyComponent &#123;
     <table class="api-table">
       <tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr>
       <tr><td><code>duration</code></td><td><code>number</code></td><td><code>4000</code></td><td>Auto-dismiss delay (ms). <code>0</code> = persist</td></tr>
-      <tr><td><code>position</code></td><td><code>ToastPosition</code></td><td><code>'top-right'</code></td><td>One of 9 positions: top/center/bottom × left/center/right</td></tr>
-      <tr><td><code>progress</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show countdown progress bar at bottom of toast</td></tr>
+      <tr><td><code>position</code></td><td><code>ToastPosition</code></td><td><code>'top-right'</code></td><td><code>top/center/bottom-left/center/right</code>, <code>top-full</code>, <code>bottom-full</code></td></tr>
+      <tr><td><code>progress</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Show countdown progress bar at bottom of toast</td></tr>
     </table>
   </section>
 </div>

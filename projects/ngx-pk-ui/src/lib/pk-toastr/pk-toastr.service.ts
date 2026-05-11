@@ -15,6 +15,7 @@ const ALL_POSITIONS: ToastPosition[] = [
   'top-left', 'top-center', 'top-right',
   'center-left', 'center-center', 'center-right',
   'bottom-left', 'bottom-center', 'bottom-right',
+  'top-full', 'bottom-full',
 ];
 
 const DEFAULT_DURATION = 4000;
