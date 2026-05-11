@@ -52,8 +52,8 @@ projects/
           pk-timeline.ts        ← parent container: direction/lineStyle via signals (standalone)
           pk-timeline-item.css / pk-timeline.css
         pk-toastr/
-          pk-toastr.model.ts    ← Toast interface and ToastType
-          pk-toastr.service.ts  ← injectable service: success/error/info/warning/dismiss/clear
+          pk-toastr.model.ts    ← Toast, ToastType, ToastPosition, ToastOptions interfaces/types
+          pk-toastr.service.ts  ← injectable service: success/error/info/warning/dismiss/clear (auto-mounts to body)
           pk-toastr.ts          ← component that renders the toast container (add once to AppComponent)
           pk-toastr.html / .css / .spec.ts
         pk-alert/
@@ -208,27 +208,22 @@ import { PkTabsModule } from 'ngx-pk-ui';
 
 ### pk-toastr
 
-Place `<pk-toastr>` **once** in your root component template (e.g. `app.component.html`). Then inject `PkToastrService` anywhere to show notifications.
-
-```html
-<!-- app.component.html -->
-<router-outlet />
-<pk-toastr />
-```
+`PkToastrService` automatically mounts the toast container into `document.body` on first inject — no `<pk-toastr>` tag needed in templates.
 
 ```ts
 // any component or service
 import { PkToastrService } from 'ngx-pk-ui';
 
-@Component({ ... })
+@Component({ imports: [] })
 export class MyComponent {
   toastr = inject(PkToastrService);
 
   save() {
-    this.toastr.success('Saved!', 'Success');          // message, optional title
-    this.toastr.error('Failed', 'Error', 0);           // duration=0 means persist until dismissed
+    this.toastr.success('Saved!', 'Success');
+    this.toastr.error('Failed', 'Error', { duration: 0 });           // persist
     this.toastr.warning('Check your input');
-    this.toastr.info('Processing...', undefined, 8000); // 8-second duration
+    this.toastr.info('Loading…', undefined, { duration: 8000, position: 'bottom-right' });
+    this.toastr.success('Done!', undefined, { progress: false });    // no progress bar
   }
 }
 ```
@@ -236,13 +231,22 @@ export class MyComponent {
 **`PkToastrService` methods:**
 | Method | Signature |
 |--------|-----------|
-| `success` | `(message, title?, duration?) => void` |
-| `error` | `(message, title?, duration?) => void` |
-| `info` | `(message, title?, duration?) => void` |
-| `warning` | `(message, title?, duration?) => void` |
+| `success` | `(message, title?, options?: ToastOptions) => void` |
+| `error` | `(message, title?, options?: ToastOptions) => void` |
+| `info` | `(message, title?, options?: ToastOptions) => void` |
+| `warning` | `(message, title?, options?: ToastOptions) => void` |
 | `dismiss` | `(id: number) => void` |
 | `clear` | `() => void` |
-| `show` | `(type, message, title?, duration?) => void` |
+| `show` | `(type, message, title?, options?: ToastOptions) => void` |
+
+**`ToastOptions`:**
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `duration` | `number` | `4000` | Auto-dismiss (ms). `0` = persist |
+| `position` | `ToastPosition` | `'top-right'` | One of 9 positions |
+| `progress` | `boolean` | `true` | Show countdown progress bar |
+
+**`ToastPosition`** values: `top-left` · `top-center` · `top-right` · `center-left` · `center-center` · `center-right` · `bottom-left` · `bottom-center` · `bottom-right`
 
 Default `duration` is **4000 ms**. Pass `0` to keep toast until manually dismissed.
 
@@ -352,6 +356,8 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `PkTabsModule` | NgModule | `pk-tabs/pk-tabs.module` |
 | `Toast` | Interface | `pk-toastr/pk-toastr.model` |
 | `ToastType` | Type alias | `pk-toastr/pk-toastr.model` |
+| `ToastPosition` | Type alias | `pk-toastr/pk-toastr.model` |
+| `ToastOptions` | Interface | `pk-toastr/pk-toastr.model` |
 | `PkToastrService` | Injectable service | `pk-toastr/pk-toastr.service` |
 | `PkToastr` | Component | `pk-toastr/pk-toastr` |
 | `AlertType` | Type alias | `pk-alert/pk-alert.model` |
@@ -398,7 +404,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.2.0` |
+| Library version | `2.2.2` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -625,7 +631,7 @@ export class MyComponent {
 <span class="pk-badge pk-badge-lg">New</span>
 
 <!-- Pill (rectangular, rounded ends) -->
-<span class="pk-badge pk-badge-success pk-badge-pill">v2.2.0</span>
+<span class="pk-badge pk-badge-success pk-badge-pill">v2.2.2</span>
 
 <!-- Dot (empty indicator, no text) -->
 <span class="pk-badge pk-badge-dot pk-badge-success"></span>

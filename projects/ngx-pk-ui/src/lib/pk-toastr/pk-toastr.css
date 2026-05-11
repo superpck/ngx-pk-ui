@@ -1,14 +1,32 @@
 .pk-toastr-container {
   position: fixed;
-  top: 16px;
-  right: 16px;
   z-index: 9999;
   display: flex;
   flex-direction: column;
   gap: 8px;
   max-width: 360px;
   pointer-events: none;
+  /* default position vars — overridden per modifier below */
+  top: 16px;
+  right: 16px;
 }
+
+/* ─── 9 position modifiers ──────────────────────────────────────── */
+
+.pk-toastr--top-left      { top: 16px;    left: 16px;  right: auto; bottom: auto; }
+.pk-toastr--top-center    { top: 16px;    left: 50%;   right: auto; bottom: auto; transform: translateX(-50%); }
+.pk-toastr--top-right     { top: 16px;    right: 16px; left: auto;  bottom: auto; }
+
+.pk-toastr--center-left   { top: 50%;     left: 16px;  right: auto; bottom: auto; transform: translateY(-50%); }
+.pk-toastr--center-center { top: 50%;     left: 50%;   right: auto; bottom: auto; transform: translate(-50%, -50%); }
+.pk-toastr--center-right  { top: 50%;     right: 16px; left: auto;  bottom: auto; transform: translateY(-50%); }
+
+.pk-toastr--bottom-left   { bottom: 16px; left: 16px;  right: auto; top: auto;   flex-direction: column-reverse; }
+.pk-toastr--bottom-center { bottom: 16px; left: 50%;   right: auto; top: auto;   transform: translateX(-50%); flex-direction: column-reverse; }
+.pk-toastr--bottom-right  { bottom: 16px; right: 16px; left: auto;  top: auto;   flex-direction: column-reverse; }
+
+.pk-toastr--top-full    { top: 0;    left: 0; right: 0; bottom: auto; max-width: 100%; gap: 0; }
+.pk-toastr--bottom-full { bottom: 0; left: 0; right: 0; top: auto;   max-width: 100%; gap: 0; flex-direction: column-reverse; }
 
 .pk-toast {
   display: flex;
@@ -19,12 +37,37 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   color: #fff;
   pointer-events: all;
-  animation: pk-toast-in 0.25s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-@keyframes pk-toast-in {
-  from { opacity: 0; transform: translateX(40px); }
-  to   { opacity: 1; transform: translateX(0); }
+/* ─── Entry animations ──────────────────────────────────────────── */
+
+@keyframes pk-toast-in-right  { from { opacity:0; transform:translateX(40px); }  to { opacity:1; transform:translateX(0); } }
+@keyframes pk-toast-in-left   { from { opacity:0; transform:translateX(-40px); } to { opacity:1; transform:translateX(0); } }
+@keyframes pk-toast-in-top    { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pk-toast-in-bottom { from { opacity:0; transform:translateY(20px); }  to { opacity:1; transform:translateY(0); } }
+@keyframes pk-toast-in-center { from { opacity:0; transform:scale(0.88); }        to { opacity:1; transform:scale(1); } }
+
+/* Apply the matching animation per container position */
+.pk-toastr--top-right    .pk-toast,
+.pk-toastr--center-right .pk-toast,
+.pk-toastr--bottom-right .pk-toast  { animation: pk-toast-in-right  0.25s ease; }
+
+.pk-toastr--top-left    .pk-toast,
+.pk-toastr--center-left .pk-toast,
+.pk-toastr--bottom-left .pk-toast   { animation: pk-toast-in-left   0.25s ease; }
+
+.pk-toastr--top-center    .pk-toast { animation: pk-toast-in-top    0.25s ease; }
+.pk-toastr--bottom-center .pk-toast { animation: pk-toast-in-bottom 0.25s ease; }
+.pk-toastr--center-center .pk-toast { animation: pk-toast-in-center 0.25s ease; }
+.pk-toastr--top-full      .pk-toast { animation: pk-toast-in-top    0.25s ease; }
+.pk-toastr--bottom-full   .pk-toast { animation: pk-toast-in-bottom 0.25s ease; }
+
+.pk-toastr--top-full .pk-toast,
+.pk-toastr--bottom-full .pk-toast {
+  border-radius: 0;
+  width: 100%;
 }
 
 .pk-toast--success { background: #43a047; }
@@ -61,4 +104,22 @@
 
 .pk-toast__close:hover {
   color: #fff;
+}
+
+/* ─── Progress bar ──────────────────────────────────────────────── */
+
+@keyframes pk-toast-progress {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
+
+.pk-toast__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.5);
+  transform-origin: left center;
+  animation: pk-toast-progress linear forwards;
 }
