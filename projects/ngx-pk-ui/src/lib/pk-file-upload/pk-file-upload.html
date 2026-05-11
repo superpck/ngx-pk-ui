@@ -1,0 +1,109 @@
+<div class="pk-file-upload">
+
+  <!-- Drop zone -->
+  <div
+    [class]="zoneClass()"
+    (click)="openFilePicker()"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave()"
+    (drop)="onDrop($event)"
+    role="button"
+    tabindex="0"
+    (keydown.enter)="openFilePicker()"
+    (keydown.space)="openFilePicker()"
+  >
+    <span class="pk-file-upload__zone-icon material-symbols-outlined">cloud_upload</span>
+    <span class="pk-file-upload__zone-text">{{ dropLabel() }}</span>
+    <span class="pk-file-upload__zone-link">{{ browseLabel() }}</span>
+    @if (maxSize() > 0) {
+      <span class="pk-file-upload__zone-hint">Max file size: {{ maxSizeLabel() }}</span>
+    }
+  </div>
+
+  <!-- Hidden file input -->
+  <input
+    #fileInput
+    type="file"
+    class="pk-file-upload__input"
+    [accept]="accept()"
+    [multiple]="multiple()"
+    [disabled]="disabled()"
+    (change)="onInputChange($event)"
+  />
+
+  <!-- File preview grid -->
+  @if (hasFiles()) {
+    <div class="pk-file-upload__grid">
+      @for (item of files(); track item.id) {
+        <div class="pk-file-upload__card" [class]="cardSizeClass()">
+
+          <!-- Remove button -->
+          <button
+            type="button"
+            class="pk-file-upload__remove"
+            title="Remove"
+            (click)="removeFile(item.id)"
+          >
+            <span class="material-symbols-outlined">close</span>
+          </button>
+
+          <!-- Error badge -->
+          @if (item.error) {
+            <div class="pk-file-upload__error-badge" [title]="item.error">
+              <span class="material-symbols-outlined">error</span>
+            </div>
+          }
+
+          <!-- Preview area -->
+          <div class="pk-file-upload__preview">
+            @if (item.previewType === 'image' && item.previewUrl) {
+              <img
+                class="pk-file-upload__preview-img"
+                [src]="item.previewUrl"
+                [alt]="item.file.name"
+              />
+            } @else if (item.previewType === 'pdf' && item.previewUrl) {
+              <embed
+                class="pk-file-upload__preview-pdf"
+                [src]="item.previewUrl"
+                type="application/pdf"
+              />
+            } @else if (item.previewType === 'text') {
+              <div class="pk-file-upload__preview-text">
+                <pre>{{ item.textContent ?? '...' }}</pre>
+              </div>
+            } @else {
+              <div class="pk-file-upload__preview-icon">
+                <span class="material-symbols-outlined">{{ getIcon(item) }}</span>
+              </div>
+            }
+          </div>
+
+          <!-- Filename footer -->
+          <div class="pk-file-upload__card-footer" [title]="item.file.name">
+            <span class="pk-file-upload__filename">{{ item.file.name }}</span>
+          </div>
+
+        </div>
+      }
+    </div>
+
+    <!-- Upload button -->
+    <div class="pk-file-upload__actions">
+      <button
+        type="button"
+        class="pk-btn pk-btn-primary pk-file-upload__upload-btn"
+        [disabled]="!canUpload()"
+        (click)="submitUpload()"
+      >
+        @if (uploading()) {
+          <span class="pk-spinner pk-spinner-sm pk-spinner-white pk-spinner-inline"></span>
+        } @else {
+          <span class="material-symbols-outlined">upload</span>
+        }
+        {{ uploadLabel() }}
+      </button>
+    </div>
+  }
+
+</div>

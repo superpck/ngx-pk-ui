@@ -18,6 +18,7 @@ export class App {
     { label: 'calendar', link: '/pk-calendar' },
     { label: 'datagrid', link: '/pk-datagrid' },
     { label: 'datepicker', link: '/pk-datepicker' },
+    { label: 'file upload', link: '/pk-file-upload' },
     { label: 'icon', link: '/pk-icon' },
     { label: 'modal', link: '/pk-modal' },
     { label: 'progress', link: '/pk-progress' },
@@ -28,6 +29,10 @@ export class App {
     { label: 'tooltip', link: '/pk-tooltip' },
     { label: 'treeview', link: '/pk-treeview' },
     { label: 'typeahead', link: '/pk-typeahead' },
+  ];
+
+  readonly examplesList = [
+    { label: 'login page', link: '/examples/login' },
   ];
 
   readonly cssClassList = [

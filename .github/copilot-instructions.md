@@ -85,6 +85,10 @@ projects/
           pk-calendar-form.html / .css
           pk-calendar.ts        ← main standalone component: Year/Month/Week/Day/Agenda views
           pk-calendar.html / .css
+        pk-file-upload/
+          pk-file-upload.model.ts  ← PkUploadFile, PkUploadPreviewType, PkFileUploadPreviewSize
+          pk-file-upload.ts        ← standalone component: drag & drop, browser-native preview, upload button
+          pk-file-upload.html / .css / .spec.ts
     src/styles/
       pk-ui.css                   ← single entry point — @imports all modules below
       pk-grid.css                 ← responsive 12-column grid
@@ -108,6 +112,7 @@ projects/
         Components: home/ pk-accordion/ pk-tabs/ pk-toastr/ pk-alert/ pk-modal/
                     pk-icon/ pk-datagrid/ pk-datepicker/ pk-progress/ pk-treeview/
                     pk-select/ pk-autocomplete/ pk-typeahead/ pk-tooltip/ pk-timeline/ pk-calendar/
+                    pk-file-upload/
         CSS pages:  pk-grid/ pk-btn/ pk-spinner/ pk-badge/ pk-card/
                     pk-table/ pk-toggle/ pk-breadcrumb/ pk-font/ pk-form/ pk-layout/
 ```
@@ -381,6 +386,10 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `PkProgressComponent` | Component | `pk-progress/pk-progress.component` |
 | `PkTreeviewModule` | NgModule | `pk-treeview/pk-treeview.module` |
 | `PkTreeviewComponent` | Component | `pk-treeview/pk-treeview.component` |
+| `PkUploadFile` | Interface | `pk-file-upload/pk-file-upload.model` |
+| `PkUploadPreviewType` | Type alias | `pk-file-upload/pk-file-upload.model` |
+| `PkFileUploadPreviewSize` | Type alias | `pk-file-upload/pk-file-upload.model` |
+| `PkFileUpload` | Component | `pk-file-upload/pk-file-upload` |
 
 ---
 
@@ -405,7 +414,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.2.3` |
+| Library version | `2.3.0` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -423,6 +432,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-typeahead` | ✅ Built |
 | `pk-tooltip` | ✅ Built |
 | `pk-calendar` | ✅ Built — Year/Month/Week/Day/Agenda views, drag & drop, multi-day bars, built-in form, TH/EN locale |
+| `pk-file-upload` | ✅ Built, tested (14 tests) — drag & drop, browser-native preview (image/PDF/text), upload button, maxSize/maxFiles validation |
 | `pk-grid` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | `pk-btn` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
 | `pk-spinner` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
@@ -438,13 +448,14 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section |
 | npm published | ✅ Published |
 
-**Test totals: 41 / 41 passing**
+**Test totals: 72 / 72 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper
 - `pk-pagination` — standalone pagination component (reuse datagrid logic)
 - `pk-drawer` — slide-in side panel / off-canvas drawer
 - `pk-kanban` — drag-and-drop kanban board
+- `pk-image-viewer` — lightbox / image viewer (works with pk-file-upload previews)
 
 ---
 
@@ -632,7 +643,7 @@ export class MyComponent {
 <span class="pk-badge pk-badge-lg">New</span>
 
 <!-- Pill (rectangular, rounded ends) -->
-<span class="pk-badge pk-badge-success pk-badge-pill">v2.2.3</span>
+<span class="pk-badge pk-badge-success pk-badge-pill">v2.3.0</span>
 
 <!-- Dot (empty indicator, no text) -->
 <span class="pk-badge pk-badge-dot pk-badge-success"></span>
@@ -1074,3 +1085,79 @@ Included in `pk-ui.css` automatically.
 - Mobile: sidebar off-screen (`translateX(-110%)`) → slides in on `--open`; hamburger visible in navbar; main is full-width
 
 **Active link:** works with Angular `routerLinkActive="active"` or manual `.pk-sidebar__link--active` class.
+
+---
+
+## pk-file-upload API reference
+
+Standalone component — drag & drop + browser-native preview with no extra libraries.
+
+```ts
+import { PkFileUpload, type PkUploadFile } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkFileUpload],
+})
+```
+
+```html
+<pk-file-upload
+  #uploader
+  accept="image/*,.pdf"
+  [multiple]="true"
+  [maxSize]="10_000_000"
+  [uploading]="isUploading()"
+  (onUpload)="handleUpload($event)"
+/>
+```
+
+```ts
+readonly uploader = viewChild<PkFileUpload>('uploader');
+isUploading = signal(false);
+
+async handleUpload(files: PkUploadFile[]): Promise<void> {
+  this.isUploading.set(true);
+  const fd = new FormData();
+  files.map(f => f.file).forEach(f => fd.append('files', f));
+  await this.http.post('/api/upload', fd).toPromise();
+  this.isUploading.set(false);
+  this.uploader()?.clear();
+}
+```
+
+### PkFileUpload inputs / outputs
+
+| Input/Output | Type | Default | Description |
+|---|---|---|---|
+| `accept` | `string` | `''` | Same as native `<input accept>` |
+| `multiple` | `boolean` | `true` | Allow multiple files; `false` replaces previous |
+| `maxSize` | `number` | `0` | Max bytes per file. `0` = no limit |
+| `maxFiles` | `number` | `0` | Max total files. `0` = no limit |
+| `disabled` | `boolean` | `false` | Disables drop zone and buttons |
+| `uploading` | `boolean` | `false` | Shows spinner on Upload button and disables it |
+| `previewSize` | `'sm'\|'md'\|'lg'` | `'md'` | Thumbnail card width (100 / 140 / 180 px) |
+| `uploadLabel` | `string` | `'Upload'` | Upload button label |
+| `browseLabel` | `string` | `'Browse files'` | Browse link text in drop zone |
+| `dropLabel` | `string` | `'Drag & drop files here, or'` | Main drop zone text |
+| `(filesChange)` | `PkUploadFile[]` | — | Emits on every file add or remove |
+| `(onUpload)` | `PkUploadFile[]` | — | Emits valid files (no errors) when Upload clicked |
+| `clear()` | `void` | — | Public method — resets all files |
+
+### PkUploadFile interface
+
+```ts
+interface PkUploadFile {
+  id: number;                             // unique auto-increment id
+  file: File;                             // original File object
+  previewType: 'image' | 'pdf' | 'text' | 'none';
+  previewUrl: string | null;              // blob: URL for image/pdf
+  textContent: string | null;             // first 300 chars for text files
+  error: string | null;                   // validation error message
+}
+```
+
+Preview detection:
+- **image** — `file.type.startsWith('image/')`
+- **pdf** — `file.type === 'application/pdf'`
+- **text** — `file.type.startsWith('text/')` or extension in `[json, xml, yaml, yml, csv, md, ts, js, html, css]`
+- **none** — everything else

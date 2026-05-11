@@ -1,0 +1,248 @@
+/* ─────────────────────────────────────────────────────────────
+   pk-file-upload — BEM component styles
+───────────────────────────────────────────────────────────── */
+
+/* Preview card size tokens */
+:host {
+  --pk-upload-card-sm: 100px;
+  --pk-upload-card-md: 140px;
+  --pk-upload-card-lg: 180px;
+}
+
+/* ── Root ─────────────────────────────────────────────────── */
+.pk-file-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Drop zone ────────────────────────────────────────────── */
+.pk-file-upload__zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 32px 24px;
+  border: 2px dashed #d1d5db;
+  border-radius: 10px;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.18s;
+  outline: none;
+  user-select: none;
+}
+
+.pk-file-upload__zone:focus-visible {
+  border-color: var(--pk-btn-primary, #1976d2);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.18);
+}
+
+.pk-file-upload__zone--drag {
+  border-color: var(--pk-btn-primary, #1976d2);
+  background: rgba(25, 118, 210, 0.05);
+}
+
+.pk-file-upload__zone--disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.pk-file-upload__zone-icon {
+  font-size: 40px;
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.pk-file-upload__zone--drag .pk-file-upload__zone-icon {
+  color: var(--pk-btn-primary, #1976d2);
+}
+
+.pk-file-upload__zone-text {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.pk-file-upload__zone-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pk-btn-primary, #1976d2);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.pk-file-upload__zone-hint {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+/* ── Hidden file input ────────────────────────────────────── */
+.pk-file-upload__input {
+  display: none;
+}
+
+/* ── Preview grid ─────────────────────────────────────────── */
+.pk-file-upload__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ── Card ─────────────────────────────────────────────────── */
+.pk-file-upload__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
+  width: var(--pk-upload-card-md);
+  transition: box-shadow 0.15s;
+}
+
+.pk-file-upload__card:hover {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+.pk-file-upload__card--sm { width: var(--pk-upload-card-sm); }
+.pk-file-upload__card--md { width: var(--pk-upload-card-md); }
+.pk-file-upload__card--lg { width: var(--pk-upload-card-lg); }
+
+/* ── Remove button ────────────────────────────────────────── */
+.pk-file-upload__remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.55);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #fff;
+  transition: background 0.15s;
+}
+
+.pk-file-upload__remove:hover {
+  background: rgba(220, 38, 38, 0.85);
+}
+
+.pk-file-upload__remove .material-symbols-outlined {
+  font-size: 15px;
+  line-height: 1;
+}
+
+/* ── Error badge ──────────────────────────────────────────── */
+.pk-file-upload__error-badge {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  z-index: 2;
+  color: #ef4444;
+  display: flex;
+}
+
+.pk-file-upload__error-badge .material-symbols-outlined {
+  font-size: 18px;
+}
+
+/* ── Preview area ─────────────────────────────────────────── */
+.pk-file-upload__preview {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  min-height: 80px;
+}
+
+/* Image */
+.pk-file-upload__preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* PDF embed */
+.pk-file-upload__preview-pdf {
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: none;
+}
+
+/* Text snippet */
+.pk-file-upload__preview-text {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 6px;
+}
+
+.pk-file-upload__preview-text pre {
+  margin: 0;
+  font-size: 8px;
+  line-height: 1.4;
+  color: #374151;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: hidden;
+  max-height: 100%;
+}
+
+/* Icon fallback */
+.pk-file-upload__preview-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.pk-file-upload__preview-icon .material-symbols-outlined {
+  font-size: 40px;
+  color: #9ca3af;
+}
+
+/* ── Card footer ──────────────────────────────────────────── */
+.pk-file-upload__card-footer {
+  padding: 4px 8px;
+  border-top: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+.pk-file-upload__filename {
+  display: block;
+  font-size: 11px;
+  color: #374151;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Actions row ──────────────────────────────────────────── */
+.pk-file-upload__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pk-file-upload__upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pk-file-upload__upload-btn .material-symbols-outlined {
+  font-size: 18px;
+  line-height: 1;
+}

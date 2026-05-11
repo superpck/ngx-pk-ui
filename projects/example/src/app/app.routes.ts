@@ -18,6 +18,7 @@ export const routes: Routes = [
   { path: 'pk-select', loadComponent: () => import('./pages/pk-select/pk-select-page').then(m => m.PkSelectPage) },
   { path: 'pk-autocomplete', loadComponent: () => import('./pages/pk-autocomplete/pk-autocomplete-page').then(m => m.PkAutocompletePage) },
   { path: 'pk-typeahead', loadComponent: () => import('./pages/pk-typeahead/pk-typeahead-page').then(m => m.PkTypeaheadPage) },
+  { path: 'pk-file-upload', loadComponent: () => import('./pages/pk-file-upload/pk-file-upload-page').then(m => m.PkFileUploadPage) },
   { path: 'pk-table', loadComponent: () => import('./pages/pk-table/pk-table-page').then(m => m.PkTablePage) },
   { path: 'pk-toggle', loadComponent: () => import('./pages/pk-toggle/pk-toggle-page').then(m => m.PkTogglePage) },
   { path: 'pk-font', loadComponent: () => import('./pages/pk-font/pk-font-page').then(m => m.PkFontPage) },
@@ -30,4 +31,6 @@ export const routes: Routes = [
   { path: 'pk-tooltip', loadComponent: () => import('./pages/pk-tooltip/pk-tooltip-page').then(m => m.PkTooltipPage) },
   { path: 'pk-form', loadComponent: () => import('./pages/pk-form/pk-form-page').then(m => m.PkFormPage) },
   { path: 'pk-layout', loadComponent: () => import('./pages/pk-layout/pk-layout-page').then(m => m.PkLayoutPage) },
+  // Examples
+  { path: 'examples/login', loadComponent: () => import('./pages/examples/login/login-example').then(m => m.LoginExample) },
 ];
