@@ -1,0 +1,124 @@
+<div class="dsh-shell">
+
+  <!-- ── Sidenav ────────────────────────────────────────────────────────────── -->
+  <pk-sidenav
+    [groups]="navGroups"
+    theme="light"
+    mode="auto"
+    [activeKey]="activeNav()"
+    (itemClick)="setNav($event.key)"
+  >
+    <div pkSidenavHeader class="dsh-snv-header">
+      <img src="pk-icon-square.svg" alt="Logo" class="dsh-brand-logo" />
+      <span class="dsh-brand-name pk-snv-hide-on-icon">My App</span>
+    </div>
+  </pk-sidenav>
+
+  <!-- ── Right column ───────────────────────────────────────────────────────── -->
+  <div class="dsh-column">
+
+    <!-- Top bar (inline, not fixed) -->
+    <header class="dsh-topbar">
+      <span class="dsh-topbar__title">Dashboard</span>
+      <div class="dsh-topbar__end">
+        <a
+          class="dsh-source-link"
+          href="https://github.com/superpck/ngx-pk-ui/tree/master/projects/example/src/app/pages/examples/dashboard"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="View source on GitHub"
+        >
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          View source
+        </a>
+        <button class="dsh-icon-btn" aria-label="Notifications">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="dsh-notif-dot"></span>
+        </button>
+        <div class="dsh-avatar">JD</div>
+      </div>
+    </header>
+
+    <!-- Scrollable content -->
+    <main class="dsh-content">
+
+      <!-- Breadcrumb -->
+      <nav class="pk-breadcrumb" style="margin-bottom: 24px;">
+        <ol class="pk-breadcrumb-list">
+          <li class="pk-breadcrumb-item"><a href="#">Home</a></li>
+          <li class="pk-breadcrumb-item pk-breadcrumb-item--active">Dashboard</li>
+        </ol>
+      </nav>
+
+      <!-- Summary cards row -->
+      <div class="pk-row pk-row--gap-lg" style="margin-bottom: 24px;">
+
+        <div class="pk-col-12 pk-col-sm-6 pk-col-xl-3">
+          <div class="pk-card pk-card-shadow">
+            <div class="pk-card-body dsh-stat-card">
+              <span class="dsh-stat-label">Total Users</span>
+              <span class="dsh-stat-value">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pk-col-12 pk-col-sm-6 pk-col-xl-3">
+          <div class="pk-card pk-card-shadow">
+            <div class="pk-card-body dsh-stat-card">
+              <span class="dsh-stat-label">Revenue</span>
+              <span class="dsh-stat-value">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pk-col-12 pk-col-sm-6 pk-col-xl-3">
+          <div class="pk-card pk-card-shadow">
+            <div class="pk-card-body dsh-stat-card">
+              <span class="dsh-stat-label">Orders</span>
+              <span class="dsh-stat-value">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pk-col-12 pk-col-sm-6 pk-col-xl-3">
+          <div class="pk-card pk-card-shadow">
+            <div class="pk-card-body dsh-stat-card">
+              <span class="dsh-stat-label">Conversion</span>
+              <span class="dsh-stat-value">—</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Content cards row -->
+      <div class="pk-row pk-row--gap-lg">
+
+        <div class="pk-col-12 pk-col-md-8">
+          <div class="pk-card pk-card-shadow">
+            <div class="pk-card-header">Overview</div>
+            <div class="pk-card-body dsh-card-placeholder">
+              <!-- chart or content goes here -->
+            </div>
+          </div>
+        </div>
+
+        <div class="pk-col-12 pk-col-md-4">
+          <div class="pk-card pk-card-shadow">
+            <div class="pk-card-header">Activity</div>
+            <div class="pk-card-body dsh-card-placeholder">
+              <!-- activity feed goes here -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div><!-- /.dsh-column -->
+
+</div>

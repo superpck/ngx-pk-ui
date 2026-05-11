@@ -35,4 +35,5 @@ export const routes: Routes = [
   // Examples
   { path: 'examples/login', loadComponent: () => import('./pages/examples/login/login-example').then(m => m.LoginExample) },
   { path: 'examples/chat', loadComponent: () => import('./pages/examples/chat/chat-example').then(m => m.ChatExample) },
+  { path: 'examples/dashboard', loadComponent: () => import('./pages/examples/dashboard/dashboard-example').then(m => m.DashboardExample) },
 ];
