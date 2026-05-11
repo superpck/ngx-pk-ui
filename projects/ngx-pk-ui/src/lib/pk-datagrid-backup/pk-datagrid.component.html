@@ -10,17 +10,6 @@
   <table class="pk-datagrid" style="table-layout: fixed" [style.min-width.px]="totalWidth">
     <thead>
       <tr>
-        @if (hasSelectCol) {
-          <th class="pk-dg-select-th">
-            @if (pkDgSelect === 'multiple') {
-              <input type="checkbox"
-                [checked]="isAllSelected()"
-                [indeterminate]="isSomeSelected()"
-                (change)="toggleSelectAll()"
-                title="เลือกทั้งหมด" />
-            }
-          </th>
-        }
         @if (hasActionCol) {
           <th class="pk-dg-action-th"></th>
         }

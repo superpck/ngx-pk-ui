@@ -1,5 +1,4 @@
-import { Component, Input, TemplateRef, ContentChild, Optional, Inject, forwardRef } from '@angular/core';
-import { PkDatagridComponent } from './pk-datagrid.component';
+import { Component, Input, TemplateRef, ContentChild } from '@angular/core';
 
 @Component({
   selector: 'pk-dg-rows',
@@ -13,13 +12,9 @@ import { PkDatagridComponent } from './pk-datagrid.component';
 export class PkDgRowComponent {
   @Input() pkDgRow: any;
   @Input() rowClass: string = '';
-
+  
   @ContentChild('detail') detailTemplate?: TemplateRef<any>;
-
+  
   isExpanded: boolean = false;
   hasDetail: boolean = false;
-
-  constructor(
-    @Optional() @Inject(forwardRef(() => PkDatagridComponent)) public datagrid?: PkDatagridComponent
-  ) {}
 }
