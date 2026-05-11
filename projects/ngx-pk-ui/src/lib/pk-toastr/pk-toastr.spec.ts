@@ -20,7 +20,7 @@ describe('PkToastrService', () => {
   });
 
   it('should dismiss a toast by id', () => {
-    service.info('Hello', undefined, 0);
+    service.info('Hello', undefined, { duration: 0 });
     const id = service.toasts()[0].id;
     service.dismiss(id);
     expect(service.toasts().length).toBe(0);
@@ -28,7 +28,7 @@ describe('PkToastrService', () => {
 
   it('should auto-dismiss after duration', () => {
     vi.useFakeTimers();
-    service.success('Auto', undefined, 500);
+    service.success('Auto', undefined, { duration: 500 });
     expect(service.toasts().length).toBe(1);
     vi.advanceTimersByTime(500);
     expect(service.toasts().length).toBe(0);
@@ -49,7 +49,7 @@ describe('PkToastr', () => {
 
   it('should render toasts', () => {
     const service = TestBed.inject(PkToastrService);
-    service.error('Something went wrong', undefined, 0);
+    service.error('Something went wrong', undefined, { duration: 0 });
     fixture.detectChanges();
     const toast = fixture.nativeElement.querySelector('.pk-toast--error');
     expect(toast).toBeTruthy();

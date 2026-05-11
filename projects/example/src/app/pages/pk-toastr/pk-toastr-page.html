@@ -11,8 +11,28 @@
       <button class="pk-btn pk-btn-error" (click)="toastr.error('Something went wrong.', 'Error')">Error</button>
       <button class="pk-btn pk-btn-primary" (click)="toastr.info('Processing your request…', 'Info')">Info</button>
       <button class="pk-btn pk-btn-secondary" (click)="toastr.warning('Check your input.', 'Warning')">Warning</button>
-      <button class="pk-btn pk-btn-secondary pk-btn-outline" (click)="toastr.success('I stay until dismissed.', 'Persist', 0)">Persist (no auto-close)</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-outline" (click)="toastr.success('I stay until dismissed.', 'Persist', { duration: 0 })">Persist (no auto-close)</button>
       <button class="pk-btn pk-btn-error pk-btn-outline" (click)="toastr.clear()">Clear all</button>
+    </div>
+
+    <h3 style="margin-top:20px; margin-bottom:10px; font-size:14px; font-weight:600; color:#555;">Position</h3>
+    <div class="demo-row">
+      <button class="pk-btn pk-btn-primary pk-btn-sm" (click)="toastr.info('Top Left', undefined, { position: 'top-left' })">top-left</button>
+      <button class="pk-btn pk-btn-primary pk-btn-sm" (click)="toastr.info('Top Center', undefined, { position: 'top-center' })">top-center</button>
+      <button class="pk-btn pk-btn-primary pk-btn-sm" (click)="toastr.info('Top Right', undefined, { position: 'top-right' })">top-right</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="toastr.info('Center Left', undefined, { position: 'center-left' })">center-left</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="toastr.info('Center Center', undefined, { position: 'center-center' })">center-center</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="toastr.info('Center Right', undefined, { position: 'center-right' })">center-right</button>
+      <button class="pk-btn pk-btn-success pk-btn-sm" (click)="toastr.success('Bottom Left', undefined, { position: 'bottom-left' })">bottom-left</button>
+      <button class="pk-btn pk-btn-success pk-btn-sm" (click)="toastr.success('Bottom Center', undefined, { position: 'bottom-center' })">bottom-center</button>
+      <button class="pk-btn pk-btn-success pk-btn-sm" (click)="toastr.success('Bottom Right', undefined, { position: 'bottom-right' })">bottom-right</button>
+    </div>
+
+    <h3 style="margin-top:20px; margin-bottom:10px; font-size:14px; font-weight:600; color:#555;">Progress bar</h3>
+    <div class="demo-row">
+      <button class="pk-btn pk-btn-success" (click)="toastr.success('Upload complete!', 'Success', { progress: true })">Progress — success</button>
+      <button class="pk-btn pk-btn-error" (click)="toastr.error('Request failed.', 'Error', { progress: true, duration: 6000 })">Progress — error (6s)</button>
+      <button class="pk-btn pk-btn-primary" (click)="toastr.info('Syncing data…', 'Info', { progress: true, position: 'bottom-right' })">Progress + bottom-right</button>
     </div>
   </section>
 
@@ -46,9 +66,11 @@ export class MyComponent &#123;
 
   save() &#123;
     this.toastr.success('Saved!', 'Success');
-    this.toastr.error('Failed', 'Error', 0);      // duration=0 → persist
+    this.toastr.error('Failed', 'Error', &#123; duration: 0 &#125;);         // persist
     this.toastr.warning('Check your input');
-    this.toastr.info('Processing…', undefined, 8000);
+    this.toastr.info('Processing…', undefined, &#123; duration: 8000 &#125;);
+    this.toastr.success('Bottom!', undefined, &#123; position: 'bottom-right' &#125;);
+    this.toastr.info('Progress!', undefined, &#123; progress: true &#125;);
     this.toastr.dismiss(id);                       // remove one
     this.toastr.clear();                           // remove all
   &#125;
@@ -59,13 +81,19 @@ export class MyComponent &#123;
     <h2>API</h2>
     <table class="api-table">
       <tr><th>Method</th><th>Parameters</th><th>Description</th></tr>
-      <tr><td><code>success</code></td><td><code>(message, title?, duration?)</code></td><td>Green toast</td></tr>
-      <tr><td><code>error</code></td><td><code>(message, title?, duration?)</code></td><td>Red toast</td></tr>
-      <tr><td><code>info</code></td><td><code>(message, title?, duration?)</code></td><td>Blue toast</td></tr>
-      <tr><td><code>warning</code></td><td><code>(message, title?, duration?)</code></td><td>Orange toast</td></tr>
+      <tr><td><code>success</code></td><td><code>(message, title?, options?)</code></td><td>Green toast</td></tr>
+      <tr><td><code>error</code></td><td><code>(message, title?, options?)</code></td><td>Red toast</td></tr>
+      <tr><td><code>info</code></td><td><code>(message, title?, options?)</code></td><td>Blue toast</td></tr>
+      <tr><td><code>warning</code></td><td><code>(message, title?, options?)</code></td><td>Orange toast</td></tr>
       <tr><td><code>dismiss</code></td><td><code>(id: number)</code></td><td>Remove one toast by ID</td></tr>
       <tr><td><code>clear</code></td><td>—</td><td>Remove all toasts</td></tr>
     </table>
-    <p style="font-size:13px;color:#666;margin-top:8px">Default <code>duration</code> is <strong>4000ms</strong>. Pass <code>0</code> to keep until manually dismissed.</p>
+    <h3 style="margin-top:16px">ToastOptions</h3>
+    <table class="api-table">
+      <tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>duration</code></td><td><code>number</code></td><td><code>4000</code></td><td>Auto-dismiss delay (ms). <code>0</code> = persist</td></tr>
+      <tr><td><code>position</code></td><td><code>ToastPosition</code></td><td><code>'top-right'</code></td><td>One of 9 positions: top/center/bottom × left/center/right</td></tr>
+      <tr><td><code>progress</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show countdown progress bar at bottom of toast</td></tr>
+    </table>
   </section>
 </div>
