@@ -432,7 +432,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-timeline` | ✅ Built — no tests yet |
 | `pk-toastr` | ✅ Built, tested (4 tests) |
 | `pk-alert` | ✅ Built, tested (13 tests) |
-| `pk-modal` | ✅ Built, tested (12 tests) |
+| `pk-modal` | ✅ Built, tested (16 tests) — `lockScroll` input (default `true`): locks body scroll + compensates scrollbar width |
 | `pk-icon` | ✅ Built |
 | `pk-datagrid` | ✅ Built (NgModule) — row selection (single/multiple) added |
 | `pk-datepicker` | ✅ Built |
@@ -460,7 +460,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section |
 | npm published | ✅ Published |
 
-**Test totals: 72 / 72 passing**
+**Test totals: 76 / 76 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper
@@ -846,6 +846,7 @@ export class MyComponent {
 | `size` | `'sm'\|'md'\|'lg'\|'xl'\|'full'` | `'md'` | Dialog width preset |
 | `blur` | `boolean` | `true` | `backdrop-filter: blur(4px)` on overlay |
 | `closeAble` | `boolean` | `true` | Show × button; allow backdrop click to close |
+| `lockScroll` | `boolean` | `true` | Lock `<body>` scroll when modal is open; compensates for scrollbar width |
 | `customClass` | `string\|null` | `null` | Extra CSS class on dialog container |
 | `customStyle` | `Record<string,string>\|null` | `null` | Inline styles on dialog container |
 | `(onClose)` | `void` | — | Emits on × click or backdrop click (when closeAble=true) |
