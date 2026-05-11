@@ -116,9 +116,12 @@ projects/
         Components: home/ pk-accordion/ pk-tabs/ pk-toastr/ pk-alert/ pk-modal/
                     pk-icon/ pk-datagrid/ pk-datepicker/ pk-progress/ pk-treeview/
                     pk-select/ pk-autocomplete/ pk-typeahead/ pk-tooltip/ pk-timeline/ pk-calendar/
-                    pk-file-upload/
+                    pk-file-upload/ pk-sidenav/
         CSS pages:  pk-grid/ pk-btn/ pk-spinner/ pk-badge/ pk-card/
                     pk-table/ pk-toggle/ pk-breadcrumb/ pk-font/ pk-form/ pk-layout/
+        Example pages: examples/login/   ← login-example.ts/html/css — full-bleed card, form, password strength
+                       examples/chat/    ← chat-example.ts/html/css — icon sidenav, conversation list, message pane
+                       examples/dashboard/ ← dashboard-example.ts/html/css — pk-sidenav + topbar + stat cards + placeholder cards
 ```
 
 `dist/ngx-pk-ui/` is the build output consumed by npm. Never edit files there.
@@ -425,7 +428,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.4.2` |
+| Library version | `2.4.3` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -457,7 +460,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-layout` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-layout.css` — included in pk-ui.css |
 | `pk-font` (CSS only, opt-in) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-font.css` — NOT in pk-ui.css |
 | `pk-icon-font` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-icon-font.css` |
-| Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section |
+| Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard |
 | npm published | ✅ Published |
 
 **Test totals: 76 / 76 passing**
@@ -656,7 +659,7 @@ export class MyComponent {
 <span class="pk-badge pk-badge-lg">New</span>
 
 <!-- Pill (rectangular, rounded ends) -->
-<span class="pk-badge pk-badge-success pk-badge-pill">v2.4.2</span>
+<span class="pk-badge pk-badge-success pk-badge-pill">v2.4.3</span>
 
 <!-- Dot (empty indicator, no text) -->
 <span class="pk-badge pk-badge-dot pk-badge-success"></span>

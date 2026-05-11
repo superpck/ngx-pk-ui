@@ -12,7 +12,7 @@ import { PkSelectComponent, SelectOption } from '../index';
         [options]="options()"
         [mode]="'multi'"
         [searchable]="true"
-        [placeholder]="'เลือกหลายจังหวัด'"
+        [placeholder]="'Select multiple provinces...'"
         (change)="onSelectionChange($event)" />
       
       <p style="margin-top: 12px; color: #6b7280;">
@@ -25,14 +25,14 @@ export class PkSelectMultiExample {
   selectedValues = signal<string[] | null>(null);
 
   options = signal<SelectOption[]>([
-    { label: 'กรุงเทพมหานคร', value: 'bangkok' },
-    { label: 'เชียงใหม่', value: 'chiangmai' },
-    { label: 'ภูเก็ต', value: 'phuket' },
-    { label: 'ขอนแก่น', value: 'khonkaen' },
-    { label: 'สงขลา', value: 'songkhla' },
-    { label: 'นครราชสีมา', value: 'nakhonratchasima' },
-    { label: 'อุบลราชธานี', value: 'ubonratchathani' },
-    { label: 'สุราษฎร์ธานี', value: 'suratthani' },
+    { label: 'Bangkok', value: 'bangkok' },
+    { label: 'Chiang Mai', value: 'chiangmai' },
+    { label: 'Phuket', value: 'phuket' },
+    { label: 'Khon Kaen', value: 'khonkaen' },
+    { label: 'Songkhla', value: 'songkhla' },
+    { label: 'Nakhon Ratchasima', value: 'nakhonratchasima' },
+    { label: 'Ubon Ratchathani', value: 'ubonratchathani' },
+    { label: 'Surat Thani', value: 'suratthani' },
   ]);
 
   onSelectionChange(values: any): void {

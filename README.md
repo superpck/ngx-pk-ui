@@ -1,4 +1,4 @@
-# ngx-pk-ui 2.4.2
+# ngx-pk-ui 2.4.3
 
 An Angular 21 component library providing UI components and CSS utilities.
 
@@ -19,6 +19,14 @@ An Angular 21 component library providing UI components and CSS utilities.
 ## Demo & Usage
 
 - https://superpck.github.io/ngx-pk-ui/
+
+### Example Pages
+
+| Page | Route | Description |
+|------|-------|-------------|
+| Login | `/examples/login` | Full-bleed login card with form validation and password strength meter |
+| Chat App | `/examples/chat` | Icon sidenav, conversation list, and message pane |
+| Dashboard | `/examples/dashboard` | `pk-sidenav` + inline topbar + stat cards + content cards |
 
 ## npm public
 
@@ -49,7 +57,10 @@ npm install ngx-pk-ui
 | `pk-treeview` | Module + Components | Hierarchical tree with expand/collapse and selection modes |
 | `pk-select` | Component | Single/multi select with optional search |
 | `pk-autocomplete` | Component | Local/async autocomplete input |
-| `pk-typeahead` | Component | Typeahead input with keyboard navigation |
+| `pk-sidenav` | Component | Left/right side navigation — full/icon/auto mode, multi-level, 4 themes, CSS-variable override |
+| `pk-tooltip` | Directive | Hover tooltip — 10 color variants, 4 positions |
+| `pk-calendar` | Component | Year/Month/Week/Day/Agenda views, drag & drop, TH/EN locale |
+| `pk-file-upload` | Component | Drag & drop file upload with browser-native preview (image/PDF/text) |
 
 ---
 
@@ -322,12 +333,6 @@ npm run start:example
 # Publish to npm (after build)
 npm publish dist/ngx-pk-ui
 ```
-
----
-
-## Component instruction
-
-See [instruction.md](instruction.md)
 
 ---
 

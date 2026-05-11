@@ -37,7 +37,7 @@ import { PkSelectComponent, SelectOption } from '../index';
       <pk-select
         [options]="options()"
         [mode]="'multi'"
-        [placeholder]="'เลือกหลายสี'"
+        [placeholder]="'Select colors...'"
         [(ngModel)]="selectedColors" />
       
       <p style="margin-top: 12px; color: #6b7280;">
@@ -63,12 +63,12 @@ export class PkSelectNgmodelExample {
   selectedColors: string[] = [];
 
   options = signal<SelectOption[]>([
-    { label: 'แดง', value: 'red' },
-    { label: 'น้ำเงิน', value: 'blue' },
-    { label: 'เขียว', value: 'green' },
-    { label: 'เหลือง', value: 'yellow' },
-    { label: 'ม่วง', value: 'purple' },
-    { label: 'ส้ม', value: 'orange' },
-    { label: 'ชมพู', value: 'pink' },
+    { label: 'Red', value: 'red' },
+    { label: 'Blue', value: 'blue' },
+    { label: 'Green', value: 'green' },
+    { label: 'Yellow', value: 'yellow' },
+    { label: 'Purple', value: 'purple' },
+    { label: 'Orange', value: 'orange' },
+    { label: 'Pink', value: 'pink' },
   ]);
 }

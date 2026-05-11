@@ -1,26 +1,26 @@
 /*
-  pk-datepicker เป็น component เพื่อใช้แทนการ input type="date"
+  pk-datepicker is a component used as a replacement for input type="date"
 
-  การใช้งาน:
+  Usage:
     <pk-datepicker [..] ..></pk-datepicker>
 
-  input parameter:
-    disabled: true | false (default false) - กรณีไม่ต้องการให้เลือกวันที่
-    setNull: true | false (default true) - กรณีไม่ต้องการให้เลือกวันที่ ให้ set เป็น null
-    dateInput: true | false (default true) - กรณีต้องการให้ป้อนตัวเลขวันที่ได้
+  Input parameters:
+    disabled: true | false (default false) - prevents the user from selecting a date
+    setNull: true | false (default true) - allows the value to be set to null
+    dateInput: true | false (default true) - allows manual text input of a date
     locale: TH | EN (default TH)
     startOfWeek: 'monday' | 'sunday' = 'monday'
-    minDate: Date | null - กำหนดช่วงวันที่ที่สามารถเลือกได้
-    maxDate: Date | null - กำหนดช่วงวันที่ที่สามารถเลือกได้
-    [(ngModel)]="dateInput: Date" - กำหนดค่าเริ่มต้นของวันที่
+    minDate: Date | null - defines the earliest selectable date
+    maxDate: Date | null - defines the latest selectable date
+    [(ngModel)]="dateInput: Date" - sets the initial date value
     style= "width: 140px;"
 
-  Output
+  Output:
     (onDateChange): Date
 
-  Feature:
-    1.ปีที่เลือกได้ กรณีไม่ได้ระบุ minDate จะเลือกย้อนหลังได้ -20 ปี, หากไม่ได้ระบุ maxDate จะเลือกไปข้างหน้าได้ +10 ปี
-    2.ระบบจะแสดงวันหยุดได้โดยใช้ค่าจาก mainService.getHoliday
+  Features:
+    1. If minDate is not specified, the year picker allows going back 20 years; if maxDate is not specified, it allows going forward 10 years.
+    2. Holidays are displayed using data from mainService.getHoliday.
 */
 
 import { Component, Input, Output, EventEmitter, forwardRef, OnInit, HostListener, ElementRef, OnDestroy } from '@angular/core';
@@ -294,9 +294,9 @@ export class PkDatepickerComponent implements ControlValueAccessor, OnInit, OnDe
   onChangeDate(event: any): void {
     let inputValue = event.target.value;
 
-    // แปลงปี พ.ศ. เป็น ค.ศ. ถ้าเป็น locale TH
+    // Convert Buddhist Era (B.E.) year to Common Era (C.E.) when locale is TH
     if (this.localeMode === 'TH' && inputValue) {
-      // ตรวจสอบรูปแบบ DD/MM/YYYY (TH format)
+      // Validate DD/MM/YYYY format (TH locale format)
       const thaiDatePattern = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
       const match = inputValue.match(thaiDatePattern);
 
@@ -305,7 +305,7 @@ export class PkDatepickerComponent implements ControlValueAccessor, OnInit, OnDe
         const month = match[2];
         const year = parseInt(match[3]);
 
-        // แปลง พ.ศ. เป็น ค.ศ. ถ้าปีมากกว่า 2400
+        // Convert B.E. to C.E. if year is greater than 2400
         if (year > 2400) {
           inputValue = `${year - 543}-${month}-${day}`;
         }

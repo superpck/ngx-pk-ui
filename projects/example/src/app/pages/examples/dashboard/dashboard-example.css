@@ -1,0 +1,194 @@
+:host {
+  display: block;
+}
+
+/* ── Full-bleed shell: escape the app's main padding ──────────────────────── */
+.dsh-shell {
+  /* align top edge with the navbar bottom, cancel app's horizontal padding */
+  margin: calc(var(--pk-navbar-height, 56px) - var(--pk-layout-main-pad-top, 88px))
+          calc(-1 * var(--pk-layout-main-pad-x, 40px)) 0;
+  height: calc(100vh - var(--pk-navbar-height, 56px));
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  background: var(--pk-layout-bg, #f9fafb);
+
+  /* pk-sidenav CSS variable overrides */
+  --pk-snv-bg: #ffffff;
+}
+
+/* ── pk-sidenav header slot ───────────────────────────────────────────────── */
+.dsh-snv-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+/* ── Brand inside navbar ──────────────────────────────────────────────────── */
+.dsh-brand-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.dsh-brand-name {
+  font-weight: 700;
+  font-size: 16px;
+  color: #111827;
+  white-space: nowrap;
+}
+
+/* ── Source link ──────────────────────────────────────────────────────────── */
+.dsh-source-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #2563eb;
+  text-decoration: none;
+  background: #eff6ff;
+  padding: 5px 10px;
+  border-radius: 7px;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.dsh-source-link:hover {
+  background: #dbeafe;
+  border-color: rgba(37, 99, 235, 0.45);
+  text-decoration: none;
+}
+
+/* ── Navbar end: icon button + avatar ────────────────────────────────────── */
+.dsh-icon-btn {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #6b7280;
+  transition: background 0.15s, color 0.15s;
+  padding: 0;
+  flex-shrink: 0;
+}
+.dsh-icon-btn:hover { background: #f3f4f6; color: #374151; }
+
+.dsh-notif-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.dsh-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #6366f1;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* ── Right column (flex-column: topbar + scrollable content) ─────────────── */
+.dsh-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* ── Inline topbar (not fixed) ────────────────────────────────────────────── */
+.dsh-topbar {
+  height: 56px;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #f3f4f6;
+  gap: 12px;
+}
+
+.dsh-topbar__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.dsh-topbar__end {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Scrollable content area ─────────────────────────────────────────────── */
+.dsh-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 32px 40px;
+}
+
+/* ── Stat cards ───────────────────────────────────────────────────────────── */
+.dsh-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 80px;
+}
+
+.dsh-stat-label {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.dsh-stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1;
+}
+
+/* ── Content card placeholder ─────────────────────────────────────────────── */
+.dsh-card-placeholder {
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d1d5db;
+  font-size: 13px;
+}
+
+.dsh-card-placeholder::after {
+  content: 'Content goes here';
+  border: 2px dashed #e5e7eb;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  box-sizing: border-box;
+}
