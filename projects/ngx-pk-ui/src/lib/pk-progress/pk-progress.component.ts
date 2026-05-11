@@ -131,14 +131,17 @@ import { ProgressConfig } from './pk-progress.interface';
 
     .pk-progress-success {
       background: #00A651 !important;
+      stroke: #00A651 !important;
     }
 
     .pk-progress-error {
       background: #E62700 !important;
+      stroke: #E62700 !important;
     }
 
     .pk-progress-warning {
       background: #FFC600 !important;
+      stroke: #FFC600 !important;
     }
 
     .pk-progress-striped .pk-progress-bg {
