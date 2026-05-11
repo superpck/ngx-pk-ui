@@ -21,14 +21,14 @@ export class PkSelectPage {
   selectedNgModel: string | number | null = null;
 
   options = signal<SelectOption[]>([
-    { label: 'กรุงเทพมหานคร', value: 'bangkok' },
-    { label: 'เชียงใหม่', value: 'chiangmai' },
-    { label: 'ภูเก็ต', value: 'phuket' },
-    { label: 'ขอนแก่น', value: 'khonkaen' },
-    { label: 'สงขลา', value: 'songkhla' },
-    { label: 'นครราชสีมา', value: 'nakhonratchasima' },
-    { label: 'อุบลราชธานี', value: 'ubonratchathani' },
-    { label: 'สุราษฎร์ธานี', value: 'suratthani', disabled: true },
+    { label: 'Bangkok', value: 'bangkok' },
+    { label: 'Chiang Mai', value: 'chiangmai' },
+    { label: 'Phuket', value: 'phuket' },
+    { label: 'Khon Kaen', value: 'khonkaen' },
+    { label: 'Songkhla', value: 'songkhla' },
+    { label: 'Nakhon Ratchasima', value: 'nakhonratchasima' },
+    { label: 'Ubon Ratchathani', value: 'ubonratchathani' },
+    { label: 'Surat Thani', value: 'suratthani', disabled: true },
   ]);
 
   setMode(event: Event): void {

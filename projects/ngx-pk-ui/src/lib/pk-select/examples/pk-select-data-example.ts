@@ -11,12 +11,12 @@ import { PkSelectComponent, SelectOption } from '../index';
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
         <div>
           <label style="display: block; margin-bottom: 6px; font-weight: 500; color: #374151;">
-            เลือกจังหวัด
+            Select province
           </label>
           <pk-select
             [options]="provinceOptions()"
             [searchable]="true"
-            [placeholder]="isLoadingProvinces() ? 'กำลังโหลด...' : 'เลือกจังหวัด'"
+            [placeholder]="isLoadingProvinces() ? 'Loading...' : 'Select province'"
             [disabled]="isLoadingProvinces()"
             (change)="onProvinceChange($event)" />
         </div>
@@ -28,7 +28,7 @@ import { PkSelectComponent, SelectOption } from '../index';
           <pk-select
             [options]="districtOptions()"
             [searchable]="true"
-            [placeholder]="isLoadingDistricts() ? 'กำลังโหลด...' : selectedProvince() ? 'เลือกอำเภอ' : 'เลือกจังหวัดก่อน'"
+            [placeholder]="isLoadingDistricts() ? 'Loading...' : selectedProvince() ? 'Select district' : 'Select province first'"
             [disabled]="!selectedProvince() || isLoadingDistricts()"
             (change)="onDistrictChange($event)" />
         </div>
@@ -36,16 +36,16 @@ import { PkSelectComponent, SelectOption } from '../index';
 
       <div style="margin-top: 16px; padding: 12px; background: #f3f4f6; border-radius: 6px;">
         <p style="margin: 0; color: #6b7280;">
-          <strong>จังหวัดที่เลือก:</strong> {{ getProvinceName() || 'ยังไม่ได้เลือก' }}
+          <strong>Selected province:</strong> {{ getProvinceName() || 'None' }}
         </p>
         <p style="margin: 8px 0 0 0; color: #6b7280;">
-          <strong>อำเภอที่เลือก:</strong> {{ getDistrictName() || 'ยังไม่ได้เลือก' }}
+          <strong>Selected district:</strong> {{ getDistrictName() || 'None' }}
         </p>
       </div>
 
       <div style="margin-top: 16px; padding: 12px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 4px;">
         <p style="margin: 0; font-size: 14px; color: #92400e;">
-          💡 <strong>Demo:</strong> ข้อมูลจังหวัดและอำเภอจำลองการโหลดจาก API/Database
+          💡 <strong>Demo:</strong> Province and district data simulating API/Database loading
         </p>
       </div>
     </div>
@@ -66,26 +66,26 @@ export class PkSelectDataExample {
 
   // Mock database table
   private mockProvinceTable = [
-    { province_id: 1, province_name: 'กรุงเทพมหานคร', region: 'กลาง' },
-    { province_id: 2, province_name: 'เชียงใหม่', region: 'เหนือ' },
-    { province_id: 3, province_name: 'ภูเก็ต', region: 'ใต้' },
-    { province_id: 4, province_name: 'ขอนแก่น', region: 'อีสาน' },
-    { province_id: 5, province_name: 'สงขลา', region: 'ใต้' },
+    { province_id: 1, province_name: 'Bangkok', region: 'Central' },
+    { province_id: 2, province_name: 'Chiang Mai', region: 'North' },
+    { province_id: 3, province_name: 'Phuket', region: 'South' },
+    { province_id: 4, province_name: 'Khon Kaen', region: 'Northeast' },
+    { province_id: 5, province_name: 'Songkhla', region: 'South' },
   ];
 
   private mockDistrictTable = [
-    { district_id: 1, district_name: 'พญาไท', province_id: 1 },
-    { district_id: 2, district_name: 'ดินแดง', province_id: 1 },
-    { district_id: 3, district_name: 'ห้วยขวาง', province_id: 1 },
-    { district_id: 4, district_name: 'เมืองเชียงใหม่', province_id: 2 },
-    { district_id: 5, district_name: 'แม่ริม', province_id: 2 },
-    { district_id: 6, district_name: 'สันทราย', province_id: 2 },
-    { district_id: 7, district_name: 'เมืองภูเก็ต', province_id: 3 },
-    { district_id: 8, district_name: 'กะทู้', province_id: 3 },
-    { district_id: 9, district_name: 'เมืองขอนแก่น', province_id: 4 },
-    { district_id: 10, district_name: 'บ้านไผ่', province_id: 4 },
-    { district_id: 11, district_name: 'เมืองสงขลา', province_id: 5 },
-    { district_id: 12, district_name: 'หาดใหญ่', province_id: 5 },
+    { district_id: 1, district_name: 'Phaya Thai', province_id: 1 },
+    { district_id: 2, district_name: 'Din Daeng', province_id: 1 },
+    { district_id: 3, district_name: 'Huai Khwang', province_id: 1 },
+    { district_id: 4, district_name: 'Mueang Chiang Mai', province_id: 2 },
+    { district_id: 5, district_name: 'Mae Rim', province_id: 2 },
+    { district_id: 6, district_name: 'San Sai', province_id: 2 },
+    { district_id: 7, district_name: 'Mueang Phuket', province_id: 3 },
+    { district_id: 8, district_name: 'Kathu', province_id: 3 },
+    { district_id: 9, district_name: 'Mueang Khon Kaen', province_id: 4 },
+    { district_id: 10, district_name: 'Ban Phai', province_id: 4 },
+    { district_id: 11, district_name: 'Mueang Songkhla', province_id: 5 },
+    { district_id: 12, district_name: 'Hat Yai', province_id: 5 },
   ];
 
   constructor() {

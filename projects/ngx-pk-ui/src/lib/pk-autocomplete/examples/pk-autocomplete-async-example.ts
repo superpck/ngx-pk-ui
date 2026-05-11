@@ -14,7 +14,7 @@ import { AutocompleteOption, AutocompleteFetchFn } from '../pk-autocomplete.inte
 
       <div class="max-w-md">
         <label class="block text-sm font-medium text-gray-700 mb-2">
-          ค้นหาผู้ใช้งาน (พิมพ์อย่างน้อย 2 ตัวอักษร)
+          Search Users (type at least 2 characters)
         </label>
         <pk-autocomplete
           [fetchFn]="searchUsers"
