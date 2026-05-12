@@ -15,7 +15,10 @@ export type PkIconName =
   | 'face-smile' | 'face-sad' | 'face-cry' | 'face-sneez'
   | 'patient' | 'bed-patient' | 'wheelchair';
 
-export type PkIconSet = 'pk' | 'material-symbols';
+export type PkIconSet = 'pk' | 'material-symbols' | 'google' | 'mat';
+
+/** All aliases that render via Material Symbols font (google / mat = material-symbols) */
+export const PK_MATERIAL_ICON_SETS: PkIconSet[] = ['material-symbols', 'google', 'mat'];
 
 export type PkMaterialSymbolVariant = 'outlined' | 'rounded' | 'sharp';
 

@@ -1,10 +1,16 @@
-# ngx-pk-ui 2.4.3
+# ngx-pk-ui 2.4.6
 
 An Angular 21 component library providing UI components and CSS utilities.
 
 - **Angular**: `^21.0.0`
 - **Standalone components** · **Signals** · **Vitest**
 - **License**: MIT
+
+## Changelog
+
+### 2.4.6
+- **pk-icon**: fix vertical alignment — icon no longer floats above adjacent text (`vertical-align: middle` on `:host`)
+- **pk-icon**: add `PK_MATERIAL_ICON_SETS` constant — consolidates `'material-symbols' | 'google' | 'mat'` aliases; template condition simplified to `materialSets.includes(iconSet())`
 
 ## Angular Version Compatibility
 
@@ -51,7 +57,7 @@ npm install ngx-pk-ui
 | `pk-alert` | Component + Service | Modal alert / confirm / input dialogs |
 | `pk-modal` | Component | Flexible modal overlay with slot components, size and theme |
 | `pk-icon` | Component | SVG icon set + Material Symbols mode |
-| `pk-datagrid` | Module + Components | Datagrid with sort, filter, resize, pagination, row detail |
+| `pk-datagrid` | Module + Components | Datagrid with sort, filter, resize, pagination, row detail, row selection |
 | `pk-datepicker` | Component | Datepicker with TH/EN locale, range, and clear action |
 | `pk-progress` | Component | Line/circle progress with status variants |
 | `pk-treeview` | Module + Components | Hierarchical tree with expand/collapse and selection modes |

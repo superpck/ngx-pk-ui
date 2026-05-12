@@ -116,6 +116,11 @@ export class PkDatagridComponent implements AfterContentInit, AfterViewInit, OnC
     // If no items, set empty array
     if (!this.items || this.items.length === 0) {
       this.displayedItems = [];
+      this.displayedItemsVersion++;
+      if (this.pagination) {
+        this.pagination.rowCount = 0;
+        this.pagination.updatePagination();
+      }
       return;
     }
     

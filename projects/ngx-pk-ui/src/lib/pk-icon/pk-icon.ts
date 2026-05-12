@@ -2,6 +2,7 @@ import { Component, computed, inject, input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import {
   PK_ICONS,
+  PK_MATERIAL_ICON_SETS,
   PkIconName,
   PkIconSet,
   PkMaterialSymbolGrade,
@@ -13,7 +14,7 @@ import {
 @Component({
   selector: 'pk-icon',
   template: `
-    @if (iconSet() === 'material-symbols') {
+    @if (materialSets.includes(iconSet())) {
       <span
         class="pk-material-symbol"
         [class.material-symbols-outlined]="materialVariantClass() === 'material-symbols-outlined'"
@@ -30,6 +31,8 @@ import {
   styleUrl: './pk-icon.css',
 })
 export class PkIcon {
+  protected readonly materialSets = PK_MATERIAL_ICON_SETS;
+
   name        = input.required<PkIconName | string>();
   iconSet     = input<PkIconSet>('pk');
   size        = input<number>(15);

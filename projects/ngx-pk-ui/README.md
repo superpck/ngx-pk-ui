@@ -250,6 +250,8 @@ export class MyPage {
 - **`multiple`** — checkbox per row + indeterminate "select all" header checkbox. Emits all selected items.
 - Selected rows highlighted with light-blue background.
 
+> **Bug fix (2.4.4):** When `items` resets to `[]` or `null`, all rendered rows are now cleared immediately. Previously, old rows remained visible because `displayedItemsVersion` was not incremented on the empty-array early return path.
+
 ## pk-sidenav quick start
 
 ```ts

@@ -55,7 +55,7 @@ export class PkToastrService {
   show(type: ToastType, message: string, title?: string, options?: ToastOptions): void {
     const duration = options?.duration ?? DEFAULT_DURATION;
     const position = options?.position ?? DEFAULT_POSITION;
-    const progress = options?.progress ?? true;
+    const progress = options?.progress ?? false;
     const toast: Toast = { id: ++this._counter, type, message, title, duration, position, progress };
     this.toasts.update((list) => [...list, toast]);
     if (duration > 0) {
