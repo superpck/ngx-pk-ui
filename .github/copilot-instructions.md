@@ -235,7 +235,7 @@ export class MyComponent {
     this.toastr.error('Failed', 'Error', { duration: 0 });           // persist
     this.toastr.warning('Check your input');
     this.toastr.info('Loading…', undefined, { duration: 8000, position: 'bottom-right' });
-    this.toastr.success('Done!', undefined, { progress: false });    // no progress bar
+    this.toastr.success('Done!', undefined, { progress: true });     // show progress bar
   }
 }
 ```
@@ -256,7 +256,7 @@ export class MyComponent {
 |--------|------|---------|-------------|
 | `duration` | `number` | `4000` | Auto-dismiss (ms). `0` = persist |
 | `position` | `ToastPosition` | `'top-right'` | One of 9 positions |
-| `progress` | `boolean` | `true` | Show countdown progress bar |
+| `progress` | `boolean` | `false` | Show countdown progress bar |
 
 **`ToastPosition`** values: `top-left` · `top-center` · `top-right` · `center-left` · `center-center` · `center-right` · `bottom-left` · `bottom-center` · `bottom-right`
 
@@ -429,7 +429,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.4.4` |
+| Library version | `2.4.5` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -660,7 +660,7 @@ export class MyComponent {
 <span class="pk-badge pk-badge-lg">New</span>
 
 <!-- Pill (rectangular, rounded ends) -->
-<span class="pk-badge pk-badge-success pk-badge-pill">v2.4.4</span>
+<span class="pk-badge pk-badge-success pk-badge-pill">v2.4.5</span>
 
 <!-- Dot (empty indicator, no text) -->
 <span class="pk-badge pk-badge-dot pk-badge-success"></span>

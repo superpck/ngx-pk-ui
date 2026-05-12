@@ -30,11 +30,11 @@
       <button class="pk-btn pk-btn-success pk-btn-sm" (click)="toastr.success('Bottom Full Width', undefined, { position: 'bottom-full' })">bottom-full</button>
     </div>
 
-    <h3 style="margin-top:20px; margin-bottom:10px; font-size:14px; font-weight:600; color:#555;">Progress bar off</h3>
+    <h3 style="margin-top:20px; margin-bottom:10px; font-size:14px; font-weight:600; color:#555;">Progress bar</h3>
     <div class="demo-row">
-      <button class="pk-btn pk-btn-success" (click)="toastr.success('Upload complete!', 'Success', { progress: false })">Progress off — success</button>
-      <button class="pk-btn pk-btn-error" (click)="toastr.error('Request failed.', 'Error', { progress: false, duration: 6000 })">Progress off — error (6s)</button>
-      <button class="pk-btn pk-btn-primary" (click)="toastr.info('Syncing data…', 'Info', { progress: false, position: 'bottom-right' })">Progress off + bottom-right</button>
+      <button class="pk-btn pk-btn-success" (click)="toastr.success('Upload complete!', 'Success', { progress: true })">Progress — success</button>
+      <button class="pk-btn pk-btn-error" (click)="toastr.error('Request failed.', 'Error', { progress: true, duration: 6000 })">Progress — error (6s)</button>
+      <button class="pk-btn pk-btn-primary" (click)="toastr.info('Syncing data…', 'Info', { progress: true, position: 'bottom-right' })">Progress + bottom-right</button>
     </div>
   </section>
 
@@ -97,7 +97,7 @@ export class MyComponent &#123;
       <tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr>
       <tr><td><code>duration</code></td><td><code>number</code></td><td><code>4000</code></td><td>Auto-dismiss delay (ms). <code>0</code> = persist</td></tr>
       <tr><td><code>position</code></td><td><code>ToastPosition</code></td><td><code>'top-right'</code></td><td><code>top/center/bottom-left/center/right</code>, <code>top-full</code>, <code>bottom-full</code></td></tr>
-      <tr><td><code>progress</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Show countdown progress bar at bottom of toast</td></tr>
+      <tr><td><code>progress</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show countdown progress bar at bottom of toast</td></tr>
     </table>
   </section>
 </div>
