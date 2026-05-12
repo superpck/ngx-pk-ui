@@ -94,7 +94,7 @@
   <section class="demo-section">
     <h2>Material Symbols mode (local-first)</h2>
     <p style="font-size:13px;color:#666;margin:0 0 12px">
-      Use <code>iconSet="material-symbols"</code> to render Google Material Symbols through local font files in
+      Use <code>iconSet="material-symbols | google | mat"</code> to render Google Material Symbols through local font files in
       <code>styles/fonts/material-symbols</code>.
     </p>
 
@@ -141,7 +141,7 @@
 
     <pre class="code-block"><code>&lt;pk-icon
   name="{{ materialName() }}"
-  iconSet="material-symbols"
+  iconSet="mat"
   variant="{{ materialVariant() }}"
   [weight]="{{ materialWeight() }}"
   [fill]="{{ materialFill() }}"

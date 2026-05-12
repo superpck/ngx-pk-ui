@@ -1,10 +1,16 @@
-# ngx-pk-ui 2.4.5
+# ngx-pk-ui 2.4.6
 
 An Angular 21 component library providing UI components and CSS utilities.
 
 - **Angular**: `^21.0.0`
 - **Standalone components** · **Signals** · **Vitest**
 - **License**: MIT
+
+## Changelog
+
+### 2.4.6
+- **pk-icon**: fix vertical alignment — icon no longer floats above adjacent text (`vertical-align: middle` on `:host`)
+- **pk-icon**: add `PK_MATERIAL_ICON_SETS` constant — consolidates `'material-symbols' | 'google' | 'mat'` aliases; template condition simplified to `materialSets.includes(iconSet())`
 
 ## Angular Version Compatibility
 

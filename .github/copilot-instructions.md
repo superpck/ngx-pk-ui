@@ -421,6 +421,8 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - **Datagrid pagination CSS** — internal buttons use `pk-dg-btn` / `pk-dg-btn-active` / `pk-dg-btn-nav` (self-contained SCSS). No dependency on external `btn` classes — safe alongside Bootstrap or any other CSS framework.
 - **Datagrid row selection DI** — `PkDgRowComponent` injects `PkDatagridComponent` via `@Optional() @Inject(forwardRef(() => PkDatagridComponent))`. Do NOT add `providers: [{ provide: forwardRef(…), useExisting: … }]` to `PkDatagridComponent` — that creates a circular dependency (NG0200). Angular resolves the ancestor component via the injector tree automatically without any explicit provider registration.
 - **Datagrid rows not clearing on empty array** — When `items` changes from a populated array to `[]` or `null`, old rows stayed rendered. Root cause: `updateDisplayedItems()` returned early on empty without incrementing `displayedItemsVersion`, so `PkDgRowsDirective.ngDoCheck()` saw no version change and skipped `renderItems()`. Fix: always increment `displayedItemsVersion` (and reset `pagination.rowCount = 0`) even when items is empty.
+- **`pk-icon` floats above adjacent text** — `inline-flex` elements use `vertical-align: baseline` by default, which misaligns icons when placed next to text. Fix: add `vertical-align: middle` to `:host` in `pk-icon.css`.
+- **`PK_MATERIAL_ICON_SETS` for material-symbols check** — use the exported constant `PK_MATERIAL_ICON_SETS` (from `pk-icon.model.ts`) instead of repeating `iconSet() === 'material-symbols' || iconSet() === 'google' || iconSet() === 'mat'`.
 
 ---
 
@@ -429,7 +431,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.4.5` |
+| Library version | `2.4.6` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -437,7 +439,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-toastr` | ✅ Built, tested (4 tests) |
 | `pk-alert` | ✅ Built, tested (13 tests) |
 | `pk-modal` | ✅ Built, tested (16 tests) — `lockScroll` input (default `true`): locks body scroll + compensates scrollbar width |
-| `pk-icon` | ✅ Built |
+| `pk-icon` | ✅ Built — `vertical-align: middle` fix; `PK_MATERIAL_ICON_SETS` constant added |
 | `pk-datagrid` | ✅ Built (NgModule) — row selection (single/multiple); bug fix: rows now clear correctly when array resets to `[]` |
 | `pk-datepicker` | ✅ Built |
 | `pk-progress` | ✅ Built |
@@ -660,7 +662,7 @@ export class MyComponent {
 <span class="pk-badge pk-badge-lg">New</span>
 
 <!-- Pill (rectangular, rounded ends) -->
-<span class="pk-badge pk-badge-success pk-badge-pill">v2.4.5</span>
+<span class="pk-badge pk-badge-success pk-badge-pill">v2.4.6</span>
 
 <!-- Dot (empty indicator, no text) -->
 <span class="pk-badge pk-badge-dot pk-badge-success"></span>
