@@ -1,7 +1,7 @@
 <div class="demo-page">
   <div class="demo-page-header">
     <h1 class="demo-page-title">pk-table</h1>
-    <p class="demo-page-desc">Styled HTML tables. No JavaScript — pure CSS classes. Supports striped, hover, bordered, size variants, and colored headers.</p>
+    <p class="demo-page-desc">Styled HTML tables. No JavaScript — pure CSS classes. Supports striped, hover, bordered, size variants, colored headers, and sticky header.</p>
   </div>
 
   <!-- ── Basic ── -->
@@ -143,6 +143,29 @@
     </div>
   </section>
 
+  <!-- ── Sticky Header ── -->
+  <section class="demo-section">
+    <h2>Sticky header</h2>
+    <p>Add <code>pk-table-header-sticky</code> to make <code>&lt;thead&gt;</code> stay fixed while scrolling. Wrap in a container with a fixed height and <code>overflow-y: auto</code>.</p>
+    <div style="max-height: 200px; overflow-y: auto; border-radius: 6px;">
+      <table class="pk-table pk-table-primary pk-table-header-sticky pk-table-striped pk-table-hover">
+        <thead>
+          <tr><th>#</th><th>Name</th><th>Department</th><th>Location</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Alice</td><td>Engineering</td><td>Bangkok</td><td><span class="pk-badge pk-badge-success">Active</span></td></tr>
+          <tr><td>2</td><td>Bob</td><td>Marketing</td><td>Chiang Mai</td><td><span class="pk-badge pk-badge-warn">Pending</span></td></tr>
+          <tr><td>3</td><td>Charlie</td><td>Design</td><td>Bangkok</td><td><span class="pk-badge pk-badge-success">Active</span></td></tr>
+          <tr><td>4</td><td>Diana</td><td>HR</td><td>Phuket</td><td><span class="pk-badge pk-badge-error">Inactive</span></td></tr>
+          <tr><td>5</td><td>Eve</td><td>Finance</td><td>Bangkok</td><td><span class="pk-badge pk-badge-success">Active</span></td></tr>
+          <tr><td>6</td><td>Frank</td><td>Engineering</td><td>Chiang Mai</td><td><span class="pk-badge pk-badge-warn">Pending</span></td></tr>
+          <tr><td>7</td><td>Grace</td><td>Marketing</td><td>Bangkok</td><td><span class="pk-badge pk-badge-success">Active</span></td></tr>
+          <tr><td>8</td><td>Henry</td><td>Design</td><td>Phuket</td><td><span class="pk-badge pk-badge-success">Active</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
   <!-- ── Installation ── -->
   <section class="demo-section">
     <h2>Installation</h2>
@@ -173,6 +196,14 @@
 &lt;!-- Responsive --&gt;
 &lt;div class="pk-table-responsive"&gt;
   &lt;table class="pk-table"&gt;...&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;!-- Sticky header --&gt;
+&lt;div style="max-height: 300px; overflow-y: auto"&gt;
+  &lt;table class="pk-table pk-table-header-sticky pk-table-primary pk-table-striped"&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Role&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;...many rows...&lt;/tbody&gt;
+  &lt;/table&gt;
 &lt;/div&gt;</code></pre>
   </section>
 
@@ -192,6 +223,7 @@
         <tr><td><code>pk-table-success</code></td><td><code>&lt;table&gt;</code></td><td>Green <code>&lt;thead&gt;</code> background</td></tr>
         <tr><td><code>pk-table-warn</code></td><td><code>&lt;table&gt;</code></td><td>Orange <code>&lt;thead&gt;</code> background</td></tr>
         <tr><td><code>pk-table-error</code></td><td><code>&lt;table&gt;</code></td><td>Red <code>&lt;thead&gt;</code> background</td></tr>
+        <tr><td><code>pk-table-header-sticky</code></td><td><code>&lt;table&gt;</code></td><td>Sticky <code>&lt;thead&gt;</code> — wrap in a container with <code>overflow-y: auto</code> + fixed height</td></tr>
         <tr><td><code>pk-table-responsive</code></td><td>wrapper <code>&lt;div&gt;</code></td><td>Horizontal scroll on overflow</td></tr>
       </tbody>
     </table>

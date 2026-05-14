@@ -35,7 +35,7 @@ export class App {
   readonly examplesList = [
     { label: 'login page', link: '/examples/login' },
     { label: 'chat app', link: '/examples/chat' },
-    { label: 'dashboard', link: '/examples/dashboard' },
+    { label: 'dashboard template', link: '/examples/dashboard' },
   ];
 
   readonly cssClassList = [
