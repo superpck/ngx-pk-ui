@@ -431,7 +431,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.4.6` |
+| Library version | `2.4.7` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -456,7 +456,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-spinner` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
 | `pk-badge` (CSS only)   | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-badge.css` |
 | `pk-card` (CSS only)    | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-card.css` |
-| `pk-table` (CSS only)   | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-table.css` |
+| `pk-table` (CSS only)   | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-table.css` — `pk-table-header-sticky` added |
 | `pk-toggle` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-toggle.css` |
 | `pk-breadcrumb` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-breadcrumb.css` |
 | `pk-form` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-form.css` — included in pk-ui.css |
@@ -662,7 +662,7 @@ export class MyComponent {
 <span class="pk-badge pk-badge-lg">New</span>
 
 <!-- Pill (rectangular, rounded ends) -->
-<span class="pk-badge pk-badge-success pk-badge-pill">v2.4.6</span>
+<span class="pk-badge pk-badge-success pk-badge-pill">v2.4.7</span>
 
 <!-- Dot (empty indicator, no text) -->
 <span class="pk-badge pk-badge-dot pk-badge-success"></span>
@@ -717,6 +717,14 @@ Colors are driven by the same CSS custom properties as `pk-btn.css` (`--pk-btn-p
 <div class="pk-table-responsive">
   <table class="pk-table pk-table-bordered">...</table>
 </div>
+
+<!-- Sticky header -->
+<div style="max-height: 300px; overflow-y: auto">
+  <table class="pk-table pk-table-header-sticky pk-table-primary pk-table-striped">
+    <thead><tr><th>Name</th><th>Role</th></tr></thead>
+    <tbody>...many rows...</tbody>
+  </table>
+</div>
 ```
 
 | Class | Description |
@@ -728,6 +736,7 @@ Colors are driven by the same CSS custom properties as `pk-btn.css` (`--pk-btn-p
 | `pk-table-sm` | Reduced padding |
 | `pk-table-compact` | Minimal padding + smaller font |
 | `pk-table-primary/success/warn/error` | Colored `<thead>` |
+| `pk-table-header-sticky` | Sticky `<thead>` — wrap table in `overflow-y: auto` container with fixed height. Uses `overflow: clip` to preserve border-radius while allowing sticky |
 | `pk-table-responsive` | Wrapper `<div>` — horizontal scroll on overflow |
 
 ---
