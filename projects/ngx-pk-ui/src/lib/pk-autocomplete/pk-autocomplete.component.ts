@@ -355,7 +355,7 @@ export class PkAutocompleteComponent implements ControlValueAccessor {
   private elementRef = inject(ElementRef);
 
   // Inputs
-  options = input<AutocompleteOption[]>([]);
+  options = input<(string | AutocompleteOption)[]>([]);
   fetchFn = input<AutocompleteFetchFn | null>(null);
   placeholder = input<string>('ค้นหา...');
   minChars = input<number>(1);
@@ -394,6 +394,12 @@ export class PkAutocompleteComponent implements ControlValueAccessor {
   }
 
   // Computed
+  readonly normalizedOptions = computed<AutocompleteOption[]>(() =>
+    this.options().map(o =>
+      typeof o === 'string' ? { label: o, value: o } : o
+    )
+  );
+
   readonly currentQuerySignal = computed(() => {
     if (!this.multiWord()) return this.searchTerm();
     const s = this.searchTerm();
@@ -411,7 +417,7 @@ export class PkAutocompleteComponent implements ControlValueAccessor {
     }
 
     // Otherwise filter local options
-    const opts = this.options();
+    const opts = this.normalizedOptions();
     if (!term) return opts;
 
     return opts.filter(opt =>
@@ -423,7 +429,7 @@ export class PkAutocompleteComponent implements ControlValueAccessor {
     if (this.multi() || this.multiWord()) return this.searchTerm();
     const selected = this.selectedValue();
     if (!selected) return this.searchTerm();
-    const opts = this.fetchFn() ? this.fetchedOptions() : this.options();
+    const opts = this.fetchFn() ? this.fetchedOptions() : this.normalizedOptions();
     const option = opts.find(opt => opt.value === selected);
     return option ? option.label : this.searchTerm();
   });
@@ -616,7 +622,7 @@ export class PkAutocompleteComponent implements ControlValueAccessor {
     this.selectedValue.set(value);
     // Find and set display text
     if (value) {
-      const opts = this.fetchFn() ? this.fetchedOptions() : this.options();
+      const opts = this.fetchFn() ? this.fetchedOptions() : this.normalizedOptions();
       const option = opts.find(opt => opt.value === value);
       if (option) {
         this.searchTerm.set(option.label);

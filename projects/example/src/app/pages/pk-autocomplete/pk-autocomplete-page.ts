@@ -18,16 +18,16 @@ export class PkAutocompletePage {
   multiValue = '';
   multiWordValue = '';
 
-  localOptions: AutocompleteOption[] = [
-    { label: 'Bangkok', value: 'bangkok' },
-    { label: 'Chiang Mai', value: 'chiangmai' },
-    { label: 'Phuket', value: 'phuket' },
-    { label: 'Khon Kaen', value: 'khonkaen' },
-    { label: 'Songkhla', value: 'songkhla' },
-    { label: 'Ubon Ratchathani', value: 'ubonratchathani' },
-    { label: 'Lopburi', value: 'lopburi' },
-    { label: 'Nakhon Ratchasima', value: 'nakhonratchasima' },
-    { label: 'Chiang Rai', value: 'chiangrai' },
+  localOptions: string[] = [
+    'Bangkok',
+    'Chiang Mai',
+    'Phuket',
+    'Khon Kaen',
+    'Songkhla',
+    'Ubon Ratchathani',
+    'Lopburi',
+    'Nakhon Ratchasima',
+    'Chiang Rai',
   ];
 
   private allCountries: AutocompleteOption[] = [
