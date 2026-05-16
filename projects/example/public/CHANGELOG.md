@@ -4,6 +4,16 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.7.0] — 2026-05-16
+
+### Added
+- **pk-input-password** — standalone password input field with show/hide toggle and optional 4-level strength indicator.
+  - Implements `ControlValueAccessor` — works with `[(ngModel)]` and reactive forms (`formControlName`).
+  - Strength meter: 4 levels (Weak / Fair / Good / Strong) based on length, uppercase, digits, special characters.
+  - Inputs: `label`, `inputId`, `autocomplete`, `showStrength`, `customClass`, `customStyle`
+
+---
+
 ## [2.6.0] — 2026-05-16
 
 ### Added

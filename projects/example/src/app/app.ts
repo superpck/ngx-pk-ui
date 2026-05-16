@@ -21,6 +21,7 @@ export class App {
     { label: 'file upload', link: '/pk-file-upload' },
     { label: 'heatmap', link: '/pk-heatmap' },
     { label: 'icon', link: '/pk-icon' },
+    { label: 'input password', link: '/pk-input-password' },
     { label: 'markdown viewer', link: '/pk-markdown-viewer' },
     { label: 'modal', link: '/pk-modal' },
     { label: 'progress', link: '/pk-progress' },

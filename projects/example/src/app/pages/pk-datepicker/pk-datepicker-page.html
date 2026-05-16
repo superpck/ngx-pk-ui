@@ -1,11 +1,11 @@
 <div class="demo-page">
   <div class="demo-page-header">
     <h1 class="demo-page-title">pk-datepicker</h1>
-    <p class="demo-page-desc">Date picker with locale support (TH/EN), min/max range, and clear action.</p>
+    <p class="demo-page-desc">Date picker with multi-locale support (17 locales), min/max range, and clear action.</p>
   </div>
 
   <section class="demo-section">
-    <h2>Limit min/max date</h2>
+    <h2>Basic — with min/max range</h2>
     <div class="demo-row" style="gap: 16px; align-items: center;">
       <pk-datepicker [(ngModel)]="dateValue" locale="en" startOfWeek="sunday" [setNull]="true" [dateInput]="true" [minDate]="minDate"
         [maxDate]="maxDate" [style]="'width: 200px; height: 35px;'" placeholder="Select Date"
@@ -18,37 +18,42 @@
   </section>
 
   <section class="demo-section">
-    <h2>Locale</h2>
-    <div class="demo-row" style="gap: 16px; align-items: center;">
-      EN:
-      <pk-datepicker [(ngModel)]="dateValue" locale="EN" [style]="'width: 190px'"
-        placeholder="EN locale"></pk-datepicker>
+    <h2>Locale showcase</h2>
+    <p style="margin: 0 0 12px; color: #6b7280; font-size: 14px;">
+      All 17 locales from <code>PkLocale</code> are supported. Thai locale uses Buddhist Era year (+543).
+    </p>
+    <div class="demo-row" style="flex-wrap: wrap; gap: 20px;">
+      @for (item of localeShowcase; track item.locale) {
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <span style="font-size: 13px; color: #6b7280;">{{ item.label }}</span>
+          <pk-datepicker [(ngModel)]="localeDate" [locale]="item.locale" [style]="'width: 190px'"></pk-datepicker>
+        </div>
+      }
+    </div>
+  </section>
 
-      TH:
-      <pk-datepicker [(ngModel)]="dateValue" locale="TH" [style]="'width: 190px'"
-        placeholder="TH locale"></pk-datepicker>
+  <section class="demo-section">
+    <h2>Start of week</h2>
+    <div class="demo-row" style="gap: 24px; align-items: flex-start;">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: 13px; color: #6b7280;">startOfWeek="monday" (default)</span>
+        <pk-datepicker [(ngModel)]="localeDate" locale="en" startOfWeek="monday" [style]="'width: 190px'"></pk-datepicker>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: 13px; color: #6b7280;">startOfWeek="sunday"</span>
+        <pk-datepicker [(ngModel)]="localeDate" locale="en" startOfWeek="sunday" [style]="'width: 190px'"></pk-datepicker>
+      </div>
     </div>
   </section>
 
   <section class="demo-section">
     <h2>Usage</h2>
-    <pre class="code-block"><code>import &#123; FormsModule &#125; from '@angular/forms';
-import &#123; PkDatepickerComponent &#125; from 'ngx-pk-ui';
+    <pre class="code-block"><code>{{ codeBasic }}</code></pre>
+  </section>
 
-&#64;Component(&#123;
-  imports: [FormsModule, PkDatepickerComponent],
-&#125;)
-export class AnyPage &#123;
-  dateValue: Date | null = null;
-&#125;
-
-&lt;pk-datepicker
-  [(ngModel)]="dateValue"
-  locale="TH"
-  [minDate]="minDate"
-  [maxDate]="maxDate"
-  [setNull]="true"
-/&gt;</code></pre>
+  <section class="demo-section">
+    <h2>Locale examples</h2>
+    <pre class="code-block"><code>{{ codeLocale }}</code></pre>
   </section>
 
   <section class="demo-section">
@@ -86,9 +91,13 @@ export class AnyPage &#123;
       </tr>
       <tr>
         <td><code>locale</code></td>
-        <td><code>'TH' | 'EN'</code></td>
-        <td><code>'TH'</code></td>
-        <td>Display language and date formatting locale</td>
+        <td><code>PkLocale</code></td>
+        <td><code>'th'</code></td>
+        <td>
+          Display locale — month names, day names, button labels, placeholder.
+          17 locales: <code>en · th · lo · fr · es · pt · it · de · nl · zh · ja · ko · ru · vi · id · ar · hi</code>.
+          Thai (<code>th</code>) uses Buddhist Era year (+543).
+        </td>
       </tr>
       <tr>
         <td><code>startOfWeek</code></td>

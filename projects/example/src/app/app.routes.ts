@@ -20,6 +20,7 @@ export const routes: Routes = [
   { path: 'pk-typeahead', loadComponent: () => import('./pages/pk-typeahead/pk-typeahead-page').then(m => m.PkTypeaheadPage) },
   { path: 'pk-file-upload', loadComponent: () => import('./pages/pk-file-upload/pk-file-upload-page').then(m => m.PkFileUploadPage) },
   { path: 'pk-heatmap', loadComponent: () => import('./pages/pk-heatmap/pk-heatmap-page').then(m => m.PkHeatmapPage) },
+  { path: 'pk-input-password', loadComponent: () => import('./pages/pk-input-password/pk-input-password-page').then(m => m.PkInputPasswordPage) },
   { path: 'pk-sidenav', loadComponent: () => import('./pages/pk-sidenav/pk-sidenav').then(m => m.PkSidenavPage) },
   { path: 'pk-table', loadComponent: () => import('./pages/pk-table/pk-table-page').then(m => m.PkTablePage) },
   { path: 'pk-toggle', loadComponent: () => import('./pages/pk-toggle/pk-toggle-page').then(m => m.PkTogglePage) },

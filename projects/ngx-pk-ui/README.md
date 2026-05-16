@@ -66,6 +66,7 @@ npm publish dist/ngx-pk-ui
 - Heatmap: `PkHeatmap`, `PkHeatmapDay`, `PkHeatmapColorScheme`, `PkHeatmapLocale`
 - Markdown Viewer: `PkMarkdownViewer`, `PkMarkdownTheme`, `parseMarkdown`, `buildHtmlDocument`
 - Locale: `PkLocale`, `PkLocaleData`, `PK_LOCALE_DATA`, `getPkLocaleData`
+- Input Password: `PkInputPassword`
 
 ## CSS utility files
 
