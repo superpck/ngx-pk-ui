@@ -4,6 +4,16 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.7.1] — 2026-05-16
+
+### Changed
+- **pk-datepicker** — upgraded to use the shared `PkLocale` model.
+  - Supports all 17 locales from `pk-locale` for month names, day names, localized action buttons, and placeholder hints.
+  - Thai (`th`) keeps Buddhist Era year formatting.
+  - Example page updated with multi-locale showcase and refreshed API docs.
+
+---
+
 ## [2.7.0] — 2026-05-16
 
 ### Added

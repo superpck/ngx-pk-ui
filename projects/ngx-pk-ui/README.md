@@ -68,6 +68,22 @@ npm publish dist/ngx-pk-ui
 - Locale: `PkLocale`, `PkLocaleData`, `PK_LOCALE_DATA`, `getPkLocaleData`
 - Input Password: `PkInputPassword`
 
+## pk-datepicker quick start
+
+```html
+<pk-datepicker [(ngModel)]="dateValue" locale="th" [setNull]="true" />
+<pk-datepicker [(ngModel)]="dateValue" locale="ja" startOfWeek="monday" />
+```
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `locale` | `PkLocale` | `'th'` | Locale for month/day labels, action buttons, placeholders; Thai uses Buddhist Era year |
+| `startOfWeek` | `'monday'\|'sunday'` | `'monday'` | First day of the week |
+| `minDate` | `Date \| null` | `null` | Minimum selectable date |
+| `maxDate` | `Date \| null` | `null` | Maximum selectable date |
+| `setNull` | `boolean` | `true` | Show clear button |
+
+
 ## CSS utility files
 
 - `styles/pk-ui.css` (all-in-one — includes grid, btn, form, layout, spinner, badge, card, table, toggle, breadcrumb, tooltip, icon-font)

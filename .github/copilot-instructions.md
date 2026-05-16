@@ -72,7 +72,7 @@ projects/
           pk-icon.model.ts      ← PkIconModel type
           pk-icon.ts            ← SVG icon component + Material Symbols mode
         pk-datagrid/            ← NgModule-based datagrid (sort, filter, resize, pagination, row detail)
-        pk-datepicker/          ← Datepicker with TH/EN locale, range, clear
+        pk-datepicker/          ← Datepicker with PkLocale support (17 locales), range, clear
         pk-progress/            ← Line/circle progress with status variants
         pk-treeview/            ← Hierarchical tree (NgModule-based)
         pk-select/              ← Single/multi select with optional search
@@ -448,7 +448,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.7.0` |
+| Library version | `2.7.1` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -458,7 +458,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-modal` | ✅ Built, tested (16 tests) — `lockScroll` input (default `true`): locks body scroll + compensates scrollbar width |
 | `pk-icon` | ✅ Built — `vertical-align: middle` fix; `PK_MATERIAL_ICON_SETS` constant added |
 | `pk-datagrid` | ✅ Built (NgModule) — row selection (single/multiple); bug fix: rows now clear correctly when array resets to `[]` |
-| `pk-datepicker` | ✅ Built |
+| `pk-datepicker` | ✅ Built — shared `PkLocale` support; 17 locales; localized labels/placeholders; Thai Buddhist Era year |
 | `pk-progress` | ✅ Built |
 | `pk-treeview` | ✅ Built (NgModule) |
 | `pk-select` | ✅ Built |

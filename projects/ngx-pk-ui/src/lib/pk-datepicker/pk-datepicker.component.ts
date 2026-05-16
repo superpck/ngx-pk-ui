@@ -86,7 +86,7 @@ export class PkDatepickerComponent implements ControlValueAccessor, OnInit, OnDe
   @Input() disabled: boolean = false;
   @Input() setNull: boolean = true;
   @Input() dateInput: boolean = true;
-  @Input() locale: PkLocale = 'th';
+  @Input() locale: PkLocale = 'en';
   @Input() minDate: Date | null = null;
   @Input() maxDate: Date | null = null;
   @Input() startOfWeek: 'monday' | 'sunday' = 'monday';

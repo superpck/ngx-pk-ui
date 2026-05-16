@@ -1,4 +1,4 @@
-# ngx-pk-ui 2.7.0
+# ngx-pk-ui 2.7.1
 
 An Angular 21 component library providing UI components and CSS utilities.
 
@@ -7,6 +7,9 @@ An Angular 21 component library providing UI components and CSS utilities.
 - **License**: MIT
 
 ## Changelog
+
+### 2.7.1
+- **pk-datepicker**: upgraded to shared `PkLocale` locale model support across the component and example page; now supports 17 locales for month/day labels, localized actions, and placeholders
 
 ### 2.7.0
 - **pk-input-password**: standalone password input with show/hide toggle and optional 4-level strength indicator; implements `ControlValueAccessor` — works with `ngModel` and reactive forms
@@ -68,7 +71,7 @@ npm install ngx-pk-ui
 | `pk-modal` | Component | Flexible modal overlay with slot components, size and theme |
 | `pk-icon` | Component | SVG icon set + Material Symbols mode |
 | `pk-datagrid` | Module + Components | Datagrid with sort, filter, resize, pagination, row detail, row selection |
-| `pk-datepicker` | Component | Datepicker with TH/EN locale, range, and clear action |
+| `pk-datepicker` | Component | Datepicker with `PkLocale` support, range, and clear action |
 | `pk-progress` | Component | Line/circle progress with status variants |
 | `pk-treeview` | Module + Components | Hierarchical tree with expand/collapse and selection modes |
 | `pk-select` | Component | Single/multi select with optional search |

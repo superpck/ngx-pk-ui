@@ -17,8 +17,8 @@ export class PkDatepickerPage {
   localeDate: Date | null = new Date();
 
   readonly localeShowcase: { locale: PkLocale; label: string }[] = [
+    { locale: 'en', label: 'English (en) default' },
     { locale: 'th', label: 'ไทย (th)' },
-    { locale: 'en', label: 'English (en)' },
     { locale: 'lo', label: 'ລາວ (lo)' },
     { locale: 'ja', label: '日本語 (ja)' },
     { locale: 'zh', label: '中文 (zh)' },
