@@ -1,0 +1,85 @@
+<div class="pk-md" [class.pk-md--dark]="theme() === 'dark'">
+
+  <!-- ── Toolbar ─────────────────────────────────────────────────────────── -->
+  @if (showToolbar()) {
+  <div class="pk-md__toolbar">
+    <span class="pk-md__toolbar-title">{{ _displayTitle() }}</span>
+
+    <div class="pk-md__toolbar-actions">
+      <!-- Print -->
+      <button
+        class="pk-md__toolbar-btn"
+        type="button"
+        title="Print"
+        [disabled]="_loading() || !!_error()"
+        (click)="print()"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 6 2 18 2 18 9"/>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+          <rect x="6" y="14" width="12" height="8"/>
+        </svg>
+        <span>Print</span>
+      </button>
+
+      <!-- Export Markdown -->
+      <button
+        class="pk-md__toolbar-btn"
+        type="button"
+        title="Export as Markdown"
+        [disabled]="_loading() || !!_error()"
+        (click)="exportMarkdown()"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span>.md</span>
+      </button>
+
+      <!-- Export HTML -->
+      <button
+        class="pk-md__toolbar-btn"
+        type="button"
+        title="Export as HTML"
+        [disabled]="_loading() || !!_error()"
+        (click)="exportHtml()"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span>.html</span>
+      </button>
+    </div>
+  </div>
+  }
+
+  <!-- ── Loading ─────────────────────────────────────────────────────────── -->
+  @if (_loading()) {
+  <div class="pk-md__loading">
+    <span class="pk-md__spinner"></span>
+    <span>Loading…</span>
+  </div>
+  }
+
+  <!-- ── Error ───────────────────────────────────────────────────────────── -->
+  @if (_error()) {
+  <div class="pk-md__error">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <span>{{ _error() }}</span>
+  </div>
+  }
+
+  <!-- ── Content ─────────────────────────────────────────────────────────── -->
+  @if (!_loading() && !_error()) {
+  <div class="pk-md__body" [innerHTML]="_html()"></div>
+  }
+
+</div>

@@ -1,0 +1,202 @@
+<div style="padding: 32px; max-width: 1100px; margin: 0 auto;">
+
+  <h2 style="margin: 0 0 4px; font-size: 1.5rem; font-weight: 700;">pk-markdown-viewer</h2>
+  <p style="margin: 0 0 28px; color: #6b7280;">
+    Render Markdown from a URL (<code>fileName</code>) or a raw string (<code>content</code>).
+    Includes Print and Export actions.
+  </p>
+
+  <!-- ── Tab nav ─────────────────────────────────────────────────────────── -->
+  <div style="display: flex; gap: 8px; margin-bottom: 24px;">
+    <button
+      class="pk-btn"
+      [class.pk-btn-primary]="activeTab() === 'file'"
+      [class.pk-btn-secondary]="activeTab() !== 'file'"
+      [class.pk-btn-outline]="activeTab() !== 'file'"
+      (click)="setTab('file')"
+    >fileName — load from URL</button>
+    <button
+      class="pk-btn"
+      [class.pk-btn-primary]="activeTab() === 'content'"
+      [class.pk-btn-secondary]="activeTab() !== 'content'"
+      [class.pk-btn-outline]="activeTab() !== 'content'"
+      (click)="setTab('content')"
+    >content — raw Markdown string</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- Tab 1 — fileName                                                      -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  @if (activeTab() === 'file') {
+  <div style="display: flex; flex-direction: column; gap: 20px;">
+
+    <!-- Options row -->
+    <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+      <label style="display: flex; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 500;">
+        Theme:
+        <select
+          [value]="fileTheme()"
+          (change)="fileTheme.set($any($event.target).value)"
+          style="padding: 4px 8px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.875rem;"
+        >
+          <option value="light">light</option>
+          <option value="dark">dark</option>
+        </select>
+      </label>
+      <label style="display: flex; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 500;">
+        <input type="checkbox" [checked]="showFileToolbar()" (change)="showFileToolbar.set($any($event.target).checked)" />
+        Show toolbar
+      </label>
+    </div>
+
+    <!-- Viewer -->
+    <pk-markdown-viewer
+      fileName="CHANGELOG.md"
+      [theme]="fileTheme()"
+      [showToolbar]="showFileToolbar()"
+    />
+  </div>
+  }
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- Tab 2 — content (live editor)                                         -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  @if (activeTab() === 'content') {
+  <div style="display: flex; flex-direction: column; gap: 20px;">
+
+    <!-- Options row -->
+    <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+      <label style="display: flex; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 500;">
+        Theme:
+        <select
+          [value]="contentTheme()"
+          (change)="contentTheme.set($any($event.target).value)"
+          style="padding: 4px 8px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.875rem;"
+        >
+          <option value="light">light</option>
+          <option value="dark">dark</option>
+        </select>
+      </label>
+      <label style="display: flex; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 500;">
+        <input type="checkbox" [checked]="showContentToolbar()" (change)="showContentToolbar.set($any($event.target).checked)" />
+        Show toolbar
+      </label>
+    </div>
+
+    <!-- Split: editor | preview -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; min-height: 500px;">
+
+      <!-- Editor -->
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <span style="font-size: 0.8125rem; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;">Editor</span>
+        <textarea
+          [value]="editorText()"
+          (input)="editorText.set($any($event.target).value)"
+          style="flex: 1; min-height: 480px; padding: 14px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.8125rem; line-height: 1.6; resize: vertical; color: #1a1a2e;"
+          spellcheck="false"
+        ></textarea>
+      </div>
+
+      <!-- Preview -->
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <span style="font-size: 0.8125rem; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;">Preview</span>
+        <pk-markdown-viewer
+          [content]="editorText()"
+          [theme]="contentTheme()"
+          [showToolbar]="showContentToolbar()"
+          title="Live Preview"
+          style="flex: 1;"
+        />
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- Usage                                                                 -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div style="margin-top: 48px; border-top: 1px solid #e5e7eb; padding-top: 32px;">
+    <h3 style="margin: 0 0 20px; font-size: 1.125rem; font-weight: 700;">Usage</h3>
+
+    <!-- fileName -->
+    <p style="margin: 0 0 8px; font-size: 0.875rem; font-weight: 600; color: #374151;">
+      Load a <code>.md</code> file by URL
+    </p>
+    <pre style="background:#1e1e2e;color:#cdd6f4;padding:18px 22px;border-radius:8px;overflow-x:auto;font-size:0.85rem;margin:0 0 24px;"><code>import &#123; PkMarkdownViewer &#125; from 'ngx-pk-ui';
+
+@Component(&#123;
+  imports: [PkMarkdownViewer],
+  template: `
+    &lt;pk-markdown-viewer
+      fileName="assets/CHANGELOG.md"
+      theme="light"
+      [showToolbar]="true"
+    /&gt;
+  `,
+&#125;)</code></pre>
+
+    <!-- content -->
+    <p style="margin: 0 0 8px; font-size: 0.875rem; font-weight: 600; color: #374151;">
+      Render a raw Markdown string
+    </p>
+    <pre style="background:#1e1e2e;color:#cdd6f4;padding:18px 22px;border-radius:8px;overflow-x:auto;font-size:0.85rem;margin:0 0 24px;"><code>import &#123; PkMarkdownViewer &#125; from 'ngx-pk-ui';
+
+@Component(&#123;
+  imports: [PkMarkdownViewer],
+  template: `
+    &lt;pk-markdown-viewer
+      [content]="markdownString"
+      theme="dark"
+      title="My Document"
+    /&gt;
+  `,
+&#125;)</code></pre>
+
+    <!-- Inputs table -->
+    <p style="margin: 0 0 8px; font-size: 0.875rem; font-weight: 600; color: #374151;">Inputs</p>
+    <table style="border-collapse:collapse;width:100%;font-size:0.875rem;">
+      <thead>
+        <tr style="background:#f9fafb;">
+          <th style="border:1px solid #e5e7eb;padding:8px 12px;text-align:left;">Input</th>
+          <th style="border:1px solid #e5e7eb;padding:8px 12px;text-align:left;">Type</th>
+          <th style="border:1px solid #e5e7eb;padding:8px 12px;text-align:left;">Default</th>
+          <th style="border:1px solid #e5e7eb;padding:8px 12px;text-align:left;">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>fileName</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>string</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>''</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">URL to a <code>.md</code> file — fetched via <code>fetch()</code></td>
+        </tr>
+        <tr style="background:#fafafa;">
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>content</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>string</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>''</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">Raw Markdown string (takes priority over <code>fileName</code>)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>theme</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>'light' | 'dark'</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>'light'</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">Color theme</td>
+        </tr>
+        <tr style="background:#fafafa;">
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>showToolbar</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>boolean</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>true</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">Show/hide the toolbar (Print + Export buttons)</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>title</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>string</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>''</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">Override toolbar title (defaults to filename)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+

@@ -78,6 +78,11 @@ export * from './lib/pk-calendar/pk-calendar';
 // pk-tooltip
 export * from './lib/pk-tooltip/pk-tooltip.directive';
 
+// pk-markdown-viewer
+export * from './lib/pk-markdown-viewer/pk-markdown-viewer.model';
+export * from './lib/pk-markdown-viewer/pk-markdown-parser';
+export * from './lib/pk-markdown-viewer/pk-markdown-viewer';
+
 // pk-autocomplete
 export * from './lib/pk-autocomplete/pk-autocomplete.interface';
 export * from './lib/pk-autocomplete/pk-autocomplete.component';

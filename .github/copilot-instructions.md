@@ -404,6 +404,10 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `PkSidenavPosition` | Type alias | `pk-sidenav/pk-sidenav.model` |
 | `PkSidenavThemeConfig` | Interface | `pk-sidenav/pk-sidenav.model` |
 | `PkSidenav` | Component | `pk-sidenav/pk-sidenav` |
+| `PkMarkdownTheme` | Type alias | `pk-markdown-viewer/pk-markdown-viewer.model` |
+| `parseMarkdown` | Function | `pk-markdown-viewer/pk-markdown-parser` |
+| `buildHtmlDocument` | Function | `pk-markdown-viewer/pk-markdown-parser` |
+| `PkMarkdownViewer` | Component | `pk-markdown-viewer/pk-markdown-viewer` |
 
 ---
 
@@ -431,7 +435,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.4.7` |
+| Library version | `2.5.0` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -451,6 +455,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-calendar` | ✅ Built — Year/Month/Week/Day/Agenda views, drag & drop, multi-day bars, built-in form, TH/EN locale |
 | `pk-file-upload` | ✅ Built, tested (14 tests) — drag & drop, browser-native preview (image/PDF/text), upload button, maxSize/maxFiles validation |
 | `pk-sidenav` | ✅ Built — left/right, full/icon/auto mode, multi-level, badge, 4 themes, CSS-variable override, content slots |
+| `pk-markdown-viewer` | ✅ Built, tested (18 tests) — `fileName` (fetch) + `content` (raw string); Print, Export .md, Export .html; light/dark theme; zero external deps |
 | `pk-grid` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | `pk-btn` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
 | `pk-spinner` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
@@ -463,10 +468,10 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-layout` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-layout.css` — included in pk-ui.css |
 | `pk-font` (CSS only, opt-in) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-font.css` — NOT in pk-ui.css |
 | `pk-icon-font` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-icon-font.css` |
-| Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard |
+| Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 
-**Test totals: 76 / 76 passing**
+**Test totals: 94 / 94 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper
@@ -475,6 +480,63 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - `pk-kanban` — drag-and-drop kanban board
 - `pk-image-viewer` — lightbox / image viewer (works with pk-file-upload previews)
 - `pk-command-palette` — keyboard-driven command palette (works with pk-sidenav)
+
+---
+
+## pk-markdown-viewer API reference
+
+Standalone component — renders Markdown to HTML with no external dependencies.
+
+```ts
+import { PkMarkdownViewer } from 'ngx-pk-ui';
+import type { PkMarkdownTheme } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkMarkdownViewer],
+})
+```
+
+```html
+<!-- Load from a file URL -->
+<pk-markdown-viewer fileName="assets/CHANGELOG.md" theme="light" />
+
+<!-- Render a raw markdown string -->
+<pk-markdown-viewer [content]="markdownString" theme="dark" title="My Doc" />
+```
+
+### PkMarkdownViewer inputs
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `fileName` | `string` | `''` | URL/path to a `.md` file — fetched via `fetch()` |
+| `content` | `string` | `''` | Raw Markdown string (takes priority over `fileName`) |
+| `theme` | `'light'\|'dark'` | `'light'` | Color theme |
+| `showToolbar` | `boolean` | `true` | Show/hide toolbar (Print + Export buttons) |
+| `title` | `string` | `''` | Override toolbar title (defaults to filename) |
+
+### Toolbar actions
+| Button | Description |
+|--------|-------------|
+| Print | Opens a styled print window via `window.open()` |
+| Export .md | Downloads the raw Markdown as a `.md` file |
+| Export .html | Downloads a self-contained `.html` document |
+
+### Supported Markdown syntax
+Headings (H1–H6), **bold**, *italic*, ***bold italic***, ~~strikethrough~~, `inline code`, fenced code blocks (with language class), blockquotes, unordered/ordered lists, tables (with column alignment), links, images, horizontal rules.
+
+### Exported functions (for advanced use)
+```ts
+import { parseMarkdown, buildHtmlDocument } from 'ngx-pk-ui';
+
+const html = parseMarkdown('# Hello\n**world**');
+const fullHtml = buildHtmlDocument('My Title', html);
+```
+
+### Notes
+- Zero external npm dependencies — parser is pure TypeScript.
+- `fileName` uses `fetch()` — no `HttpClient` or Angular DI needed.
+- `content` takes priority when both inputs are set.
+- HTML is sanitized via Angular's `DomSanitizer.bypassSecurityTrustHtml` after the parser generates safe markup. The parser itself escapes all raw HTML in text nodes and code blocks.
 
 ---
 
@@ -662,7 +724,7 @@ export class MyComponent {
 <span class="pk-badge pk-badge-lg">New</span>
 
 <!-- Pill (rectangular, rounded ends) -->
-<span class="pk-badge pk-badge-success pk-badge-pill">v2.4.7</span>
+<span class="pk-badge pk-badge-success pk-badge-pill">v2.5.0</span>
 
 <!-- Dot (empty indicator, no text) -->
 <span class="pk-badge pk-badge-dot pk-badge-success"></span>

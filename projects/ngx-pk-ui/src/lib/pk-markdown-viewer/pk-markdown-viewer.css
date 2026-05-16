@@ -1,0 +1,321 @@
+/* ── Host / wrapper ─────────────────────────────────────────────────────────── */
+:host {
+  display: block;
+}
+
+.pk-md {
+  --pk-md-bg: #ffffff;
+  --pk-md-color: #1a1a2e;
+  --pk-md-border: #e5e7eb;
+  --pk-md-toolbar-bg: #f9fafb;
+  --pk-md-toolbar-btn-bg: #ffffff;
+  --pk-md-toolbar-btn-hover-bg: #f3f4f6;
+  --pk-md-code-bg: #f3f4f6;
+  --pk-md-code-color: #d97706;
+  --pk-md-pre-bg: #1e1e2e;
+  --pk-md-pre-color: #cdd6f4;
+  --pk-md-blockquote-border: #3b82f6;
+  --pk-md-blockquote-color: #6b7280;
+  --pk-md-table-header-bg: #f9fafb;
+  --pk-md-table-border: #e5e7eb;
+  --pk-md-table-stripe: #fafafa;
+  --pk-md-hr-color: #e5e7eb;
+  --pk-md-link-color: #2563eb;
+  --pk-md-heading-border: #e5e7eb;
+  --pk-md-error-bg: #fef2f2;
+  --pk-md-error-color: #dc2626;
+  --pk-md-error-border: #fecaca;
+  --pk-md-spinner-color: #3b82f6;
+
+  background: var(--pk-md-bg);
+  color: var(--pk-md-color);
+  border: 1px solid var(--pk-md-border);
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ── Dark theme ──────────────────────────────────────────────────────────────── */
+.pk-md--dark {
+  --pk-md-bg: #0f1117;
+  --pk-md-color: #e2e8f0;
+  --pk-md-border: #2d3748;
+  --pk-md-toolbar-bg: #1a1f2e;
+  --pk-md-toolbar-btn-bg: #1e2536;
+  --pk-md-toolbar-btn-hover-bg: #2d3748;
+  --pk-md-code-bg: #1e2536;
+  --pk-md-code-color: #fbbf24;
+  --pk-md-pre-bg: #0d1117;
+  --pk-md-pre-color: #cdd6f4;
+  --pk-md-blockquote-border: #60a5fa;
+  --pk-md-blockquote-color: #94a3b8;
+  --pk-md-table-header-bg: #1a1f2e;
+  --pk-md-table-border: #2d3748;
+  --pk-md-table-stripe: #131823;
+  --pk-md-hr-color: #2d3748;
+  --pk-md-link-color: #60a5fa;
+  --pk-md-heading-border: #2d3748;
+  --pk-md-error-bg: #2d1515;
+  --pk-md-error-color: #f87171;
+  --pk-md-error-border: #7f1d1d;
+}
+
+/* ── Toolbar ─────────────────────────────────────────────────────────────────── */
+.pk-md__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--pk-md-toolbar-bg);
+  border-bottom: 1px solid var(--pk-md-border);
+  flex-wrap: wrap;
+}
+
+.pk-md__toolbar-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  opacity: 0.7;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.pk-md__toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.pk-md__toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 1px solid var(--pk-md-border);
+  border-radius: 6px;
+  background: var(--pk-md-toolbar-btn-bg);
+  color: var(--pk-md-color);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.pk-md__toolbar-btn:hover:not(:disabled) {
+  background: var(--pk-md-toolbar-btn-hover-bg);
+  border-color: var(--pk-md-blockquote-border);
+}
+
+.pk-md__toolbar-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Loading ──────────────────────────────────────────────────────────────────── */
+.pk-md__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 48px 24px;
+  color: var(--pk-md-blockquote-color);
+  font-size: 0.9rem;
+}
+
+.pk-md__spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid var(--pk-md-border);
+  border-top-color: var(--pk-md-spinner-color);
+  border-radius: 50%;
+  animation: pk-md-spin 0.75s linear infinite;
+}
+
+@keyframes pk-md-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Error ────────────────────────────────────────────────────────────────────── */
+.pk-md__error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px;
+  padding: 12px 16px;
+  background: var(--pk-md-error-bg);
+  color: var(--pk-md-error-color);
+  border: 1px solid var(--pk-md-error-border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+/* ── Body ─────────────────────────────────────────────────────────────────────── */
+.pk-md__body {
+  padding: 28px 36px;
+  overflow-x: auto;
+}
+
+/* ── Rendered markdown styles ────────────────────────────────────────────────── */
+.pk-md__body :is(h1, h2, h3, h4, h5, h6) {
+  margin: 1.5em 0 0.4em;
+  line-height: 1.35;
+  font-weight: 700;
+  color: var(--pk-md-color);
+}
+
+.pk-md__body h1 {
+  font-size: 1.875rem;
+  border-bottom: 2px solid var(--pk-md-heading-border);
+  padding-bottom: 0.3em;
+  margin-top: 0.5em;
+}
+
+.pk-md__body h2 {
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--pk-md-heading-border);
+  padding-bottom: 0.2em;
+}
+
+.pk-md__body h3 { font-size: 1.25rem; }
+.pk-md__body h4 { font-size: 1.1rem; }
+.pk-md__body h5 { font-size: 1rem; }
+.pk-md__body h6 { font-size: 0.9rem; opacity: 0.75; }
+
+.pk-md__body p {
+  margin: 0.7em 0;
+}
+
+.pk-md__body a {
+  color: var(--pk-md-link-color);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.pk-md__body a:hover {
+  opacity: 0.8;
+}
+
+.pk-md__body strong {
+  font-weight: 700;
+}
+
+.pk-md__body em {
+  font-style: italic;
+}
+
+.pk-md__body del {
+  opacity: 0.55;
+  text-decoration: line-through;
+}
+
+/* ── Code ─────────────────────────────────────────────────────────────────────── */
+.pk-md__body code {
+  background: var(--pk-md-code-bg);
+  color: var(--pk-md-code-color);
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-size: 0.875em;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+.pk-md__body pre {
+  background: var(--pk-md-pre-bg);
+  color: var(--pk-md-pre-color);
+  padding: 18px 22px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.2em 0;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.pk-md__body pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+  border-radius: 0;
+}
+
+/* ── Blockquote ───────────────────────────────────────────────────────────────── */
+.pk-md__body blockquote {
+  border-left: 4px solid var(--pk-md-blockquote-border);
+  margin: 1em 0;
+  padding: 4px 0 4px 16px;
+  color: var(--pk-md-blockquote-color);
+}
+
+.pk-md__body blockquote p {
+  margin: 0.2em 0;
+}
+
+/* ── Lists ────────────────────────────────────────────────────────────────────── */
+.pk-md__body ul,
+.pk-md__body ol {
+  padding-left: 1.6em;
+  margin: 0.7em 0;
+}
+
+.pk-md__body li {
+  margin: 0.3em 0;
+}
+
+/* ── Table ────────────────────────────────────────────────────────────────────── */
+.pk-md__body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.2em 0;
+  font-size: 0.9375rem;
+}
+
+.pk-md__body th,
+.pk-md__body td {
+  border: 1px solid var(--pk-md-table-border);
+  padding: 8px 14px;
+}
+
+.pk-md__body th {
+  background: var(--pk-md-table-header-bg);
+  font-weight: 600;
+}
+
+.pk-md__body tr:nth-child(even) td {
+  background: var(--pk-md-table-stripe);
+}
+
+/* ── Horizontal rule ─────────────────────────────────────────────────────────── */
+.pk-md__body hr {
+  border: none;
+  border-top: 1px solid var(--pk-md-hr-color);
+  margin: 2em 0;
+}
+
+/* ── Images ───────────────────────────────────────────────────────────────────── */
+.pk-md__body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .pk-md__body {
+    padding: 16px 18px;
+  }
+
+  .pk-md__toolbar {
+    padding: 8px 12px;
+  }
+
+  .pk-md__toolbar-btn span {
+    display: none;
+  }
+}
