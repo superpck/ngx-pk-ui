@@ -1,4 +1,4 @@
-# ngx-pk-ui 2.4.7
+# ngx-pk-ui 2.6.0
 
 An Angular 21 component library providing UI components and CSS utilities.
 
@@ -7,6 +7,13 @@ An Angular 21 component library providing UI components and CSS utilities.
 - **License**: MIT
 
 ## Changelog
+
+### 2.6.0
+- **pk-locale**: new global shared locale model — 17 locales (EN · TH · LO · FR · ES · PT · IT · DE · NL · ZH · JA · KO · RU · VI · ID · AR · HI) with `direction: 'ltr' | 'rtl'` field. Exports: `PkLocale`, `PkLocaleData`, `PK_LOCALE_DATA`, `getPkLocaleData()`
+- **pk-heatmap**: GitHub-style contribution heatmap component — standalone, full-width, 4 color schemes, 17-locale day/month labels, legend with 0/max, tooltip on hover
+
+### 2.5.0
+- **pk-markdown-viewer**: standalone component renders Markdown to HTML with Print / Export actions; zero external deps
 
 ### 2.4.7
 - **pk-icon**: fix vertical alignment — icon no longer floats above adjacent text (`vertical-align: middle` on `:host`)
@@ -67,6 +74,9 @@ npm install ngx-pk-ui
 | `pk-tooltip` | Directive | Hover tooltip — 10 color variants, 4 positions |
 | `pk-calendar` | Component | Year/Month/Week/Day/Agenda views, drag & drop, TH/EN locale |
 | `pk-file-upload` | Component | Drag & drop file upload with browser-native preview (image/PDF/text) |
+| `pk-heatmap` | Component | GitHub-style contribution heatmap — 4 color schemes, 17-locale labels, legend |
+| `pk-markdown-viewer` | Component | Standalone Markdown renderer — Print/Export toolbar, light/dark theme |
+| `pk-timeline` | Component | Vertical/horizontal timeline with icons, images, and active state |
 
 ---
 

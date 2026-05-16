@@ -19,6 +19,7 @@ export class App {
     { label: 'datagrid', link: '/pk-datagrid' },
     { label: 'datepicker', link: '/pk-datepicker' },
     { label: 'file upload', link: '/pk-file-upload' },
+    { label: 'heatmap', link: '/pk-heatmap' },
     { label: 'icon', link: '/pk-icon' },
     { label: 'markdown viewer', link: '/pk-markdown-viewer' },
     { label: 'modal', link: '/pk-modal' },

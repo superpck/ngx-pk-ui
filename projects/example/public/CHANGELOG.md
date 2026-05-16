@@ -4,6 +4,23 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.6.0] — 2026-05-16
+
+### Added
+- **pk-locale** — new global shared locale model for date/calendar strings across all components.
+  - Supports 17 locales: `en` · `th` · `lo` · `fr` · `es` · `pt` · `it` · `de` · `nl` · `zh` · `ja` · `ko` · `ru` · `vi` · `id` · `ar` · `hi`
+  - Each locale provides `monthNamesShort`, `monthNamesFull`, `dayNamesShort`, `dayNamesFull`, and `direction: 'ltr' | 'rtl'`
+  - Exported API: `PkLocale`, `PkLocaleData`, `PK_LOCALE_DATA`, `getPkLocaleData()`
+- **pk-heatmap** — GitHub-style contribution heatmap component.
+  - Full-width layout — fills its container naturally.
+  - 4 color schemes: `green` (default) · `blue` · `purple` · `orange`
+  - 17-locale day/month labels via `pk-locale` integration.
+  - Legend shows `0` and the maximum value in the dataset.
+  - Tooltip on hover with `tooltipFormat` override.
+  - Inputs: `data`, `startDate`, `endDate`, `colorScheme`, `locale`, `showLegend`, `showTooltip`, `tooltipFormat`, `dayLabels`, `monthLabels`
+
+---
+
 ## [2.5.0] — 2026-05-16
 
 ### Added

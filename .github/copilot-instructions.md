@@ -408,6 +408,15 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `parseMarkdown` | Function | `pk-markdown-viewer/pk-markdown-parser` |
 | `buildHtmlDocument` | Function | `pk-markdown-viewer/pk-markdown-parser` |
 | `PkMarkdownViewer` | Component | `pk-markdown-viewer/pk-markdown-viewer` |
+| `PkLocale` | Type alias | `pk-locale/pk-locale.model` |
+| `PkLocaleData` | Interface | `pk-locale/pk-locale.model` |
+| `PK_LOCALE_DATA` | Constant | `pk-locale/pk-locale.model` |
+| `getPkLocaleData` | Function | `pk-locale/pk-locale.model` |
+| `PkHeatmapDay` | Interface | `pk-heatmap/pk-heatmap.model` |
+| `PkHeatmapColorScheme` | Type alias | `pk-heatmap/pk-heatmap.model` |
+| `PkHeatmapLocale` | Type alias | `pk-heatmap/pk-heatmap.model` |
+| `PkHeatmapCell` | Interface | `pk-heatmap/pk-heatmap.model` |
+| `PkHeatmap` | Component | `pk-heatmap/pk-heatmap` |
 
 ---
 
@@ -435,7 +444,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.5.0` |
+| Library version | `2.6.0` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -456,6 +465,8 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-file-upload` | ✅ Built, tested (14 tests) — drag & drop, browser-native preview (image/PDF/text), upload button, maxSize/maxFiles validation |
 | `pk-sidenav` | ✅ Built — left/right, full/icon/auto mode, multi-level, badge, 4 themes, CSS-variable override, content slots |
 | `pk-markdown-viewer` | ✅ Built, tested (18 tests) — `fileName` (fetch) + `content` (raw string); Print, Export .md, Export .html; light/dark theme; zero external deps |
+| `pk-locale` | ✅ Built — global shared locale model; 17 locales; `direction: 'ltr'\|'rtl'` |
+| `pk-heatmap` | ✅ Built, tested (16 tests) — full-width layout; 4 color schemes; 17-locale labels; legend 0/max; tooltip |
 | `pk-grid` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | `pk-btn` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
 | `pk-spinner` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
@@ -471,7 +482,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 
-**Test totals: 94 / 94 passing**
+**Test totals: 126 / 126 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper

@@ -1,0 +1,193 @@
+<div style="padding: 32px; max-width: 1100px; margin: 0 auto;">
+
+  <h2 style="margin: 0 0 4px; font-size: 1.5rem; font-weight: 700;">pk-heatmap</h2>
+  <p style="margin: 0 0 28px; color: #6b7280;">
+    GitHub-style contribution heatmap. Pass an array of <code>{{ '{' }} date, no {{ '}' }}</code> objects.
+    Supports 4 color schemes, optional legend, and a custom tooltip formatter.
+  </p>
+
+  <!-- ── Controls ────────────────────────────────────────────────────────── -->
+  <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 28px; padding: 16px 20px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px;">
+
+    <!-- Color scheme -->
+    <label style="display: flex; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 500;">
+      Color scheme:
+      <div style="display: flex; gap: 6px;">
+        @for (s of schemes; track s) {
+          <button
+            class="pk-btn pk-btn-sm"
+            [class.pk-btn-primary]="scheme() === s"
+            [class.pk-btn-secondary]="scheme() !== s"
+            [class.pk-btn-outline]="scheme() !== s"
+            (click)="scheme.set(s)"
+          >{{ s }}</button>
+        }
+      </div>
+    </label>
+
+    <!-- Locale -->
+    <label style="display: flex; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 500;">
+      Locale:
+      <div class="pk-field pk-field--sm" style="width: 180px; margin: 0;">
+        <select class="pk-field__input" [value]="locale()" (change)="locale.set($any($event.target).value)" placeholder=" ">
+          <option value="en">EN — English</option>
+          <option value="th">TH — ภาษาไทย</option>
+          <option value="lo">LO — ພາສາລາວ</option>
+          <option value="fr">FR — Français</option>
+          <option value="es">ES — Español</option>
+          <option value="pt">PT — Português</option>
+          <option value="it">IT — Italiano</option>
+          <option value="de">DE — Deutsch</option>
+          <option value="nl">NL — Nederlands</option>
+          <option value="zh">ZH — 中文</option>
+          <option value="ja">JA — 日本語</option>
+          <option value="ko">KO — 한국어</option>
+          <option value="ru">RU — Русский</option>
+          <option value="vi">VI — Tiếng Việt</option>
+          <option value="id">ID — Bahasa Indonesia</option>
+          <option value="ar">AR — العربية (RTL)</option>
+          <option value="hi">HI — हिन्दी</option>
+        </select>
+      </div>
+    </label>
+
+    <!-- Toggles -->
+    <label style="display: flex; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 500;">
+      <input type="checkbox" [checked]="showLegend()" (change)="showLegend.set($any($event.target).checked)" />
+      Legend
+    </label>
+    <label style="display: flex; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 500;">
+      <input type="checkbox" [checked]="showDays()" (change)="showDays.set($any($event.target).checked)" />
+      Day labels
+    </label>
+    <label style="display: flex; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 500;">
+      <input type="checkbox" [checked]="showMonths()" (change)="showMonths.set($any($event.target).checked)" />
+      Month labels
+    </label>
+    <label style="display: flex; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 500;">
+      <input type="checkbox" [checked]="useCustomFmt()" (change)="useCustomFmt.set($any($event.target).checked)" />
+      Custom tooltip (TH)
+    </label>
+  </div>
+
+  <!-- ── Demo ─────────────────────────────────────────────────────────────── -->
+  <div style="padding: 32px; background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; overflow-x: auto;">
+    <pk-heatmap
+      [data]="data"
+      [colorScheme]="scheme()"
+      [locale]="locale()"
+      [showLegend]="showLegend()"
+      [dayLabels]="showDays()"
+      [monthLabels]="showMonths()"
+      [tooltipFormat]="useCustomFmt() ? customFmt : null"
+    />
+  </div>
+
+  <!-- ── Usage ────────────────────────────────────────────────────────────── -->
+  <div style="margin-top: 48px; border-top: 1px solid #e5e7eb; padding-top: 32px;">
+    <h3 style="margin: 0 0 20px; font-size: 1.125rem; font-weight: 700;">Usage</h3>
+
+    <!-- Basic -->
+    <p style="margin: 0 0 8px; font-size: 0.875rem; font-weight: 600; color: #374151;">Basic</p>
+    <pre style="background:#1e1e2e;color:#cdd6f4;padding:18px 22px;border-radius:8px;overflow-x:auto;font-size:0.85rem;margin:0 0 24px;"><code>import {{ '{' }} PkHeatmap {{ '}' }} from 'ngx-pk-ui';
+import type {{ '{' }} PkHeatmapDay {{ '}' }} from 'ngx-pk-ui';
+
+@Component({{ '{' }}
+  imports: [PkHeatmap],
+  template: `
+    &lt;pk-heatmap [data]="data" colorScheme="green" /&gt;
+  `,
+{{ '}' }})
+export class MyComponent {{ '{' }}
+  data: PkHeatmapDay[] = [
+    {{ '{' }} date: '2026-05-01', no: 4 {{ '}' }},
+    {{ '{' }} date: '2026-05-02', no: 7 {{ '}' }},
+    {{ '{' }} date: '2026-05-03', no: 1 {{ '}' }},
+    // ...
+  ];
+{{ '}' }}</code></pre>
+
+    <!-- Custom formatter -->
+    <p style="margin: 0 0 8px; font-size: 0.875rem; font-weight: 600; color: #374151;">Custom tooltip formatter</p>
+    <pre style="background:#1e1e2e;color:#cdd6f4;padding:18px 22px;border-radius:8px;overflow-x:auto;font-size:0.85rem;margin:0 0 24px;"><code>readonly fmt = (day: PkHeatmapDay): string =&gt;
+  `${{ '{' }}day.no{{ '}' }} commits on ${{ '{' }}new Date(day.date).toLocaleDateString(){{ '}' }}`;
+
+// template:
+// &lt;pk-heatmap [data]="data" [tooltipFormat]="fmt" /&gt;</code></pre>
+
+    <!-- Inputs table -->
+    <p style="margin: 0 0 8px; font-size: 0.875rem; font-weight: 600; color: #374151;">Inputs</p>
+    <table style="border-collapse:collapse;width:100%;font-size:0.875rem;">
+      <thead>
+        <tr style="background:#f9fafb;">
+          <th style="border:1px solid #e5e7eb;padding:8px 12px;text-align:left;">Input</th>
+          <th style="border:1px solid #e5e7eb;padding:8px 12px;text-align:left;">Type</th>
+          <th style="border:1px solid #e5e7eb;padding:8px 12px;text-align:left;">Default</th>
+          <th style="border:1px solid #e5e7eb;padding:8px 12px;text-align:left;">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>data</code> ★</td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>PkHeatmapDay[]</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">required</td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">Array of <code>{{ '{' }} date, no {{ '}' }}</code> data points</td>
+        </tr>
+        <tr style="background:#fafafa;">
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>startDate</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>Date | string | null</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">1 year ago</td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">Start of the displayed range</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>endDate</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>Date | string | null</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">today</td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">End of the displayed range</td>
+        </tr>
+        <tr style="background:#fafafa;">
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>colorScheme</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>'green' | 'blue' | 'purple' | 'orange'</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>'green'</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">Cell color palette</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>showLegend</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>boolean</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>true</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">Show Less / More legend row</td>
+        </tr>
+        <tr style="background:#fafafa;">
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>showTooltip</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>boolean</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>true</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">Show tooltip on cell hover</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>tooltipFormat</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>(day: PkHeatmapDay) =&gt; string</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>null</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">Custom tooltip text factory; default: "3 contributions on Fri, 16 May 2026"</td>
+        </tr>
+        <tr style="background:#fafafa;">
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>dayLabels</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>boolean</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>true</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">Show Mon / Wed / Fri labels on the left</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>monthLabels</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>boolean</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>true</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">Show month names above the grid</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin: 16px 0 0; font-size: 0.8125rem; color: #6b7280;">
+      ★ required. Level intensity is calculated using <strong>quartile</strong> of all non-zero values
+      (p25 → L1, p50 → L2, p75 → L3, above → L4) — prevents outliers from washing out all other cells.
+    </p>
+  </div>
+
+</div>

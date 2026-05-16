@@ -63,6 +63,9 @@ npm publish dist/ngx-pk-ui
 - Calendar: `PkCalendar`, `PkCalendarEvent`, `PkCalendarView`, `PkEventType`, `PkEventPriority`, `PkCalendarAttachment`, `PkEventMoveResult`
 - File Upload: `PkFileUpload`, `PkUploadFile`, `PkUploadPreviewType`, `PkFileUploadPreviewSize`
 - Sidenav: `PkSidenav`, `PkSidenavGroup`, `PkSidenavItem`, `PkSidenavTheme`, `PkSidenavMode`, `PkSidenavPosition`, `PkSidenavThemeConfig`
+- Heatmap: `PkHeatmap`, `PkHeatmapDay`, `PkHeatmapColorScheme`, `PkHeatmapLocale`
+- Markdown Viewer: `PkMarkdownViewer`, `PkMarkdownTheme`, `parseMarkdown`, `buildHtmlDocument`
+- Locale: `PkLocale`, `PkLocaleData`, `PK_LOCALE_DATA`, `getPkLocaleData`
 
 ## CSS utility files
 
@@ -101,6 +104,9 @@ import { PkModalModule } from 'ngx-pk-ui';     // pk-modal (convenience)
 import { PkDatagridModule } from 'ngx-pk-ui';  // pk-datagrid
 import { PkTreeviewModule } from 'ngx-pk-ui';  // pk-treeview
 import { PkSidenav } from 'ngx-pk-ui';         // pk-sidenav
+import { PkHeatmap } from 'ngx-pk-ui';          // pk-heatmap
+import { PkMarkdownViewer } from 'ngx-pk-ui';   // pk-markdown-viewer
+import { getPkLocaleData } from 'ngx-pk-ui';    // pk-locale util
 ```
 
 ## pk-calendar quick start
