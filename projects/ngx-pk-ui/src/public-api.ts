@@ -97,3 +97,13 @@ export * from './lib/pk-file-upload/pk-file-upload';
 // pk-sidenav
 export * from './lib/pk-sidenav/pk-sidenav.model';
 export * from './lib/pk-sidenav/pk-sidenav';
+
+// pk-locale
+export * from './lib/pk-locale/pk-locale.model';
+
+// pk-heatmap
+export * from './lib/pk-heatmap/pk-heatmap.model';
+export * from './lib/pk-heatmap/pk-heatmap';
+
+// pk-input-password
+export * from './lib/pk-input-password/pk-input-password';

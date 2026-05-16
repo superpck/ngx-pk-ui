@@ -4,6 +4,43 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.7.1] — 2026-05-16
+
+### Changed
+- **pk-datepicker** — upgraded to use the shared `PkLocale` model.
+  - Supports all 17 locales from `pk-locale` for month names, day names, localized action buttons, and placeholder hints.
+  - Thai (`th`) keeps Buddhist Era year formatting.
+  - Example page updated with multi-locale showcase and refreshed API docs.
+
+---
+
+## [2.7.0] — 2026-05-16
+
+### Added
+- **pk-input-password** — standalone password input field with show/hide toggle and optional 4-level strength indicator.
+  - Implements `ControlValueAccessor` — works with `[(ngModel)]` and reactive forms (`formControlName`).
+  - Strength meter: 4 levels (Weak / Fair / Good / Strong) based on length, uppercase, digits, special characters.
+  - Inputs: `label`, `inputId`, `autocomplete`, `showStrength`, `customClass`, `customStyle`
+
+---
+
+## [2.6.0] — 2026-05-16
+
+### Added
+- **pk-locale** — new global shared locale model for date/calendar strings across all components.
+  - Supports 17 locales: `en` · `th` · `lo` · `fr` · `es` · `pt` · `it` · `de` · `nl` · `zh` · `ja` · `ko` · `ru` · `vi` · `id` · `ar` · `hi`
+  - Each locale provides `monthNamesShort`, `monthNamesFull`, `dayNamesShort`, `dayNamesFull`, and `direction: 'ltr' | 'rtl'`
+  - Exported API: `PkLocale`, `PkLocaleData`, `PK_LOCALE_DATA`, `getPkLocaleData()`
+- **pk-heatmap** — GitHub-style contribution heatmap component.
+  - Full-width layout — fills its container naturally.
+  - 4 color schemes: `green` (default) · `blue` · `purple` · `orange`
+  - 17-locale day/month labels via `pk-locale` integration.
+  - Legend shows `0` and the maximum value in the dataset.
+  - Tooltip on hover with `tooltipFormat` override.
+  - Inputs: `data`, `startDate`, `endDate`, `colorScheme`, `locale`, `showLegend`, `showTooltip`, `tooltipFormat`, `dayLabels`, `monthLabels`
+
+---
+
 ## [2.5.0] — 2026-05-16
 
 ### Added

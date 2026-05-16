@@ -72,7 +72,7 @@ projects/
           pk-icon.model.ts      ← PkIconModel type
           pk-icon.ts            ← SVG icon component + Material Symbols mode
         pk-datagrid/            ← NgModule-based datagrid (sort, filter, resize, pagination, row detail)
-        pk-datepicker/          ← Datepicker with TH/EN locale, range, clear
+        pk-datepicker/          ← Datepicker with PkLocale support (17 locales), range, clear
         pk-progress/            ← Line/circle progress with status variants
         pk-treeview/            ← Hierarchical tree (NgModule-based)
         pk-select/              ← Single/multi select with optional search
@@ -93,6 +93,9 @@ projects/
           pk-sidenav.model.ts   ← PkSidenavGroup, PkSidenavItem, PkSidenavTheme, PkSidenavMode, PkSidenavPosition, PkSidenavThemeConfig
           pk-sidenav.ts         ← standalone component: left/right, full/icon/auto, multi-level, 4 themes, CSS-variable override
           pk-sidenav.html / .css
+        pk-input-password/
+          pk-input-password.ts  ← standalone component: show/hide toggle, ControlValueAccessor, optional strength meter
+          pk-input-password.html / .css
     src/styles/
       pk-ui.css                   ← single entry point — @imports all modules below
       pk-grid.css                 ← responsive 12-column grid
@@ -408,6 +411,16 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `parseMarkdown` | Function | `pk-markdown-viewer/pk-markdown-parser` |
 | `buildHtmlDocument` | Function | `pk-markdown-viewer/pk-markdown-parser` |
 | `PkMarkdownViewer` | Component | `pk-markdown-viewer/pk-markdown-viewer` |
+| `PkLocale` | Type alias | `pk-locale/pk-locale.model` |
+| `PkLocaleData` | Interface | `pk-locale/pk-locale.model` |
+| `PK_LOCALE_DATA` | Constant | `pk-locale/pk-locale.model` |
+| `getPkLocaleData` | Function | `pk-locale/pk-locale.model` |
+| `PkHeatmapDay` | Interface | `pk-heatmap/pk-heatmap.model` |
+| `PkHeatmapColorScheme` | Type alias | `pk-heatmap/pk-heatmap.model` |
+| `PkHeatmapLocale` | Type alias | `pk-heatmap/pk-heatmap.model` |
+| `PkHeatmapCell` | Interface | `pk-heatmap/pk-heatmap.model` |
+| `PkHeatmap` | Component | `pk-heatmap/pk-heatmap` |
+| `PkInputPassword` | Component | `pk-input-password/pk-input-password` |
 
 ---
 
@@ -418,7 +431,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - **`ng new` creates a subdirectory** — `ng new <name>` always nests files. When creating the workspace in the repo root, files need to be moved up manually.
 - **Browser flag removed** — `ng test --browsers=ChromeHeadless` fails; Vitest uses its own browser provider. Run `ng test ngx-pk-ui --no-watch` directly.
 - **pk-tabs is NgModule-based** — import `PkTabsModule` (not individual components). It uses `*ngFor` and `*ngTemplateOutlet` internally. Do NOT try to make it standalone — it was copied from a working project intentionally.
-- **Never use `{{ }}` inside `<pre><code>` blocks** — Angular template compiler evaluates interpolations even in HTML-escaped content. `&#123;&#123;` decodes to `{{` before template compilation, causing binding errors. Use `{{ '{' }}{{ '{' }} expr {{ '}' }}{{ '}' }}` — each brace as a separate interpolation. `{ { expr } }` (space-separated) also fails with NG5002 ICU parse error.
+- **Never use `{{ }}` inside `<pre><code>` blocks** — Angular template compiler evaluates interpolations even in HTML-escaped content. `&#123;&#123;` decodes to `{{` before template compilation, causing binding errors. `&#123;` alone also decodes to `{` which triggers ICU expression parsing. `&#64;` decodes to `@` which triggers control flow parsing. **Correct approach**: store code snippets as TypeScript string properties and use `{{ codeProperty }}` interpolation in a bare `<pre>` — Angular auto-escapes `{`, `}`, `@`, `<`, `>` in string interpolation. For simple single `{` in table cells, `{{ '{' }}` works (no preceding `@` context).
 - **`pkTooltip` does not work on `<pk-dg-column>`** — that component uses `host: { style: 'display: contents' }` so it has no bounding box. Apply `[pkTooltip]` to an inner `<span>` instead.
 - **`provideHttpClient()` required for HttpClient** — add to `providers` in `app.config.ts` when any component uses `inject(HttpClient)`.
 - **Datagrid NG0100 fix** — `PkDgHeaderComponent` reads `textContent` in `ngAfterViewInit` (fires after parent CD). Fix: moved to `ngAfterContentInit`. This prevents ExpressionChangedAfterItHasBeenCheckedError in Angular 19+.
@@ -435,7 +448,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.5.0` |
+| Library version | `2.7.1` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -445,7 +458,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-modal` | ✅ Built, tested (16 tests) — `lockScroll` input (default `true`): locks body scroll + compensates scrollbar width |
 | `pk-icon` | ✅ Built — `vertical-align: middle` fix; `PK_MATERIAL_ICON_SETS` constant added |
 | `pk-datagrid` | ✅ Built (NgModule) — row selection (single/multiple); bug fix: rows now clear correctly when array resets to `[]` |
-| `pk-datepicker` | ✅ Built |
+| `pk-datepicker` | ✅ Built — shared `PkLocale` support; 17 locales; localized labels/placeholders; Thai Buddhist Era year |
 | `pk-progress` | ✅ Built |
 | `pk-treeview` | ✅ Built (NgModule) |
 | `pk-select` | ✅ Built |
@@ -456,6 +469,9 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-file-upload` | ✅ Built, tested (14 tests) — drag & drop, browser-native preview (image/PDF/text), upload button, maxSize/maxFiles validation |
 | `pk-sidenav` | ✅ Built — left/right, full/icon/auto mode, multi-level, badge, 4 themes, CSS-variable override, content slots |
 | `pk-markdown-viewer` | ✅ Built, tested (18 tests) — `fileName` (fetch) + `content` (raw string); Print, Export .md, Export .html; light/dark theme; zero external deps |
+| `pk-locale` | ✅ Built — global shared locale model; 17 locales; `direction: 'ltr'\|'rtl'` |
+| `pk-heatmap` | ✅ Built, tested (16 tests) — full-width layout; 4 color schemes; 17-locale labels; legend 0/max; tooltip |
+| `pk-input-password` | ✅ Built — standalone, ControlValueAccessor, show/hide toggle, 4-level strength meter |
 | `pk-grid` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | `pk-btn` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
 | `pk-spinner` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
@@ -471,7 +487,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 
-**Test totals: 94 / 94 passing**
+**Test totals: 126 / 126 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper

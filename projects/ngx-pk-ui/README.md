@@ -63,6 +63,26 @@ npm publish dist/ngx-pk-ui
 - Calendar: `PkCalendar`, `PkCalendarEvent`, `PkCalendarView`, `PkEventType`, `PkEventPriority`, `PkCalendarAttachment`, `PkEventMoveResult`
 - File Upload: `PkFileUpload`, `PkUploadFile`, `PkUploadPreviewType`, `PkFileUploadPreviewSize`
 - Sidenav: `PkSidenav`, `PkSidenavGroup`, `PkSidenavItem`, `PkSidenavTheme`, `PkSidenavMode`, `PkSidenavPosition`, `PkSidenavThemeConfig`
+- Heatmap: `PkHeatmap`, `PkHeatmapDay`, `PkHeatmapColorScheme`, `PkHeatmapLocale`
+- Markdown Viewer: `PkMarkdownViewer`, `PkMarkdownTheme`, `parseMarkdown`, `buildHtmlDocument`
+- Locale: `PkLocale`, `PkLocaleData`, `PK_LOCALE_DATA`, `getPkLocaleData`
+- Input Password: `PkInputPassword`
+
+## pk-datepicker quick start
+
+```html
+<pk-datepicker [(ngModel)]="dateValue" locale="th" [setNull]="true" />
+<pk-datepicker [(ngModel)]="dateValue" locale="ja" startOfWeek="monday" />
+```
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `locale` | `PkLocale` | `'th'` | Locale for month/day labels, action buttons, placeholders; Thai uses Buddhist Era year |
+| `startOfWeek` | `'monday'\|'sunday'` | `'monday'` | First day of the week |
+| `minDate` | `Date \| null` | `null` | Minimum selectable date |
+| `maxDate` | `Date \| null` | `null` | Maximum selectable date |
+| `setNull` | `boolean` | `true` | Show clear button |
+
 
 ## CSS utility files
 
@@ -101,6 +121,9 @@ import { PkModalModule } from 'ngx-pk-ui';     // pk-modal (convenience)
 import { PkDatagridModule } from 'ngx-pk-ui';  // pk-datagrid
 import { PkTreeviewModule } from 'ngx-pk-ui';  // pk-treeview
 import { PkSidenav } from 'ngx-pk-ui';         // pk-sidenav
+import { PkHeatmap } from 'ngx-pk-ui';          // pk-heatmap
+import { PkMarkdownViewer } from 'ngx-pk-ui';   // pk-markdown-viewer
+import { getPkLocaleData } from 'ngx-pk-ui';    // pk-locale util
 ```
 
 ## pk-calendar quick start

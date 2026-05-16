@@ -1,0 +1,55 @@
+<div [class]="'pk-hm pk-hm--' + colorScheme()">
+
+  <!-- ── Month labels ──────────────────────────────────────────────────── -->
+  @if (monthLabels()) {
+  <div class="pk-hm__top">
+    @if (dayLabels()) { <div class="pk-hm__day-spacer"></div> }
+    <div class="pk-hm__months">
+      @for (m of _monthLabels(); track m.colIndex) {
+        <span class="pk-hm__month" [style.left.%]="m.colIndex / _totalWeeks() * 100">{{ m.label }}</span>
+      }
+    </div>
+  </div>
+  }
+
+  <!-- ── Body: day labels + grid ────────────────────────────────────────── -->
+  <div class="pk-hm__body">
+
+    @if (dayLabels()) {
+    <div class="pk-hm__days">
+      @for (d of _dayNames(); track $index) {
+        <span>{{ d }}</span>
+      }
+    </div>
+    }
+
+    <div class="pk-hm__grid">
+      @for (week of _grid(); track $index) {
+        <div class="pk-hm__week">
+          @for (cell of week; track $index) {
+            <div
+              [class]="'pk-hm__cell pk-hm__cell--' + (cell.isEmpty ? 'empty' : cell.level) + (cell.holiday ? ' pk-hm__cell--holiday' : '')"
+              (mouseenter)="onCellEnter($event, cell)"
+              (mouseleave)="onCellLeave()"
+            ></div>
+          }
+        </div>
+      }
+    </div>
+
+  </div>
+
+  <!-- ── Legend ────────────────────────────────────────────────────────── -->
+  @if (showLegend()) {
+  <div class="pk-hm__legend">
+    <span class="pk-hm__legend-label">0</span>
+    <div class="pk-hm__cell pk-hm__cell--0"></div>
+    <div class="pk-hm__cell pk-hm__cell--1"></div>
+    <div class="pk-hm__cell pk-hm__cell--2"></div>
+    <div class="pk-hm__cell pk-hm__cell--3"></div>
+    <div class="pk-hm__cell pk-hm__cell--4"></div>
+    <span class="pk-hm__legend-label">{{ _maxNo() }}</span>
+  </div>
+  }
+
+</div>

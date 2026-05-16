@@ -30,6 +30,38 @@ import { FormsModule } from '@angular/forms';
 import { DatepickerService } from './datepicker.service';
 import { HolidayService } from './holiday.service';
 import { Subscription } from 'rxjs';
+import { PkLocale, PK_LOCALE_DATA } from '../pk-locale/pk-locale.model';
+
+/** Maps PkLocale to BCP47 language tags for Intl.DateTimeFormat */
+const LOCALE_BCP47: Record<PkLocale, string> = {
+  en: 'en-US', th: 'th-TH', lo: 'lo-LA',
+  fr: 'fr-FR', es: 'es-ES', pt: 'pt-BR', it: 'it-IT', de: 'de-DE', nl: 'nl-NL',
+  zh: 'zh-CN', ja: 'ja-JP', ko: 'ko-KR',
+  ru: 'ru-RU',
+  vi: 'vi-VN', id: 'id-ID',
+  ar: 'ar-SA', hi: 'hi-IN',
+};
+
+/** Localized labels for Today button, Clear button, and input placeholder */
+const LOCALE_LABELS: Record<PkLocale, { today: string; clear: string; placeholder: string }> = {
+  en: { today: 'Today',          clear: 'Clear',    placeholder: 'DD/MM/YYYY' },
+  th: { today: 'วันนี้',        clear: 'ลบ',       placeholder: 'วว/ดด/ปปปป' },
+  lo: { today: 'ມື້ນີ້',       clear: 'ລຶບ',      placeholder: 'ວວ/ດດ/ປປປປ' },
+  fr: { today: "Aujourd'hui",   clear: 'Effacer',  placeholder: 'JJ/MM/AAAA' },
+  es: { today: 'Hoy',           clear: 'Limpiar',  placeholder: 'DD/MM/AAAA' },
+  pt: { today: 'Hoje',          clear: 'Limpar',   placeholder: 'DD/MM/AAAA' },
+  it: { today: 'Oggi',          clear: 'Cancella', placeholder: 'GG/MM/AAAA' },
+  de: { today: 'Heute',         clear: 'Löschen',  placeholder: 'TT.MM.JJJJ' },
+  nl: { today: 'Vandaag',       clear: 'Wissen',   placeholder: 'DD-MM-JJJJ' },
+  zh: { today: '今天',           clear: '清除',     placeholder: 'YYYY/MM/DD' },
+  ja: { today: '今日',           clear: 'クリア',   placeholder: 'YYYY/MM/DD' },
+  ko: { today: '오늘',           clear: '지우기',   placeholder: 'YYYY.MM.DD' },
+  ru: { today: 'Сегодня',       clear: 'Очистить', placeholder: 'ДД.ММ.ГГГГ' },
+  vi: { today: 'Hôm nay',       clear: 'Xóa',      placeholder: 'DD/MM/YYYY' },
+  id: { today: 'Hari ini',      clear: 'Hapus',    placeholder: 'DD/MM/YYYY' },
+  ar: { today: 'اليوم',         clear: 'مسح',      placeholder: 'DD/MM/YYYY' },
+  hi: { today: 'आज',            clear: 'मिटाएं',   placeholder: 'DD/MM/YYYY' },
+};
 
 interface Holiday {
   date: Date;
@@ -54,7 +86,7 @@ export class PkDatepickerComponent implements ControlValueAccessor, OnInit, OnDe
   @Input() disabled: boolean = false;
   @Input() setNull: boolean = true;
   @Input() dateInput: boolean = true;
-  @Input() locale: string = 'TH';
+  @Input() locale: PkLocale = 'en';
   @Input() minDate: Date | null = null;
   @Input() maxDate: Date | null = null;
   @Input() startOfWeek: 'monday' | 'sunday' = 'monday';
@@ -78,8 +110,17 @@ export class PkDatepickerComponent implements ControlValueAccessor, OnInit, OnDe
   private onTouched: () => void = () => { };
   private subscription?: Subscription;
 
+  /** 'TH' when locale is 'th' (enables Buddhist Era year +543), 'EN' otherwise */
   get localeMode(): 'TH' | 'EN' {
-    return String(this.locale || '').trim().toUpperCase() === 'TH' ? 'TH' : 'EN';
+    return this.locale === 'th' ? 'TH' : 'EN';
+  }
+
+  /** Localized labels: today, clear, placeholder */
+  get localeLabels() { return LOCALE_LABELS[this.locale]; }
+
+  /** Effective input placeholder — custom placeholder or locale default */
+  get inputPlaceholder(): string {
+    return this.placeholder || LOCALE_LABELS[this.locale].placeholder;
   }
 
   constructor(
@@ -158,26 +199,17 @@ export class PkDatepickerComponent implements ControlValueAccessor, OnInit, OnDe
 
   get formattedDate(): string {
     if (!this.innerValue) return '';
-
-    const options: Intl.DateTimeFormatOptions = {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    };
-
-    return this.localeMode === 'TH'
-      ? this.innerValue.toLocaleDateString('th-TH', { ...options, year: 'numeric' })
-      : this.innerValue.toLocaleDateString('en-US', options);
+    const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    return this.innerValue.toLocaleDateString(LOCALE_BCP47[this.locale], options);
   }
 
   get currentMonthYear(): string {
-    const options: Intl.DateTimeFormatOptions = {
-      month: 'long',
-      year: 'numeric'
-    };
-    return this.localeMode === 'TH'
-      ? this.currentMonth.toLocaleDateString('th-TH', options)
-      : this.currentMonth.toLocaleDateString('en-US', options);
+    const localeData = PK_LOCALE_DATA[this.locale];
+    const monthName = localeData.monthNamesFull[this.currentMonth.getMonth()];
+    const year = this.localeMode === 'TH'
+      ? this.currentMonth.getFullYear() + 543
+      : this.currentMonth.getFullYear();
+    return `${monthName} ${year}`;
   }
 
   get isTodayDisabled(): boolean {
@@ -201,14 +233,11 @@ export class PkDatepickerComponent implements ControlValueAccessor, OnInit, OnDe
   updateCalendar(): void {
     this.currentMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), 1);
 
+    const days = [...PK_LOCALE_DATA[this.locale].dayNamesShort];
     if (this.startOfWeek === 'monday') {
-      this.weekdays = this.localeMode === 'TH'
-        ? ['จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส', 'อา']
-        : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      this.weekdays = [...days.slice(1), days[0]]; // Mon–Sat, Sun
     } else {
-      this.weekdays = this.localeMode === 'TH'
-        ? ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส']
-        : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      this.weekdays = days; // Sun–Sat
     }
 
     this.daysInMonth = [];
@@ -237,13 +266,11 @@ export class PkDatepickerComponent implements ControlValueAccessor, OnInit, OnDe
   }
 
   generateMonths(): void {
-    this.months = Array.from({ length: 12 }, (_, i) => {
-      const date = new Date(2000, i, 1);
-      return {
-        name: date.toLocaleString(this.localeMode === 'TH' ? 'th-TH' : 'en-US', { month: 'long' }),
-        value: i
-      };
-    });
+    const monthNames = PK_LOCALE_DATA[this.locale].monthNamesFull;
+    this.months = Array.from({ length: 12 }, (_, i) => ({
+      name: monthNames[i],
+      value: i
+    }));
   }
 
   generateYears(): void {

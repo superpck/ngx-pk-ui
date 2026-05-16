@@ -1,7 +1,7 @@
 <div class="datepicker-container" [class.datepicker-container--open]="isOpen">
   <input type="text" [value]="formattedDate" [disabled]="disabled" [style]="style"
-    [placeholder]="placeholder? placeholder : (localeMode === 'TH' ? 'วว/ดด/ปปปป' : 'DD/MM/YYYY')"
-    [title]="placeholder? placeholder : (localeMode === 'TH' ? 'Click เพื่อเลือกวันที่' : 'Click for select date')"
+    [placeholder]="inputPlaceholder"
+    [title]="inputPlaceholder"
     (click)="togglePicker($event)" class="datepicker-input" [readonly]="!dateInput" (change)="onChangeDate($event)" />
   @if (isOpen) {
     <div class="datepicker-dropdown" [ngStyle]="dropdownStyles">
@@ -47,11 +47,11 @@
 
         <div class="calendar-footer">
           <button class="today-btn" (click)="selectToday()" [disabled]="isTodayDisabled">
-            {{ localeMode === 'TH' ? 'วันนี้' : 'Today' }}
+          {{ localeLabels.today }}
           </button>
           @if (setNull) {
             <button class="reset-btn" (click)="resetDate()" [disabled]="disabled">
-              {{ localeMode === 'TH' ? 'ลบ' : 'Clear' }}
+              {{ localeLabels.clear }}
             </button>
           }
         </div>
