@@ -20,6 +20,7 @@ export class App {
     { label: 'datepicker', link: '/pk-datepicker' },
     { label: 'file upload', link: '/pk-file-upload' },
     { label: 'icon', link: '/pk-icon' },
+    { label: 'markdown viewer', link: '/pk-markdown-viewer' },
     { label: 'modal', link: '/pk-modal' },
     { label: 'progress', link: '/pk-progress' },
     { label: 'select', link: '/pk-select' },

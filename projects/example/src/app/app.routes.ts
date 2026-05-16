@@ -32,6 +32,7 @@ export const routes: Routes = [
   { path: 'pk-tooltip', loadComponent: () => import('./pages/pk-tooltip/pk-tooltip-page').then(m => m.PkTooltipPage) },
   { path: 'pk-form', loadComponent: () => import('./pages/pk-form/pk-form-page').then(m => m.PkFormPage) },
   { path: 'pk-layout', loadComponent: () => import('./pages/pk-layout/pk-layout-page').then(m => m.PkLayoutPage) },
+  { path: 'pk-markdown-viewer', loadComponent: () => import('./pages/pk-markdown-viewer/pk-markdown-viewer-page').then(m => m.PkMarkdownViewerPage) },
   // Examples
   { path: 'examples/login', loadComponent: () => import('./pages/examples/login/login-example').then(m => m.LoginExample) },
   { path: 'examples/chat', loadComponent: () => import('./pages/examples/chat/chat-example').then(m => m.ChatExample) },
