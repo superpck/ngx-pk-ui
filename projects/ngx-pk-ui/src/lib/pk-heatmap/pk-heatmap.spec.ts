@@ -173,7 +173,7 @@ describe('PkHeatmap', () => {
     fixture.detectChanges();
 
     // Access component and call onCellEnter with a fake cell and event
-    const fakeCell: PkHeatmapCell = { date: new Date('2026-05-01'), no: 3, level: 2, isEmpty: false };
+    const fakeCell: PkHeatmapCell = { date: new Date('2026-05-01'), no: 3, level: 2, isEmpty: false, holiday: '' };
     const fakeEvent = { target: document.createElement('div') } as unknown as MouseEvent;
 
     // Temporarily enable tooltip so the formatter runs

@@ -1,0 +1,95 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pk-split__container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ── Direction ──────────────────────────────────────────── */
+
+.pk-split--horizontal {
+  flex-direction: row;
+}
+
+.pk-split--vertical {
+  flex-direction: column;
+}
+
+/* ── Panels ─────────────────────────────────────────────── */
+
+.pk-split__panel {
+  flex-shrink: 0;
+  flex-basis: 0;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+/* ── Gutter ─────────────────────────────────────────────── */
+
+.pk-split__gutter {
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e5e7eb;
+  transition: background 0.15s;
+  z-index: 1;
+}
+
+.pk-split--horizontal > .pk-split__gutter {
+  cursor: col-resize;
+}
+
+.pk-split--vertical > .pk-split__gutter {
+  cursor: row-resize;
+}
+
+.pk-split__gutter:hover,
+.pk-split--dragging .pk-split__gutter {
+  background: #d1d5db;
+}
+
+/* ── Handle bar ─────────────────────────────────────────── */
+
+.pk-split__gutter-handle {
+  background: #9ca3af;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+
+.pk-split--horizontal .pk-split__gutter-handle {
+  width: 3px;
+  height: 32px;
+}
+
+.pk-split--vertical .pk-split__gutter-handle {
+  width: 32px;
+  height: 3px;
+}
+
+.pk-split__gutter:hover .pk-split__gutter-handle,
+.pk-split--dragging .pk-split__gutter-handle {
+  background: #6b7280;
+}
+
+/* ── Dragging state ─────────────────────────────────────── */
+
+.pk-split--dragging {
+  user-select: none;
+}
+
+.pk-split--horizontal.pk-split--dragging {
+  cursor: col-resize;
+}
+
+.pk-split--vertical.pk-split--dragging {
+  cursor: row-resize;
+}

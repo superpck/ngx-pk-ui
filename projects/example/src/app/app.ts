@@ -23,6 +23,7 @@ export class App {
     { label: 'icon', link: '/pk-icon' },
     { label: 'input password', link: '/pk-input-password' },
     { label: 'markdown viewer', link: '/pk-markdown-viewer' },
+    { label: 'split', link: '/pk-split' },
     { label: 'modal', link: '/pk-modal' },
     { label: 'progress', link: '/pk-progress' },
     { label: 'select', link: '/pk-select' },

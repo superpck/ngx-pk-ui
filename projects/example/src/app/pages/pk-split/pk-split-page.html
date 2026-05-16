@@ -1,0 +1,150 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-split</h1>
+    <p class="demo-page-desc">
+      Resizable split pane — drag the divider to resize panels.
+      Supports <strong>horizontal</strong> (left / right) and <strong>vertical</strong> (top / bottom) layouts.
+      Touch-friendly.
+    </p>
+  </div>
+
+  <!-- ── Horizontal ──────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2>Horizontal (default)</h2>
+    <p>Drag the vertical divider left or right to resize the two panels.</p>
+
+    <pk-split class="split-demo" (sizeChange)="onSize($event)">
+      <pk-split-panel>
+        <div class="panel-content panel-content--blue">
+          <span class="panel-label">Left Panel</span>
+          <p>Drag the divider →</p>
+        </div>
+      </pk-split-panel>
+      <pk-split-panel>
+        <div class="panel-content panel-content--green">
+          <span class="panel-label">Right Panel</span>
+          <p>← Drag the divider</p>
+        </div>
+      </pk-split-panel>
+    </pk-split>
+
+    @if (lastSize()) {
+      <p class="size-output">
+        Left: <strong>{{ lastSize()![0].toFixed(1) }}%</strong> &nbsp;·&nbsp;
+        Right: <strong>{{ lastSize()![1].toFixed(1) }}%</strong>
+      </p>
+    }
+  </section>
+
+  <!-- ── Vertical ────────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2>Vertical</h2>
+    <p>Drag the horizontal divider up or down.</p>
+
+    <pk-split direction="vertical" class="split-demo split-demo--tall">
+      <pk-split-panel>
+        <div class="panel-content panel-content--purple">
+          <span class="panel-label">Top Panel</span>
+          <p>Resize ↕</p>
+        </div>
+      </pk-split-panel>
+      <pk-split-panel>
+        <div class="panel-content panel-content--orange">
+          <span class="panel-label">Bottom Panel</span>
+          <p>Resize ↕</p>
+        </div>
+      </pk-split-panel>
+    </pk-split>
+  </section>
+
+  <!-- ── Custom sizes ────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2>Custom options</h2>
+    <p><code>[initialSize]="30"</code> · <code>[minSize]="15"</code> · <code>[gutterSize]="10"</code></p>
+
+    <pk-split [initialSize]="30" [minSize]="15" [gutterSize]="10" class="split-demo">
+      <pk-split-panel>
+        <div class="panel-content panel-content--slate">
+          <span class="panel-label">30%</span>
+          <p>min 15%</p>
+        </div>
+      </pk-split-panel>
+      <pk-split-panel>
+        <div class="panel-content panel-content--teal">
+          <span class="panel-label">70%</span>
+          <p>min 15%</p>
+        </div>
+      </pk-split-panel>
+    </pk-split>
+  </section>
+
+  <!-- ── Code ────────────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2>Installation</h2>
+    <pre class="code-block"><code>{{ codeImport }}</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>Horizontal usage</h2>
+    <pre class="code-block"><code>{{ codeHorizontal }}</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>Vertical usage</h2>
+    <pre class="code-block"><code>{{ codeVertical }}</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>All options</h2>
+    <pre class="code-block"><code>{{ codeOptions }}</code></pre>
+  </section>
+
+  <!-- ── API ─────────────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2>PkSplit inputs / outputs</h2>
+    <div class="pk-table-responsive">
+      <table class="pk-table pk-table-primary pk-table-striped">
+        <thead>
+          <tr>
+            <th>Input / Output</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>direction</code></td>
+            <td><code>'horizontal' | 'vertical'</code></td>
+            <td><code>'horizontal'</code></td>
+            <td>Layout direction — left/right or top/bottom</td>
+          </tr>
+          <tr>
+            <td><code>initialSize</code></td>
+            <td><code>number</code></td>
+            <td><code>50</code></td>
+            <td>Starting size of the first panel as a percentage</td>
+          </tr>
+          <tr>
+            <td><code>minSize</code></td>
+            <td><code>number</code></td>
+            <td><code>10</code></td>
+            <td>Minimum percentage either panel can shrink to</td>
+          </tr>
+          <tr>
+            <td><code>gutterSize</code></td>
+            <td><code>number</code></td>
+            <td><code>6</code></td>
+            <td>Divider thickness in pixels</td>
+          </tr>
+          <tr>
+            <td><code>(sizeChange)</code></td>
+            <td><code>[number, number]</code></td>
+            <td>—</td>
+            <td>Emits <code>[sizeA%, sizeB%]</code> on every drag move</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

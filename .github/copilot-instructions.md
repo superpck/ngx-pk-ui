@@ -421,6 +421,9 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `PkHeatmapCell` | Interface | `pk-heatmap/pk-heatmap.model` |
 | `PkHeatmap` | Component | `pk-heatmap/pk-heatmap` |
 | `PkInputPassword` | Component | `pk-input-password/pk-input-password` |
+| `PkSplitDirection` | Type alias | `pk-split/pk-split.model` |
+| `PkSplitPanel` | Component | `pk-split/pk-split-panel` |
+| `PkSplit` | Component | `pk-split/pk-split` |
 
 ---
 
@@ -448,7 +451,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.7.1` |
+| Library version | `2.8.1` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -472,6 +475,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-locale` | ✅ Built — global shared locale model; 17 locales; `direction: 'ltr'\|'rtl'` |
 | `pk-heatmap` | ✅ Built, tested (16 tests) — full-width layout; 4 color schemes; 17-locale labels; legend 0/max; tooltip |
 | `pk-input-password` | ✅ Built — standalone, ControlValueAccessor, show/hide toggle, 4-level strength meter |
+| `pk-split` | ✅ Built, tested (8 tests) — horizontal/vertical resizable split pane; drag divider; touch support; `direction`, `initialSize`, `minSize`, `gutterSize`, `(sizeChange)` |
 | `pk-grid` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | `pk-btn` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
 | `pk-spinner` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
@@ -487,7 +491,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 
-**Test totals: 126 / 126 passing**
+**Test totals: 118 / 118 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper
@@ -496,6 +500,60 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - `pk-kanban` — drag-and-drop kanban board
 - `pk-image-viewer` — lightbox / image viewer (works with pk-file-upload previews)
 - `pk-command-palette` — keyboard-driven command palette (works with pk-sidenav)
+
+---
+
+## pk-split API reference
+
+Standalone component — resizable split pane with horizontal or vertical layout.
+
+```ts
+import { PkSplit, PkSplitPanel } from 'ngx-pk-ui';
+import type { PkSplitDirection } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkSplit, PkSplitPanel],
+})
+```
+
+```html
+<!-- Horizontal (left / right) — default -->
+<pk-split style="height: 400px">
+  <pk-split-panel>
+    <p>Left panel</p>
+  </pk-split-panel>
+  <pk-split-panel>
+    <p>Right panel</p>
+  </pk-split-panel>
+</pk-split>
+
+<!-- Vertical (top / bottom) -->
+<pk-split direction="vertical" style="height: 400px">
+  <pk-split-panel><p>Top panel</p></pk-split-panel>
+  <pk-split-panel><p>Bottom panel</p></pk-split-panel>
+</pk-split>
+
+<!-- Custom sizes -->
+<pk-split [initialSize]="30" [minSize]="15" [gutterSize]="8" (sizeChange)="onResize($event)">
+  <pk-split-panel>...</pk-split-panel>
+  <pk-split-panel>...</pk-split-panel>
+</pk-split>
+```
+
+**`PkSplit` inputs / outputs:**
+| Input/Output | Type | Default | Description |
+|---|---|---|---|
+| `direction` | `'horizontal'\|'vertical'` | `'horizontal'` | Layout direction — left/right or top/bottom |
+| `initialSize` | `number` | `50` | Starting size of the first panel as a percentage |
+| `minSize` | `number` | `10` | Minimum percentage either panel can shrink to |
+| `gutterSize` | `number` | `6` | Divider thickness in pixels |
+| `(sizeChange)` | `[number, number]` | — | Emits `[sizeA%, sizeB%]` on every drag move |
+
+**Notes:**
+- Both `PkSplit` and `PkSplitPanel` must be in `imports[]`.
+- `pk-split` host uses `display: block; width: 100%; height: 100%` — set an explicit height on the parent or via `style`.
+- Touch events are handled natively — works on mobile.
+- The gutter uses flexbox `flex-grow` ratio approach — percentages are accurate regardless of gutter size.
 
 ---
 

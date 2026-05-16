@@ -9,7 +9,7 @@
     <h2>Local options</h2>
     <div style="max-width: 420px;">
       <pk-autocomplete [options]="localOptions" placeholder="Type city name"
-          [(ngModel)]="selectedLocal" [customStyle]="{ width: '260px', height: '42px' }">
+          [(ngModel)]="selectedLocal" [customStyle]="{ width: '260px', height: '42px' }" [multiWord]="true">
       </pk-autocomplete>
     </div>
     <div class="result-box">Selected value: {{ selectedLocal ?? 'None' }}</div>
@@ -28,7 +28,7 @@
   <section class="demo-section">
     <h2>With ngModel</h2>
     <div style="max-width: 420px;">
-      <pk-autocomplete [options]="localOptions" placeholder="Bind with ngModel" [(ngModel)]="ngModelValue">
+      <pk-autocomplete [options]="localOptions" placeholder="Bind with ngModel" [(ngModel)]="ngModelValue" [multiWord]="true">
       </pk-autocomplete>
     </div>
     <div class="result-box">ngModel: {{ ngModelValue ?? 'null' }}</div>
@@ -36,79 +36,70 @@
 
   <section class="demo-section">
     <h2>Usage</h2>
-    <pre class="code-block"><code>import &#123; FormsModule &#125; from '&#64;angular/forms';
-import &#123; PkAutocompleteComponent, type AutocompleteOption &#125; from 'ngx-pk-ui';
+    <pre class="code-block"><code>{{ codeUsage }}</code></pre>
+  </section>
 
-&#64;Component(&#123;
-  imports: [FormsModule, PkAutocompleteComponent],
-&#125;)
-export class AnyPage &#123;
-  options: AutocompleteOption[] = [
-    &#123; label: 'Bangkok', value: 'bangkok' &#125;,
-    &#123; label: 'Phuket', value: 'phuket' &#125;,
-  ];
+  <!-- ── Multi-word text mode ─────────────────────────────── -->
+  <section class="demo-section">
+    <h2>Multi-word (typeahead style)</h2>
+    <p>
+      ใช้ <code>[multiWord]="true"</code> — พิมพ์คำ → เลือก → กด <kbd>Space</kbd> → พิมพ์คำต่อไป
+      dropdown กรองเฉพาะคำหลัง space ล่าสุด ค่าที่ได้เป็น labels ต่อกัน
+    </p>
+    <div style="max-width: 480px;">
+      <pk-autocomplete
+        [options]="localOptions"
+        [multiWord]="true"
+        [minChars]="1"
+        placeholder="พิมพ์ B → Bangkok → Space → K → Khon Kaen…"
+        [(ngModel)]="multiWordValue">
+      </pk-autocomplete>
+    </div>
+    <div class="result-box">Value: <strong>{{ multiWordValue || 'None' }}</strong></div>
+    <p style="margin-top: 8px; font-size: 0.85rem; color: #6b7280;">
+      ลอง: พิมพ์ <code>B</code> → เลือก <em>Bangkok</em> → Space → <code>K</code> → เลือก <em>Khon Kaen</em> → Space → <code>L</code> → เลือก <em>Lopburi</em>
+    </p>
+    <pre class="code-block" style="margin-top: 12px;"><code>{{ codeMultiWord }}</code></pre>
+  </section>
 
-  selected: string | null = null;
-&#125;
-
-&lt;pk-autocomplete
-  [options]="options"
-  placeholder="Search"
-  [(ngModel)]="selected"
-/&gt;</code></pre>
+  <section class="demo-section">
+    <h2>Multi-select (chips)</h2>
+    <p>
+      ใช้ <code>[multi]="true"</code> — เลือกได้หลายรายการ แต่ละรายการแสดงเป็น chip
+      กด × บน chip เพื่อยกเลิก value เป็น space-joined labels เช่น
+      <em>"Bangkok Khon Kaen Lopburi"</em>
+    </p>
+    <div style="max-width: 480px;">
+      <pk-autocomplete
+        [options]="localOptions"
+        [multi]="true"
+        [minChars]="0"
+        placeholder="เลือกจังหวัด…"
+        [(ngModel)]="multiValue">
+      </pk-autocomplete>
+    </div>
+    <div class="result-box">Value: <strong>{{ multiValue || 'None' }}</strong></div>
+    <pre class="code-block" style="margin-top: 12px;"><code>{{ codeMulti }}</code></pre>
   </section>
 
   <section class="demo-section">
     <h2>API</h2>
-    <table class="api-table">
-      <tr>
-        <th>Input</th>
-        <th>Type</th>
-        <th>Default</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td><code>options</code></td>
-        <td><code>AutocompleteOption[]</code></td>
-        <td><code>[]</code></td>
-        <td>Local options data source</td>
-      </tr>
-      <tr>
-        <td><code>fetchFn</code></td>
-        <td><code>(term) =&gt; Promise&lt;AutocompleteOption[]&gt;</code></td>
-        <td><code>null</code></td>
-        <td>Async fetch function for remote search</td>
-      </tr>
-      <tr>
-        <td><code>placeholder</code></td>
-        <td><code>string</code></td>
-        <td><code>'ค้นหา...'</code></td>
-        <td>Input placeholder text</td>
-      </tr>
-      <tr>
-        <td><code>minChars</code></td>
-        <td><code>number</code></td>
-        <td><code>1</code></td>
-        <td>Minimum characters before async fetch</td>
-      </tr>
-      <tr>
-        <td><code>debounceTime</code></td>
-        <td><code>number</code></td>
-        <td><code>300</code></td>
-        <td>Debounce time for async searching</td>
-      </tr>
-      <tr>
-        <td><code>disabled</code></td>
-        <td><code>boolean</code></td>
-        <td><code>false</code></td>
-        <td>Disable component interaction</td>
-      </tr>
-      <tr>
-        <td><code>[(ngModel)]</code></td>
-        <td><code>any</code></td>
-        <td>—</td>
-        <td>Two-way selected value binding</td>
-      </tr>
-    </table>
+    <div class="pk-table-responsive">
+      <table class="pk-table pk-table-primary pk-table-striped">
+        <thead>
+          <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>options</code></td><td><code>AutocompleteOption[]</code></td><td><code>[]</code></td><td>Local options data source</td></tr>
+          <tr><td><code>fetchFn</code></td><td><code>(term) =&gt; Promise&lt;AutocompleteOption[]&gt;</code></td><td><code>null</code></td><td>Async fetch function for remote search</td></tr>
+          <tr><td><code>placeholder</code></td><td><code>string</code></td><td><code>'ค้นหา...'</code></td><td>Input placeholder text</td></tr>
+          <tr><td><code>multi</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Enable multi-select chip mode</td></tr>
+          <tr><td><code>minChars</code></td><td><code>number</code></td><td><code>1</code></td><td>Minimum characters before filtering / fetch</td></tr>
+          <tr><td><code>debounceTime</code></td><td><code>number</code></td><td><code>300</code></td><td>Debounce time for async search (ms)</td></tr>
+          <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Disable component interaction</td></tr>
+          <tr><td><code>[(ngModel)]</code></td><td><code>any</code></td><td>—</td><td>Single: bound option value · Multi: space-joined labels</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 </div>

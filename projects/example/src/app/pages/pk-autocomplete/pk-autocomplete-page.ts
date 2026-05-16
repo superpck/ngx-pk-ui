@@ -15,6 +15,8 @@ export class PkAutocompletePage {
   selectedLocal: string | null = null;
   selectedAsync: string | null = null;
   ngModelValue: string | null = null;
+  multiValue = '';
+  multiWordValue = '';
 
   localOptions: AutocompleteOption[] = [
     { label: 'Bangkok', value: 'bangkok' },
@@ -23,6 +25,9 @@ export class PkAutocompletePage {
     { label: 'Khon Kaen', value: 'khonkaen' },
     { label: 'Songkhla', value: 'songkhla' },
     { label: 'Ubon Ratchathani', value: 'ubonratchathani' },
+    { label: 'Lopburi', value: 'lopburi' },
+    { label: 'Nakhon Ratchasima', value: 'nakhonratchasima' },
+    { label: 'Chiang Rai', value: 'chiangrai' },
   ];
 
   private allCountries: AutocompleteOption[] = [
@@ -49,4 +54,45 @@ export class PkAutocompletePage {
     return this.allCountries.filter(item => item.label.toLowerCase().includes(query));
   };
 
+  readonly codeUsage = `import { FormsModule } from '@angular/forms';
+import { PkAutocompleteComponent, type AutocompleteOption } from 'ngx-pk-ui';
+
+@Component({
+  imports: [FormsModule, PkAutocompleteComponent],
+})
+export class AnyPage {
+  options: AutocompleteOption[] = [
+    { label: 'Bangkok', value: 'bangkok' },
+    { label: 'Phuket', value: 'phuket' },
+  ];
+
+  selected: string | null = null;
+}
+
+<pk-autocomplete
+  [options]="options"
+  placeholder="Search"
+  [(ngModel)]="selected"
+/>`;
+
+  readonly codeMulti = `<pk-autocomplete
+  [options]="cityOptions"
+  [multi]="true"
+  [minChars]="0"
+  placeholder="เลือกจังหวัด…"
+  [(ngModel)]="selectedCities"
+/>
+
+// value: 'Bangkok Khon Kaen Lopburi'`;
+
+  readonly codeMultiWord = `<pk-autocomplete
+  [options]="cityOptions"
+  [multiWord]="true"
+  [minChars]="1"
+  placeholder="พิมพ์ → เลือก → Space → พิมพ์ต่อ…"
+  [(ngModel)]="selected"
+/>
+
+// พิมพ์ B → เลือก Bangkok → Space → พิมพ์ K → เลือก Khon Kaen
+// value: 'Bangkok Khon Kaen'`;
 }
