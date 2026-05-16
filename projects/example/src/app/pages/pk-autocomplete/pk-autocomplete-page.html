@@ -90,10 +90,11 @@
           <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>options</code></td><td><code>AutocompleteOption[]</code></td><td><code>[]</code></td><td>Local options data source</td></tr>
+          <tr><td><code>options</code></td><td><code>string[] | AutocompleteOption[]</code></td><td><code>[]</code></td><td>Local options — plain strings or <code>{{ '{' }} label, value {{ '}' }}</code> objects</td></tr>
           <tr><td><code>fetchFn</code></td><td><code>(term) =&gt; Promise&lt;AutocompleteOption[]&gt;</code></td><td><code>null</code></td><td>Async fetch function for remote search</td></tr>
           <tr><td><code>placeholder</code></td><td><code>string</code></td><td><code>'ค้นหา...'</code></td><td>Input placeholder text</td></tr>
           <tr><td><code>multi</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Enable multi-select chip mode</td></tr>
+          <tr><td><code>multiWord</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Filter by last typed word (after space) — for tag / mention style input</td></tr>
           <tr><td><code>minChars</code></td><td><code>number</code></td><td><code>1</code></td><td>Minimum characters before filtering / fetch</td></tr>
           <tr><td><code>debounceTime</code></td><td><code>number</code></td><td><code>300</code></td><td>Debounce time for async search (ms)</td></tr>
           <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Disable component interaction</td></tr>

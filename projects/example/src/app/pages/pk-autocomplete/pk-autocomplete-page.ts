@@ -55,16 +55,19 @@ export class PkAutocompletePage {
   };
 
   readonly codeUsage = `import { FormsModule } from '@angular/forms';
-import { PkAutocompleteComponent, type AutocompleteOption } from 'ngx-pk-ui';
+import { PkAutocompleteComponent } from 'ngx-pk-ui';
 
 @Component({
   imports: [FormsModule, PkAutocompleteComponent],
 })
 export class AnyPage {
-  options: AutocompleteOption[] = [
-    { label: 'Bangkok', value: 'bangkok' },
-    { label: 'Phuket', value: 'phuket' },
-  ];
+  // Simple string array (new)
+  options: string[] = ['Bangkok', 'Phuket', 'Chiang Mai'];
+
+  // Or AutocompleteOption[] for custom label/value (still supported)
+  // options: AutocompleteOption[] = [
+  //   { label: 'Bangkok', value: 'bkk' },
+  // ];
 
   selected: string | null = null;
 }
