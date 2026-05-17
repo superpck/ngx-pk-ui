@@ -1,6 +1,7 @@
 <div class="pk-layout">
 
   <!-- ── Top Navbar ──────────────────────────────────────────── -->
+  @if (!isExampleRoute()) {
   <nav class="pk-navbar">
     <!-- Hamburger (mobile only — shown via CSS) -->
     <button class="pk-navbar__hamburger" type="button" aria-label="Toggle navigation" (click)="toggleMobileMenu()">
@@ -26,13 +27,15 @@
     <!-- Right-side slot (avatar / actions) -->
     <div class="pk-navbar__end"></div>
   </nav>
+  }
 
   <!-- ── Mobile Backdrop ─────────────────────────────────────── -->
-  @if (mobileMenuOpen()) {
+  @if (!isExampleRoute() && mobileMenuOpen()) {
   <button class="pk-layout__backdrop pk-layout__backdrop--open" type="button" aria-label="Close navigation" (click)="closeMobileMenu()"></button>
   }
 
   <!-- ── Sidebar ─────────────────────────────────────────────── -->
+  @if (!isExampleRoute()) {
   <nav class="pk-sidebar" [class.pk-sidebar--open]="mobileMenuOpen()" (click)="onSidebarClick($event)">
     <div class="pk-sidebar__section">
       <span class="pk-sidebar__heading">General</span>
@@ -60,9 +63,18 @@
       }
     </div>
   </nav>
+  }
+
+  <!-- ── Back button (example pages only) ───────────────────── -->
+  @if (isExampleRoute()) {
+  <a class="app-back-btn" routerLink="/home">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    back to ngx-pk-ui
+  </a>
+  }
 
   <!-- ── Main Content ────────────────────────────────────────── -->
-  <main class="pk-layout__main">
+  <main class="pk-layout__main" [class.pk-layout__main--fullscreen]="isExampleRoute()">
     <router-outlet />
   </main>
 
