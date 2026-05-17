@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadComponent: () => import('./pages/home/home').then(m => m.Home) },
+  { path: 'license', loadComponent: () => import('./pages/license/license').then(m => m.License) },
   { path: 'pk-accordion', loadComponent: () => import('./pages/pk-accordion/pk-accordion-page').then(m => m.PkAccordionPage) },
   { path: 'pk-calendar', loadComponent: () => import('./pages/pk-calendar/pk-calendar-page').then(m => m.PkCalendarPage) },
   { path: 'pk-timeline', loadComponent: () => import('./pages/pk-timeline/pk-timeline-page').then(m => m.PkTimelinePage) },
