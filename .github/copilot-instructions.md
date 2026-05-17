@@ -443,6 +443,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - **Datagrid rows not clearing on empty array** — When `items` changes from a populated array to `[]` or `null`, old rows stayed rendered. Root cause: `updateDisplayedItems()` returned early on empty without incrementing `displayedItemsVersion`, so `PkDgRowsDirective.ngDoCheck()` saw no version change and skipped `renderItems()`. Fix: always increment `displayedItemsVersion` (and reset `pagination.rowCount = 0`) even when items is empty.
 - **`pk-icon` floats above adjacent text** — `inline-flex` elements use `vertical-align: baseline` by default, which misaligns icons when placed next to text. Fix: add `vertical-align: middle` to `:host` in `pk-icon.css`.
 - **`PK_MATERIAL_ICON_SETS` for material-symbols check** — use the exported constant `PK_MATERIAL_ICON_SETS` (from `pk-icon.model.ts`) instead of repeating `iconSet() === 'material-symbols' || iconSet() === 'google' || iconSet() === 'mat'`.
+- **`contenteditable` dynamic content not styled** — Elements injected by `document.execCommand()` (e.g. `<blockquote>`, `<h1>`, `<ul>`) do NOT receive Angular's `_ngcontent-xxx` attribute, so component-scoped CSS like `.pk-ta__editor blockquote` is compiled to `.pk-ta__editor blockquote[_ngcontent-xxx]` and never matches. Fix: use `:host ::ng-deep .pk-ta__editor blockquote` for any style targeting dynamically-inserted editor content.
 
 ---
 
@@ -451,7 +452,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.8.1` |
+| Library version | `2.8.2` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -476,6 +477,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-heatmap` | ✅ Built, tested (16 tests) — full-width layout; 4 color schemes; 17-locale labels; legend 0/max; tooltip |
 | `pk-input-password` | ✅ Built — standalone, ControlValueAccessor, show/hide toggle, 4-level strength meter |
 | `pk-split` | ✅ Built, tested (8 tests) — horizontal/vertical resizable split pane; drag divider; touch support; `direction`, `initialSize`, `minSize`, `gutterSize`, `(sizeChange)` |
+| `pk-textarea` | ✅ Built, tested (11 tests) — rich text editor: bold/italic/underline/strike, text colour, **highlight color**, font name (18 Google Fonts via `pk-font-*`), font size (small/normal/large/h1-h3), ordered/unordered lists, **blockquote**, dark theme, 3 view modes (Edit/HTML/Text); standalone, ControlValueAccessor (`PkTextareaValue { html, text }`); `::ng-deep` used for dynamic editor content styles |
 | `pk-grid` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | `pk-btn` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
 | `pk-spinner` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
@@ -491,7 +493,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 
-**Test totals: 118 / 118 passing**
+**Test totals: 129 / 129 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper

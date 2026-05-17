@@ -29,6 +29,7 @@ export class App {
     { label: 'select', link: '/pk-select' },
     { label: 'sidenav', link: '/pk-sidenav' },
     { label: 'tabs', link: '/pk-tabs' },
+    { label: 'textarea', link: '/pk-textarea' },
     { label: 'timeline', link: '/pk-timeline' },
     { label: 'toastr', link: '/pk-toastr' },
     { label: 'tooltip', link: '/pk-tooltip' },

@@ -112,3 +112,7 @@ export * from './lib/pk-input-password/pk-input-password';
 export * from './lib/pk-split/pk-split.model';
 export * from './lib/pk-split/pk-split-panel';
 export * from './lib/pk-split/pk-split';
+
+// pk-textarea
+export * from './lib/pk-textarea/pk-textarea.model';
+export * from './lib/pk-textarea/pk-textarea';

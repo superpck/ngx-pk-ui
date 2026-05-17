@@ -1,0 +1,244 @@
+<div class="pk-ta"
+     [class.pk-ta--dark]="theme() === 'dark'"
+     [class.pk-ta--disabled]="isDisabled()"
+     [ngClass]="customClass()"
+     [ngStyle]="customStyle()">
+
+  <!-- ── Toolbar bar ──────────────────────────────────────────────────────── -->
+  <div class="pk-ta__toolbar-bar">
+
+    <!-- Toggle button (always visible) -->
+    <button class="pk-ta__toggle-btn"
+            type="button"
+            (mousedown)="$event.preventDefault()"
+            (click)="toggleToolbar()"
+            [title]="toolbarVisible() ? 'Hide toolbar' : 'Show toolbar'">
+      <svg width="14" height="12" viewBox="0 0 14 12" fill="currentColor">
+        <rect y="0"  width="14" height="2" rx="1"/>
+        <rect y="5"  width="14" height="2" rx="1"/>
+        <rect y="10" width="14" height="2" rx="1"/>
+      </svg>
+    </button>
+
+    @if (toolbarVisible()) {
+      <div class="pk-ta__toolbar" (mousedown)="$event.preventDefault()">
+
+        <!-- Bold / Italic / Underline / Strikethrough -->
+        <div class="pk-ta__toolbar-group">
+          <button class="pk-ta__toolbar-btn"
+                  type="button"
+                  [class.pk-ta__toolbar-btn--active]="activeStates().bold"
+                  (click)="execFormat('bold')"
+                  title="Bold"><b>B</b></button>
+          <button class="pk-ta__toolbar-btn"
+                  type="button"
+                  [class.pk-ta__toolbar-btn--active]="activeStates().italic"
+                  (click)="execFormat('italic')"
+                  title="Italic"><em>I</em></button>
+          <button class="pk-ta__toolbar-btn"
+                  type="button"
+                  [class.pk-ta__toolbar-btn--active]="activeStates().underline"
+                  (click)="execFormat('underline')"
+                  title="Underline"><u>U</u></button>
+          <button class="pk-ta__toolbar-btn"
+                  type="button"
+                  [class.pk-ta__toolbar-btn--active]="activeStates().strike"
+                  (click)="execFormat('strikeThrough')"
+                  title="Strikethrough"><s>S</s></button>
+        </div>
+
+        <div class="pk-ta__toolbar-divider"></div>
+
+        <!-- Text color + Highlight color -->
+        <div class="pk-ta__toolbar-group">
+          <label class="pk-ta__toolbar-btn pk-ta__color-wrap"
+                 title="Text color"
+                 (mousedown)="onColorMouseDown($event)">
+            <span class="pk-ta__color-icon">A</span>
+            <span class="pk-ta__color-swatch" [style.background]="selectedColor()"></span>
+            <input type="color"
+                   class="pk-ta__color-input"
+                   [value]="selectedColor()"
+                   (change)="onColorChange($event)">
+          </label>
+          <label class="pk-ta__toolbar-btn pk-ta__color-wrap"
+                 title="Highlight color"
+                 (mousedown)="onHighlightMouseDown($event)">
+            <span class="pk-ta__color-icon pk-ta__color-icon--highlight" [style.background]="selectedHighlight()">A</span>
+            <span class="pk-ta__color-swatch" style="background:transparent"></span>
+            <input type="color"
+                   class="pk-ta__color-input"
+                   [value]="selectedHighlight()"
+                   (change)="onHighlightChange($event)">
+          </label>
+        </div>
+
+        <div class="pk-ta__toolbar-divider"></div>
+
+        <!-- Font name dropdown -->
+        <div class="pk-ta__toolbar-group">
+          <div class="pk-ta__dropdown">
+            <button class="pk-ta__toolbar-btn pk-ta__dropdown-trigger"
+                    type="button"
+                    (click)="toggleFontDropdown()">
+              Font&nbsp;<span class="pk-ta__chevron">▾</span>
+            </button>
+            @if (fontDropdownOpen()) {
+              <div class="pk-ta__dropdown-menu pk-ta__dropdown-menu--fonts">
+                @for (font of fonts; track font.fontClass) {
+                  <button class="pk-ta__dropdown-item"
+                          type="button"
+                          [class]="font.fontClass"
+                          (mousedown)="$event.preventDefault()"
+                          (click)="applyFontName(font.fontClass)">
+                    {{ font.label }}
+                  </button>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="pk-ta__toolbar-divider"></div>
+
+        <!-- Font size dropdown -->
+        <div class="pk-ta__toolbar-group">
+          <div class="pk-ta__dropdown">
+            <button class="pk-ta__toolbar-btn pk-ta__dropdown-trigger"
+                    type="button"
+                    (click)="toggleSizeDropdown()">
+              Size&nbsp;<span class="pk-ta__chevron">▾</span>
+            </button>
+            @if (sizeDropdownOpen()) {
+              <div class="pk-ta__dropdown-menu">
+                <button class="pk-ta__dropdown-item" style="font-size:0.75em"
+                        type="button"
+                        (mousedown)="$event.preventDefault()"
+                        (click)="applyFontSize('small')">Small</button>
+                <button class="pk-ta__dropdown-item"
+                        type="button"
+                        (mousedown)="$event.preventDefault()"
+                        (click)="applyFontSize('normal')">Normal</button>
+                <button class="pk-ta__dropdown-item" style="font-size:1.3em"
+                        type="button"
+                        (mousedown)="$event.preventDefault()"
+                        (click)="applyFontSize('large')">Large</button>
+                <button class="pk-ta__dropdown-item" style="font-size:1.8em;font-weight:700;line-height:1.2"
+                        type="button"
+                        (mousedown)="$event.preventDefault()"
+                        (click)="applyFontSize('h1')">H1</button>
+                <button class="pk-ta__dropdown-item" style="font-size:1.4em;font-weight:700;line-height:1.2"
+                        type="button"
+                        (mousedown)="$event.preventDefault()"
+                        (click)="applyFontSize('h2')">H2</button>
+                <button class="pk-ta__dropdown-item" style="font-size:1.1em;font-weight:700"
+                        type="button"
+                        (mousedown)="$event.preventDefault()"
+                        (click)="applyFontSize('h3')">H3</button>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="pk-ta__toolbar-divider"></div>
+
+        <!-- Lists -->
+        <div class="pk-ta__toolbar-group">
+          <button class="pk-ta__toolbar-btn"
+                  type="button"
+                  (click)="execFormat('insertOrderedList')"
+                  title="Ordered list">
+            <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor">
+              <text x="0" y="6"  font-size="5" font-family="monospace">1.</text>
+              <rect x="5" y="2"  width="11" height="2" rx="1"/>
+              <text x="0" y="13" font-size="5" font-family="monospace">2.</text>
+              <rect x="5" y="9"  width="11" height="2" rx="1"/>
+            </svg>
+          </button>
+          <button class="pk-ta__toolbar-btn"
+                  type="button"
+                  (click)="execFormat('insertUnorderedList')"
+                  title="Unordered list">
+            <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor">
+              <circle cx="2" cy="4"  r="1.5"/>
+              <rect   x="5" y="2"    width="11" height="2" rx="1"/>
+              <circle cx="2" cy="10" r="1.5"/>
+              <rect   x="5" y="8"    width="11" height="2" rx="1"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="pk-ta__toolbar-divider"></div>
+
+        <!-- Blockquote -->
+        <div class="pk-ta__toolbar-group">
+          <button class="pk-ta__toolbar-btn"
+                  type="button"
+                  [class.pk-ta__toolbar-btn--active]="activeStates().blockquote"
+                  (click)="toggleBlockquote()"
+                  title="Blockquote">
+            <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor">
+              <path d="M1 1h5v6l-2 5H1l2-5H1V1zm7 0h5v6l-2 5H8l2-5H8V1z"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Spacer pushes view-mode buttons to the right -->
+        <div class="pk-ta__toolbar-spacer"></div>
+
+        <!-- View mode -->
+        <div class="pk-ta__toolbar-group">
+          <button class="pk-ta__toolbar-btn"
+                  type="button"
+                  [class.pk-ta__toolbar-btn--active]="mode() === 'edit'"
+                  (click)="setMode('edit')"
+                  title="Edit">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+              <path d="M9.5 1.5l3 3-8 8H1.5v-3l8-8z"/>
+            </svg>
+          </button>
+          <button class="pk-ta__toolbar-btn pk-ta__toolbar-btn--monospace"
+                  type="button"
+                  [class.pk-ta__toolbar-btn--active]="mode() === 'html'"
+                  (click)="setMode('html')"
+                  title="View HTML source">&lt;/&gt;</button>
+          <button class="pk-ta__toolbar-btn pk-ta__toolbar-btn--monospace"
+                  type="button"
+                  [class.pk-ta__toolbar-btn--active]="mode() === 'text'"
+                  (click)="setMode('text')"
+                  title="Plain text">Aa</button>
+        </div>
+
+      </div>
+    }
+  </div>
+
+  <!-- ── Content area ──────────────────────────────────────────────────────── -->
+  <div class="pk-ta__content">
+
+    <!-- Editable div — always in DOM to preserve content across mode switches -->
+    <div class="pk-ta__editor"
+         [class.pk-ta__editor--hidden]="mode() !== 'edit'"
+         [style.min-height]="minHeight()"
+         [attr.contenteditable]="isDisabled() ? 'false' : 'true'"
+         [attr.data-placeholder]="placeholder()"
+         #editor
+         (input)="onEditorInput()"
+         (keyup)="onEditorKeyUp()"
+         (mouseup)="onEditorMouseUp()"
+         (blur)="onEditorBlur()">
+    </div>
+
+    <!-- HTML source view (read-only) -->
+    @if (mode() === 'html') {
+      <pre class="pk-ta__view" [style.min-height]="minHeight()">{{ htmlContent() }}</pre>
+    }
+
+    <!-- Plain text view (read-only) -->
+    @if (mode() === 'text') {
+      <textarea class="pk-ta__view" readonly [style.min-height]="minHeight()"
+                [value]="textContent()"></textarea>
+    }
+
+  </div>
+</div>

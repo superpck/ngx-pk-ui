@@ -4,6 +4,12 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.8.2]
+
+- **pk-textarea**: add **Highlight color** toolbar button — applies text background color via `execCommand('hiliteColor')` (default `#ffff00`); selection preserved across the native color dialog
+- **pk-textarea**: add **Blockquote** toolbar button — toggles `<blockquote>` block via `execCommand('formatBlock')`; active state tracked; click again reverts to `<p>`; styled with left border (`4px solid #94a3b8`), italic, 0.8 opacity
+- **pk-textarea**: fix rich-text element styles (h1–h3, ul, ol, li, a, blockquote) not applying to dynamically-injected content — replaced plain descendant selectors with `::ng-deep` to bypass Angular View Encapsulation attribute matching
+
 ## [2.8.1]
 
 - **pk-autocomplete**: fix search not working when input contains spaces — `multiWord` mode now enabled by default in Local options and ngModel examples; component uses last-word query (`currentQuerySignal`) instead of full text when `multiWord=true`
