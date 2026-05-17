@@ -1,0 +1,27 @@
+<svg
+  #svgEl
+  [attr.width]="size()"
+  [attr.height]="size()"
+  [attr.viewBox]="'0 0 ' + _totalSize() + ' ' + _totalSize()"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  [style.display]="_error() ? 'none' : 'block'"
+  shape-rendering="crispEdges"
+>
+  <rect x="0" y="0" [attr.width]="_totalSize()" [attr.height]="_totalSize()" [attr.fill]="lightColor()" />
+  <path [attr.d]="_darkPath()" [attr.fill]="darkColor()" />
+  @if (logo()) {
+    <image
+      [attr.href]="logo()"
+      [attr.x]="_logoOffset()"
+      [attr.y]="_logoOffset()"
+      [attr.width]="_logoSizePx()"
+      [attr.height]="_logoSizePx()"
+      preserveAspectRatio="xMidYMid meet"
+    />
+  }
+</svg>
+
+@if (_error()) {
+  <div class="pk-qr__error">{{ _error() }}</div>
+}

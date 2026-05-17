@@ -4,6 +4,11 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.10.0]
+
+- **pk-barcode**: new standalone component — generates barcodes as inline SVG; supports **Code 128**, **Code 39**, **EAN-13**, **EAN-8**; pure TypeScript encoder (zero external deps); inputs: `value`, `format`, `width`, `height`, `showText`, `lineColor`, `backgroundColor`; outputs: `downloadSvg()`, `downloadPng()`
+- **pk-qrcode**: new standalone component — generates QR codes as inline SVG; supports versions 1–40, error correction levels **L / M / Q / H**, 8 mask patterns with full ISO 18004 penalty scoring; inputs: `value`, `ecLevel`, `size`, `darkColor`, `lightColor`, `logo`, `logoSize`, `margin`; outputs: `downloadSvg()`, `downloadPng()`; center logo auto-upgrades EC level to Q
+
 ## [2.9.0]
 
 - **pk-textarea**: add **Highlight color** toolbar button — applies text background color via `execCommand('hiliteColor')` (default `#ffff00`); selection preserved across the native color dialog

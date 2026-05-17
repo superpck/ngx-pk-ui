@@ -96,6 +96,18 @@ projects/
         pk-input-password/
           pk-input-password.ts  ← standalone component: show/hide toggle, ControlValueAccessor, optional strength meter
           pk-input-password.html / .css
+        pk-barcode/
+          pk-barcode.model.ts   ← PkBarcodeFormat type alias
+          pk-barcode-encoder.ts ← pure TS encoder: Code128 / Code39 / EAN-13 / EAN-8
+          pk-barcode.ts         ← standalone component: inline SVG, downloadSvg/downloadPng
+          pk-barcode.html / .css / .spec.ts
+        pk-qrcode/
+          pk-qrcode.model.ts    ← PkQrEcLevel type alias
+          pk-qrcode-tables.ts   ← static lookup tables (capacity, EC params, alignment, remainder)
+          pk-qrcode-rs.ts       ← Reed-Solomon GF(256) encoder
+          pk-qrcode-encoder.ts  ← full QR matrix encoder (mode, version, data, masking, format info)
+          pk-qrcode.ts          ← standalone component: inline SVG, center logo, downloadSvg/downloadPng
+          pk-qrcode.html / .css / .spec.ts
     src/styles/
       pk-ui.css                   ← single entry point — @imports all modules below
       pk-grid.css                 ← responsive 12-column grid
@@ -119,7 +131,8 @@ projects/
         Components: home/ pk-accordion/ pk-tabs/ pk-toastr/ pk-alert/ pk-modal/
                     pk-icon/ pk-datagrid/ pk-datepicker/ pk-progress/ pk-treeview/
                     pk-select/ pk-autocomplete/ pk-typeahead/ pk-tooltip/ pk-timeline/ pk-calendar/
-                    pk-file-upload/ pk-sidenav/
+                    pk-file-upload/ pk-sidenav/ pk-markdown-viewer/ pk-heatmap/ pk-input-password/
+                    pk-split/ pk-textarea/ pk-barcode/ pk-qrcode/
         CSS pages:  pk-grid/ pk-btn/ pk-spinner/ pk-badge/ pk-card/
                     pk-table/ pk-toggle/ pk-breadcrumb/ pk-font/ pk-form/ pk-layout/
         Example pages: examples/login/   ← login-example.ts/html/css — full-bleed card, form, password strength
@@ -424,6 +437,10 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `PkSplitDirection` | Type alias | `pk-split/pk-split.model` |
 | `PkSplitPanel` | Component | `pk-split/pk-split-panel` |
 | `PkSplit` | Component | `pk-split/pk-split` |
+| `PkBarcodeFormat` | Type alias | `pk-barcode/pk-barcode.model` |
+| `PkBarcode` | Component | `pk-barcode/pk-barcode` |
+| `PkQrEcLevel` | Type alias | `pk-qrcode/pk-qrcode.model` |
+| `PkQrcode` | Component | `pk-qrcode/pk-qrcode` |
 
 ---
 
@@ -452,7 +469,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.9.0` |
+| Library version | `2.10.0` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -478,6 +495,8 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-input-password` | ✅ Built — standalone, ControlValueAccessor, show/hide toggle, 4-level strength meter |
 | `pk-split` | ✅ Built, tested (8 tests) — horizontal/vertical resizable split pane; drag divider; touch support; `direction`, `initialSize`, `minSize`, `gutterSize`, `(sizeChange)` |
 | `pk-textarea` | ✅ Built, tested (11 tests) — rich text editor: bold/italic/underline/strike, text colour, **highlight color**, font name (18 Google Fonts via `pk-font-*`), font size (small/normal/large/h1-h3), ordered/unordered lists, **blockquote**, dark theme, 3 view modes (Edit/HTML/Text); standalone, ControlValueAccessor (`PkTextareaValue { html, text }`); `::ng-deep` used for dynamic editor content styles |
+| `pk-barcode` | ✅ Built, tested (15 tests) — inline SVG barcode; Code 128 / Code 39 / EAN-13 / EAN-8; pure TypeScript encoder; inputs: `value`, `format`, `width`, `height`, `showText`, `lineColor`, `backgroundColor`; `downloadSvg()` / `downloadPng()` |
+| `pk-qrcode` | ✅ Built, tested (12 tests) — inline SVG QR code; versions 1–40; EC levels L/M/Q/H; 8 mask patterns with ISO 18004 penalty scoring; center logo (auto-upgrades EC level to Q); inputs: `value`, `ecLevel`, `size`, `darkColor`, `lightColor`, `logo`, `logoSize`, `margin`; `downloadSvg()` / `downloadPng()` |
 | `pk-grid` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | `pk-btn` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
 | `pk-spinner` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
@@ -493,7 +512,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 
-**Test totals: 129 / 129 passing**
+**Test totals: 156 / 156 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper

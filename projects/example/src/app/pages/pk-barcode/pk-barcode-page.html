@@ -1,0 +1,203 @@
+<div class="page">
+  <h2>pk-barcode</h2>
+  <p>Barcode generator — Code 128, Code 39, EAN-13, EAN-8. Pure TypeScript encoder, renders as SVG. No external
+    dependencies.</p>
+
+  <hr />
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="control-row">
+      <label>Format</label>
+      <div class="btn-group">
+        @for (f of formats; track f.id) {
+        <button class="pk-btn pk-btn-sm" [class.pk-btn-primary]="format() === f.id"
+          [class.pk-btn-secondary]="format() !== f.id" [class.pk-btn-outline]="format() !== f.id"
+          (click)="onFormatChange(f.id)">{{ f.label }}</button>
+        }
+      </div>
+    </div>
+
+    <div class="control-row">
+      <label>Value</label>
+      <div class="pk-field" style="flex:1; min-width:200px">
+        <input class="pk-field__input" type="text" placeholder=" " [value]="value()"
+          (input)="value.set($any($event.target).value)" />
+        <label class="pk-field__label">{{ currentPlaceholder }}</label>
+      </div>
+    </div>
+
+    <div class="control-row">
+      <label>Line color</label>
+      <input type="color" [value]="lineColor()" (input)="lineColor.set($any($event.target).value)" />
+      <label style="margin-left:24px">Background</label>
+      <input type="color" [value]="bgColor()" (input)="bgColor.set($any($event.target).value)" />
+    </div>
+
+    <div class="control-row">
+      <label>Bar height</label>
+      <input type="range" min="20" max="160" [value]="barHeight()" (input)="barHeight.set(+$any($event.target).value)"
+        style="width:140px" />
+      <span style="width:32px; text-align:right">{{ barHeight() }}</span>
+      <label style="margin-left:24px">Module width</label>
+      <input type="range" min="1" max="4" step="0.5" [value]="moduleWidth()"
+        (input)="moduleWidth.set(+$any($event.target).value)" style="width:100px" />
+      <span style="width:24px; text-align:right">{{ moduleWidth() }}</span>
+    </div>
+
+    <div class="control-row">
+      <label>Show text</label>
+      <label class="pk-toggle">
+        <input type="checkbox" [checked]="showText()" (change)="showText.set($any($event.target).checked)" />
+        <span class="pk-toggle__track"></span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Preview -->
+  <div class="preview-box">
+    <pk-barcode #bc [value]="value()" [format]="format()" [lineColor]="lineColor()" [bgColor]="bgColor()"
+      [showText]="showText()" [barHeight]="barHeight()" [moduleWidth]="moduleWidth()" />
+  </div>
+
+  <div class="download-row">
+    <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="downloadSvg()">Download SVG</button>
+    <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="downloadPng()">Download PNG</button>
+  </div>
+
+  <hr />
+
+  <!-- Usage -->
+  <section class="demo-section">
+    <h3>Usage</h3>
+    <pre class="code-block"><code>{{ code1 }}</code></pre>
+    <pre class="code-block" style="margin: 8px 0;"><code>{{ code2 }}</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h3>PkBarcode Inputs</h3>
+    <table class="pk-table pk-table-primary pk-table-striped">
+      <thead>
+        <tr>
+          <th>Input</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>value</td>
+          <td>string</td>
+          <td>required</td>
+          <td>Data to encode</td>
+        </tr>
+        <tr>
+          <td>format</td>
+          <td>PkBarcodeFormat</td>
+          <td>'code128'</td>
+          <td>code128 | code39 | ean13 | ean8</td>
+        </tr>
+        <tr>
+          <td>lineColor</td>
+          <td>string</td>
+          <td>'#000000'</td>
+          <td>Bar color (CSS color)</td>
+        </tr>
+        <tr>
+          <td>bgColor</td>
+          <td>string</td>
+          <td>'#ffffff'</td>
+          <td>Background color</td>
+        </tr>
+        <tr>
+          <td>showText</td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>Show value text below bars</td>
+        </tr>
+        <tr>
+          <td>fontSize</td>
+          <td>number</td>
+          <td>12</td>
+          <td>Text label font size (px)</td>
+        </tr>
+        <tr>
+          <td>barHeight</td>
+          <td>number</td>
+          <td>60</td>
+          <td>Bar height (px)</td>
+        </tr>
+        <tr>
+          <td>moduleWidth</td>
+          <td>number</td>
+          <td>2</td>
+          <td>Width of 1 module unit (px)</td>
+        </tr>
+        <tr>
+          <td>quietZone</td>
+          <td>number</td>
+          <td>0</td>
+          <td>Extra side padding (px)</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="demo-section">
+    <h3>PkBarcode Methods</h3>
+    <table class="pk-table pk-table-primary pk-table-striped">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>downloadSvg()</td>
+          <td>Download barcode as .svg file</td>
+        </tr>
+        <tr>
+          <td>downloadPng()</td>
+          <td>Download barcode as .png file</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="demo-section">
+    <h3>Format notes</h3>
+    <table class="pk-table pk-table-striped">
+      <thead>
+        <tr>
+          <th>Format</th>
+          <th>Valid input</th>
+          <th>Checksum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>code128</td>
+          <td>Printable ASCII 32–126</td>
+          <td>Auto-computed (mod 103)</td>
+        </tr>
+        <tr>
+          <td>code39</td>
+          <td>A–Z, 0–9, - . space $ / + % (auto-uppercase)</td>
+          <td>None (optional)</td>
+        </tr>
+        <tr>
+          <td>ean13</td>
+          <td>12 or 13 digits</td>
+          <td>Auto-computed if 12 digits given</td>
+        </tr>
+        <tr>
+          <td>ean8</td>
+          <td>7 or 8 digits</td>
+          <td>Auto-computed if 7 digits given</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

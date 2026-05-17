@@ -2,8 +2,9 @@
 
   <h2 style="margin: 0 0 4px; font-size: 1.5rem; font-weight: 700;">pk-heatmap</h2>
   <p style="margin: 0 0 28px; color: #6b7280;">
-    GitHub-style contribution heatmap. Pass an array of <code>{{ '{' }} date, no {{ '}' }}</code> objects.
+    GitHub-style contribution heatmap. Pass an array of <code>{{ '{' }} date, no, holiday? {{ '}' }}</code> objects.
     Supports 4 color schemes, optional legend, and a custom tooltip formatter.
+    The optional <code>holiday</code> field appends a holiday name to the tooltip.
   </p>
 
   <!-- ── Controls ────────────────────────────────────────────────────────── -->
@@ -107,6 +108,24 @@ export class MyComponent {{ '{' }}
   ];
 {{ '}' }}</code></pre>
 
+    <!-- PkHeatmapDay interface -->
+    <p style="margin: 0 0 8px; font-size: 0.875rem; font-weight: 600; color: #374151;">PkHeatmapDay interface</p>
+    <pre style="background:#1e1e2e;color:#cdd6f4;padding:18px 22px;border-radius:8px;overflow-x:auto;font-size:0.85rem;margin:0 0 24px;"><code>interface PkHeatmapDay {{ '{' }}
+  date:     string | Date;  // ISO string or Date object
+  no:       number;         // contribution count (0 = empty cell)
+  holiday?: string;         // optional — appended to tooltip e.g. "— วันแรงงาน"
+{{ '}' }}
+
+// Example with holidays:
+data: PkHeatmapDay[] = [
+  {{ '{' }} date: '2026-05-01', no: 0,  holiday: 'วันแรงงาน' {{ '}' }},
+  {{ '{' }} date: '2026-05-04', no: 3,  holiday: 'วันฉัตรมงคล' {{ '}' }},
+  {{ '{' }} date: '2026-05-05', no: 7 {{ '}' }},
+  // ...
+];
+
+// Tooltip will show: "3 contributions on Mon, 4 May 2026 — วันฉัตรมงคล"</code></pre>
+
     <!-- Custom formatter -->
     <p style="margin: 0 0 8px; font-size: 0.875rem; font-weight: 600; color: #374151;">Custom tooltip formatter</p>
     <pre style="background:#1e1e2e;color:#cdd6f4;padding:18px 22px;border-radius:8px;overflow-x:auto;font-size:0.85rem;margin:0 0 24px;"><code>readonly fmt = (day: PkHeatmapDay): string =&gt;
@@ -131,7 +150,7 @@ export class MyComponent {{ '{' }}
           <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>data</code> ★</td>
           <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>PkHeatmapDay[]</code></td>
           <td style="border:1px solid #e5e7eb;padding:8px 12px;">required</td>
-          <td style="border:1px solid #e5e7eb;padding:8px 12px;">Array of <code>{{ '{' }} date, no {{ '}' }}</code> data points</td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">Array of <code>{{ '{' }} date, no, holiday? {{ '}' }}</code> — <code>holiday</code> (optional) appends a label to the tooltip</td>
         </tr>
         <tr style="background:#fafafa;">
           <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>startDate</code></td>
@@ -152,6 +171,12 @@ export class MyComponent {{ '{' }}
           <td style="border:1px solid #e5e7eb;padding:8px 12px;">Cell color palette</td>
         </tr>
         <tr>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>locale</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>PkLocale</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>'en'</code></td>
+          <td style="border:1px solid #e5e7eb;padding:8px 12px;">Locale for day/month labels and default tooltip date format — 17 locales supported (e.g. <code>'th'</code>, <code>'en'</code>, <code>'ja'</code>)</td>
+        </tr>
+        <tr style="background:#fafafa;">
           <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>showLegend</code></td>
           <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>boolean</code></td>
           <td style="border:1px solid #e5e7eb;padding:8px 12px;"><code>true</code></td>

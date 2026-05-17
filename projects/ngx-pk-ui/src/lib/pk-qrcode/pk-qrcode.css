@@ -1,0 +1,13 @@
+:host {
+  display: inline-block;
+}
+
+.pk-qr__error {
+  color: #dc2626;
+  font-size: 12px;
+  font-family: monospace;
+  padding: 4px 8px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 4px;
+}
