@@ -4,7 +4,7 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
-## [2.8.2]
+## [2.9.0]
 
 - **pk-textarea**: add **Highlight color** toolbar button — applies text background color via `execCommand('hiliteColor')` (default `#ffff00`); selection preserved across the native color dialog
 - **pk-textarea**: add **Blockquote** toolbar button — toggles `<blockquote>` block via `execCommand('formatBlock')`; active state tracked; click again reverts to `<p>`; styled with left border (`4px solid #94a3b8`), italic, 0.8 opacity
