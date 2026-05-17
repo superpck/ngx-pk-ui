@@ -28,7 +28,17 @@ import { AutocompleteOption, AutocompleteFetchFn } from './pk-autocomplete.inter
   template: `
     <div class="pk-autocomplete" [ngClass]="customClass()" [ngStyle]="customStyle()">
       <!-- Input -->
-      <div class="pk-autocomplete__input-wrap">
+      <div class="pk-autocomplete__input-wrap" [class.pk-autocomplete__input-wrap--multi]="multi()">
+        <!-- Chips (multi mode) -->
+        @if (multi()) {
+          @for (opt of selectedValues(); track opt.value) {
+            <span class="pk-autocomplete__chip">
+              {{ opt.label }}
+              <button type="button" (click)="removeOption(opt); $event.stopPropagation()" class="pk-autocomplete__chip-remove">×</button>
+            </span>
+          }
+        }
+
         <input
           #inputElement
           type="text"
@@ -36,23 +46,32 @@ import { AutocompleteOption, AutocompleteFetchFn } from './pk-autocomplete.inter
           (input)="onInput($event)"
           (focus)="onFocus()"
           (keydown)="onKeyDown($event)"
-          [placeholder]="placeholder()"
+          [placeholder]="multi() && selectedValues().length > 0 ? '' : placeholder()"
           [disabled]="disabled()"
-          [ngStyle]="customStyle()"
+          [ngStyle]="multi() ? null : customStyle()"
           class="pk-autocomplete__input"
-          [class.pk-autocomplete__input--with-action]="loading() || (searchTerm() && !loading())"
+          [class.pk-autocomplete__input--seamless]="multi()"
+          [class.pk-autocomplete__input--with-action]="!multi() && (loading() || (searchTerm() && !loading()))"
         />
-        
-        <!-- Loading Spinner or Clear Button -->
-        @if (loading()) {
-          <div class="pk-autocomplete__action">
-            <div class="pk-spinner pk-spinner-sm"></div>
-          </div>
-        } @else if (searchTerm() && !disabled()) {
-          <button
-            type="button"
-            (click)="clear()"
-            class="pk-autocomplete__clear-btn">
+
+        <!-- Single-select: spinner / clear -->
+        @if (!multi()) {
+          @if (loading()) {
+            <div class="pk-autocomplete__action">
+              <div class="pk-spinner pk-spinner-sm"></div>
+            </div>
+          } @else if (searchTerm() && !disabled()) {
+            <button type="button" (click)="clear()" class="pk-autocomplete__clear-btn">
+              <svg class="pk-autocomplete__clear-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          }
+        }
+
+        <!-- Multi-select: clear-all button -->
+        @if (multi() && (selectedValues().length > 0 || searchTerm()) && !disabled()) {
+          <button type="button" (click)="clear()" class="pk-autocomplete__clear-btn pk-autocomplete__clear-btn--multi">
             <svg class="pk-autocomplete__clear-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
@@ -82,6 +101,7 @@ import { AutocompleteOption, AutocompleteFetchFn } from './pk-autocomplete.inter
             @for (option of filteredOptions(); track option.value; let idx = $index) {
               <button
                 type="button"
+                (mousedown)="$event.preventDefault()"
                 (click)="selectOption(option)"
                 [disabled]="option.disabled"
                 class="pk-autocomplete__option"
@@ -246,6 +266,87 @@ import { AutocompleteOption, AutocompleteFetchFn } from './pk-autocomplete.inter
       .pk-autocomplete__check {
         color: #2563eb;
       }
+
+      /* ── Multi-select chips ─────────────────────────────── */
+      .pk-autocomplete__input-wrap--multi {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 6px 4px 10px;
+        min-height: 40px;
+        height: auto;
+        border: 1px solid #d5d9e0;
+        border-radius: 10px;
+        background: #ffffff;
+        cursor: text;
+        transition: border-color 0.18s ease, box-shadow 0.18s ease;
+      }
+
+      .pk-autocomplete__input-wrap--multi:focus-within {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+      }
+
+      .pk-autocomplete__input--seamless {
+        border: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        padding: 0 4px !important;
+        height: 28px !important;
+        min-width: 80px;
+        flex: 1;
+      }
+
+      .pk-autocomplete__input--seamless:focus {
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+
+      .pk-autocomplete__clear-btn--multi {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        flex-shrink: 0;
+        margin-left: auto;
+      }
+
+      .pk-autocomplete__chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+        padding: 2px 6px 2px 10px;
+        background: #e7efff;
+        color: #1d4ed8;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .pk-autocomplete__chip-remove {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        border: none;
+        background: transparent;
+        color: #3b82f6;
+        cursor: pointer;
+        font-size: 14px;
+        line-height: 1;
+        padding: 0;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .pk-autocomplete__chip-remove:hover {
+        background: #bfdbfe;
+        color: #1d4ed8;
+      }
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -254,12 +355,14 @@ export class PkAutocompleteComponent implements ControlValueAccessor {
   private elementRef = inject(ElementRef);
 
   // Inputs
-  options = input<AutocompleteOption[]>([]);
+  options = input<(string | AutocompleteOption)[]>([]);
   fetchFn = input<AutocompleteFetchFn | null>(null);
   placeholder = input<string>('ค้นหา...');
   minChars = input<number>(1);
   debounceTime = input<number>(300);
   disabled = input<boolean>(false);
+  multi = input<boolean>(false);
+  multiWord = input<boolean>(false);
   displayKey = input<string>('label');
   customClass = input<string>('');
   customStyle = input<Record<string, string> | null>(null);
@@ -270,6 +373,7 @@ export class PkAutocompleteComponent implements ControlValueAccessor {
   loading = signal<boolean>(false);
   highlightedIndex = signal<number>(-1);
   selectedValue = signal<any>(null);
+  selectedValues = signal<AutocompleteOption[]>([]);
   fetchedOptions = signal<AutocompleteOption[]>([]);
 
   private debounceTimer: any = null;
@@ -290,9 +394,22 @@ export class PkAutocompleteComponent implements ControlValueAccessor {
   }
 
   // Computed
+  readonly normalizedOptions = computed<AutocompleteOption[]>(() =>
+    this.options().map(o =>
+      typeof o === 'string' ? { label: o, value: o } : o
+    )
+  );
+
+  readonly currentQuerySignal = computed(() => {
+    if (!this.multiWord()) return this.searchTerm();
+    const s = this.searchTerm();
+    const idx = s.lastIndexOf(' ');
+    return idx >= 0 ? s.substring(idx + 1) : s;
+  });
+
   filteredOptions = computed(() => {
     const fetchFn = this.fetchFn();
-    const term = this.searchTerm().toLowerCase().trim();
+    const term = (this.multiWord() ? this.currentQuerySignal() : this.searchTerm()).toLowerCase().trim();
 
     // If using fetchFn, return fetched options
     if (fetchFn) {
@@ -300,7 +417,7 @@ export class PkAutocompleteComponent implements ControlValueAccessor {
     }
 
     // Otherwise filter local options
-    const opts = this.options();
+    const opts = this.normalizedOptions();
     if (!term) return opts;
 
     return opts.filter(opt =>
@@ -309,10 +426,10 @@ export class PkAutocompleteComponent implements ControlValueAccessor {
   });
 
   displayValue = computed(() => {
+    if (this.multi() || this.multiWord()) return this.searchTerm();
     const selected = this.selectedValue();
     if (!selected) return this.searchTerm();
-
-    const opts = this.fetchFn() ? this.fetchedOptions() : this.options();
+    const opts = this.fetchFn() ? this.fetchedOptions() : this.normalizedOptions();
     const option = opts.find(opt => opt.value === selected);
     return option ? option.label : this.searchTerm();
   });
@@ -328,13 +445,21 @@ export class PkAutocompleteComponent implements ControlValueAccessor {
     const input = event.target as HTMLInputElement;
     const value = input.value;
     this.searchTerm.set(value);
-    this.isOpen.set(true);
     this.highlightedIndex.set(-1);
 
-    // Clear selection if input is cleared
-    if (!value) {
-      this.selectedValue.set(null);
-      this.onChange(null);
+    if (this.multiWord()) {
+      // Compute current word (text after last space) inline to avoid stale computed
+      const spaceIdx = value.lastIndexOf(' ');
+      const currentWord = spaceIdx >= 0 ? value.substring(spaceIdx + 1) : value;
+      this.isOpen.set(currentWord.length >= this.minChars());
+      if (!value) this.onChange('');
+    } else {
+      this.isOpen.set(true);
+      // Clear selection if input is cleared
+      if (!value && !this.multi()) {
+        this.selectedValue.set(null);
+        this.onChange(null);
+      }
     }
 
     // Debounce search
@@ -353,8 +478,11 @@ export class PkAutocompleteComponent implements ControlValueAccessor {
 
   onFocus() {
     if (!this.disabled()) {
+      if (this.multiWord()) {
+        // In multiWord mode let onInput control the dropdown — do not open on focus
+        return;
+      }
       this.isOpen.set(true);
-      
       // If no search term, fetch or show all options
       if (!this.searchTerm() && this.fetchFn()) {
         this.performSearch('');
@@ -416,17 +544,52 @@ export class PkAutocompleteComponent implements ControlValueAccessor {
   selectOption(option: AutocompleteOption) {
     if (option.disabled) return;
 
-    this.selectedValue.set(option.value);
-    this.searchTerm.set(option.label);
-    this.onChange(option.value);
-    this.onTouched();
-    this.close();
+    if (this.multiWord()) {
+      const s = this.searchTerm();
+      const idx = s.lastIndexOf(' ');
+      const prefix = idx >= 0 ? s.substring(0, idx + 1) : '';
+      const newValue = prefix + option.label;
+      this.searchTerm.set(newValue);
+      this.selectedValue.set(null);
+      this.onChange(newValue);
+      this.onTouched();
+      this.close();
+    } else if (this.multi()) {
+      const current = this.selectedValues();
+      const existingIdx = current.findIndex(o => o.value === option.value);
+      if (existingIdx >= 0) {
+        this.selectedValues.set(current.filter((_, i) => i !== existingIdx));
+      } else {
+        this.selectedValues.set([...current, option]);
+      }
+      this.searchTerm.set('');
+      this.isOpen.set(true);
+      this.highlightedIndex.set(-1);
+      this.onChange(this.selectedValues().map(o => o.label).join(' '));
+      this.onTouched();
+    } else {
+      this.selectedValue.set(option.value);
+      this.searchTerm.set(option.label);
+      this.onChange(option.value);
+      this.onTouched();
+      this.close();
+    }
+  }
+
+  removeOption(option: AutocompleteOption) {
+    this.selectedValues.set(this.selectedValues().filter(o => o.value !== option.value));
+    this.onChange(this.selectedValues().map(o => o.label).join(' '));
   }
 
   clear() {
     this.searchTerm.set('');
     this.selectedValue.set(null);
-    this.onChange(null);
+    if (this.multi()) {
+      this.selectedValues.set([]);
+      this.onChange('');
+    } else {
+      this.onChange(null);
+    }
     this.isOpen.set(false);
   }
 
@@ -436,16 +599,30 @@ export class PkAutocompleteComponent implements ControlValueAccessor {
   }
 
   isSelected(option: AutocompleteOption): boolean {
+    if (this.multi()) {
+      return this.selectedValues().some(o => o.value === option.value);
+    }
     return this.selectedValue() === option.value;
   }
 
   // ControlValueAccessor implementation
   writeValue(value: any): void {
+    if (this.multi()) {
+      // In multi mode value is a space-separated label string
+      // We reset; chips are built by user selections
+      this.selectedValues.set([]);
+      this.searchTerm.set('');
+      return;
+    }
+    if (this.multiWord()) {
+      this.searchTerm.set(value || '');
+      this.selectedValue.set(null);
+      return;
+    }
     this.selectedValue.set(value);
-    
     // Find and set display text
     if (value) {
-      const opts = this.fetchFn() ? this.fetchedOptions() : this.options();
+      const opts = this.fetchFn() ? this.fetchedOptions() : this.normalizedOptions();
       const option = opts.find(opt => opt.value === value);
       if (option) {
         this.searchTerm.set(option.label);

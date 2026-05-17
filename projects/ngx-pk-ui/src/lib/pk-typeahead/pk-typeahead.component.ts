@@ -39,8 +39,20 @@ export class PkTypeaheadComponent implements ControlValueAccessor {
 
   constructor(private elementRef: ElementRef) {}
 
+  /** Text before (and including) the last space — kept intact on selection */
+  private get prefix(): string {
+    const idx = this.value.lastIndexOf(' ');
+    return idx >= 0 ? this.value.substring(0, idx + 1) : '';
+  }
+
+  /** The word currently being typed (after the last space) */
+  private get currentQuery(): string {
+    const idx = this.value.lastIndexOf(' ');
+    return idx >= 0 ? this.value.substring(idx + 1) : this.value;
+  }
+
   get filteredItems(): any[] {
-    const keyword = (this.value || '').trim().toLowerCase();
+    const keyword = this.currentQuery.toLowerCase();
     const normalizedItems = this.items || [];
     if (keyword.length < this.minChars) {
       return normalizedItems.slice(0, this.maxItems);
@@ -127,7 +139,7 @@ export class PkTypeaheadComponent implements ControlValueAccessor {
   }
 
   selectItem(item: any): void {
-    this.value = this.getItemValue(item);
+    this.value = this.prefix + this.getItemValue(item);
     this.onChange(this.value);
     this.itemSelected.emit(item);
     this.isOpen = false;

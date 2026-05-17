@@ -1,6 +1,11 @@
 /* ── pk-layout variable overrides for this app ────────────── */
 :host {
   display: block;
+
+  --pk-text-primary: #313541;
+  --pk-text-secondary: #585b70;
+  --pk-text-tertiary: #7a7d8c;
+  
   /* Sidebar */
   --pk-sidebar-bg: #ffffff;
   --pk-sidebar-link-color: #313541;

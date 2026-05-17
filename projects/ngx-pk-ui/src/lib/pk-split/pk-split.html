@@ -1,0 +1,25 @@
+<div
+  class="pk-split__container"
+  [class.pk-split--horizontal]="direction() === 'horizontal'"
+  [class.pk-split--vertical]="direction() === 'vertical'"
+  [class.pk-split--dragging]="dragging()"
+>
+  @if (panels().length >= 2) {
+    <div class="pk-split__panel" [style.flex-grow]="sizeA()">
+      <ng-container [ngTemplateOutlet]="panels()[0].content()" />
+    </div>
+
+    <div
+      class="pk-split__gutter"
+      [style.flex-basis]="gutterSize() + 'px'"
+      (mousedown)="onGutterMouseDown($event)"
+      (touchstart)="onGutterTouchStart($event)"
+    >
+      <div class="pk-split__gutter-handle"></div>
+    </div>
+
+    <div class="pk-split__panel" [style.flex-grow]="sizeB()">
+      <ng-container [ngTemplateOutlet]="panels()[1].content()" />
+    </div>
+  }
+</div>

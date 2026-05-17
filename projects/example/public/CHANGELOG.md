@@ -4,6 +4,26 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.8.1] — 2026-05-16
+
+### Fixed
+- **pk-autocomplete** — search now works correctly when input contains spaces.
+  - `multiWord` mode enabled on Local options and With ngModel examples.
+  - Component filters by the last typed word (`currentQuerySignal`) instead of the full input string.
+
+## [2.8.0] — 2026-05-16
+
+### Added
+- **pk-split** — resizable split pane component.
+  - Drag the divider to resize two adjacent panels.
+  - `direction="horizontal"` (left / right, default) or `direction="vertical"` (top / bottom).
+  - Touch-friendly — works on mobile devices.
+  - Inputs: `direction`, `initialSize` (%), `minSize` (%), `gutterSize` (px).
+  - Output: `(sizeChange)` emits `[sizeA%, sizeB%]` on every drag move.
+  - 8 tests added.
+
+---
+
 ## [2.7.1] — 2026-05-16
 
 ### Changed

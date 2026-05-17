@@ -1,0 +1,216 @@
+<section class="demo-section">
+  <h1 class="docs-title">pk-textarea</h1>
+  <p class="docs-lead">
+    A rich text editor built entirely with native <code>contenteditable</code> + <code>execCommand</code> —
+    no external packages. Supports bold/italic/underline/strikethrough, text colour, font name,
+    font size (including headings), ordered/unordered lists, dark theme, and three view modes (Edit / HTML / Plain
+    text).
+    Implements <code>ControlValueAccessor</code> for use with <code>[(ngModel)]</code> or reactive forms.
+  </p>
+</section>
+
+<!-- ── Import ─────────────────────────────────────────────────────────────── -->
+<h2 class="docs-section-title">Import</h2>
+<pre class="code-block"><code>{{ codeImport }}</code></pre>
+
+<!-- ── Basic usage ────────────────────────────────────────────────────────── -->
+<h2 class="docs-section-title">Basic usage</h2>
+<pre class="code-block" style="margin-bottom: 8px;"><code>{{ codeBasic }}</code></pre>
+<div class="docs-demo">
+  <pk-textarea [(ngModel)]="basicValue" />
+</div>
+<div class="docs-output" style="margin-top:8px">
+  <strong>html:</strong> <code>{{ basicValue().html }}</code><br>
+  <strong>text:</strong> <code>{{ basicValue().text }}</code>
+</div>
+
+<!-- ── With pre-loaded content ────────────────────────────────────────────── -->
+<h2 class="docs-section-title">Pre-loaded content &amp; options</h2>
+<pre class="code-block" style="margin-bottom: 8px;"><code>{{ codeWithOptions }}</code></pre>
+<div class="docs-demo">
+  <pk-textarea [(ngModel)]="richValue" placeholder="Start typing..." minHeight="160px" [showToolbar]="true"
+    theme="light" />
+</div>
+
+<!-- ── Dark theme ─────────────────────────────────────────────────────────── -->
+<h2 class="docs-section-title">Dark theme</h2>
+<pre class="code-block" style="margin-bottom: 8px;"><code>{{ codeDark }}</code></pre>
+<div class="docs-demo" style="background:#1a1a2e;padding:16px;border-radius:8px">
+  <pk-textarea theme="dark" minHeight="180px" />
+</div>
+
+<!-- ── No toolbar ─────────────────────────────────────────────────────────── -->
+<h2 class="docs-section-title">No toolbar</h2>
+<pre class="code-block" style="margin-bottom: 8px;"><code>{{ codeNoToolbar }}</code></pre>
+<div class="docs-demo">
+  <pk-textarea [showToolbar]="false" placeholder="Toolbar hidden — plain editable area..." />
+</div>
+
+<!-- ── Disabled ───────────────────────────────────────────────────────────── -->
+<h2 class="docs-section-title">Disabled</h2>
+<pre class="code-block" style="margin-bottom: 8px;"><code>{{ codeDisabled }}</code></pre>
+<div class="docs-demo">
+  <pk-textarea [disabled]="true" [ngModel]="richValue()" />
+</div>
+
+<!-- ── PkTextareaValue type ───────────────────────────────────────────────── -->
+<h2 class="docs-section-title">Value type</h2>
+<pre class="code-block" style="margin: 8px 0;"><code>{{ codeValue }}</code></pre>
+
+<!-- ── Font names note ────────────────────────────────────────────────────── -->
+<h2 class="docs-section-title">Font names (Thai &amp; Lao)</h2>
+<p>
+  The Font dropdown lists 19 entries (Default + 18 Google Fonts from <code>pk-font.css</code>).
+  To activate the fonts import the stylesheet:
+</p>
+<pre class="code-block" style="margin: 8px 0;"><code>{{ codeFontNote }}</code></pre>
+
+<!-- ── API ────────────────────────────────────────────────────────────────── -->
+<section class="demo-section">
+  <h2 class="docs-section-title">API — inputs</h2>
+  <table class="api-table">
+    <thead>
+      <tr>
+        <th>Input</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>placeholder</code></td>
+        <td>string</td>
+        <td>'Type something...'</td>
+        <td>Placeholder text shown when the editor is empty</td>
+      </tr>
+      <tr>
+        <td><code>theme</code></td>
+        <td>'light'|'dark'</td>
+        <td>'light'</td>
+        <td>Color theme</td>
+      </tr>
+      <tr>
+        <td><code>showToolbar</code></td>
+        <td>boolean</td>
+        <td>true</td>
+        <td>Show or hide the formatting toolbar on init</td>
+      </tr>
+      <tr>
+        <td><code>minHeight</code></td>
+        <td>string</td>
+        <td>'200px'</td>
+        <td>Minimum height of the editable area (any CSS value)</td>
+      </tr>
+      <tr>
+        <td><code>disabled</code></td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>Disable editing (also settable via reactive-form <code>disable()</code>)</td>
+      </tr>
+      <tr>
+        <td><code>customClass</code></td>
+        <td>string</td>
+        <td>''</td>
+        <td>Extra CSS class on the root element</td>
+      </tr>
+      <tr>
+        <td><code>customStyle</code></td>
+        <td>Record&lt;string,string&gt;|null</td>
+        <td>null</td>
+        <td>Inline style object on the root element</td>
+      </tr>
+      <tr>
+        <td><code>[(ngModel)]</code></td>
+        <td>PkTextareaValue</td>
+        <td>—</td>
+        <td>Two-way binding via ControlValueAccessor — value has <code>.html</code> and <code>.text</code></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="demo-section">
+  <h2 class="docs-section-title" style="margin-top:24px">API — toolbar features</h2>
+  <table class="api-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Bold / Italic / Underline / Strike</td>
+        <td>—</td>
+        <td>—</td>
+        <td>Active state tracked via <code>queryCommandState</code></td>
+      </tr>
+      <tr>
+        <td>Text colour</td>
+        <td>—</td>
+        <td>#000000</td>
+        <td>Native <code>&lt;input type="color"&gt;</code> — selection is preserved across the dialog</td>
+      </tr>
+      <tr>
+        <td>Highlight color</td>
+        <td>—</td>
+        <td>#ffff00</td>
+        <td>Text background color — uses <code>execCommand('hiliteColor')</code>; selection preserved same way as text color</td>
+      </tr>
+      <tr>
+        <td>Blockquote</td>
+        <td>—</td>
+        <td>—</td>
+        <td>Toggle <code>&lt;blockquote&gt;</code> block via <code>execCommand('formatBlock')</code>; active state tracked; click again to revert to <code>&lt;p&gt;</code></td>
+      </tr>
+      <tr>
+        <td>Font name</td>
+        <td>—</td>
+        <td>Default</td>
+        <td>19 options — applies <code>pk-font-*</code> class to selected text via <code>execCommand</code> trick</td>
+      </tr>
+      <tr>
+        <td>Font size</td>
+        <td>PkTextareaFontSize</td>
+        <td>—</td>
+        <td>small / normal / large / h1 / h2 / h3</td>
+      </tr>
+      <tr>
+        <td>Ordered / Unordered list</td>
+        <td>—</td>
+        <td>—</td>
+        <td>Uses <code>execCommand('insertOrderedList')</code> / <code>insertUnorderedList</code></td>
+      </tr>
+      <tr>
+        <td>View mode</td>
+        <td>'edit'|'html'|'text'</td>
+        <td>'edit'</td>
+        <td>Edit / HTML source / Plain text — toggled at top-right of toolbar</td>
+      </tr>
+      <tr>
+        <td>Toolbar toggle</td>
+        <td>—</td>
+        <td>—</td>
+        <td>Hamburger button always visible — hides/shows the entire toolbar row</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ── Notes ──────────────────────────────────────────────────────────────── -->
+<h2 class="docs-section-title" style="margin-top:24px">Notes</h2>
+<ul class="note">
+  <li>Zero external dependencies — pure Angular + native browser APIs.</li>
+  <li><code>execCommand</code> is deprecated but still works in all major browsers; it remains the only standard way
+    to implement rich text in <code>contenteditable</code>.</li>
+  <li>The toolbar uses <code>mousedown + preventDefault</code> to keep the text selection alive while clicking
+    format
+    buttons.</li>
+  <li>For the colour picker (native dialog), the last known selection is saved via the
+    <code>document:selectionchange</code> listener and restored before applying <code>foreColor</code>.
+  </li>
+  <li>Content is preserved in the DOM across mode switches (HTML / text views are read-only mirrors).</li>
+</ul>
