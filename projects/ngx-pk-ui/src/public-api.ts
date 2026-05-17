@@ -116,3 +116,11 @@ export * from './lib/pk-split/pk-split';
 // pk-textarea
 export * from './lib/pk-textarea/pk-textarea.model';
 export * from './lib/pk-textarea/pk-textarea';
+
+// pk-barcode
+export * from './lib/pk-barcode/pk-barcode.model';
+export * from './lib/pk-barcode/pk-barcode';
+
+// pk-qrcode
+export * from './lib/pk-qrcode/pk-qrcode.model';
+export * from './lib/pk-qrcode/pk-qrcode';

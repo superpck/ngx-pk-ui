@@ -1,4 +1,4 @@
-# ngx-pk-ui 2.9.1
+# ngx-pk-ui 2.10.0
 
 An Angular 21 component library providing UI components and CSS utilities.
 
@@ -69,6 +69,8 @@ npm install ngx-pk-ui
 | `pk-markdown-viewer` | Component | Standalone Markdown renderer — Print/Export toolbar, light/dark theme |
 | `pk-timeline` | Component | Vertical/horizontal timeline with icons, images, and active state |
 | `pk-split` | Component | Resizable split pane — drag divider to resize panels, horizontal or vertical |
+| `pk-barcode` | Component | Inline SVG barcode — Code 128, Code 39, EAN-13, EAN-8; download PNG/SVG |
+| `pk-qrcode` | Component | Inline SVG QR code — versions 1–40, EC levels L/M/Q/H, center logo, download PNG/SVG |
 
 ---
 

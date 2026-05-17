@@ -1,0 +1,27 @@
+<svg
+  #svgEl
+  [attr.width]="_svgWidth()"
+  [attr.height]="_svgHeight()"
+  [attr.viewBox]="'0 0 ' + _svgWidth() + ' ' + _svgHeight()"
+  xmlns="http://www.w3.org/2000/svg"
+  [style.display]="_error() ? 'none' : 'block'"
+>
+  <rect x="0" y="0" [attr.width]="_svgWidth()" [attr.height]="_svgHeight()" [attr.fill]="bgColor()" />
+  @for (r of _darkRects(); track $index) {
+    <rect [attr.x]="r.x" [attr.y]="r.y" [attr.width]="r.w" [attr.height]="r.h" [attr.fill]="lineColor()" />
+  }
+  @if (showText()) {
+    <text
+      [attr.x]="_svgWidth() / 2"
+      [attr.y]="_textY()"
+      text-anchor="middle"
+      [attr.font-size]="fontSize()"
+      font-family="monospace"
+      [attr.fill]="lineColor()"
+    >{{ value() }}</text>
+  }
+</svg>
+
+@if (_error()) {
+  <div class="pk-bc__error">{{ _error() }}</div>
+}
