@@ -19,10 +19,12 @@
 <div class="docs-demo">
   <pk-textarea [(ngModel)]="basicValue" />
 </div>
+@if(basicValue().html || basicValue().text) {
 <div class="docs-output" style="margin-top:8px">
   <strong>html:</strong> <code>{{ basicValue().html }}</code><br>
   <strong>text:</strong> <code>{{ basicValue().text }}</code>
 </div>
+}
 
 <!-- ── With pre-loaded content ────────────────────────────────────────────── -->
 <h2 class="docs-section-title">Pre-loaded content &amp; options</h2>
@@ -158,13 +160,15 @@
         <td>Highlight color</td>
         <td>—</td>
         <td>#ffff00</td>
-        <td>Text background color — uses <code>execCommand('hiliteColor')</code>; selection preserved same way as text color</td>
+        <td>Text background color — uses <code>execCommand('hiliteColor')</code>; selection preserved same way as text
+          color</td>
       </tr>
       <tr>
         <td>Blockquote</td>
         <td>—</td>
         <td>—</td>
-        <td>Toggle <code>&lt;blockquote&gt;</code> block via <code>execCommand('formatBlock')</code>; active state tracked; click again to revert to <code>&lt;p&gt;</code></td>
+        <td>Toggle <code>&lt;blockquote&gt;</code> block via <code>execCommand('formatBlock')</code>; active state
+          tracked; click again to revert to <code>&lt;p&gt;</code></td>
       </tr>
       <tr>
         <td>Font name</td>
