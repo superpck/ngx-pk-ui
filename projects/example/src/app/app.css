@@ -51,3 +51,44 @@
 .pk-sidebar__link:hover {
   border-radius: 2px;
 }
+
+/* ── Fullscreen mode (example pages) ──────────────────────── */
+.pk-layout__main--fullscreen {
+  margin-left: 0 !important;
+  padding: 0 !important;
+  /* Override CSS variables so example pages' negative-margin calcs resolve to 0 */
+  --pk-navbar-height: 0px;
+  --pk-layout-main-pad-top: 0px;
+  --pk-layout-main-pad-x: 0px;
+  --pk-layout-main-pad-bottom: 0px;
+}
+
+/* ── Back to ngx-pk-ui floating button ─────────────────────── */
+.app-back-btn {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px 7px 10px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #2563eb;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background 0.15s, box-shadow 0.15s;
+  white-space: nowrap;
+}
+
+.app-back-btn:hover {
+  background: #eff6ff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}

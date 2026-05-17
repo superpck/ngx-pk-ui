@@ -1,5 +1,7 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, signal, inject } from '@angular/core';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, map, startWith } from 'rxjs';
 import { version } from '../../../../package.json';
 @Component({
   selector: 'app-root',
@@ -8,8 +10,18 @@ import { version } from '../../../../package.json';
   styleUrl: './app.css',
 })
 export class App {
+  private router = inject(Router);
   mobileMenuOpen = signal(false);
   version = version;
+
+  isExampleRoute = toSignal(
+    this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      map(e => (e as NavigationEnd).urlAfterRedirects.startsWith('/examples/')),
+      startWith(this.router.url.startsWith('/examples/'))
+    ),
+    { initialValue: false }
+  );
 
   readonly componentsList = [
     { label: 'accordion', link: '/pk-accordion' },
