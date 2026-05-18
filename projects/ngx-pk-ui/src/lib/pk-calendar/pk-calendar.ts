@@ -7,6 +7,7 @@ import type {
   PkCalendarEvent, PkCalendarView, PkEventMoveResult,
   PkDayCell, PkWeekRow, PkEventBar, PkEventBlock,
 } from './pk-calendar.model';
+import { type PkLocale, getPkLocaleData } from '../pk-locale/pk-locale.model';
 
 // ─── Type colours (default palette) ──────────────────────────────────────────
 export const PK_EVENT_COLORS: Record<string, string> = {
@@ -59,7 +60,7 @@ export class PkCalendar implements OnChanges {
   events      = input<PkCalendarEvent[]>([]);
   view        = input<PkCalendarView>('month');
   currentDate = input<Date>(new Date());
-  locale      = input<'TH' | 'EN'>('EN');
+  locale      = input<PkLocale>('en');
   startOfWeek = input<'monday' | 'sunday'>('sunday');
   readonly    = input<boolean>(false);
   showWeekNumbers = input<boolean>(false);
@@ -95,43 +96,44 @@ export class PkCalendar implements OnChanges {
   ngOnChanges(_: SimpleChanges): void {}
 
   // ─── Computed: locale helpers ────────────────────────────────────────────────
+  readonly _localeData = computed(() => getPkLocaleData(this.locale()));
+
   readonly _weekdays = computed<string[]>(() => {
-    const th = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
-    const en = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const labels = this.locale() === 'TH' ? th : en;
+    const labels = [...this._localeData().dayNamesShort];
     if (this.startOfWeek() === 'monday') {
       return [...labels.slice(1), labels[0]];
     }
     return labels;
   });
 
-  readonly _monthNames = computed<string[]>(() =>
-    this.locale() === 'TH'
-      ? ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน',
-         'กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม']
-      : ['January','February','March','April','May','June',
-         'July','August','September','October','November','December']
-  );
+  readonly _monthNames = computed<string[]>(() => [...this._localeData().monthNamesFull]);
 
-  readonly _monthNamesShort = computed<string[]>(() =>
-    this.locale() === 'TH'
-      ? ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.',
-         'ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.']
-      : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-  );
+  readonly _monthNamesShort = computed<string[]>(() => [...this._localeData().monthNamesShort]);
+
+  readonly _calLabels = computed(() => this._localeData().calendarLabels);
+  readonly _calViews = computed(() => {
+    const l = this._calLabels();
+    return [
+      { key: 'year'   as const, label: l.year   },
+      { key: 'month'  as const, label: l.month  },
+      { key: 'week'   as const, label: l.week   },
+      { key: 'day'    as const, label: l.day    },
+      { key: 'agenda' as const, label: l.agenda },
+    ];
+  });
 
   // ─── Computed: toolbar title ─────────────────────────────────────────────────
   readonly _toolbarTitle = computed<string>(() => {
     const d = this._currentDate();
     const v = this._view();
     const months = this._monthNames();
-    const year = this.locale() === 'TH' ? d.getFullYear() + 543 : d.getFullYear();
+    const year = this.locale() === 'th' ? d.getFullYear() + 543 : d.getFullYear();
     if (v === 'year')  return String(year);
     if (v === 'month') return `${months[d.getMonth()]} ${year}`;
     if (v === 'week') {
       const [first, last] = this._weekRange();
-      const y1 = this.locale() === 'TH' ? first.getFullYear() + 543 : first.getFullYear();
-      const y2 = this.locale() === 'TH' ? last.getFullYear()  + 543 : last.getFullYear();
+      const y1 = this.locale() === 'th' ? first.getFullYear() + 543 : first.getFullYear();
+      const y2 = this.locale() === 'th' ? last.getFullYear()  + 543 : last.getFullYear();
       const m  = this._monthNamesShort();
       if (first.getMonth() === last.getMonth())
         return `${first.getDate()} – ${last.getDate()} ${m[last.getMonth()]} ${y1}`;
@@ -502,7 +504,7 @@ export class PkCalendar implements OnChanges {
       holiday: 'Holiday', festival: 'Festival', event: 'Event',
       task: 'Task', reminder: 'Reminder', other: 'Other',
     };
-    return (this.locale() === 'TH' ? th : en)[ev.type] ?? ev.type;
+    return (this.locale() === 'th' ? th : en)[ev.type] ?? ev.type;
   }
 
   formatTime(ev: PkCalendarEvent): string {
@@ -513,7 +515,7 @@ export class PkCalendar implements OnChanges {
 
   formatDateLabel(date: Date): string {
     const months = this._monthNamesShort();
-    const year   = this.locale() === 'TH' ? date.getFullYear() + 543 : date.getFullYear();
+    const year   = this.locale() === 'th' ? date.getFullYear() + 543 : date.getFullYear();
     return `${date.getDate()} ${months[date.getMonth()]} ${year}`;
   }
 
@@ -538,7 +540,7 @@ export class PkCalendar implements OnChanges {
   }
 
   yearLabel(): number {
-    return this.locale() === 'TH'
+    return this.locale() === 'th'
       ? this._currentDate().getFullYear() + 543
       : this._currentDate().getFullYear();
   }

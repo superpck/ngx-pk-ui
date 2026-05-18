@@ -29,6 +29,7 @@ export class App {
     { label: 'autocomplete', link: '/pk-autocomplete' },
     { label: 'barcode', link: '/pk-barcode' },
     { label: 'calendar', link: '/pk-calendar' },
+    { label: 'code reader', link: '/pk-code-reader' },
     { label: 'datagrid', link: '/pk-datagrid' },
     { label: 'datepicker', link: '/pk-datepicker' },
     { label: 'file upload', link: '/pk-file-upload' },
@@ -53,6 +54,7 @@ export class App {
 
   readonly examplesList = [
     { label: 'login page', link: '/examples/login' },
+    { label: 'landing page', link: '/examples/landing' },
     { label: 'chat app', link: '/examples/chat' },
     { label: 'dashboard template', link: '/examples/dashboard' },
   ];

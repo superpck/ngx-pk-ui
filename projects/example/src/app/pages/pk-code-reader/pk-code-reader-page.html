@@ -1,0 +1,131 @@
+<div class="page">
+  <h1 class="page-title">pk-code-reader</h1>
+  <p class="page-desc">
+    QR code and barcode scanner using the native <code>BarcodeDetector</code> API —
+    zero external dependencies. Supports live camera, image upload, and clipboard paste.
+  </p>
+
+  <!-- Demo ----------------------------------------------------------------->
+  <section class="demo-section">
+    <div class="demo-controls">
+      <label class="ctrl-label">
+        <input type="checkbox" [checked]="continuous()" (change)="continuous.set(!continuous())" />
+        Continuous mode
+      </label>
+      <label class="ctrl-label">
+        <input type="checkbox" [checked]="beep()" (change)="beep.set(!beep())" />
+        Beep on scan
+      </label>
+      <label class="ctrl-label">
+        <input type="checkbox" [checked]="showOverlay()" (change)="showOverlay.set(!showOverlay())" />
+        Show viewfinder
+      </label>
+      <label class="ctrl-label">
+        <input type="checkbox" [checked]="showHighlight()" (change)="showHighlight.set(!showHighlight())" />
+        Highlight detected
+      </label>
+    </div>
+
+    <div class="demo-reader-wrap">
+      <pk-code-reader
+        [continuous]="continuous()"
+        [beep]="beep()"
+        [showOverlay]="showOverlay()"
+        [showHighlight]="showHighlight()"
+        (scan)="onScan($event)"
+        (error)="onError($event)"
+        (supportedFormats)="onSupportedFormats($event)"
+      />
+    </div>
+
+    <!-- Result -->
+    <div class="result-box">
+      @if (lastError()) {
+        <div class="result-error">
+          <strong>Error:</strong> {{ lastError() }}
+        </div>
+      }
+      @if (lastScan()) {
+        <div class="result-scan">
+          <div class="result-row"><span class="result-key">Value</span><span class="result-val">{{ lastScan()!.value }}</span></div>
+          <div class="result-row"><span class="result-key">Format</span><span class="result-val">{{ lastScan()!.format }}</span></div>
+          <div class="result-row"><span class="result-key">Source</span><span class="result-val">{{ lastScan()!.source }}</span></div>
+          <div class="result-row"><span class="result-key">Count</span><span class="result-val">{{ scanCount() }}</span></div>
+        </div>
+      }
+      @if (!lastScan() && !lastError()) {
+        <p class="result-placeholder">Aim camera at a QR code or barcode…</p>
+      }
+    </div>
+
+    @if (supported().length > 0) {
+      <p class="supported-note">
+        <strong>Device supports:</strong> {{ supported().join(', ') }}
+      </p>
+    }
+  </section>
+
+  <!-- API ------------------------------------------------------------------>
+  <section class="api-section">
+    <h2>Installation</h2>
+    <pre><code>{{ code1 }}</code></pre>
+
+    <h2>Usage</h2>
+    <pre><code>{{ code2 }}</code></pre>
+
+    <h2>PkCodeScanResult</h2>
+    <pre><code>{{ code3 }}</code></pre>
+
+    <h2>Inputs</h2>
+    <table class="pk-table pk-table-primary pk-table-striped">
+      <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>formats</td><td>PkCodeFormat[]</td><td>['qr_code','code_128','ean_13','ean_8','code_39']</td><td>Formats to scan (filtered against device support)</td></tr>
+        <tr><td>facingMode</td><td>'user' | 'environment'</td><td>'environment'</td><td>Preferred camera</td></tr>
+        <tr><td>continuous</td><td>boolean</td><td>false</td><td>Keep scanning after first result (same value debounced 2 s)</td></tr>
+        <tr><td>paused</td><td>boolean</td><td>false</td><td>Pause scan loop (camera stays on)</td></tr>
+        <tr><td>interval</td><td>number</td><td>300</td><td>ms between scan attempts</td></tr>
+        <tr><td>showOverlay</td><td>boolean</td><td>true</td><td>Viewfinder frame overlay</td></tr>
+        <tr><td>showHighlight</td><td>boolean</td><td>true</td><td>Green bounding box on detected code</td></tr>
+        <tr><td>beep</td><td>boolean</td><td>false</td><td>AudioContext beep on success</td></tr>
+        <tr><td>showTorch</td><td>boolean</td><td>true</td><td>Torch button (hidden if device has no torch)</td></tr>
+        <tr><td>showSwitch</td><td>boolean</td><td>true</td><td>Front/back camera switch button</td></tr>
+        <tr><td>allowUpload</td><td>boolean</td><td>true</td><td>Show "Scan from image" upload button</td></tr>
+        <tr><td>allowPaste</td><td>boolean</td><td>true</td><td>Ctrl+V clipboard paste</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Outputs</h2>
+    <table class="pk-table pk-table-primary pk-table-striped">
+      <thead><tr><th>Output</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>(scan)</td><td>PkCodeScanResult</td><td>Emits on every successful detection</td></tr>
+        <tr><td>(error)</td><td>PkCodeReaderError</td><td>'not-supported' | 'permission-denied' | 'no-camera' | 'decode-error'</td></tr>
+        <tr><td>(supportedFormats)</td><td>PkCodeFormat[]</td><td>Emits once on init with formats the device actually supports</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Public methods</h2>
+    <table class="pk-table pk-table-primary pk-table-striped">
+      <thead><tr><th>Method</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>reset()</td><td>Clear debounce state and restart scan loop (after continuous=false)</td></tr>
+        <tr><td>startCamera()</td><td>Re-start camera stream (e.g. after switching facingMode programmatically)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Browser support</h2>
+    <table class="pk-table pk-table-primary pk-table-striped">
+      <thead><tr><th>Browser</th><th>qr_code</th><th>code_128 / ean_13</th><th>code_39 / itf</th></tr></thead>
+      <tbody>
+        <tr><td>Chrome / Edge (desktop)</td><td>✅</td><td>✅</td><td>⚠️ OS-dependent</td></tr>
+        <tr><td>Chrome / WebView (Android)</td><td>✅</td><td>✅</td><td>✅ Most devices</td></tr>
+        <tr><td>Safari / Firefox</td><td>❌</td><td>❌</td><td>❌</td></tr>
+      </tbody>
+    </table>
+    <p class="note">
+      <code>BarcodeDetector.getSupportedFormats()</code> is called on init — only actually-supported formats are used.
+      The <code>(supportedFormats)</code> output tells you exactly what the current device supports.
+    </p>
+  </section>
+</div>

@@ -2,6 +2,7 @@ import { Component, input, output, signal, computed, OnChanges, SimpleChanges } 
 import { FormsModule } from '@angular/forms';
 import { NgStyle } from '@angular/common';
 import type { PkCalendarEvent, PkCalendarAttachment, PkEventType, PkEventPriority } from './pk-calendar.model';
+import { type PkLocale } from '../pk-locale/pk-locale.model';
 
 const TYPE_COLORS: Record<string, string> = {
   meeting:     '#4f46e5',
@@ -31,7 +32,7 @@ const PRESET_COLORS = [
 export class PkCalendarForm implements OnChanges {
   event       = input<PkCalendarEvent | null>(null);
   initialDate = input<Date>(new Date());
-  locale      = input<'TH' | 'EN'>('EN');
+  locale      = input<PkLocale>('en');
   readonly    = input<boolean>(false);
 
   onSave   = output<PkCalendarEvent>();
@@ -68,11 +69,11 @@ export class PkCalendarForm implements OnChanges {
     'festival', 'event', 'task', 'reminder', 'other',
   ];
   readonly priorities: { value: PkEventPriority | ''; label: string }[] = [
-    { value: '', label: this.locale() === 'TH' ? '— ไม่ระบุ —' : '— None —' },
-    { value: 'low',    label: this.locale() === 'TH' ? 'ต่ำ'    : 'Low'    },
-    { value: 'medium', label: this.locale() === 'TH' ? 'ปานกลาง': 'Medium' },
-    { value: 'high',   label: this.locale() === 'TH' ? 'สูง'    : 'High'   },
-    { value: 'urgent', label: this.locale() === 'TH' ? 'เร่งด่วน': 'Urgent' },
+    { value: '', label: this.locale() === 'th' ? '— ไม่ระบุ —' : '— None —' },
+    { value: 'low',    label: this.locale() === 'th' ? 'ต่ำ'    : 'Low'    },
+    { value: 'medium', label: this.locale() === 'th' ? 'ปานกลาง': 'Medium' },
+    { value: 'high',   label: this.locale() === 'th' ? 'สูง'    : 'High'   },
+    { value: 'urgent', label: this.locale() === 'th' ? 'เร่งด่วน': 'Urgent' },
   ];
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -1,0 +1,347 @@
+<div class="lp">
+
+  <!-- ══════════════════════════════════════════════════ NAVBAR -->
+  <nav class="lp-nav">
+    <div class="lp-nav__inner">
+      <div class="lp-nav__brand">
+        <img src="/pk-logo-6-wordmark-light.svg" alt="PK-UI" class="lp-nav__logo" />
+      </div>
+      <div class="lp-nav__links" [class.lp-nav__links--open]="mobileOpen()">
+        <a class="lp-nav__link" (click)="scrollTo('features')">Features</a>
+        <a class="lp-nav__link" (click)="scrollTo('how')">How it works</a>
+        <a class="lp-nav__link" (click)="scrollTo('pricing')">Pricing</a>
+        <a class="lp-nav__link" (click)="scrollTo('faq')">FAQ</a>
+      </div>
+      <div class="lp-nav__end">
+        <button class="pk-btn pk-btn-secondary pk-btn-sm pk-btn-outline"
+                (click)="toastr.info('Login page coming soon!', 'Stay tuned')">Log in</button>
+        <button class="pk-btn pk-btn-primary pk-btn-sm"
+                (click)="scrollTo('newsletter')">Get started</button>
+      </div>
+      <button class="lp-nav__burger" (click)="mobileOpen.update(v => !v)" aria-label="Menu">
+        <pk-icon [name]="mobileOpen() ? 'close' : 'menu'" [size]="22"></pk-icon>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════ HERO -->
+  <section class="lp-hero" id="home">
+    <div class="lp-container lp-hero__inner">
+
+      <div class="lp-hero__copy">
+        <span class="pk-badge pk-badge-success pk-badge-pill lp-hero__tag">
+          <pk-icon name="auto_awesome" [size]="12" class="lp-hero__tag-ic"></pk-icon>
+          New &middot; v2.0 is here
+        </span>
+        <h1 class="lp-hero__h1">Automate anything.<br>Scale everything.</h1>
+        <p class="lp-hero__sub">
+          PK-UI connects your apps, automates repetitive tasks, and surfaces insights —
+          all in one platform trusted by 50&nbsp;000+ teams worldwide.
+        </p>
+        <div class="lp-hero__btns">
+          <button class="pk-btn pk-btn-primary pk-btn-lg" (click)="scrollTo('newsletter')">
+            Start for free &nbsp;&rarr;
+          </button>
+          <button class="pk-btn pk-btn-lg lp-hero__demo-btn"
+                  (click)="toastr.info('Demo video coming soon!')">
+            <pk-icon name="play_circle" [size]="18" class="lp-hero__play-ic"></pk-icon>
+            Watch demo
+          </button>
+        </div>
+        <div class="lp-hero__stats">
+          <div class="lp-hero__stat">
+            <span class="lp-hero__stat-n">50K+</span>
+            <span class="lp-hero__stat-l">Teams</span>
+          </div>
+          <div class="lp-hero__stat-div"></div>
+          <div class="lp-hero__stat">
+            <span class="lp-hero__stat-n">1M+</span>
+            <span class="lp-hero__stat-l">Runs / day</span>
+          </div>
+          <div class="lp-hero__stat-div"></div>
+          <div class="lp-hero__stat">
+            <span class="lp-hero__stat-n">99.9%</span>
+            <span class="lp-hero__stat-l">Uptime SLA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mock app dashboard -->
+      <div class="lp-hero__visual" aria-hidden="true">
+        <div class="lp-mock">
+          <div class="lp-mock__titlebar">
+            <div class="lp-mock__dots">
+              <span class="lp-mock__dot lp-mock__dot--r"></span>
+              <span class="lp-mock__dot lp-mock__dot--y"></span>
+              <span class="lp-mock__dot lp-mock__dot--g"></span>
+            </div>
+            <span class="lp-mock__label">PK-UI — Workflows</span>
+          </div>
+          <div class="lp-mock__body">
+            <div class="lp-mock__sidebar">
+              @for (ic of mockIcons; track ic) {
+                <div class="lp-mock__si" [class.lp-mock__si--active]="ic === 'dashboard'">
+                  <pk-icon [name]="ic" [size]="15"></pk-icon>
+                </div>
+              }
+            </div>
+            <div class="lp-mock__content">
+              <div class="lp-mock__stat-row">
+                @for (n of [1,2,3]; track n) {
+                  <div class="lp-mock__stat-card"></div>
+                }
+              </div>
+              <div class="lp-mock__chart">
+                @for (h of mockBars; track $index) {
+                  <div class="lp-mock__bar" [style.height.%]="h"></div>
+                }
+              </div>
+              <div class="lp-mock__lines">
+                @for (n of [1,2,3,4]; track n) {
+                  <div class="lp-mock__line" [style.width.%]="56 + n * 9"></div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ TRUSTED BY -->
+  <div class="lp-trusted">
+    <div class="lp-container">
+      <p class="lp-trusted__label">Trusted by teams at</p>
+      <div class="lp-trusted__row">
+        @for (b of mockBrands; track b) {
+          <span class="lp-trusted__brand">{{ b }}</span>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ FEATURES -->
+  <section class="lp-section lp-section--alt" id="features">
+    <div class="lp-container">
+      <div class="lp-sh">
+        <span class="pk-badge pk-badge-pill lp-sh__badge">Features</span>
+        <h2 class="lp-sh__h2">Everything you need to automate at scale</h2>
+        <p class="lp-sh__sub">Powerful out of the box. Infinitely customisable.</p>
+      </div>
+      <div class="lp-features">
+        @for (f of features; track f.title) {
+          <div class="pk-card lp-feat">
+            <div class="lp-feat__icon" [style.background]="f.color + '18'" [style.color]="f.color">
+              <pk-icon [name]="f.icon" [size]="22"></pk-icon>
+            </div>
+            <h3 class="lp-feat__title">{{ f.title }}</h3>
+            <p class="lp-feat__desc">{{ f.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ HOW IT WORKS -->
+  <section class="lp-section" id="how">
+    <div class="lp-container">
+      <div class="lp-sh">
+        <span class="pk-badge pk-badge-pill lp-sh__badge">How it works</span>
+        <h2 class="lp-sh__h2">From setup to production in minutes</h2>
+      </div>
+      <div class="lp-how">
+        <pk-timeline direction="horizontal">
+          <pk-timeline-item label="Connect" sublabel="Step 1" icon="link" [active]="true" dotColor="#6366f1">
+            Pick from 500+ apps and authenticate in one click.
+          </pk-timeline-item>
+          <pk-timeline-item label="Build" sublabel="Step 2" icon="build" [active]="true" dotColor="#0ea5e9">
+            Use the visual editor or describe your workflow in plain English.
+          </pk-timeline-item>
+          <pk-timeline-item label="Trigger" sublabel="Step 3" icon="bolt" [active]="true" dotColor="#f59e0b">
+            Set a schedule, webhook, or event condition to kick things off.
+          </pk-timeline-item>
+          <pk-timeline-item label="Monitor" sublabel="Step 4" icon="monitor_heart" dotColor="#94a3b8">
+            Watch runs live, get alerts, and iterate from the dashboard.
+          </pk-timeline-item>
+        </pk-timeline>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ TESTIMONIALS -->
+  <section class="lp-section lp-section--alt" id="testimonials">
+    <div class="lp-container lp-container--sm">
+      <div class="lp-sh">
+        <span class="pk-badge pk-badge-pill lp-sh__badge">Testimonials</span>
+        <h2 class="lp-sh__h2">Loved by engineers &amp; ops teams alike</h2>
+      </div>
+      <pk-tabs>
+        <pk-tab [active]="true">
+          <pk-tab-title>Sarah Chen</pk-tab-title>
+          <pk-tab-body>
+            <div class="lp-testi">
+              <p class="lp-testi__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+              <p class="lp-testi__quote">"PK-UI cut our release automation time by 70%. What used to take a full afternoon now runs on its own every morning. The GitHub and Jira integration alone was worth every cent."</p>
+              <div class="lp-testi__author">
+                <div class="lp-testi__av" style="background:#6366f1">SC</div>
+                <div>
+                  <strong>Sarah Chen</strong>
+                  <span>CTO — Streamline Inc.</span>
+                </div>
+              </div>
+            </div>
+          </pk-tab-body>
+        </pk-tab>
+        <pk-tab>
+          <pk-tab-title>Marcus Webb</pk-tab-title>
+          <pk-tab-body>
+            <div class="lp-testi">
+              <p class="lp-testi__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+              <p class="lp-testi__quote">"We replaced three separate tools with PK-UI. The AI workflow builder understood our processes immediately and suggested optimisations we hadn't even considered. ROI was positive by week two."</p>
+              <div class="lp-testi__author">
+                <div class="lp-testi__av" style="background:#10b981">MW</div>
+                <div>
+                  <strong>Marcus Webb</strong>
+                  <span>VP Engineering — DataVault</span>
+                </div>
+              </div>
+            </div>
+          </pk-tab-body>
+        </pk-tab>
+        <pk-tab>
+          <pk-tab-title>Lena Sousa</pk-tab-title>
+          <pk-tab-body>
+            <div class="lp-testi">
+              <p class="lp-testi__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+              <p class="lp-testi__quote">"As a solo founder, PK-UI is like having an ops team. My onboarding, billing alerts, and deployment pipeline all run on autopilot. I couldn't ship nearly as fast without it."</p>
+              <div class="lp-testi__author">
+                <div class="lp-testi__av" style="background:#f59e0b">LS</div>
+                <div>
+                  <strong>Lena Sousa</strong>
+                  <span>Founder — Launchpad SaaS</span>
+                </div>
+              </div>
+            </div>
+          </pk-tab-body>
+        </pk-tab>
+      </pk-tabs>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ FAQ -->
+  <section class="lp-section" id="faq">
+    <div class="lp-container lp-container--sm">
+      <div class="lp-sh">
+        <span class="pk-badge pk-badge-pill lp-sh__badge">FAQ</span>
+        <h2 class="lp-sh__h2">Frequently asked questions</h2>
+      </div>
+      <pk-accordion>
+        <pk-accordion-item label="Is PK-UI free to start?">
+          Yes. Our Starter plan is free forever — 5 active workflows, 1 000 runs per month, no credit card required. Upgrade anytime as your team grows.
+        </pk-accordion-item>
+        <pk-accordion-item label="Which integrations are supported?">
+          PK-UI connects to 500+ apps including Slack, GitHub, Jira, Notion, Salesforce, HubSpot, Google Workspace, and all major cloud providers. New integrations launch every week.
+        </pk-accordion-item>
+        <pk-accordion-item label="Can I run PK-UI on-premise?">
+          Enterprise customers can deploy PK-UI on their own infrastructure via Docker or Kubernetes. Hybrid setups are also supported so sensitive data never leaves your VPC.
+        </pk-accordion-item>
+        <pk-accordion-item label="How is billing calculated?">
+          Plans are based on workflow runs per month. On Pro, overages are billed at $0.001 per additional run. Enterprise customers get custom limits and volume discounts.
+        </pk-accordion-item>
+        <pk-accordion-item label="What happens if I exceed my run limit?">
+          On Starter, workflows pause until the next billing cycle. On Pro, you continue running and are charged a small overage. We notify you at 80% and 100% of your quota.
+        </pk-accordion-item>
+      </pk-accordion>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ PRICING -->
+  <section class="lp-section lp-section--alt" id="pricing">
+    <div class="lp-container">
+      <div class="lp-sh">
+        <span class="pk-badge pk-badge-pill lp-sh__badge">Pricing</span>
+        <h2 class="lp-sh__h2">Simple, transparent pricing</h2>
+        <p class="lp-sh__sub">No hidden fees. Cancel anytime.</p>
+      </div>
+      <div class="lp-pricing">
+        @for (plan of plans; track plan.name) {
+          <div class="pk-card lp-plan" [class.lp-plan--hi]="plan.highlight">
+            @if (plan.highlight) {
+              <span class="pk-badge pk-badge-primary pk-badge-pill lp-plan__pop">Most Popular</span>
+            }
+            <div class="lp-plan__name">{{ plan.name }}</div>
+            <div class="lp-plan__price">
+              <span class="lp-plan__amount">{{ plan.price }}</span>
+              <span class="lp-plan__period">{{ plan.period }}</span>
+            </div>
+            <p class="lp-plan__desc">{{ plan.desc }}</p>
+            <ul class="lp-plan__list">
+              @for (f of plan.features; track f) {
+                <li>
+                  <pk-icon name="check_circle" [size]="15" class="lp-plan__check"></pk-icon>
+                  {{ f }}
+                </li>
+              }
+            </ul>
+            <button
+              class="pk-btn pk-btn-lg lp-plan__cta"
+              [class.pk-btn-primary]="plan.highlight"
+              [class.pk-btn-secondary]="!plan.highlight"
+              [class.pk-btn-outline]="!plan.highlight"
+              (click)="scrollTo('newsletter')"
+            >{{ plan.cta }}</button>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ CTA / NEWSLETTER -->
+  <section class="lp-cta" id="newsletter">
+    <div class="lp-container lp-container--sm lp-cta__inner">
+      <pk-icon name="mark_email_read" [size]="44" class="lp-cta__icon"></pk-icon>
+      <h2 class="lp-cta__h2">Get early access &amp; updates</h2>
+      <p class="lp-cta__sub">Join 50 000+ subscribers. No spam, unsubscribe anytime.</p>
+      <div class="lp-cta__form">
+        <input
+          class="lp-cta__input"
+          type="email"
+          placeholder="Your email address"
+          [value]="email()"
+          (input)="email.set($any($event.target).value)"
+          (keyup.enter)="subscribe()"
+        />
+        <button class="pk-btn pk-btn-primary pk-btn-lg" (click)="subscribe()">
+          Subscribe
+          <pk-icon name="send" [size]="15" class="lp-cta__send-ic"></pk-icon>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ FOOTER -->
+  <footer class="lp-footer">
+    <div class="lp-container">
+      <div class="lp-footer__top">
+        <div class="lp-footer__brand">
+          <img src="/pk-logo-7-wordmark-dark.svg" alt="PK-UI" class="lp-footer__logo" />
+        </div>
+        <p class="lp-footer__tagline">Automate anything. Scale everything.</p>
+      </div>
+      <div class="lp-footer__links">
+        @for (l of footerLinks; track l) {
+          <a class="lp-footer__link"
+             (click)="toastr.info(l + ' coming soon!', 'Stay tuned')">{{ l }}</a>
+        }
+      </div>
+      <div class="lp-footer__bottom">
+        <p class="lp-footer__copy">© 2026 PK-UI. All rights reserved.</p>
+        <p class="lp-footer__built">
+          Built with <span class="lp-footer__heart">♥</span> using <strong>ngx-pk-ui</strong>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</div>

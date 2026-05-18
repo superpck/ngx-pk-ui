@@ -1,4 +1,4 @@
-# ngx-pk-ui 2.10.0
+# ngx-pk-ui 2.11.1
 
 An Angular 21 component library providing UI components and CSS utilities.
 
@@ -71,6 +71,7 @@ npm install ngx-pk-ui
 | `pk-split` | Component | Resizable split pane — drag divider to resize panels, horizontal or vertical |
 | `pk-barcode` | Component | Inline SVG barcode — Code 128, Code 39, EAN-13, EAN-8; download PNG/SVG |
 | `pk-qrcode` | Component | Inline SVG QR code — versions 1–40, EC levels L/M/Q/H, center logo, download PNG/SVG |
+| `pk-code-reader` | Component | QR code & barcode scanner — native `BarcodeDetector` API, camera / upload / paste, overlay, beep, torch, camera switch |
 
 ---
 

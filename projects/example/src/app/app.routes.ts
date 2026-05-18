@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadComponent: () => import('./pages/home/home').then(m => m.Home) },
+  { path: 'license', loadComponent: () => import('./pages/license/license').then(m => m.License) },
   { path: 'pk-accordion', loadComponent: () => import('./pages/pk-accordion/pk-accordion-page').then(m => m.PkAccordionPage) },
   { path: 'pk-calendar', loadComponent: () => import('./pages/pk-calendar/pk-calendar-page').then(m => m.PkCalendarPage) },
   { path: 'pk-timeline', loadComponent: () => import('./pages/pk-timeline/pk-timeline-page').then(m => m.PkTimelinePage) },
@@ -39,8 +40,10 @@ export const routes: Routes = [
   { path: 'pk-markdown-viewer', loadComponent: () => import('./pages/pk-markdown-viewer/pk-markdown-viewer-page').then(m => m.PkMarkdownViewerPage) },
   { path: 'pk-barcode', loadComponent: () => import('./pages/pk-barcode/pk-barcode-page').then(m => m.PkBarcodePage) },
   { path: 'pk-qrcode', loadComponent: () => import('./pages/pk-qrcode/pk-qrcode-page').then(m => m.PkQrcodePage) },
+  { path: 'pk-code-reader', loadComponent: () => import('./pages/pk-code-reader/pk-code-reader-page').then(m => m.PkCodeReaderPage) },
   // Examples
   { path: 'examples/login', loadComponent: () => import('./pages/examples/login/login-example').then(m => m.LoginExample) },
   { path: 'examples/chat', loadComponent: () => import('./pages/examples/chat/chat-example').then(m => m.ChatExample) },
   { path: 'examples/dashboard', loadComponent: () => import('./pages/examples/dashboard/dashboard-example').then(m => m.DashboardExample) },
+  { path: 'examples/landing', loadComponent: () => import('./pages/examples/landing/landing-example').then(m => m.LandingExample) },
 ];

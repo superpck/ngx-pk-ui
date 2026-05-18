@@ -3,7 +3,7 @@
     <h1 class="demo-page-title">pk-calendar</h1>
     <p class="demo-page-desc">
       Modern calendar with Year / Month / Week / Day / Agenda views, built-in event form,
-      drag &amp; drop, multi-day event bars, and TH/EN locale support.
+      drag &amp; drop, multi-day event bars, and multi-locale support (17 locales via <code>PkLocale</code>).
     </p>
   </div>
 
@@ -11,9 +11,17 @@
   <section class="demo-section">
     <h2>Demo</h2>
     <div style="display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap; align-items:center;">
-      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="toggleLocale()">
-        Locale: {{ locale() }}
-      </button>
+      <div class="pk-field pk-field--sm" style="width:220px; margin:0;">
+        <select class="pk-field__input"
+          [value]="locale()"
+          (change)="locale.set($any($event.target).value)"
+          placeholder=" ">
+          @for (l of locales; track l.code) {
+            <option [value]="l.code">{{ l.label }}</option>
+          }
+        </select>
+        <label class="pk-field__label">Locale</label>
+      </div>
       <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="toggleStartOfWeek()">
         Start of week: {{ startOfWeek() === 'sunday' ? 'Sunday' : 'Monday' }}
       </button>
@@ -102,7 +110,7 @@ export class MyComponent &#123;
 &#125;</code></pre>
     <pre class="code-block" style="margin-top:8px"><code>&lt;pk-calendar
   [events]="events"
-  locale="EN"
+  locale="en"
   startOfWeek="monday"
   (onEventCreate)="onCreate($event)"
   (onEventUpdate)="onUpdate($event)"
@@ -130,7 +138,7 @@ export class MyComponent &#123;
       <tr><td><code>events</code></td><td><code>PkCalendarEvent[]</code></td><td><code>[]</code></td><td>Events to display</td></tr>
       <tr><td><code>view</code></td><td><code>'year'|'month'|'week'|'day'|'agenda'</code></td><td><code>'month'</code></td><td>Active calendar view</td></tr>
       <tr><td><code>currentDate</code></td><td><code>Date</code></td><td><code>new Date()</code></td><td>Initial navigation date</td></tr>
-      <tr><td><code>locale</code></td><td><code>'EN'|'TH'</code></td><td><code>'EN'</code></td><td>Language for labels and month names</td></tr>
+      <tr><td><code>locale</code></td><td><code>PkLocale</code></td><td><code>'en'</code></td><td>Language for month / day labels — 17 locales: en · th · lo · fr · es · pt · it · de · nl · zh · ja · ko · ru · vi · id · ar · hi</td></tr>
       <tr><td><code>startOfWeek</code></td><td><code>'sunday'|'monday'</code></td><td><code>'sunday'</code></td><td>First day of the week</td></tr>
       <tr><td><code>readonly</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Disable all create / edit actions</td></tr>
       <tr><td><code>showWeekNumbers</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show week number column in month view</td></tr>
