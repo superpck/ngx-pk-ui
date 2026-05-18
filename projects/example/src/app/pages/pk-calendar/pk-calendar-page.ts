@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { PkCalendar } from 'ngx-pk-ui';
 import type { PkCalendarEvent, PkCalendarView, PkEventMoveResult } from 'ngx-pk-ui';
+import type { PkLocale } from 'ngx-pk-ui';
 
 const today = new Date();
 const d = (offsetDays: number, hours = 0, minutes = 0) => {
@@ -117,7 +118,26 @@ const SAMPLE_EVENTS: PkCalendarEvent[] = [
 export class PkCalendarPage {
   events = signal<PkCalendarEvent[]>(SAMPLE_EVENTS);
   view   = signal<PkCalendarView>('month');
-  locale = signal<'TH' | 'EN'>('EN');
+  locale = signal<PkLocale>('en');
+  readonly locales: { code: PkLocale; label: string }[] = [
+    { code: 'en', label: 'en — English' },
+    { code: 'th', label: 'th — ภาษาไทย' },
+    { code: 'lo', label: 'lo — ພາສາລາວ' },
+    { code: 'fr', label: 'fr — Français' },
+    { code: 'es', label: 'es — Español' },
+    { code: 'pt', label: 'pt — Português' },
+    { code: 'it', label: 'it — Italiano' },
+    { code: 'de', label: 'de — Deutsch' },
+    { code: 'nl', label: 'nl — Nederlands' },
+    { code: 'zh', label: 'zh — 中文' },
+    { code: 'ja', label: 'ja — 日本語' },
+    { code: 'ko', label: 'ko — 한국어' },
+    { code: 'ru', label: 'ru — Русский' },
+    { code: 'vi', label: 'vi — Tiếng Việt' },
+    { code: 'id', label: 'id — Bahasa Indonesia' },
+    { code: 'ar', label: 'ar — العربية' },
+    { code: 'hi', label: 'hi — हिन्दी' },
+  ];
   startOfWeek = signal<'monday' | 'sunday'>('sunday');
 
   onEventCreate(ev: PkCalendarEvent): void {
@@ -161,7 +181,8 @@ export class PkCalendarPage {
   }
 
   toggleLocale(): void {
-    this.locale.update(v => v === 'EN' ? 'TH' : 'EN');
+    const idx = this.locales.findIndex(l => l.code === this.locale());
+    this.locale.set(this.locales[(idx + 1) % this.locales.length].code);
   }
 
   toggleStartOfWeek(): void {

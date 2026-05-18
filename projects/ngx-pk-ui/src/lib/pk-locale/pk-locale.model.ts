@@ -24,6 +24,16 @@ export interface PkLocaleData {
   dayNamesFull: readonly string[];
   /** Text direction — 'rtl' for Arabic, Hebrew, etc. Defaults to 'ltr'. */
   direction: 'ltr' | 'rtl';
+  /** Calendar toolbar / view labels */
+  calendarLabels: {
+    year: string;
+    month: string;
+    week: string;
+    day: string;
+    agenda: string;
+    today: string;
+    newEvent: string;
+  };
 }
 
 export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
@@ -37,6 +47,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesShort:   ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     dayNamesFull:    ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     direction: 'ltr',
+    calendarLabels: { year: 'Year', month: 'Month', week: 'Week', day: 'Day', agenda: 'Agenda', today: 'Today', newEvent: 'New' },
   },
 
   // ── Thai ──────────────────────────────────────────────────────────────────
@@ -49,6 +60,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesFull:    ['วันอาทิตย์', 'วันจันทร์', 'วันอังคาร', 'วันพุธ',
                       'วันพฤหัสบดี', 'วันศุกร์', 'วันเสาร์'],
     direction: 'ltr',
+    calendarLabels: { year: 'ปี', month: 'เดือน', week: 'สัปดาห์', day: 'วัน', agenda: 'กำหนดการ', today: 'วันนี้', newEvent: 'เพิ่ม' },
   },
 
   // ── Lao ───────────────────────────────────────────────────────────────────
@@ -61,6 +73,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesFull:    ['ວັນອາທິດ', 'ວັນຈັນ', 'ວັນອັງຄານ', 'ວັນພຸດ',
                       'ວັນພະຫັດ', 'ວັນສຸກ', 'ວັນເສົາ'],
     direction: 'ltr',
+    calendarLabels: { year: 'ປີ', month: 'ເດືອນ', week: 'ອາທິດ', day: 'ວັນ', agenda: 'ຕາຕະລາງ', today: 'ມື້ນີ້', newEvent: 'ໃໝ່' },
   },
 
   // ── French ────────────────────────────────────────────────────────────────
@@ -72,6 +85,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesShort:   ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
     dayNamesFull:    ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
     direction: 'ltr',
+    calendarLabels: { year: 'Année', month: 'Mois', week: 'Semaine', day: 'Jour', agenda: 'Agenda', today: "Aujourd'hui", newEvent: 'Nouveau' },
   },
 
   // ── Spanish ───────────────────────────────────────────────────────────────
@@ -83,6 +97,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesShort:   ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
     dayNamesFull:    ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
     direction: 'ltr',
+    calendarLabels: { year: 'Año', month: 'Mes', week: 'Semana', day: 'Día', agenda: 'Agenda', today: 'Hoy', newEvent: 'Nuevo' },
   },
 
   // ── Portuguese ────────────────────────────────────────────────────────────
@@ -94,6 +109,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesShort:   ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
     dayNamesFull:    ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
     direction: 'ltr',
+    calendarLabels: { year: 'Ano', month: 'Mês', week: 'Semana', day: 'Dia', agenda: 'Agenda', today: 'Hoje', newEvent: 'Novo' },
   },
 
   // ── Italian ───────────────────────────────────────────────────────────────
@@ -105,6 +121,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesShort:   ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
     dayNamesFull:    ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
     direction: 'ltr',
+    calendarLabels: { year: 'Anno', month: 'Mese', week: 'Settimana', day: 'Giorno', agenda: 'Agenda', today: 'Oggi', newEvent: 'Nuovo' },
   },
 
   // ── German ────────────────────────────────────────────────────────────────
@@ -116,6 +133,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesShort:   ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
     dayNamesFull:    ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
     direction: 'ltr',
+    calendarLabels: { year: 'Jahr', month: 'Monat', week: 'Woche', day: 'Tag', agenda: 'Agenda', today: 'Heute', newEvent: 'Neu' },
   },
 
   // ── Dutch ─────────────────────────────────────────────────────────────────
@@ -127,6 +145,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesShort:   ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'],
     dayNamesFull:    ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'],
     direction: 'ltr',
+    calendarLabels: { year: 'Jaar', month: 'Maand', week: 'Week', day: 'Dag', agenda: 'Agenda', today: 'Vandaag', newEvent: 'Nieuw' },
   },
 
   // ── Chinese (Simplified) ──────────────────────────────────────────────────
@@ -138,6 +157,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesShort:   ['日', '一', '二', '三', '四', '五', '六'],
     dayNamesFull:    ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
     direction: 'ltr',
+    calendarLabels: { year: '年', month: '月', week: '周', day: '日', agenda: '日程', today: '今天', newEvent: '新建' },
   },
 
   // ── Japanese ─────────────────────────────────────────────────────────────
@@ -149,6 +169,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesShort:   ['日', '月', '火', '水', '木', '金', '土'],
     dayNamesFull:    ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
     direction: 'ltr',
+    calendarLabels: { year: '年', month: '月', week: '週', day: '日', agenda: '予定', today: '今日', newEvent: '新規' },
   },
 
   // ── Korean ────────────────────────────────────────────────────────────────
@@ -160,6 +181,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesShort:   ['일', '월', '화', '수', '목', '금', '토'],
     dayNamesFull:    ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
     direction: 'ltr',
+    calendarLabels: { year: '연도', month: '월', week: '주', day: '일', agenda: '일정', today: '오늘', newEvent: '신규' },
   },
 
   // ── Russian ───────────────────────────────────────────────────────────────
@@ -172,6 +194,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesFull:    ['Воскресенье', 'Понедельник', 'Вторник', 'Среда',
                       'Четверг', 'Пятница', 'Суббота'],
     direction: 'ltr',
+    calendarLabels: { year: 'Год', month: 'Месяц', week: 'Неделя', day: 'День', agenda: 'Повестка', today: 'Сегодня', newEvent: 'Создать' },
   },
 
   // ── Vietnamese ────────────────────────────────────────────────────────────
@@ -184,6 +207,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesFull:    ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư',
                       'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'],
     direction: 'ltr',
+    calendarLabels: { year: 'Năm', month: 'Tháng', week: 'Tuần', day: 'Ngày', agenda: 'Lịch', today: 'Hôm nay', newEvent: 'Mới' },
   },
 
   // ── Indonesian ────────────────────────────────────────────────────────────
@@ -195,6 +219,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesShort:   ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
     dayNamesFull:    ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
     direction: 'ltr',
+    calendarLabels: { year: 'Tahun', month: 'Bulan', week: 'Minggu', day: 'Hari', agenda: 'Agenda', today: 'Hari ini', newEvent: 'Baru' },
   },
 
   // ── Arabic ────────────────────────────────────────────────────────────────
@@ -207,6 +232,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesFull:    ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء',
                       'الخميس', 'الجمعة', 'السبت'],
     direction: 'rtl',
+    calendarLabels: { year: 'سنة', month: 'شهر', week: 'أسبوع', day: 'يوم', agenda: 'جدول', today: 'اليوم', newEvent: 'جديد' },
   },
 
   // ── Hindi ─────────────────────────────────────────────────────────────────
@@ -219,6 +245,7 @@ export const PK_LOCALE_DATA: Record<PkLocale, PkLocaleData> = {
     dayNamesFull:    ['रविवार', 'सोमवार', 'मंगलवार', 'बुधवार',
                       'गुरुवार', 'शुक्रवार', 'शनिवार'],
     direction: 'ltr',
+    calendarLabels: { year: 'वर्ष', month: 'माह', week: 'सप्ताह', day: 'दिन', agenda: 'एजेंडा', today: 'आज', newEvent: 'नया' },
   },
 
 };

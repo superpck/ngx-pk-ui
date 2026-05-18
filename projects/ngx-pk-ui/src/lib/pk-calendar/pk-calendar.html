@@ -5,30 +5,24 @@
     <div class="pk-cal__toolbar-left">
       <button class="pk-cal__nav-btn" (click)="prev()">&#8249;</button>
       <button class="pk-cal__nav-btn pk-cal__nav-btn--today" (click)="goToday()">
-        {{ locale() === 'TH' ? 'วันนี้' : 'Today' }}
+        {{ _calLabels().today }}
       </button>
       <button class="pk-cal__nav-btn" (click)="next()">&#8250;</button>
       <span class="pk-cal__title">{{ _toolbarTitle() }}</span>
     </div>
     <div class="pk-cal__toolbar-right">
       <div class="pk-cal__view-tabs">
-        @for (v of ['year','month','week','day','agenda']; track v) {
+        @for (v of _calViews(); track v.key) {
           <button
             class="pk-cal__view-tab"
-            [class.pk-cal__view-tab--active]="_view() === v"
-            (click)="setView($any(v))"
-          >
-            @if (locale() === 'TH') {
-              {{ v === 'year' ? 'ปี' : v === 'month' ? 'เดือน' : v === 'week' ? 'สัปดาห์' : v === 'day' ? 'วัน' : 'กำหนดการ' }}
-            } @else {
-              {{ v === 'year' ? 'Year' : v === 'month' ? 'Month' : v === 'week' ? 'Week' : v === 'day' ? 'Day' : 'Agenda' }}
-            }
-          </button>
+            [class.pk-cal__view-tab--active]="_view() === v.key"
+            (click)="setView(v.key)"
+          >{{ v.label }}</button>
         }
       </div>
       @if (!readonly()) {
         <button class="pk-cal__add-btn" (click)="openCreate(_currentDate())">
-          + {{ locale() === 'TH' ? 'เพิ่ม' : 'New' }}
+          + {{ _calLabels().newEvent }}
         </button>
       }
     </div>
@@ -144,7 +138,7 @@
         <!-- All-day row -->
         <div class="pk-cal__allday-row">
           <div class="pk-cal__time-gutter pk-cal__time-gutter--allday">
-            {{ locale() === 'TH' ? 'ทั้งวัน' : 'All day' }}
+            {{ locale() === 'th' ? 'ทั้งวัน' : 'All day' }}
           </div>
           @for (day of _weekDays(); track day.toISOString()) {
             <div class="pk-cal__allday-cell">
@@ -222,7 +216,7 @@
         <!-- All-day -->
         @if (_weekAllDay().get(dayKey(_currentDate()))?.length) {
           <div class="pk-cal__allday-row pk-cal__allday-row--day">
-            <div class="pk-cal__time-gutter pk-cal__time-gutter--allday">{{ locale() === 'TH' ? 'ทั้งวัน' : 'All day' }}</div>
+            <div class="pk-cal__time-gutter pk-cal__time-gutter--allday">{{ locale() === 'th' ? 'ทั้งวัน' : 'All day' }}</div>
             <div class="pk-cal__allday-cell pk-cal__allday-cell--day">
               @for (ev of _weekAllDay().get(dayKey(_currentDate())); track ev.id) {
                 <div class="pk-cal__allday-chip" [style.background]="eventColor(ev)" (click)="openEdit(ev, $event)">{{ ev.title }}</div>
@@ -274,7 +268,7 @@
       <div class="pk-cal__agenda">
         @if (_agendaDays().length === 0) {
           <div class="pk-cal__agenda-empty">
-            {{ locale() === 'TH' ? 'ไม่มีนัดหมายใน 60 วันข้างหน้า' : 'No events in the next 60 days' }}
+            {{ locale() === 'th' ? 'ไม่มีนัดหมายใน 60 วันข้างหน้า' : 'No events in the next 60 days' }}
           </div>
         }
         @for (group of _agendaDays(); track group.date.toISOString()) {

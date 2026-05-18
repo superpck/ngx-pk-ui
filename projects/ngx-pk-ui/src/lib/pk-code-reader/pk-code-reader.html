@@ -1,0 +1,52 @@
+<div class="pk-cr">
+
+  <div class="pk-cr__viewport">
+    <video #videoEl class="pk-cr__video" autoplay muted playsinline></video>
+    <canvas #overlayEl class="pk-cr__overlay"></canvas>
+
+    @if (_supported() && (showSwitch() || (showTorch() && _torchSupported()))) {
+      <div class="pk-cr__toolbar">
+        @if (showSwitch()) {
+          <button class="pk-cr__btn" type="button" (click)="switchCamera()" title="Switch camera">
+            <span class="material-symbols-outlined">flip_camera_ios</span>
+          </button>
+        }
+        @if (showTorch() && _torchSupported()) {
+          <button
+            class="pk-cr__btn"
+            type="button"
+            [class.pk-cr__btn--torch-on]="_torchOn()"
+            (click)="toggleTorch()"
+            title="Toggle torch"
+          >
+            <span class="material-symbols-outlined">
+              {{ _torchOn() ? 'flashlight_on' : 'flashlight_off' }}
+            </span>
+          </button>
+        }
+      </div>
+    }
+
+    @if (!_supported()) {
+      <div class="pk-cr__unsupported">
+        <span class="material-symbols-outlined">qr_code_scanner</span>
+        <p>BarcodeDetector API is not supported in this browser.</p>
+        <p class="pk-cr__unsupported-hint">Use Chrome or Edge on desktop / Android.</p>
+      </div>
+    }
+  </div>
+
+  @if (allowUpload()) {
+    <div class="pk-cr__actions">
+      <button class="pk-cr__upload-btn" type="button" (click)="openFileInput()">
+        <span class="material-symbols-outlined">upload_file</span>
+        Scan from image
+      </button>
+      <input #fileInputEl type="file" accept="image/*" hidden (change)="onFileChange($event)" />
+      @if (allowPaste()) {
+        <span class="pk-cr__paste-hint">or Ctrl+V to paste</span>
+      }
+    </div>
+  }
+
+</div>

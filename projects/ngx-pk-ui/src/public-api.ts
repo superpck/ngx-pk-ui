@@ -124,3 +124,7 @@ export * from './lib/pk-barcode/pk-barcode';
 // pk-qrcode
 export * from './lib/pk-qrcode/pk-qrcode.model';
 export * from './lib/pk-qrcode/pk-qrcode';
+
+// pk-code-reader
+export * from './lib/pk-code-reader/pk-code-reader.model';
+export * from './lib/pk-code-reader/pk-code-reader';

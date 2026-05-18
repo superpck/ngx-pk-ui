@@ -108,6 +108,10 @@ projects/
           pk-qrcode-encoder.ts  ← full QR matrix encoder (mode, version, data, masking, format info)
           pk-qrcode.ts          ← standalone component: inline SVG, center logo, downloadSvg/downloadPng
           pk-qrcode.html / .css / .spec.ts
+        pk-code-reader/
+          pk-code-reader.model.ts  ← PkCodeFormat, PkCodeScanResult, PkCodeReaderError; ambient BarcodeDetector declarations
+          pk-code-reader.ts        ← standalone component: camera, upload, paste; BarcodeDetector; canvas overlay; AudioContext beep
+          pk-code-reader.html / .css / .spec.ts
     src/styles/
       pk-ui.css                   ← single entry point — @imports all modules below
       pk-grid.css                 ← responsive 12-column grid
@@ -132,7 +136,7 @@ projects/
                     pk-icon/ pk-datagrid/ pk-datepicker/ pk-progress/ pk-treeview/
                     pk-select/ pk-autocomplete/ pk-typeahead/ pk-tooltip/ pk-timeline/ pk-calendar/
                     pk-file-upload/ pk-sidenav/ pk-markdown-viewer/ pk-heatmap/ pk-input-password/
-                    pk-split/ pk-textarea/ pk-barcode/ pk-qrcode/
+                    pk-split/ pk-textarea/ pk-barcode/ pk-qrcode/ pk-code-reader/
         CSS pages:  pk-grid/ pk-btn/ pk-spinner/ pk-badge/ pk-card/
                     pk-table/ pk-toggle/ pk-breadcrumb/ pk-font/ pk-form/ pk-layout/
         Example pages: examples/login/   ← login-example.ts/html/css — full-bleed card, form, password strength
@@ -441,6 +445,10 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `PkBarcode` | Component | `pk-barcode/pk-barcode` |
 | `PkQrEcLevel` | Type alias | `pk-qrcode/pk-qrcode.model` |
 | `PkQrcode` | Component | `pk-qrcode/pk-qrcode` |
+| `PkCodeFormat` | Type alias | `pk-code-reader/pk-code-reader.model` |
+| `PkCodeScanResult` | Interface | `pk-code-reader/pk-code-reader.model` |
+| `PkCodeReaderError` | Type alias | `pk-code-reader/pk-code-reader.model` |
+| `PkCodeReader` | Component | `pk-code-reader/pk-code-reader` |
 
 ---
 
@@ -469,7 +477,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.10.0` |
+| Library version | `2.11.1` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -486,17 +494,18 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-autocomplete` | ✅ Built |
 | `pk-typeahead` | ✅ Built |
 | `pk-tooltip` | ✅ Built |
-| `pk-calendar` | ✅ Built — Year/Month/Week/Day/Agenda views, drag & drop, multi-day bars, built-in form, TH/EN locale |
+| `pk-calendar` | ✅ Built — Year/Month/Week/Day/Agenda views, drag & drop, multi-day bars, built-in form, full 17-locale support via `PkLocale`; toolbar labels (`year/month/week/day/agenda/today/newEvent`) from `PkLocaleData.calendarLabels` |
 | `pk-file-upload` | ✅ Built, tested (14 tests) — drag & drop, browser-native preview (image/PDF/text), upload button, maxSize/maxFiles validation |
 | `pk-sidenav` | ✅ Built — left/right, full/icon/auto mode, multi-level, badge, 4 themes, CSS-variable override, content slots |
 | `pk-markdown-viewer` | ✅ Built, tested (18 tests) — `fileName` (fetch) + `content` (raw string); Print, Export .md, Export .html; light/dark theme; zero external deps |
-| `pk-locale` | ✅ Built — global shared locale model; 17 locales; `direction: 'ltr'\|'rtl'` |
+| `pk-locale` | ✅ Built — global shared locale model; 17 locales; `direction: 'ltr'\|'rtl'`; `calendarLabels` (year/month/week/day/agenda/today/newEvent) for all 17 locales |
 | `pk-heatmap` | ✅ Built, tested (16 tests) — full-width layout; 4 color schemes; 17-locale labels; legend 0/max; tooltip |
 | `pk-input-password` | ✅ Built — standalone, ControlValueAccessor, show/hide toggle, 4-level strength meter |
 | `pk-split` | ✅ Built, tested (8 tests) — horizontal/vertical resizable split pane; drag divider; touch support; `direction`, `initialSize`, `minSize`, `gutterSize`, `(sizeChange)` |
 | `pk-textarea` | ✅ Built, tested (11 tests) — rich text editor: bold/italic/underline/strike, text colour, **highlight color**, font name (18 Google Fonts via `pk-font-*`), font size (small/normal/large/h1-h3), ordered/unordered lists, **blockquote**, dark theme, 3 view modes (Edit/HTML/Text); standalone, ControlValueAccessor (`PkTextareaValue { html, text }`); `::ng-deep` used for dynamic editor content styles |
 | `pk-barcode` | ✅ Built, tested (15 tests) — inline SVG barcode; Code 128 / Code 39 / EAN-13 / EAN-8; pure TypeScript encoder; inputs: `value`, `format`, `width`, `height`, `showText`, `lineColor`, `backgroundColor`; `downloadSvg()` / `downloadPng()` |
 | `pk-qrcode` | ✅ Built, tested (12 tests) — inline SVG QR code; versions 1–40; EC levels L/M/Q/H; 8 mask patterns with ISO 18004 penalty scoring; center logo (auto-upgrades EC level to Q); inputs: `value`, `ecLevel`, `size`, `darkColor`, `lightColor`, `logo`, `logoSize`, `margin`; `downloadSvg()` / `downloadPng()` |
+| `pk-code-reader` | ✅ Built, tested (13 tests) — QR + barcode scanner; native `BarcodeDetector` API (zero deps); camera / image upload / clipboard paste; canvas RAF overlay (viewfinder + green bbox highlight 800 ms); AudioContext beep 880 Hz; torch toggle; camera switch; `formats` filtered by `getSupportedFormats()`; graceful "not supported" fallback; `reset()`, `startCamera()` methods |
 | `pk-grid` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | `pk-btn` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
 | `pk-spinner` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
@@ -512,7 +521,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 
-**Test totals: 156 / 156 passing**
+**Test totals: 169 / 169 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper
@@ -1438,3 +1447,96 @@ Internal `::ng-deep` is used — no extra CSS needed in consumer.
 - **Active border** — 3px left bar on active item (right bar when `position='right'`)
 - **Submenu animation** — slide-down on open, `@keyframes pk-snv-slide-down`
 - **Themes**: `light` (white) · `dark` (slate-800) · `primary` (green-800) · `custom` (fully overridable via `themeConfig`)
+
+---
+
+## pk-code-reader API reference
+
+Standalone component — scans QR codes and barcodes via the native `BarcodeDetector` API (zero external dependencies).
+
+```ts
+import { PkCodeReader } from 'ngx-pk-ui';
+import type { PkCodeScanResult, PkCodeReaderError, PkCodeFormat } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkCodeReader],
+})
+```
+
+```html
+<pk-code-reader
+  [continuous]="true"
+  [beep]="true"
+  [showOverlay]="true"
+  [showHighlight]="true"
+  [allowUpload]="true"
+  [allowPaste]="true"
+  (scan)="onScan($event)"
+  (error)="onError($event)"
+  (supportedFormats)="onFormats($event)"
+/>
+```
+
+### PkCodeReader inputs
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `formats` | `PkCodeFormat[]` | `[]` | Formats to detect — empty = all supported |
+| `facingMode` | `'environment'\|'user'` | `'environment'` | Rear (`environment`) or front (`user`) camera |
+| `continuous` | `boolean` | `true` | Keep scanning after first result |
+| `paused` | `boolean` | `false` | Pause scan loop without stopping camera |
+| `interval` | `number` | `300` | ms between scan attempts |
+| `showOverlay` | `boolean` | `true` | Render canvas viewfinder frame |
+| `showHighlight` | `boolean` | `true` | Draw green bounding box on detected code (800 ms) |
+| `beep` | `boolean` | `true` | AudioContext 880 Hz beep on detection |
+| `showTorch` | `boolean` | `true` | Show torch / flashlight toggle button |
+| `showSwitch` | `boolean` | `true` | Show front/rear camera switch button |
+| `allowUpload` | `boolean` | `true` | Show Upload image button |
+| `allowPaste` | `boolean` | `true` | Enable Ctrl+V clipboard paste scan |
+
+### PkCodeReader outputs
+
+| Output | Type | Description |
+|---|---|---|
+| `scan` | `PkCodeScanResult` | Emits on every successful detection |
+| `error` | `PkCodeReaderError` | Emits on error — `'not-supported'`, `'permission-denied'`, `'no-camera'`, `'decode-error'` |
+| `supportedFormats` | `PkCodeFormat[]` | Emits once on init with the device's supported formats |
+
+### PkCodeScanResult interface
+
+```ts
+interface PkCodeScanResult {
+  value: string;                          // decoded text
+  format: PkCodeFormat;                   // e.g. 'qr_code', 'code_128'
+  source: 'camera' | 'upload' | 'paste'; // how the code was scanned
+  boundingBox?: DOMRectReadOnly;
+  cornerPoints?: { x: number; y: number }[];
+}
+```
+
+### Public methods
+
+| Method | Description |
+|---|---|
+| `startCamera()` | (Re)start camera stream — useful after an error |
+| `reset()` | Clear debounce state and restart the scan loop |
+
+### PkCodeFormat values
+
+`aztec` · `code_128` · `code_39` · `code_93` · `codabar` · `data_matrix` · `ean_13` · `ean_8` · `itf` · `pdf417` · `qr_code` · `upc_a` · `upc_e` · `unknown`
+
+### Browser support
+
+| Browser | Support |
+|---|---|
+| Chrome 83+ (desktop/Android) | ✅ Full — QR + most barcodes |
+| Edge 83+ | ✅ Full |
+| Android WebView | ✅ Full |
+| Safari (iOS/macOS) | ❌ `BarcodeDetector` not supported — fallback overlay shown |
+| Firefox | ❌ `BarcodeDetector` not supported — fallback overlay shown |
+
+### Notes
+- **Zero dependencies** — uses only the native `BarcodeDetector` Web API
+- **Format filtering** — `getSupportedFormats()` is called on init; only device-supported formats are enabled. Code 39 and ITF reliability varies by platform
+- **Debounce** — same value is not re-emitted within 2 s in continuous mode; call `reset()` to override
+- **`_initPromise`** — exposed for testing: `await component._initPromise` after `TestBed.flushEffects()` to assert post-init state

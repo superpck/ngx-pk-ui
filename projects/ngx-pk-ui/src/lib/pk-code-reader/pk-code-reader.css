@@ -1,0 +1,144 @@
+:host {
+  display: block;
+}
+
+/* ── Wrapper ──────────────────────────────────────────────────────────── */
+.pk-cr {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Viewport ─────────────────────────────────────────────────────────── */
+.pk-cr__viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.pk-cr__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pk-cr__overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ── Toolbar (top-right controls) ────────────────────────────────────── */
+.pk-cr__toolbar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.pk-cr__btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.50);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  padding: 0;
+}
+
+.pk-cr__btn:hover {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.pk-cr__btn--torch-on {
+  background: rgba(234, 179, 8, 0.75);
+}
+
+.pk-cr__btn--torch-on:hover {
+  background: rgba(234, 179, 8, 0.90);
+}
+
+.pk-cr__btn .material-symbols-outlined {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* ── Not-supported overlay ───────────────────────────────────────────── */
+.pk-cr__unsupported {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  text-align: center;
+  padding: 24px;
+  gap: 10px;
+}
+
+.pk-cr__unsupported .material-symbols-outlined {
+  font-size: 52px;
+  opacity: 0.5;
+}
+
+.pk-cr__unsupported p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.pk-cr__unsupported-hint {
+  opacity: 0.55;
+  font-size: 0.8rem !important;
+}
+
+/* ── Actions row ─────────────────────────────────────────────────────── */
+.pk-cr__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pk-cr__upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  color: #374151;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.pk-cr__upload-btn:hover {
+  border-color: #9ca3af;
+  background: #f9fafb;
+}
+
+.pk-cr__upload-btn .material-symbols-outlined {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.pk-cr__paste-hint {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
