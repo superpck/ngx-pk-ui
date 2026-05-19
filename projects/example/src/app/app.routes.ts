@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadComponent: () => import('./pages/home/home').then(m => m.Home) },
+  { path: 'installation', loadComponent: () => import('./pages/installation/installation').then(m => m.Installation) },
   { path: 'license', loadComponent: () => import('./pages/license/license').then(m => m.License) },
   { path: 'pk-accordion', loadComponent: () => import('./pages/pk-accordion/pk-accordion-page').then(m => m.PkAccordionPage) },
   { path: 'pk-calendar', loadComponent: () => import('./pages/pk-calendar/pk-calendar-page').then(m => m.PkCalendarPage) },
@@ -45,6 +46,8 @@ export const routes: Routes = [
   { path: 'pk-radio-group', loadComponent: () => import('./pages/pk-radio-group/pk-radio-group-page').then(m => m.PkRadioGroupPage) },
   { path: 'pk-timepicker', loadComponent: () => import('./pages/pk-timepicker/pk-timepicker-page').then(m => m.PkTimepickerPage) },
   { path: 'pk-context-menu', loadComponent: () => import('./pages/pk-context-menu/pk-context-menu-page').then(m => m.PkContextMenuPage) },
+  { path: 'pk-pipes', loadComponent: () => import('./pages/pk-pipes/pk-pipes-page').then(m => m.PkPipesPage) },
+  { path: 'pk-directives', loadComponent: () => import('./pages/pk-directives/pk-directives-page').then(m => m.PkDirectivesPage) },
   // Examples
   { path: 'examples/login', loadComponent: () => import('./pages/examples/login/login-example').then(m => m.LoginExample) },
   { path: 'examples/chat', loadComponent: () => import('./pages/examples/chat/chat-example').then(m => m.ChatExample) },

@@ -140,3 +140,17 @@ export * from './lib/pk-timepicker/pk-timepicker';
 export * from './lib/pk-context-menu/pk-context-menu.model';
 export * from './lib/pk-context-menu/pk-context-menu.service';
 export * from './lib/pk-context-menu/pk-context-menu.directive';
+
+// pk-pipes
+export * from './lib/pk-pipes/pk-truncate.pipe';
+export * from './lib/pk-pipes/pk-time-ago.pipe';
+export * from './lib/pk-pipes/pk-file-size.pipe';
+export * from './lib/pk-pipes/pk-highlight.pipe';
+export * from './lib/pk-pipes/pk-date.pipe';
+
+// pk-directives
+export * from './lib/pk-directives/pk-click-outside.directive';
+export * from './lib/pk-directives/pk-copy-to-clipboard.directive';
+export * from './lib/pk-directives/pk-auto-focus.directive';
+export * from './lib/pk-directives/pk-debounce-click.directive';
+export * from './lib/pk-directives/pk-number-only.directive';

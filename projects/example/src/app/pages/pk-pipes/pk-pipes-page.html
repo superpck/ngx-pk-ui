@@ -1,0 +1,251 @@
+<style>
+  input,
+  select {
+    padding: 4px 8px;
+    font-size: 1rem;
+    border: 1px solid var(--pk-color-border);
+    border-radius: 4px;
+  }
+</style>
+<div class="page">
+  <h1 class="page-title">Utility Pipes</h1>
+  <p class="page-desc">Four standalone Angular pipes for common formatting tasks. Import only what you need.</p>
+
+  <!-- Install -->
+  <section class="section">
+    <h2>Import</h2>
+    <pre class="code-block">{{ code1 }}</pre>
+  </section>
+
+  <!-- pkTruncate -->
+  <section class="section">
+    <h2>pkTruncate</h2>
+    <p>Shortens a string to a maximum number of characters and appends an ellipsis.</p>
+
+    <div class="demo-card">
+      <div class="demo-row">
+        <label>Limit
+          <input type="number" [ngModel]="truncateLimit()" (ngModelChange)="truncateLimit.set($event)" min="1" max="200"
+            style="width:80px" />
+        </label>
+      </div>
+      <div class="demo-output">
+        {{ truncateText() | pkTruncate: truncateLimit() }}
+      </div>
+      <div class="demo-meta">Original length: {{ truncateText().length }} chars</div>
+    </div>
+
+    <pre class="code-block">{{ codeTruncate }}</pre>
+  </section>
+
+  <!-- pkTimeAgo -->
+  <section class="section">
+    <h2>pkTimeAgo</h2>
+    <p>Renders a past date as a human-readable relative string. Uses <code>pure: false</code> so it updates
+      automatically each change-detection cycle.</p>
+
+    <div class="demo-card">
+      <div class="demo-row preset-row">
+        @for (p of timePresets; track p.ms) {
+        <button class="pk-btn pk-btn-secondary pk-btn-sm pk-btn-outline" (click)="setTimeAgo(p.ms)">{{ p.label
+          }}</button>
+        }
+      </div>
+      <div class="demo-output">
+        {{ timeAgoDate() | pkTimeAgo }}
+      </div>
+    </div>
+
+    <pre class="code-block">{{ codeTimeAgo }}</pre>
+  </section>
+
+  <!-- pkFileSize -->
+  <section class="section">
+    <h2>pkFileSize</h2>
+    <p>Formats a raw byte count to a human-readable string with unit (B, KB, MB, GB, TB).</p>
+
+    <div class="demo-card">
+      <div class="demo-row">
+        <label>Bytes
+          <input type="number" [ngModel]="fileSizeBytes()" (ngModelChange)="fileSizeBytes.set(+$event)" min="0"
+            style="width:140px" />
+        </label>
+        <label>Decimals
+          <input type="number" [ngModel]="fileSizeDecimals()" (ngModelChange)="fileSizeDecimals.set(+$event)" min="0"
+            max="6" style="width:60px" />
+        </label>
+      </div>
+      <div class="demo-output">
+        {{ fileSizeBytes() | pkFileSize: fileSizeDecimals() }}
+      </div>
+    </div>
+
+    <pre class="code-block">{{ codeFileSize }}</pre>
+  </section>
+
+  <!-- pkHighlight -->
+  <section class="section">
+    <h2>pkHighlight</h2>
+    <p>Wraps all occurrences of a search term inside <code>&lt;mark class="pk-highlight"&gt;</code>. Use with
+      <code>[innerHTML]</code>. The value is HTML-escaped first to prevent XSS.</p>
+
+    <div class="demo-card">
+      <div class="demo-row">
+        <label>Text
+          <input type="text" [ngModel]="highlightText()" (ngModelChange)="highlightText.set($event)"
+            style="width:320px" />
+        </label>
+        <label>Search
+          <input type="text" [ngModel]="highlightQuery()" (ngModelChange)="highlightQuery.set($event)"
+            style="width:140px" />
+        </label>
+      </div>
+      <div class="demo-output">
+        <span [innerHTML]="highlightText() | pkHighlight: highlightQuery()"></span>
+      </div>
+    </div>
+
+    <pre class="code-block">{{ codeHighlight }}</pre>
+  </section>
+
+  <!-- pkDate -->
+  <section class="section">
+    <h2>pkDate</h2>
+    <p>Formats a <code>Date</code>, timestamp, or ISO string using locale-aware month names. Supports Buddhist Era (BE)
+      year output.</p>
+
+    <div class="demo-card">
+      <div class="demo-row" style="flex-wrap:wrap;gap:12px">
+        <label>Format
+          <input type="text" [ngModel]="dateFormat()" (ngModelChange)="dateFormat.set($event)" style="width:140px" />
+        </label>
+        <label>Style
+          <select [ngModel]="dateStyle()" (ngModelChange)="dateStyle.set($event)">
+            <option value="numeric">numeric</option>
+            <option value="abbr">abbr</option>
+            <option value="full">full</option>
+          </select>
+        </label>
+        <label>Locale
+          <select [ngModel]="dateLocale()" (ngModelChange)="dateLocale.set($event)">
+            <option value="en">en</option>
+            <option value="th">th</option>
+            <option value="es">es</option>
+            <option value="it">it</option>
+            <option value="fr">fr</option>
+            <option value="de">de</option>
+            <option value="ja">ja</option>
+            <option value="ar">ar</option>
+          </select>
+        </label>
+        <label>Era
+          <select [ngModel]="dateEra()" (ngModelChange)="dateEra.set($event)">
+            <option value="CE">CE</option>
+            <option value="BE">BE</option>
+          </select>
+        </label>
+      </div>
+      <div class="demo-output" style="font-size:1.4rem">
+        {{ demoDate | pkDate: dateFormat() : dateStyle() : dateLocale() : dateEra() }}
+      </div>
+      <div class="demo-meta">Input: new Date(2025, 0, 31) — January 31, 2025 CE</div>
+    </div>
+
+    <h3 style="margin-top:16px;font-size:1rem">Format token reference</h3>
+    <table class="pk-table pk-table-bordered" style="width:100%;margin-bottom:16px">
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Output</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>d</code></td>
+          <td>Day, no padding</td>
+          <td>1, 31</td>
+        </tr>
+        <tr>
+          <td><code>dd</code></td>
+          <td>Day, zero-padded</td>
+          <td>01, 31</td>
+        </tr>
+        <tr>
+          <td><code>m</code></td>
+          <td>Month — numeric or locale name (by style)</td>
+          <td>1, Jan, January</td>
+        </tr>
+        <tr>
+          <td><code>mm</code></td>
+          <td>Month padded (numeric) or locale name</td>
+          <td>01, Jan, January</td>
+        </tr>
+        <tr>
+          <td><code>yyyy</code></td>
+          <td>4-digit year</td>
+          <td>2025, 2568</td>
+        </tr>
+        <tr>
+          <td><code>yy</code></td>
+          <td>2-digit year</td>
+          <td>25, 68</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1rem">Examples</h3>
+    <table class="pk-table pk-table-bordered" style="width:100%;margin-bottom:16px">
+      <thead>
+        <tr>
+          <th>Call</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>pkDate:'d m yyyy':'abbr':'th':'BE'</code></td>
+          <td>{{ demoDate | pkDate:'d m yyyy':'abbr':'th':'BE' }}</td>
+        </tr>
+        <tr>
+          <td><code>pkDate:'d m yy':'abbr':'th':'BE'</code></td>
+          <td>{{ demoDate | pkDate:'d m yy':'abbr':'th':'BE' }}</td>
+        </tr>
+        <tr>
+          <td><code>pkDate:'d-m-yyyy':'abbr':'es'</code></td>
+          <td>{{ demoDate | pkDate:'d-m-yyyy':'abbr':'es' }}</td>
+        </tr>
+        <tr>
+          <td><code>pkDate:'m, d yyyy':'full':'it'</code></td>
+          <td>{{ demoDate | pkDate:'m, d yyyy':'full':'it' }}</td>
+        </tr>
+        <tr>
+          <td><code>pkDate:'dd/mm/yyyy':'numeric':'en'</code></td>
+          <td>{{ demoDate | pkDate:'dd/mm/yyyy':'numeric':'en' }}</td>
+        </tr>
+        <tr>
+          <td><code>pkDate:'yyyy年mm月dd日':'numeric':'zh'</code></td>
+          <td>{{ demoDate | pkDate:'yyyy年mm月dd日':'numeric':'zh' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <pre class="code-block">{{ codeDateImport }}</pre>
+    <pre class="code-block">{{ codeDateUsage }}</pre>
+
+    <h3 style="margin-top:16px;font-size:1rem">Buddhist Era input — parseBEDate()</h3>
+    <p>JavaScript <code>Date</code> is always CE internally. Use <code>parseBEDate()</code> to convert a BE-year string
+      to a CE <code>Date</code> before piping.</p>
+    <div class="demo-card">
+      <div class="demo-meta">parseBEDate('31/01/2568') → {{ demoDateBE | pkDate:'dd/mm/yyyy':'abbr':'th':'BE' }} (BE) =
+        {{ demoDateBE | pkDate:'dd/mm/yyyy':'abbr':'en' }} (CE)</div>
+    </div>
+    <pre class="code-block">{{ codeParseBE }}</pre>
+  </section>
+
+  <!-- Full API -->
+  <section class="section">
+    <h2>Usage</h2>
+    <pre class="code-block">{{ code2 }}</pre>
+  </section>
+</div>

@@ -1,0 +1,65 @@
+.page { padding: 32px 40px; max-width: 900px; }
+.page-title { font-size: 1.8rem; font-weight: 700; margin: 0 0 8px; }
+.page-desc { color: #6b7280; margin: 0 0 32px; }
+
+.section { margin-bottom: 40px; }
+.section h2 { font-size: 1.2rem; font-weight: 600; margin: 0 0 8px; }
+.section p { color: #374151; margin: 0 0 16px; }
+
+.demo-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
+
+.demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.demo-row label { font-size: 0.85rem; color: #6b7280; display: flex; align-items: center; gap: 8px; }
+.demo-row input[type="text"],
+.demo-row input[type="number"] {
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.preset-row { flex-wrap: wrap; gap: 8px; }
+
+.demo-output {
+  font-size: 1rem;
+  color: #111827;
+  min-height: 36px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 10px 14px;
+  line-height: 1.6;
+}
+
+.demo-meta { font-size: 0.8rem; color: #9ca3af; margin-top: 8px; }
+
+.code-block {
+  background: #1e293b;
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-size: 0.82rem;
+  white-space: pre;
+  overflow-x: auto;
+  margin: 0;
+}
+
+/* Highlight mark styling */
+:host ::ng-deep mark.pk-highlight {
+  background: #fef08a;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}

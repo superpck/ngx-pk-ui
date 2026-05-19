@@ -4,6 +4,50 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.15.1] — 2026-05-19
+
+### Changed
+- **Example app — Home page redesign**: replaced the old Usage + Notes sections with a stats bar (29 components / 12 CSS utilities / 5 pipes / 5 directives / 17 locales / 358 tests), a "Why ngx-pk-ui?" feature-highlight grid, a Quick Start snippet, a component-categories chip map, and an Angular version compatibility table
+- **Example app — Installation page**: new dedicated `/installation` page with a full 5-step setup guide (npm install, global styles, import components, inject services, NgModule-based components table); added to sidebar after Overview
+- **Example app — Angular version compatibility table** moved from Installation page to Home page
+
+---
+
+## [2.15.0] — 2026-05-19
+
+### Added
+- **pk-pipes: `PkDatePipe`** (`pkDate`) — locale-aware date formatting pipe with Buddhist Era support
+  - Format string with embedded separators and order tokens: `d` `dd` `m` `mm` `yyyy` `yy`
+  - Three month styles: `numeric` (number), `abbr` (short name from `monthNamesShort`), `full` (from `monthNamesFull`)
+  - 17 locales via `PkLocale` / `PkLocaleData`
+  - `era: 'CE' | 'BE'` — adds 543 years for Thai Buddhist Era output
+  - Input types: `Date | number | string`
+- **`parseBEDate()`** utility function — converts a Buddhist Era date string (e.g. `"31/01/2568"`) to a CE `Date`
+  - Parameters: `value`, `separator` (default `/`), `order: 'dmy'|'mdy'|'ymd'` (default `'dmy'`)
+  - Exported from `ngx-pk-ui`
+
+---
+
+## [2.14.0] — 2026-05-19
+
+### Added
+- **pk-pipes**: four new standalone Angular pipes for common formatting tasks
+  - `PkTruncatePipe` (`pkTruncate`) — truncate a string to N chars with custom ellipsis
+  - `PkTimeAgoPipe` (`pkTimeAgo`) — relative time string from a past date ("3 minutes ago")
+  - `PkFileSizePipe` (`pkFileSize`) — format raw byte count as human-readable size (B / KB / MB / GB / TB)
+  - `PkHighlightPipe` (`pkHighlight`) — wrap search term matches in `<mark class="pk-highlight">` (XSS-safe, use with `[innerHTML]`)
+- **pk-directives**: five new standalone Angular directives for common DOM interactions
+  - `PkClickOutsideDirective` (`[pkClickOutside]`) — emit `(pkClickOutside)` when user clicks outside the host
+  - `PkCopyToClipboardDirective` (`[pkCopyToClipboard]`) — copy text to clipboard on click; emit `(pkCopied)` true/false
+  - `PkAutoFocusDirective` (`[pkAutoFocus]`) — focus host element on `AfterViewInit`; disable conditionally via `[pkAutoFocus]="false"`
+  - `PkDebounceClickDirective` (`[pkDebounceClick]`) — debounce click events; emit `(pkDebounceClicked)` after delay (default 300 ms)
+  - `PkNumberOnlyDirective` (`[pkNumberOnly]`) — restrict `<input>` to digits; optional `[pkAllowDecimal]` for single decimal point
+- All 9 new symbols exported from `public-api.ts`
+- Example pages for both **pk-pipes** and **pk-directives** added to the dev app
+- 58 new Vitest tests (pipes: 28, directives: 20) → **318 / 318** total
+
+---
+
 ## [2.13.1] — 2026-05-19
 
 ### Fixed / Added
