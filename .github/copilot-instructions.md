@@ -453,6 +453,13 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `PkTimeType` | Type alias | `pk-timepicker/pk-timepicker.model` |
 | `PkTimeInputType` | Type alias | `pk-timepicker/pk-timepicker.model` |
 | `PkTimepicker` | Component | `pk-timepicker/pk-timepicker` |
+| `PkContextMenuLayout` | Type alias | `pk-context-menu/pk-context-menu.model` |
+| `PkContextMenuTheme` | Type alias | `pk-context-menu/pk-context-menu.model` |
+| `PkContextMenuItem` | Interface | `pk-context-menu/pk-context-menu.model` |
+| `PkContextMenuSelectEvent` | Interface | `pk-context-menu/pk-context-menu.model` |
+| `PkContextMenuShowConfig` | Interface | `pk-context-menu/pk-context-menu.service` |
+| `PkContextMenuService` | Injectable service | `pk-context-menu/pk-context-menu.service` |
+| `PkContextMenuDirective` | Directive | `pk-context-menu/pk-context-menu.directive` |
 
 ---
 
@@ -481,7 +488,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.12.0` |
+| Library version | `2.13.0` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -507,6 +514,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-input-password` | ✅ Built — standalone, ControlValueAccessor, show/hide toggle, 4-level strength meter |
 | `pk-radio-group` | ✅ Built, tested (14 tests) — standalone, ControlValueAccessor (`ngModel`/`FormControl`), `layout: vertical\|horizontal`, per-option disabled, `(onChange)` output |
 | `pk-timepicker` | ✅ Built, tested (39 tests) — standalone, ControlValueAccessor (`ngModel`/`FormControl`); value as 24H string (`HH:mm`, `HH:mm:ss`, `HH`); `format: 'hms'\|'hm'\|'h'`; `type: '24H'\|'12H'`; `inputType: 'spinner'\|'number'\|'dropdown'`; default `height: 35px` (override via `customStyle`); `customClass`/`customStyle`; `(onTimeChange)` output |
+| `pk-context-menu` | ✅ Built, tested (23 tests) — `[pkContextMenu]` directive + `PkContextMenuService` (panel appended to `<body>` on first inject); 7 themes (light/dark/green/blue/orange/red/magenta); `layout: 'vertical'\|'horizontal'`; `PkContextMenuItem` supports `fn`, `route`, `href`, `icon`, `disabled`, `separator`; keyboard nav (ArrowDown/Up/Enter/Escape); auto-position near viewport edges |
 | `pk-split` | ✅ Built, tested (8 tests) — horizontal/vertical resizable split pane; drag divider; touch support; `direction`, `initialSize`, `minSize`, `gutterSize`, `(sizeChange)` |
 | `pk-textarea` | ✅ Built, tested (11 tests) — rich text editor: bold/italic/underline/strike, text colour, **highlight color**, font name (18 Google Fonts via `pk-font-*`), font size (small/normal/large/h1-h3), ordered/unordered lists, **blockquote**, dark theme, 3 view modes (Edit/HTML/Text); standalone, ControlValueAccessor (`PkTextareaValue { html, text }`); `::ng-deep` used for dynamic editor content styles |
 | `pk-barcode` | ✅ Built, tested (15 tests) — inline SVG barcode; Code 128 / Code 39 / EAN-13 / EAN-8; pure TypeScript encoder; inputs: `value`, `format`, `width`, `height`, `showText`, `lineColor`, `backgroundColor`; `downloadSvg()` / `downloadPng()` |
@@ -528,7 +536,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 
-**Test totals: 230 / 230 passing**
+**Test totals: 253 / 253 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper
@@ -597,6 +605,72 @@ Always 24H internally regardless of `type`. `writeValue('14:30')` sets `_h=14, _
 - Default `height: 35px` set in CSS; override with `[customStyle]="{ height: '42px' }"`.
 - 12H display: hour 0 → shows as `12` (midnight AM); hour 12 → shows as `12` (noon PM).
 - Separate spec files per `inputType` to avoid TestBed environment conflicts.
+
+---
+
+## pk-context-menu API reference
+
+Directive + service — right-click context menu with zero template setup for the panel.
+
+```ts
+import { PkContextMenuDirective } from 'ngx-pk-ui';
+import type { PkContextMenuItem, PkContextMenuSelectEvent } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkContextMenuDirective],
+})
+```
+
+```html
+<div
+  [pkContextMenu]="menuItems"
+  pkContextMenuTheme="light"
+  pkContextMenuLayout="vertical"
+  (pkContextMenuSelected)="onSelect($event)"
+>Right-click here</div>
+```
+
+### PkContextMenuDirective inputs / outputs
+
+| Input/Output | Type | Default | Description |
+|---|---|---|---|
+| `pkContextMenu` | `PkContextMenuItem[]` | `[]` | Menu items |
+| `pkContextMenuLayout` | `'vertical'\|'horizontal'` | `'vertical'` | Panel layout |
+| `pkContextMenuTheme` | `PkContextMenuTheme` | `'light'` | Color theme |
+| `pkContextMenuDisabled` | `boolean` | `false` | Prevent menu from opening |
+| `(pkContextMenuSelected)` | `PkContextMenuSelectEvent` | — | Emits when user selects an item |
+| `(pkContextMenuOpen)` | `MouseEvent` | — | Emits on right-click before menu opens |
+
+### PkContextMenuTheme values
+
+`'light'` · `'dark'` · `'green'` · `'blue'` · `'orange'` · `'red'` · `'magenta'`
+
+### PkContextMenuItem interface
+
+| Property | Type | Description |
+|---|---|---|
+| `id` | `string\|number?` | Optional identifier |
+| `title` | `string?` | Display label |
+| `icon` | `string?` | Material Symbols icon name |
+| `disabled` | `boolean?` | Prevent selection |
+| `separator` | `boolean?` | Render a divider line (other fields ignored) |
+| `route` | `any[]?` | Angular Router commands — `router.navigate(route)` |
+| `href` | `string?` | External URL — `window.open(href, hrefTarget)` |
+| `hrefTarget` | `'_blank'\|'_self'?` | Link target. Default `'_blank'` |
+| `fn` | `() => void?` | Callback executed on selection |
+
+### PkContextMenuService methods
+
+| Method | Description |
+|---|---|
+| `show(config)` | Open the panel at x/y with items, layout, theme, and selection callback |
+| `hide()` | Programmatically close the panel |
+
+### Notes
+- **Panel is auto-created** — `PkContextMenuService` is `providedIn: 'root'`; the panel component is lazily imported and appended to `<body>` on first inject. No `<pk-ctx-panel>` tag needed anywhere.
+- **Keyboard**: ArrowDown/Up to navigate, Enter to confirm, Escape to close.
+- **Auto-position**: panel flips to stay within viewport bounds.
+- **`PkContextMenuPanel` is NOT exported** from public-api — it's an internal implementation detail.
 
 ---
 

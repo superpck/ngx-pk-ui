@@ -135,3 +135,8 @@ export * from './lib/pk-radio-group/pk-radio-group';
 // pk-timepicker
 export * from './lib/pk-timepicker/pk-timepicker.model';
 export * from './lib/pk-timepicker/pk-timepicker';
+
+// pk-context-menu
+export * from './lib/pk-context-menu/pk-context-menu.model';
+export * from './lib/pk-context-menu/pk-context-menu.service';
+export * from './lib/pk-context-menu/pk-context-menu.directive';

@@ -1,0 +1,200 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-context-menu</h1>
+    <p class="demo-page-desc">
+      Right-click context menu — attach <code>[pkContextMenu]</code> to any element.
+      The menu panel is created once and appended to <code>&lt;body&gt;</code> by
+      <code>PkContextMenuService</code>.
+    </p>
+  </div>
+
+  <!-- Controls -->
+  <section class="demo-section">
+    <h2>Configuration</h2>
+    <div class="demo-row" style="gap: 24px; align-items: center; flex-wrap: wrap;">
+
+      <!-- Theme picker -->
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 0.875rem; color: #6b7280;">Theme:</span>
+        @for (t of themes; track t) {
+          <button
+            class="pk-btn pk-btn-sm"
+            [class.pk-btn-primary]="theme() === t"
+            [class.pk-btn-secondary]="theme() !== t"
+            (click)="theme.set(t)"
+          >{{ t }}</button>
+        }
+      </div>
+
+      <!-- Layout picker -->
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 0.875rem; color: #6b7280;">Layout:</span>
+        @for (l of layouts; track l) {
+          <button
+            class="pk-btn pk-btn-sm"
+            [class.pk-btn-primary]="layout() === l"
+            [class.pk-btn-secondary]="layout() !== l"
+            (click)="layout.set(l)"
+          >{{ l }}</button>
+        }
+      </div>
+
+    </div>
+
+    <!-- Last selected event -->
+    <div style="margin-top: 12px; font-size: 0.875rem; color: #374151;">
+      Last action: <strong style="color: #1d4ed8;">{{ lastEvent() }}</strong>
+    </div>
+  </section>
+
+  <!-- Table demo -->
+  <section class="demo-section">
+    <h2>Table rows — right-click a row</h2>
+    <p class="demo-desc">Each row gets a context menu with View / Edit / Delete actions.</p>
+
+    <div class="pk-table-responsive">
+      <table class="pk-table pk-table-primary pk-table-striped pk-table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of rows; track row.id) {
+            <tr
+              [pkContextMenu]="tableMenu"
+              [pkContextMenuTheme]="theme()"
+              [pkContextMenuLayout]="layout()"
+              (pkContextMenuSelected)="onSelect($event)"
+              style="cursor: context-menu;"
+            >
+              <td>{{ row.id }}</td>
+              <td>{{ row.name }}</td>
+              <td>{{ row.role }}</td>
+              <td>
+                <span class="pk-badge"
+                  [class.pk-badge-success]="row.status === 'Active'"
+                  [class.pk-badge-warn]="row.status === 'Pending'"
+                  [class.pk-badge-error]="row.status === 'Inactive'"
+                >{{ row.status }}</span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      <pre class="code-block" style="margin: 10px 0px;"><code>&lt;tr [pkContextMenu]="tableMenu"
+  [pkContextMenuTheme]="theme()"
+  [pkContextMenuLayout]="layout()"
+  (pkContextMenuSelected)="onSelect($event)"
+  style="cursor: context-menu;" /&gt;</code></pre>
+    </div>
+  </section>
+
+  <!-- Card demo -->
+  <section class="demo-section">
+    <h2>Card — right-click the card body</h2>
+    <p class="demo-desc">Menu with a separator and a disabled item.</p>
+
+    <div style="max-width: 360px;">
+      <div
+        class="pk-card pk-card-shadow"
+        [pkContextMenu]="cardMenu"
+        [pkContextMenuTheme]="theme()"
+        [pkContextMenuLayout]="layout()"
+        (pkContextMenuSelected)="onSelect($event)"
+        style="cursor: context-menu; user-select: none;"
+      >
+        <div class="pk-card-header">Project Alpha</div>
+        <div class="pk-card-body">
+          <p style="margin: 0; color: #6b7280;">
+            Right-click anywhere on this card to open the context menu.<br>
+            The <em>Report</em> item is disabled.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Disabled demo -->
+  <section class="demo-section">
+    <h2>Disabled directive</h2>
+    <p class="demo-desc">When <code>pkContextMenuDisabled</code> is <code>true</code> the native browser menu appears.</p>
+    <div
+      class="pk-card"
+      style="max-width: 360px; cursor: default; user-select: none;"
+      [pkContextMenu]="tableMenu"
+      [pkContextMenuDisabled]="true"
+      [pkContextMenuTheme]="theme()"
+    >
+      <div class="pk-card-body">
+        <p style="margin: 0; color: #6b7280;">
+          Right-clicking here shows the <strong>browser</strong> context menu.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Usage -->
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>import {{ '{' }} PkContextMenuDirective {{ '}' }} from 'ngx-pk-ui';
+
+// items
+menu: PkContextMenuItem[] = [
+  {{ '{' }} id: 'view', title: 'View', icon: 'visibility' {{ '}' }},
+  {{ '{' }} id: 'edit', title: 'Edit', icon: 'edit' {{ '}' }},
+  {{ '{' }} separator: true {{ '}' }},
+  {{ '{' }} id: 'delete', title: 'Delete', icon: 'delete' {{ '}' }},
+];
+
+// template
+&lt;div
+  [pkContextMenu]="menu"
+  pkContextMenuTheme="light"
+  pkContextMenuLayout="vertical"
+  (pkContextMenuSelected)="onSelect($event)"
+&gt;Right-click me&lt;/div&gt;</code></pre>
+  </section>
+
+  <!-- API -->
+  <section class="demo-section">
+    <h2>Directive inputs / outputs</h2>
+    <table class="pk-table pk-table-bordered pk-table-hover">
+      <thead>
+        <tr><th>Input / Output</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>pkContextMenu</code></td><td><code>PkContextMenuItem[]</code></td><td><code>[]</code></td><td>Menu items to display</td></tr>
+        <tr><td><code>pkContextMenuLayout</code></td><td><code>'vertical' | 'horizontal'</code></td><td><code>'vertical'</code></td><td>Panel layout direction</td></tr>
+        <tr><td><code>pkContextMenuTheme</code></td><td><code>PkContextMenuTheme</code></td><td><code>'light'</code></td><td>Color theme</td></tr>
+        <tr><td><code>pkContextMenuDisabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Prevent menu from opening</td></tr>
+        <tr><td><code>(pkContextMenuSelected)</code></td><td><code>PkContextMenuSelectEvent</code></td><td>—</td><td>Emits when user selects an item</td></tr>
+        <tr><td><code>(pkContextMenuOpen)</code></td><td><code>MouseEvent</code></td><td>—</td><td>Emits on right-click before menu opens</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- PkContextMenuItem -->
+  <section class="demo-section">
+    <h2>PkContextMenuItem interface</h2>
+    <table class="pk-table pk-table-bordered pk-table-hover">
+      <thead>
+        <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>id</code></td><td><code>string | number</code></td><td>Optional unique identifier</td></tr>
+        <tr><td><code>title</code></td><td><code>string</code></td><td>Display label</td></tr>
+        <tr><td><code>icon</code></td><td><code>string</code></td><td>Material Symbols icon name</td></tr>
+        <tr><td><code>disabled</code></td><td><code>boolean</code></td><td>Prevent selection</td></tr>
+        <tr><td><code>separator</code></td><td><code>boolean</code></td><td>Render a divider line (other fields ignored)</td></tr>
+        <tr><td><code>route</code></td><td><code>any[]</code></td><td>Angular Router commands</td></tr>
+        <tr><td><code>href</code></td><td><code>string</code></td><td>External URL (opens via window.open)</td></tr>
+        <tr><td><code>hrefTarget</code></td><td><code>'_blank' | '_self'</code></td><td>Link target — default <code>'_blank'</code></td></tr>
+        <tr><td><code>fn</code></td><td><code>() => void</code></td><td>Callback on selection</td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>

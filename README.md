@@ -1,4 +1,4 @@
-# ngx-pk-ui 2.12.0
+# ngx-pk-ui 2.13.0
 
 An Angular 21 component library providing UI components and CSS utilities.
 
@@ -74,6 +74,7 @@ npm install ngx-pk-ui
 | `pk-code-reader` | Component | QR code & barcode scanner — native `BarcodeDetector` API, camera / upload / paste, overlay, beep, torch, camera switch |
 | `pk-radio-group` | Component | Custom-styled radio button group — `ControlValueAccessor`, vertical/horizontal layout, per-option disabled |
 | `pk-timepicker` | Component | Time picker — spinner / number / dropdown input styles, 24H/12H, `ControlValueAccessor`, format `hms/hm/h` |
+| `pk-context-menu` | Directive + Service | Right-click context menu — `[pkContextMenu]` directive, 7 themes, vertical/horizontal layout, keyboard navigation, auto-position |
 
 ---
 

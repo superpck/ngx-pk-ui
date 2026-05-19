@@ -44,6 +44,7 @@ export const routes: Routes = [
   { path: 'pk-code-reader', loadComponent: () => import('./pages/pk-code-reader/pk-code-reader-page').then(m => m.PkCodeReaderPage) },
   { path: 'pk-radio-group', loadComponent: () => import('./pages/pk-radio-group/pk-radio-group-page').then(m => m.PkRadioGroupPage) },
   { path: 'pk-timepicker', loadComponent: () => import('./pages/pk-timepicker/pk-timepicker-page').then(m => m.PkTimepickerPage) },
+  { path: 'pk-context-menu', loadComponent: () => import('./pages/pk-context-menu/pk-context-menu-page').then(m => m.PkContextMenuPage) },
   // Examples
   { path: 'examples/login', loadComponent: () => import('./pages/examples/login/login-example').then(m => m.LoginExample) },
   { path: 'examples/chat', loadComponent: () => import('./pages/examples/chat/chat-example').then(m => m.ChatExample) },
