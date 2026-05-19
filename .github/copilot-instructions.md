@@ -480,6 +480,8 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - **`pk-icon` floats above adjacent text** — `inline-flex` elements use `vertical-align: baseline` by default, which misaligns icons when placed next to text. Fix: add `vertical-align: middle` to `:host` in `pk-icon.css`.
 - **`PK_MATERIAL_ICON_SETS` for material-symbols check** — use the exported constant `PK_MATERIAL_ICON_SETS` (from `pk-icon.model.ts`) instead of repeating `iconSet() === 'material-symbols' || iconSet() === 'google' || iconSet() === 'mat'`.
 - **`contenteditable` dynamic content not styled** — Elements injected by `document.execCommand()` (e.g. `<blockquote>`, `<h1>`, `<ul>`) do NOT receive Angular's `_ngcontent-xxx` attribute, so component-scoped CSS like `.pk-ta__editor blockquote` is compiled to `.pk-ta__editor blockquote[_ngcontent-xxx]` and never matches. Fix: use `:host ::ng-deep .pk-ta__editor blockquote` for any style targeting dynamically-inserted editor content.
+- **`Touch` / `TouchEvent` not available in jsdom** — Vitest's jsdom environment does not implement the `Touch` constructor. In specs, dispatch touch events as `new Event('touchstart', { bubbles: true }) as TouchEvent` and mock the `touches` array via `Object.defineProperty(event, 'touches', { value: [{ clientX, clientY, ... }] })`.
+- **`@HostListener('document:keydown.*')` receives `Event`, not `KeyboardEvent`** — Angular passes the raw `Event` from `addEventListener`. Typing the parameter as `KeyboardEvent` causes TS2345. Always type it as `Event` (or `Event & { key: string }`).
 
 ---
 
@@ -488,7 +490,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.13.0` |
+| Library version | `2.13.1` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -514,7 +516,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-input-password` | ✅ Built — standalone, ControlValueAccessor, show/hide toggle, 4-level strength meter |
 | `pk-radio-group` | ✅ Built, tested (14 tests) — standalone, ControlValueAccessor (`ngModel`/`FormControl`), `layout: vertical\|horizontal`, per-option disabled, `(onChange)` output |
 | `pk-timepicker` | ✅ Built, tested (39 tests) — standalone, ControlValueAccessor (`ngModel`/`FormControl`); value as 24H string (`HH:mm`, `HH:mm:ss`, `HH`); `format: 'hms'\|'hm'\|'h'`; `type: '24H'\|'12H'`; `inputType: 'spinner'\|'number'\|'dropdown'`; default `height: 35px` (override via `customStyle`); `customClass`/`customStyle`; `(onTimeChange)` output |
-| `pk-context-menu` | ✅ Built, tested (23 tests) — `[pkContextMenu]` directive + `PkContextMenuService` (panel appended to `<body>` on first inject); 7 themes (light/dark/green/blue/orange/red/magenta); `layout: 'vertical'\|'horizontal'`; `PkContextMenuItem` supports `fn`, `route`, `href`, `icon`, `disabled`, `separator`; keyboard nav (ArrowDown/Up/Enter/Escape); auto-position near viewport edges |
+| `pk-context-menu` | ✅ Built, tested (30 tests) — `[pkContextMenu]` directive + `PkContextMenuService` (panel appended to `<body>` on first inject); 7 themes (light/dark/green/blue/orange/red/magenta); `layout: 'vertical'\|'horizontal'`; `PkContextMenuItem` supports `fn`, `route`, `href`, `icon`, `disabled`, `separator`; keyboard nav (ArrowDown/Up/Enter/Escape); auto-position near viewport edges; **mobile long-press (500 ms)** support |
 | `pk-split` | ✅ Built, tested (8 tests) — horizontal/vertical resizable split pane; drag divider; touch support; `direction`, `initialSize`, `minSize`, `gutterSize`, `(sizeChange)` |
 | `pk-textarea` | ✅ Built, tested (11 tests) — rich text editor: bold/italic/underline/strike, text colour, **highlight color**, font name (18 Google Fonts via `pk-font-*`), font size (small/normal/large/h1-h3), ordered/unordered lists, **blockquote**, dark theme, 3 view modes (Edit/HTML/Text); standalone, ControlValueAccessor (`PkTextareaValue { html, text }`); `::ng-deep` used for dynamic editor content styles |
 | `pk-barcode` | ✅ Built, tested (15 tests) — inline SVG barcode; Code 128 / Code 39 / EAN-13 / EAN-8; pure TypeScript encoder; inputs: `value`, `format`, `width`, `height`, `showText`, `lineColor`, `backgroundColor`; `downloadSvg()` / `downloadPng()` |
@@ -536,7 +538,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 
-**Test totals: 253 / 253 passing**
+**Test totals: 260 / 260 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper
@@ -670,6 +672,7 @@ import type { PkContextMenuItem, PkContextMenuSelectEvent } from 'ngx-pk-ui';
 - **Panel is auto-created** — `PkContextMenuService` is `providedIn: 'root'`; the panel component is lazily imported and appended to `<body>` on first inject. No `<pk-ctx-panel>` tag needed anywhere.
 - **Keyboard**: ArrowDown/Up to navigate, Enter to confirm, Escape to close.
 - **Auto-position**: panel flips to stay within viewport bounds.
+- **Mobile long-press**: directive listens to `touchstart` — fires menu after 500 ms hold. Moving finger > 10 px cancels the gesture. Android's duplicate `contextmenu` event after long-press is swallowed via `_longPressTriggered` flag. Host style `-webkit-touch-callout: none` suppresses the iOS native callout.
 - **`PkContextMenuPanel` is NOT exported** from public-api — it's an internal implementation detail.
 
 ---

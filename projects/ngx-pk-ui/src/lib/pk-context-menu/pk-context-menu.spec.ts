@@ -137,6 +137,98 @@ describe('PkContextMenuDirective', () => {
     fixture.detectChanges();
     expect(host.lastSelect?.item).toEqual(item);
   });
+
+  // ── Long-press (mobile) tests ──────────────────────────────────────────────
+
+  function touchStart(el: HTMLElement, x = 100, y = 200): void {
+    const event = new Event('touchstart', { bubbles: true, cancelable: true }) as TouchEvent;
+    Object.defineProperty(event, 'touches', { value: [{ identifier: 1, target: el, clientX: x, clientY: y }] });
+    el.dispatchEvent(event);
+  }
+
+  function touchMove(el: HTMLElement, x: number, y: number): void {
+    const event = new Event('touchmove', { bubbles: true, cancelable: true }) as TouchEvent;
+    Object.defineProperty(event, 'touches', { value: [{ identifier: 1, target: el, clientX: x, clientY: y }] });
+    el.dispatchEvent(event);
+  }
+
+  function touchEnd(el: HTMLElement): void {
+    el.dispatchEvent(new Event('touchend', { bubbles: true, cancelable: true }));
+  }
+
+  it('long-press (500 ms) calls service.show with touch coordinates', () => {
+    vi.useFakeTimers();
+    const el = fixture.debugElement.query(By.css('#target')).nativeElement as HTMLElement;
+    touchStart(el, 150, 300);
+    expect(mockService.show).not.toHaveBeenCalled();
+    vi.advanceTimersByTime(500);
+    expect(mockService.show).toHaveBeenCalledOnce();
+    const cfg = mockService.show.mock.calls[0][0];
+    expect(cfg.x).toBe(150);
+    expect(cfg.y).toBe(300);
+    vi.useRealTimers();
+  });
+
+  it('long-press does NOT fire before 500 ms', () => {
+    vi.useFakeTimers();
+    const el = fixture.debugElement.query(By.css('#target')).nativeElement as HTMLElement;
+    touchStart(el, 100, 200);
+    vi.advanceTimersByTime(499);
+    expect(mockService.show).not.toHaveBeenCalled();
+    vi.useRealTimers();
+  });
+
+  it('touchend before 500 ms cancels long-press', () => {
+    vi.useFakeTimers();
+    const el = fixture.debugElement.query(By.css('#target')).nativeElement as HTMLElement;
+    touchStart(el, 100, 200);
+    vi.advanceTimersByTime(300);
+    touchEnd(el);
+    vi.advanceTimersByTime(500);
+    expect(mockService.show).not.toHaveBeenCalled();
+    vi.useRealTimers();
+  });
+
+  it('finger move > 10 px cancels long-press', () => {
+    vi.useFakeTimers();
+    const el = fixture.debugElement.query(By.css('#target')).nativeElement as HTMLElement;
+    touchStart(el, 100, 200);
+    touchMove(el, 115, 200); // moved 15 px > threshold
+    vi.advanceTimersByTime(500);
+    expect(mockService.show).not.toHaveBeenCalled();
+    vi.useRealTimers();
+  });
+
+  it('finger move <= 10 px does NOT cancel long-press', () => {
+    vi.useFakeTimers();
+    const el = fixture.debugElement.query(By.css('#target')).nativeElement as HTMLElement;
+    touchStart(el, 100, 200);
+    touchMove(el, 105, 203); // ~5.8 px — under threshold
+    vi.advanceTimersByTime(500);
+    expect(mockService.show).toHaveBeenCalledOnce();
+    vi.useRealTimers();
+  });
+
+  it('long-press does NOT fire when disabled', () => {
+    vi.useFakeTimers();
+    host.disabled.set(true);
+    fixture.detectChanges();
+    const el = fixture.debugElement.query(By.css('#target')).nativeElement as HTMLElement;
+    touchStart(el, 100, 200);
+    vi.advanceTimersByTime(500);
+    expect(mockService.show).not.toHaveBeenCalled();
+    vi.useRealTimers();
+  });
+
+  it('contextmenu after long-press is suppressed (no double-show)', () => {
+    vi.useFakeTimers();
+    const el = fixture.debugElement.query(By.css('#target')).nativeElement as HTMLElement;
+    touchStart(el, 100, 200);
+    vi.advanceTimersByTime(500); // menu shown via long-press
+    vi.useRealTimers();
+    rightClick(el); // Android fires contextmenu after long-press — should be swallowed
+    expect(mockService.show).toHaveBeenCalledOnce(); // still only 1
+  });
 });
 
 // ─── Panel component tests ───────────────────────────────────────────────────
