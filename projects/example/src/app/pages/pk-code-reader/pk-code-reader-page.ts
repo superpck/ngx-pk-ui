@@ -26,6 +26,12 @@ export class PkCodeReaderPage {
     this.scanCount.update(n => n + 1);
   }
 
+  clearLastScan(): void {
+    this.lastScan.set(null);
+    this.lastError.set(null);
+    this.scanCount.set(0);
+  }
+
   onError(err: PkCodeReaderError): void {
     this.lastError.set(err);
   }

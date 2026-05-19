@@ -51,6 +51,7 @@
           <div class="result-row"><span class="result-key">Format</span><span class="result-val">{{ lastScan()!.format }}</span></div>
           <div class="result-row"><span class="result-key">Source</span><span class="result-val">{{ lastScan()!.source }}</span></div>
           <div class="result-row"><span class="result-key">Count</span><span class="result-val">{{ scanCount() }}</span></div>
+          <button class="pk-btn pk-btn-secondary pk-btn-outline pk-btn-sm" style="margin-top:10px" (click)="clearLastScan()">Clear</button>
         </div>
       }
       @if (!lastScan() && !lastError()) {
