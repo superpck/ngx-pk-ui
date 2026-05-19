@@ -1,0 +1,182 @@
+/* Context menu panel — position: fixed, appended to <body> by PkContextMenuService */
+
+.pk-cm {
+  position: fixed;
+  z-index: 9999;
+  min-width: 160px;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.12),
+    0 1px 4px  rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--pk-cm-border);
+  background: var(--pk-cm-bg);
+  animation: pk-cm-in 0.12s ease-out;
+  user-select: none;
+  outline: none;
+}
+
+/* ── Themes ─────────────────────────────────────────────────────────────── */
+
+.pk-cm--light {
+  --pk-cm-bg:           #ffffff;
+  --pk-cm-border:       #e5e7eb;
+  --pk-cm-text:         #111827;
+  --pk-cm-hover-bg:     #f3f4f6;
+  --pk-cm-hover-text:   #111827;
+  --pk-cm-sep:          #e5e7eb;
+  --pk-cm-icon:         #6b7280;
+}
+
+.pk-cm--dark {
+  --pk-cm-bg:           #1e293b;
+  --pk-cm-border:       #334155;
+  --pk-cm-text:         #f1f5f9;
+  --pk-cm-hover-bg:     #334155;
+  --pk-cm-hover-text:   #f8fafc;
+  --pk-cm-sep:          #334155;
+  --pk-cm-icon:         #94a3b8;
+}
+
+.pk-cm--green {
+  --pk-cm-bg:           #ffffff;
+  --pk-cm-border:       #bbf7d0;
+  --pk-cm-text:         #111827;
+  --pk-cm-hover-bg:     #dcfce7;
+  --pk-cm-hover-text:   #14532d;
+  --pk-cm-sep:          #bbf7d0;
+  --pk-cm-icon:         #16a34a;
+}
+
+.pk-cm--blue {
+  --pk-cm-bg:           #ffffff;
+  --pk-cm-border:       #bfdbfe;
+  --pk-cm-text:         #111827;
+  --pk-cm-hover-bg:     #dbeafe;
+  --pk-cm-hover-text:   #1e3a8a;
+  --pk-cm-sep:          #bfdbfe;
+  --pk-cm-icon:         #2563eb;
+}
+
+.pk-cm--orange {
+  --pk-cm-bg:           #ffffff;
+  --pk-cm-border:       #fed7aa;
+  --pk-cm-text:         #111827;
+  --pk-cm-hover-bg:     #ffedd5;
+  --pk-cm-hover-text:   #7c2d12;
+  --pk-cm-sep:          #fed7aa;
+  --pk-cm-icon:         #ea580c;
+}
+
+.pk-cm--red {
+  --pk-cm-bg:           #ffffff;
+  --pk-cm-border:       #fecaca;
+  --pk-cm-text:         #111827;
+  --pk-cm-hover-bg:     #fee2e2;
+  --pk-cm-hover-text:   #7f1d1d;
+  --pk-cm-sep:          #fecaca;
+  --pk-cm-icon:         #dc2626;
+}
+
+.pk-cm--magenta {
+  --pk-cm-bg:           #ffffff;
+  --pk-cm-border:       #f5d0fe;
+  --pk-cm-text:         #111827;
+  --pk-cm-hover-bg:     #fae8ff;
+  --pk-cm-hover-text:   #701a75;
+  --pk-cm-sep:          #f5d0fe;
+  --pk-cm-icon:         #c026d3;
+}
+
+/* ── Horizontal layout ───────────────────────────────────────────────────── */
+
+.pk-cm--horizontal {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  min-width: unset;
+}
+
+/* ── Items ───────────────────────────────────────────────────────────────── */
+
+.pk-cm__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 10px;
+  border: none;
+  background: transparent;
+  color: var(--pk-cm-text);
+  font-size: 0.875rem;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  transition: background 0.1s, color 0.1s;
+}
+
+.pk-cm--horizontal .pk-cm__item {
+  width: auto;
+}
+
+.pk-cm__item:hover:not(:disabled),
+.pk-cm__item--highlighted:not(:disabled) {
+  background: var(--pk-cm-hover-bg);
+  color: var(--pk-cm-hover-text);
+}
+
+.pk-cm__item--highlighted:not(:disabled) .pk-cm__item-icon {
+  color: var(--pk-cm-icon);
+}
+
+.pk-cm__item--disabled,
+.pk-cm__item:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.pk-cm__item-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  color: var(--pk-cm-icon);
+  flex-shrink: 0;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 16;
+}
+
+.pk-cm__item-title {
+  flex: 1;
+  line-height: 1.25;
+}
+
+/* ── Separator ───────────────────────────────────────────────────────────── */
+
+.pk-cm__sep {
+  height: 1px;
+  background: var(--pk-cm-sep);
+  margin: 4px 6px;
+}
+
+.pk-cm--horizontal .pk-cm__sep {
+  width: 1px;
+  height: 24px;
+  margin: 0 4px;
+  background: var(--pk-cm-sep);
+}
+
+/* ── Appear animation ────────────────────────────────────────────────────── */
+
+@keyframes pk-cm-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

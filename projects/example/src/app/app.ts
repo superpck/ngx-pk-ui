@@ -30,6 +30,7 @@ export class App {
     { label: 'barcode', link: '/pk-barcode' },
     { label: 'calendar', link: '/pk-calendar' },
     { label: 'code reader', link: '/pk-code-reader' },
+    { label: 'context menu', link: '/pk-context-menu' },
     { label: 'datagrid', link: '/pk-datagrid' },
     { label: 'datepicker', link: '/pk-datepicker' },
     { label: 'file upload', link: '/pk-file-upload' },

@@ -4,7 +4,7 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
-## [2.12.0]
+## [2.13.0]\n\n- **pk-context-menu**: new `[pkContextMenu]` directive \u2014 right-click context menu; `PkContextMenuService` creates and appends the panel to `<body>` on first inject (zero template setup); inputs: `pkContextMenu` (items), `pkContextMenuLayout: 'vertical' | 'horizontal'`, `pkContextMenuTheme` (7 themes: light/dark/green/blue/orange/red/magenta), `pkContextMenuDisabled`; outputs: `(pkContextMenuSelected)`, `(pkContextMenuOpen)`; `PkContextMenuItem` supports `title`, `icon` (Material Symbols), `disabled`, `separator`, `fn`, `route` (Angular Router), `href` / `hrefTarget`; keyboard nav (ArrowDown/Up/Enter/Escape); panel auto-adjusts position near viewport edges; 23 Vitest tests\n\n---\n\n## [2.12.0]
 
 - **pk-timepicker**: new standalone component — time picker with `ControlValueAccessor` support (`ngModel` / `FormControl`); value stored as 24H `HH:mm`, `HH:mm:ss`, or `HH` string; inputs: `format: 'hms' | 'hm' | 'h'`, `type: '24H' | '12H'`, `inputType: 'spinner' | 'number' | 'dropdown'`, `customClass`, `customStyle`; output: `(onTimeChange)`; default `height: 35px` (overridable via `customStyle`); 39 Vitest tests across 3 spec files
 - **pk-timepicker** `inputType="spinner"`: up/down arrow buttons per field with mouse-wheel support
