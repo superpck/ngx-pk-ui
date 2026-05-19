@@ -34,6 +34,7 @@ export const routes: Routes = [
   { path: 'pk-badge', loadComponent: () => import('./pages/pk-badge/pk-badge-page').then(m => m.PkBadgePage) },
   { path: 'pk-card', loadComponent: () => import('./pages/pk-card/pk-card-page').then(m => m.PkCardPage) },
   { path: 'pk-breadcrumb', loadComponent: () => import('./pages/pk-breadcrumb/pk-breadcrumb-page').then(m => m.PkBreadcrumbPage) },
+  { path: 'pk-divider', loadComponent: () => import('./pages/pk-divider/pk-divider-page').then(m => m.PkDividerPage) },
   { path: 'pk-tooltip', loadComponent: () => import('./pages/pk-tooltip/pk-tooltip-page').then(m => m.PkTooltipPage) },
   { path: 'pk-form', loadComponent: () => import('./pages/pk-form/pk-form-page').then(m => m.PkFormPage) },
   { path: 'pk-layout', loadComponent: () => import('./pages/pk-layout/pk-layout-page').then(m => m.PkLayoutPage) },
@@ -41,6 +42,8 @@ export const routes: Routes = [
   { path: 'pk-barcode', loadComponent: () => import('./pages/pk-barcode/pk-barcode-page').then(m => m.PkBarcodePage) },
   { path: 'pk-qrcode', loadComponent: () => import('./pages/pk-qrcode/pk-qrcode-page').then(m => m.PkQrcodePage) },
   { path: 'pk-code-reader', loadComponent: () => import('./pages/pk-code-reader/pk-code-reader-page').then(m => m.PkCodeReaderPage) },
+  { path: 'pk-radio-group', loadComponent: () => import('./pages/pk-radio-group/pk-radio-group-page').then(m => m.PkRadioGroupPage) },
+  { path: 'pk-timepicker', loadComponent: () => import('./pages/pk-timepicker/pk-timepicker-page').then(m => m.PkTimepickerPage) },
   // Examples
   { path: 'examples/login', loadComponent: () => import('./pages/examples/login/login-example').then(m => m.LoginExample) },
   { path: 'examples/chat', loadComponent: () => import('./pages/examples/chat/chat-example').then(m => m.ChatExample) },

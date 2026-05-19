@@ -1,0 +1,224 @@
+<style>
+  .demo-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid #bbb;
+    padding: 8px;
+    border-radius: 6px;
+  }
+</style>
+
+<div class="page">
+  <h1 class="page-title">pk-timepicker</h1>
+  <p class="page-desc">Spinner-style time picker with 24H / 12H mode, flexible format, and <code>ngModel</code> support.
+  </p>
+
+  <!-- Basic -->
+  <section class="section">
+    <h2>Basic (24H, hm)</h2>
+    <div class="demo-row">
+      <pk-timepicker [(ngModel)]="value24h" />
+      <span class="demo-val">Value: <strong>{{ value24h }}</strong></span>
+    </div>
+    <pre class="code-block">{{ codeBasic }}</pre>
+  </section>
+
+  <!-- Formats -->
+  <section class="section">
+    <h2>Format options</h2>
+    <div class="demo-row demo-col">
+      <div class="demo-item">
+        <label class="demo-label">format="hm" (default)</label>
+        <pk-timepicker [(ngModel)]="value24h" format="hm" />
+      </div>
+      <div class="demo-item">
+        <label class="demo-label">format="hms"</label>
+        <pk-timepicker [(ngModel)]="valueHms" format="hms" />
+        <span class="demo-val">{{ valueHms }}</span>
+      </div>
+      <div class="demo-item">
+        <label class="demo-label">format="h"</label>
+        <pk-timepicker [(ngModel)]="valueH" format="h" />
+        <span class="demo-val">{{ valueH }}</span>
+      </div>
+    </div>
+    <pre class="code-block">{{ codeFormats }}</pre>
+  </section>
+
+  <!-- 12H Mode -->
+  <section class="section">
+    <h2>12H mode</h2>
+    <p class="section-desc">Click the AM/PM badge to toggle. The <code>ngModel</code> value is always 24H internally
+      (e.g. <code>"14:30"</code>).</p>
+    <div class="demo-row">
+      <pk-timepicker [(ngModel)]="value12h" type="12H" />
+      <span class="demo-val">Value (24H): <strong>{{ value12h }}</strong></span>
+    </div>
+    <div class="demo-row" style="margin-top:12px">
+      <pk-timepicker [(ngModel)]="value12h" format="hms" type="12H" />
+      <span class="demo-val">format="hms" type="12H"</span>
+    </div>
+    <pre class="code-block">{{ code12h }}</pre>
+  </section>
+
+  <!-- onTimeChange event -->
+  <section class="section">
+    <h2>onTimeChange event</h2>
+    <div class="demo-row">
+      <pk-timepicker [(ngModel)]="value24h" (onTimeChange)="onTimeChange($event)" />
+      <span class="demo-val">Last emit: <strong>{{ lastEmit() }}</strong></span>
+    </div>
+    <pre class="code-block">{{ codeEvent }}</pre>
+  </section>
+
+  <!-- Disabled -->
+  <section class="section">
+    <h2>Disabled</h2>
+    <div class="demo-row">
+      <pk-timepicker [formControl]="disabledCtrl" />
+    </div>
+    <pre class="code-block">{{ codeDisabled }}</pre>
+  </section>
+
+  <!-- inputType -->
+  <section class="section">
+    <h2>inputType</h2>
+    <p class="section-desc">
+      <code>spinner</code> (default) — up/down arrows + mouse wheel.<br />
+      <code>number</code> — plain text inputs; invalid values (e.g. <code>24</code>, <code>61</code>) revert to the
+      previous value on blur.<br />
+      <code>dropdown</code> — native <code>&lt;select&gt;</code> for each field; guarantees valid values.
+    </p>
+    <div class="demo-row demo-col">
+      <div class="demo-item">
+        <label class="demo-label">inputType="spinner"</label>
+        <pk-timepicker [(ngModel)]="valueNum" inputType="spinner" />
+      </div>
+      <div class="demo-item">
+        <label class="demo-label">inputType="number" (try typing 25 or 61)</label>
+        <pk-timepicker [(ngModel)]="valueNum" inputType="number" />
+      </div>
+      <div class="demo-item">
+        <label class="demo-label">inputType="dropdown"</label>
+        <pk-timepicker [(ngModel)]="valueNum" inputType="dropdown" />
+      </div>
+      <div class="demo-item">
+        <label class="demo-label">dropdown format="hms"</label>
+        <pk-timepicker [(ngModel)]="valueHms" inputType="dropdown" format="hms"/>
+      </div>
+      <div class="demo-item">
+        <label class="demo-label">dropdown type="12H" ...</label>
+        <pk-timepicker [(ngModel)]="value12h" inputType="dropdown" type="12H" />
+      </div>
+    </div>
+    <div class="demo-val" style="margin: 10px 4px;">
+      Shared value: <strong>{{ valueNum }}</strong>
+    </div>
+    <pre class="code-block">{{ codeInputType }}</pre>
+  </section>
+
+  <!-- Setup -->
+  <section class="section">
+    <h2>Setup</h2>
+    <pre class="code-block">{{ codeImport }}</pre>
+  </section>
+
+  <!-- API -->
+  <section class="section">
+    <h2>API</h2>
+    <table class="pk-table pk-table-primary pk-table-striped">
+      <thead>
+        <tr>
+          <th>Input / Output</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>format</code></td>
+          <td><code>'hms' | 'hm' | 'h'</code></td>
+          <td><code>'hm'</code></td>
+          <td>Columns shown: hours+minutes+seconds / hours+minutes / hours only</td>
+        </tr>
+        <tr>
+          <td><code>type</code></td>
+          <td><code>'24H' | '12H'</code></td>
+          <td><code>'24H'</code></td>
+          <td>Clock mode — 12H shows AM/PM toggle</td>
+        </tr>
+        <tr>
+          <td><code>inputType</code></td>
+          <td><code>'spinner' | 'number' | 'dropdown'</code></td>
+          <td><code>'number'</code></td>
+          <td>UI style — spinner (arrows), number (text input, reverts if invalid), dropdown (select list)</td>
+        </tr>
+        <tr>
+          <td><code>customClass</code></td>
+          <td><code>string</code></td>
+          <td><code>''</code></td>
+          <td>Extra CSS class on wrapper</td>
+        </tr>
+        <tr>
+          <td><code>customStyle</code></td>
+          <td><code>Record&lt;string, string&gt;</code></td>
+          <td><code>{{ '{' }}{{ '}' }}</code></td>
+          <td>Inline styles on wrapper</td>
+        </tr>
+        <tr>
+          <td><code>(onTimeChange)</code></td>
+          <td><code>string</code></td>
+          <td>—</td>
+          <td>Emits 24H value string on every change</td>
+        </tr>
+        <tr>
+          <td><code>ngModel</code></td>
+          <td><code>string</code></td>
+          <td><code>''</code></td>
+          <td>Two-way binding — value format: <code>"HH:mm:ss"</code> / <code>"HH:mm"</code> / <code>"HH"</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Value format -->
+  <section class="section">
+    <h2>Value format</h2>
+    <table class="pk-table pk-table-primary pk-table-striped">
+      <thead>
+        <tr>
+          <th>format</th>
+          <th>type</th>
+          <th>ngModel value example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>hm</code></td>
+          <td><code>24H</code></td>
+          <td><code>"14:30"</code></td>
+        </tr>
+        <tr>
+          <td><code>hms</code></td>
+          <td><code>24H</code></td>
+          <td><code>"14:30:45"</code></td>
+        </tr>
+        <tr>
+          <td><code>h</code></td>
+          <td><code>24H</code></td>
+          <td><code>"14"</code></td>
+        </tr>
+        <tr>
+          <td><code>hm</code></td>
+          <td><code>12H</code></td>
+          <td><code>"14:30"</code> (displayed as 02:30 PM)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="section-desc" style="margin-top:8px">The <code>ngModel</code> value is always 24H regardless of the
+      <code>type</code> setting. <code>type="12H"</code> only affects the display.
+    </p>
+  </section>
+</div>

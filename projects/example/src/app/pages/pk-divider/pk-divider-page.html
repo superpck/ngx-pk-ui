@@ -1,0 +1,117 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-divider</h1>
+    <p class="demo-page-desc">CSS-only horizontal and vertical content separators. No Angular component required — add classes directly to any <code>&lt;div&gt;</code>, <code>&lt;hr&gt;</code>, or <code>&lt;span&gt;</code>.</p>
+  </div>
+
+  <!-- Basic horizontal -->
+  <section class="demo-section">
+    <h2>Basic</h2>
+    <p class="demo-note">Plain horizontal rule.</p>
+    <div class="pk-divider"></div>
+    <pre class="code-block"><code>{{ codeBasic }}</code></pre>
+  </section>
+
+  <!-- With label -->
+  <section class="demo-section">
+    <h2>With label</h2>
+    <p class="demo-note">Center, left, or right aligned text.</p>
+
+    <div class="pk-divider">or</div>
+
+    <div style="margin-top: 1.5rem">
+      <div class="pk-divider pk-divider--left">Section A</div>
+    </div>
+
+    <div style="margin-top: 1.5rem">
+      <div class="pk-divider pk-divider--right">End</div>
+    </div>
+
+    <pre class="code-block"><code>{{ codeLabel }}</code></pre>
+  </section>
+
+  <!-- Vertical -->
+  <section class="demo-section">
+    <h2>Vertical</h2>
+    <p class="demo-note">Inline separator between elements.</p>
+    <div class="demo-row" style="align-items: center">
+      <span>Home</span>
+      <span class="pk-divider pk-divider--vertical"></span>
+      <span>Profile</span>
+      <span class="pk-divider pk-divider--vertical"></span>
+      <span>Settings</span>
+    </div>
+    <div class="demo-row" style="align-items: center; margin-top: 1rem">
+      <button class="pk-btn pk-btn-secondary pk-btn-sm pk-btn-outline">Edit</button>
+      <span class="pk-divider pk-divider--vertical" style="height: 1.5rem; --pk-divider-thickness: 2px"></span>
+      <button class="pk-btn pk-btn-error pk-btn-sm pk-btn-outline">Delete</button>
+    </div>
+    <pre class="code-block"><code>{{ codeVertical }}</code></pre>
+  </section>
+
+  <!-- Line styles & thickness -->
+  <section class="demo-section">
+    <h2>Line style &amp; thickness</h2>
+
+    <div class="pk-divider">Solid (default)</div>
+    <div class="pk-divider pk-divider--dashed" style="margin-top: 1.5rem">Dashed</div>
+    <div class="pk-divider pk-divider--dotted" style="margin-top: 1.5rem">Dotted</div>
+    <div class="pk-divider pk-divider--md pk-divider--dashed" style="margin-top: 1.5rem">Medium dashed</div>
+    <div class="pk-divider pk-divider--thick" style="margin-top: 1.5rem">Thick</div>
+
+    <pre class="code-block"><code>{{ codeStyle }}</code></pre>
+  </section>
+
+  <!-- Colors -->
+  <section class="demo-section">
+    <h2>Colors</h2>
+
+    <div class="pk-divider pk-divider--primary">Primary</div>
+    <div class="pk-divider pk-divider--secondary" style="margin-top: 1.5rem">Secondary</div>
+    <div class="pk-divider pk-divider--success" style="margin-top: 1.5rem">Success</div>
+    <div class="pk-divider pk-divider--error" style="margin-top: 1.5rem">Error</div>
+    <div class="pk-divider pk-divider--error pk-divider--dashed" style="margin-top: 1.5rem">Error dashed</div>
+
+    <pre class="code-block"><code>{{ codeColor }}</code></pre>
+  </section>
+
+  <!-- Custom properties -->
+  <section class="demo-section">
+    <h2>CSS custom properties</h2>
+    <p class="demo-note">Override per-element via inline <code>style</code>.</p>
+    <div class="pk-divider" style="--pk-divider-color:#a855f7; --pk-divider-text-color:#a855f7">Custom purple</div>
+    <div class="pk-divider pk-divider--dotted" style="margin-top: 1.5rem; --pk-divider-color:#f59e0b; --pk-divider-thickness:2px; --pk-divider-text-color:#f59e0b">Custom amber dotted</div>
+    <pre class="code-block"><code>&lt;div class="pk-divider"
+     style="--pk-divider-color:#a855f7; --pk-divider-text-color:#a855f7"&gt;
+  Custom purple
+&lt;/div&gt;</code></pre>
+  </section>
+
+  <!-- API -->
+  <section class="demo-section">
+    <h2>API</h2>
+    <table class="api-table">
+      <tr><th>Class</th><th>Description</th></tr>
+      <tr><td><code>pk-divider</code></td><td>Base horizontal divider (required)</td></tr>
+      <tr><td><code>pk-divider--vertical</code></td><td>Vertical inline separator (use on <code>&lt;span&gt;</code>)</td></tr>
+      <tr><td><code>pk-divider--left</code></td><td>Label flush-left, long line on right</td></tr>
+      <tr><td><code>pk-divider--right</code></td><td>Label flush-right, long line on left</td></tr>
+      <tr><td><code>pk-divider--dashed</code></td><td>Dashed line style</td></tr>
+      <tr><td><code>pk-divider--dotted</code></td><td>Dotted line style</td></tr>
+      <tr><td><code>pk-divider--md</code></td><td>2 px line thickness</td></tr>
+      <tr><td><code>pk-divider--thick</code></td><td>3 px line thickness</td></tr>
+      <tr><td><code>pk-divider--primary</code></td><td>Primary color (blue)</td></tr>
+      <tr><td><code>pk-divider--secondary</code></td><td>Secondary color (grey)</td></tr>
+      <tr><td><code>pk-divider--success</code></td><td>Success color (green)</td></tr>
+      <tr><td><code>pk-divider--error</code></td><td>Error color (red)</td></tr>
+    </table>
+
+    <h3 style="margin-top: 1.5rem; font-size: 0.95rem">CSS custom properties</h3>
+    <table class="api-table">
+      <tr><th>Property</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>--pk-divider-color</code></td><td><code>#e5e7eb</code></td><td>Line and icon color</td></tr>
+      <tr><td><code>--pk-divider-text-color</code></td><td><code>#9ca3af</code></td><td>Label text color</td></tr>
+      <tr><td><code>--pk-divider-thickness</code></td><td><code>1px</code></td><td>Line thickness</td></tr>
+    </table>
+  </section>
+</div>

@@ -1,4 +1,4 @@
-# ngx-pk-ui 2.11.2
+# ngx-pk-ui 2.12.0
 
 An Angular 21 component library providing UI components and CSS utilities.
 
@@ -72,6 +72,8 @@ npm install ngx-pk-ui
 | `pk-barcode` | Component | Inline SVG barcode — Code 128, Code 39, EAN-13, EAN-8; download PNG/SVG |
 | `pk-qrcode` | Component | Inline SVG QR code — versions 1–40, EC levels L/M/Q/H, center logo, download PNG/SVG |
 | `pk-code-reader` | Component | QR code & barcode scanner — native `BarcodeDetector` API, camera / upload / paste, overlay, beep, torch, camera switch |
+| `pk-radio-group` | Component | Custom-styled radio button group — `ControlValueAccessor`, vertical/horizontal layout, per-option disabled |
+| `pk-timepicker` | Component | Time picker — spinner / number / dropdown input styles, 24H/12H, `ControlValueAccessor`, format `hms/hm/h` |
 
 ---
 
@@ -146,6 +148,41 @@ import { PkSplit, PkSplitPanel } from 'ngx-pk-ui';
 | `minSize` | `number` | `10` | Minimum size of either panel (%) |
 | `gutterSize` | `number` | `6` | Divider thickness (px) |
 | `(sizeChange)` | `[number, number]` | — | Emits `[sizeA%, sizeB%]` on every drag |
+
+---
+
+### pk-timepicker
+
+```ts
+import { PkTimepicker } from 'ngx-pk-ui';
+import type { PkTimeFormat, PkTimeType, PkTimeInputType } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkTimepicker, FormsModule],
+})
+```
+
+```html
+<!-- Basic (24H, hm, spinner) -->
+<pk-timepicker [(ngModel)]="time" />
+
+<!-- 12H mode, hms format, number inputs -->
+<pk-timepicker [(ngModel)]="time" type="12H" format="hms" inputType="number" />
+
+<!-- Dropdown mode, custom height -->
+<pk-timepicker [(ngModel)]="time" inputType="dropdown" [customStyle]="{ height: '42px' }" />
+```
+
+| Input/Output | Type | Default | Description |
+|---|---|---|---|
+| `format` | `'hms'\|'hm'\|'h'` | `'hm'` | Fields shown |
+| `type` | `'24H'\|'12H'` | `'24H'` | Clock mode — 12H shows AM/PM toggle |
+| `inputType` | `'spinner'\|'number'\|'dropdown'` | `'spinner'` | UI style |
+| `customClass` | `string` | `''` | Extra CSS class on container |
+| `customStyle` | `Record<string,string>` | `{}` | Inline styles (e.g. override `height`) |
+| `(onTimeChange)` | `string` | — | Emits 24H time string on every change |
+
+Value is always a **24H string** — `"14:30"`, `"14:30:05"`, or `"14"`. Default height `35px`.
 
 ---
 

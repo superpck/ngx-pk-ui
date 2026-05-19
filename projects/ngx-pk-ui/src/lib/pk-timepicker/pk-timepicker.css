@@ -1,0 +1,179 @@
+:host {
+  display: inline-block;
+}
+
+.pk-tp {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 35px;
+  padding: 0 8px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  user-select: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.pk-tp:focus-within {
+  border-color: var(--pk-btn-primary, #1976d2);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pk-btn-primary, #1976d2) 12%, transparent);
+}
+
+.pk-tp--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  background: #f9fafb;
+}
+
+/* Column: up-arrow / value / down-arrow */
+.pk-tp__col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+/* Arrow buttons — 8px high keeps total col at 8+1+14+1+8 = 32px → outer ≈ 35px */
+.pk-tp__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 8px;
+  border: none;
+  background: transparent;
+  color: #c4c9d4;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 0;
+  transition: color 0.15s, background 0.15s;
+}
+
+.pk-tp__arrow:hover:not(:disabled) {
+  color: var(--pk-btn-primary, #1976d2);
+  background: color-mix(in srgb, var(--pk-btn-primary, #1976d2) 8%, transparent);
+}
+
+/* CSS border triangles */
+.pk-tp__tri {
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+.pk-tp__tri--up {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid currentColor;
+}
+
+.pk-tp__tri--down {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid currentColor;
+}
+
+/* Value display — font-size 0.875rem × line-height 1 = ~14px */
+.pk-tp__val {
+  display: block;
+  width: 28px;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1;
+  padding: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Colon separator */
+.pk-tp__sep {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #9ca3af;
+  line-height: 1;
+  padding: 0 1px;
+}
+
+/* Number-input mode — direct text fields */
+.pk-tp__input {
+  width: 28px;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #111827;
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 0;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.pk-tp__input:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Dropdown mode — native <select> without the arrow */
+.pk-tp__select {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  text-align: center;
+  text-align-last: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #111827;
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 0;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.pk-tp__select:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+/* AM / PM toggle */
+.pk-tp__ampm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+  padding: 2px 7px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 4px;
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  min-width: 34px;
+  height: 22px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.pk-tp__ampm:hover:not(:disabled) {
+  border-color: var(--pk-btn-primary, #1976d2);
+}
+
+.pk-tp__ampm--pm {
+  background: var(--pk-btn-primary, #1976d2);
+  border-color: var(--pk-btn-primary, #1976d2);
+  color: #fff;
+}
+
+
+.pk-tp__ampm--pm {
+  background: var(--pk-btn-primary, #1976d2);
+  border-color: var(--pk-btn-primary, #1976d2);
+  color: #fff;
+}

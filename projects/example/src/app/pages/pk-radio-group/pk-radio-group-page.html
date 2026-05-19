@@ -1,0 +1,84 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-radio-group</h1>
+    <p class="demo-page-desc">Custom-styled radio button group with <code>ngModel</code> / <code>FormControl</code> support, vertical &amp; horizontal layout, and per-option disabled state.</p>
+  </div>
+
+  <!-- Basic -->
+  <section class="demo-section">
+    <h2>Basic (vertical)</h2>
+    <div class="demo-row" style="align-items: flex-start; gap: 2rem">
+      <pk-radio-group [options]="basicOptions" [(ngModel)]="basicValue" />
+      <span class="pk-badge pk-badge-success">Selected: {{ basicValue }}</span>
+    </div>
+  </section>
+
+  <!-- Horizontal -->
+  <section class="demo-section">
+    <h2>Horizontal</h2>
+    <div class="demo-row" style="align-items: flex-start; gap: 2rem">
+      <pk-radio-group [options]="horzOptions" layout="horizontal" [(ngModel)]="horzValue" />
+      <span class="pk-badge">Selected: {{ horzValue || 'none' }}</span>
+    </div>
+  </section>
+
+  <!-- Disabled option -->
+  <section class="demo-section">
+    <h2>Disabled option</h2>
+    <p class="demo-note">The <em>Enterprise</em> option is individually disabled.</p>
+    <pk-radio-group [options]="mixedOptions" [(ngModel)]="basicValue" />
+  </section>
+
+  <!-- onChange event -->
+  <section class="demo-section">
+    <h2>onChange event</h2>
+    <div class="demo-row" style="align-items: flex-start; gap: 2rem; flex-wrap: wrap">
+      <pk-radio-group
+        [options]="basicOptions"
+        layout="horizontal"
+        [(ngModel)]="disableValue"
+        (onChange)="onSelect($event)"
+      />
+      <span>Last emit: <strong>{{ lastEmit() }}</strong></span>
+    </div>
+  </section>
+
+  <!-- Fully disabled group -->
+  <section class="demo-section">
+    <h2>Disabled group</h2>
+    <pk-radio-group [options]="basicOptions" [(ngModel)]="basicValue" [disabled]="true" />
+  </section>
+
+  <!-- Code -->
+  <section class="demo-section">
+    <h2>Setup</h2>
+    <pre class="code-block"><code>{{ codeBasic }}</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>Template</h2>
+    <pre class="code-block"><code>{{ codeTemplate }}</code></pre>
+  </section>
+
+  <!-- API -->
+  <section class="demo-section">
+    <h2>API</h2>
+    <table class="api-table">
+      <tr><th>Input / Output</th><th>Type</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>options</code></td><td><code>PkRadioOption[]</code></td><td>required</td><td>Array of radio items</td></tr>
+      <tr><td><code>layout</code></td><td><code>'vertical' | 'horizontal'</code></td><td><code>'vertical'</code></td><td>Layout direction</td></tr>
+      <tr><td><code>customClass</code></td><td><code>string</code></td><td><code>''</code></td><td>Extra CSS class on container</td></tr>
+      <tr><td><code>customStyle</code></td><td><code>Record&lt;string,string&gt;</code></td><td><code>{{ '{}' }}</code></td><td>Inline styles on container</td></tr>
+      <tr><td><code>(onChange)</code></td><td><code>any</code></td><td>—</td><td>Emits selected value on change</td></tr>
+      <tr><td><code>ngModel / FormControl</code></td><td><code>any</code></td><td><code>null</code></td><td>Two-way binding via ControlValueAccessor</td></tr>
+    </table>
+
+    <h3 style="margin-top:1.5rem; font-size:0.95rem">PkRadioOption</h3>
+    <table class="api-table">
+      <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+      <tr><td><code>value</code></td><td><code>any</code></td><td>Value emitted on selection</td></tr>
+      <tr><td><code>label</code></td><td><code>string</code></td><td>Display text</td></tr>
+      <tr><td><code>disabled</code></td><td><code>boolean?</code></td><td>Prevent this option from being selected</td></tr>
+    </table>
+  </section>
+</div>
