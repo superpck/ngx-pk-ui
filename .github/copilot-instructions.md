@@ -460,6 +460,12 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `PkContextMenuShowConfig` | Interface | `pk-context-menu/pk-context-menu.service` |
 | `PkContextMenuService` | Injectable service | `pk-context-menu/pk-context-menu.service` |
 | `PkContextMenuDirective` | Directive | `pk-context-menu/pk-context-menu.directive` |
+| `PkTimeFormat` | Type alias | `pk-timepicker/pk-timepicker.model` |
+| `PkTimeType` | Type alias | `pk-timepicker/pk-timepicker.model` |
+| `PkTimeInputType` | Type alias | `pk-timepicker/pk-timepicker.model` |
+| `PkTimepicker` | Component | `pk-timepicker/pk-timepicker` |
+| `PkDatePipe` | Pipe | `pk-pipes/pk-date.pipe` |
+| `parseBEDate` | Function | `pk-pipes/pk-date.pipe` |
 
 ---
 
@@ -482,6 +488,8 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - **`contenteditable` dynamic content not styled** — Elements injected by `document.execCommand()` (e.g. `<blockquote>`, `<h1>`, `<ul>`) do NOT receive Angular's `_ngcontent-xxx` attribute, so component-scoped CSS like `.pk-ta__editor blockquote` is compiled to `.pk-ta__editor blockquote[_ngcontent-xxx]` and never matches. Fix: use `:host ::ng-deep .pk-ta__editor blockquote` for any style targeting dynamically-inserted editor content.
 - **`Touch` / `TouchEvent` not available in jsdom** — Vitest's jsdom environment does not implement the `Touch` constructor. In specs, dispatch touch events as `new Event('touchstart', { bubbles: true }) as TouchEvent` and mock the `touches` array via `Object.defineProperty(event, 'touches', { value: [{ clientX, clientY, ... }] })`.
 - **`@HostListener('document:keydown.*')` receives `Event`, not `KeyboardEvent`** — Angular passes the raw `Event` from `addEventListener`. Typing the parameter as `KeyboardEvent` causes TS2345. Always type it as `Event` (or `Event & { key: string }`).
+- **`pkDate` — never use `{{ '...' }}` for code snippets with complex content** — `{{ '...' }}` inline string literals in Angular templates cause NG5002 "Unexpected closing block" when the string contains `}}`, `(`, `)`, `/>`, or `<`. Store all code snippet strings as TypeScript `readonly` properties.
+- **`parseBEDate()` is for INPUT parsing only** — it converts a BE-year string to a CE `Date`. The `pkDate` pipe always works with CE `Date` internally; use `era: 'BE'` to add 543 to the displayed year. Round-trip: `parseBEDate('31/01/2568') | pkDate:'dd/mm/yyyy':'numeric':'en':'BE'` → `'31/01/2568'`.
 
 ---
 
@@ -490,7 +498,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.13.1` |
+| Library version | `2.15.1` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -517,6 +525,8 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-radio-group` | ✅ Built, tested (14 tests) — standalone, ControlValueAccessor (`ngModel`/`FormControl`), `layout: vertical\|horizontal`, per-option disabled, `(onChange)` output |
 | `pk-timepicker` | ✅ Built, tested (39 tests) — standalone, ControlValueAccessor (`ngModel`/`FormControl`); value as 24H string (`HH:mm`, `HH:mm:ss`, `HH`); `format: 'hms'\|'hm'\|'h'`; `type: '24H'\|'12H'`; `inputType: 'spinner'\|'number'\|'dropdown'`; default `height: 35px` (override via `customStyle`); `customClass`/`customStyle`; `(onTimeChange)` output |
 | `pk-context-menu` | ✅ Built, tested (30 tests) — `[pkContextMenu]` directive + `PkContextMenuService` (panel appended to `<body>` on first inject); 7 themes (light/dark/green/blue/orange/red/magenta); `layout: 'vertical'\|'horizontal'`; `PkContextMenuItem` supports `fn`, `route`, `href`, `icon`, `disabled`, `separator`; keyboard nav (ArrowDown/Up/Enter/Escape); auto-position near viewport edges; **mobile long-press (500 ms)** support |
+| `pk-pipes` | ✅ Built, tested (68 tests) — 5 standalone pipes: `PkTruncatePipe` (pkTruncate), `PkTimeAgoPipe` (pkTimeAgo, pure:false), `PkFileSizePipe` (pkFileSize), `PkHighlightPipe` (pkHighlight, SafeHtml, XSS-safe), `PkDatePipe` (pkDate, locale-aware, BE/CE era) + `parseBEDate()` utility |
+| `pk-directives` | ✅ Built, tested (20 tests) — 5 standalone directives: `PkClickOutsideDirective`, `PkCopyToClipboardDirective`, `PkAutoFocusDirective`, `PkDebounceClickDirective`, `PkNumberOnlyDirective` |
 | `pk-split` | ✅ Built, tested (8 tests) — horizontal/vertical resizable split pane; drag divider; touch support; `direction`, `initialSize`, `minSize`, `gutterSize`, `(sizeChange)` |
 | `pk-textarea` | ✅ Built, tested (11 tests) — rich text editor: bold/italic/underline/strike, text colour, **highlight color**, font name (18 Google Fonts via `pk-font-*`), font size (small/normal/large/h1-h3), ordered/unordered lists, **blockquote**, dark theme, 3 view modes (Edit/HTML/Text); standalone, ControlValueAccessor (`PkTextareaValue { html, text }`); `::ng-deep` used for dynamic editor content styles |
 | `pk-barcode` | ✅ Built, tested (15 tests) — inline SVG barcode; Code 128 / Code 39 / EAN-13 / EAN-8; pure TypeScript encoder; inputs: `value`, `format`, `width`, `height`, `showText`, `lineColor`, `backgroundColor`; `downloadSvg()` / `downloadPng()` |
@@ -538,7 +548,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 
-**Test totals: 260 / 260 passing**
+**Test totals: 358 / 358 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper
@@ -674,6 +684,79 @@ import type { PkContextMenuItem, PkContextMenuSelectEvent } from 'ngx-pk-ui';
 - **Auto-position**: panel flips to stay within viewport bounds.
 - **Mobile long-press**: directive listens to `touchstart` — fires menu after 500 ms hold. Moving finger > 10 px cancels the gesture. Android's duplicate `contextmenu` event after long-press is swallowed via `_longPressTriggered` flag. Host style `-webkit-touch-callout: none` suppresses the iOS native callout.
 - **`PkContextMenuPanel` is NOT exported** from public-api — it's an internal implementation detail.
+
+---
+
+## pk-pipes API reference
+
+### PkDatePipe (`pkDate`)
+
+Standalone pure pipe — locale-aware date formatting with Buddhist Era support.
+
+```ts
+import { PkDatePipe, parseBEDate } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkDatePipe],
+})
+```
+
+```html
+{{ date | pkDate: format : style : locale : era }}
+```
+
+**Parameters:**
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `format` | `string` | required | Format string — tokens + literal separators (e.g. `'dd/mm/yyyy'`) |
+| `style` | `'numeric'\|'abbr'\|'full'` | `'numeric'` | Month rendering — number / short name / full name |
+| `locale` | `PkLocale` | `'en'` | Locale for month names (from `PkLocaleData`) |
+| `era` | `'CE'\|'BE'` | `'CE'` | Buddhist Era adds 543 to displayed year |
+
+**Format tokens:**
+
+| Token | Output | Example (Jan 31, 2025) |
+|---|---|---|
+| `d` | Day, no padding | `31` |
+| `dd` | Day, 2-digit | `31` |
+| `m` | Month numeric, no padding (or month name) | `1` or `Jan` |
+| `mm` | Month numeric, 2-digit (or month name) | `01` or `Jan` |
+| `yyyy` | 4-digit year | `2025` / `2568` (BE) |
+| `yy` | 2-digit year | `25` / `68` (BE) |
+
+Any other characters in `format` are passed through as-is (separators, spaces, commas).
+
+**Examples:**
+
+```html
+{{ date | pkDate:'dd/mm/yyyy' }}                        <!-- 31/01/2025 -->
+{{ date | pkDate:'d m yyyy':'abbr':'th':'BE' }}          <!-- 31 ม.ค. 2568 -->
+{{ date | pkDate:'d-m-yyyy':'abbr':'es' }}               <!-- 31-Ene-2025 -->
+{{ date | pkDate:'m, d yyyy':'full':'it' }}              <!-- Gennaio, 31 2025 -->
+{{ date | pkDate:'yyyy年mm月dd日':'abbr':'ja' }}         <!-- 2025年1月31日 -->
+```
+
+### parseBEDate()
+
+Parses a Buddhist Era date string and returns a CE `Date`.
+
+```ts
+parseBEDate(value: string, separator?: string, order?: 'dmy'|'mdy'|'ymd'): Date
+```
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `value` | `string` | required | BE date string (e.g. `'31/01/2568'`) |
+| `separator` | `string` | `'/'` | Field separator |
+| `order` | `'dmy'\|'mdy'\|'ymd'` | `'dmy'` | Field order |
+
+```ts
+parseBEDate('31/01/2568')              // new Date(2025, 0, 31)
+parseBEDate('2568-01-31', '-', 'ymd') // new Date(2025, 0, 31)
+```
+
+**Round-trip**: `parseBEDate('31/01/2568') | pkDate:'dd/mm/yyyy':'numeric':'en':'BE'` → `'31/01/2568'`
 
 ---
 

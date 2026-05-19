@@ -4,6 +4,50 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.15.1] — 2026-05-19
+
+### Changed
+- **Example app — Home page redesign**: replaced the old Usage + Notes sections with a stats bar (29 components / 12 CSS utilities / 5 pipes / 5 directives / 17 locales / 358 tests), a "Why ngx-pk-ui?" feature-highlight grid, a Quick Start snippet, a component-categories chip map, and an Angular version compatibility table
+- **Example app — Installation page**: new dedicated `/installation` page with a full 5-step setup guide (npm install, global styles, import components, inject services, NgModule-based components table); added to sidebar after Overview
+- **Example app — Angular version compatibility table** moved from Installation page to Home page
+
+---
+
+## [2.15.0] — 2026-05-19
+
+### Added
+- **pk-pipes: `PkDatePipe`** (`pkDate`) — locale-aware date formatting pipe with Buddhist Era support
+  - Format string with embedded separators and order tokens: `d` `dd` `m` `mm` `yyyy` `yy`
+  - Three month styles: `numeric` (number), `abbr` (short name from `monthNamesShort`), `full` (from `monthNamesFull`)
+  - 17 locales via `PkLocale` / `PkLocaleData`
+  - `era: 'CE' | 'BE'` — adds 543 years for Thai Buddhist Era output
+  - Input types: `Date | number | string`
+- **`parseBEDate()`** utility function — converts a Buddhist Era date string (e.g. `"31/01/2568"`) to a CE `Date`
+  - Parameters: `value`, `separator` (default `/`), `order: 'dmy'|'mdy'|'ymd'` (default `'dmy'`)
+  - Exported from `ngx-pk-ui`
+
+---
+
+## [2.14.0] — 2026-05-19
+
+### Added
+- **pk-pipes**: four new standalone Angular pipes for common formatting tasks
+  - `PkTruncatePipe` (`pkTruncate`) — truncate a string to N chars with custom ellipsis
+  - `PkTimeAgoPipe` (`pkTimeAgo`) — relative time string from a past date ("3 minutes ago")
+  - `PkFileSizePipe` (`pkFileSize`) — format raw byte count as human-readable size (B / KB / MB / GB / TB)
+  - `PkHighlightPipe` (`pkHighlight`) — wrap search term matches in `<mark class="pk-highlight">` (XSS-safe, use with `[innerHTML]`)
+- **pk-directives**: five new standalone Angular directives for common DOM interactions
+  - `PkClickOutsideDirective` (`[pkClickOutside]`) — emit `(pkClickOutside)` when user clicks outside the host
+  - `PkCopyToClipboardDirective` (`[pkCopyToClipboard]`) — copy text to clipboard on click; emit `(pkCopied)` true/false
+  - `PkAutoFocusDirective` (`[pkAutoFocus]`) — focus host element on `AfterViewInit`; disable conditionally via `[pkAutoFocus]="false"`
+  - `PkDebounceClickDirective` (`[pkDebounceClick]`) — debounce click events; emit `(pkDebounceClicked)` after delay (default 300 ms)
+  - `PkNumberOnlyDirective` (`[pkNumberOnly]`) — restrict `<input>` to digits; optional `[pkAllowDecimal]` for single decimal point
+- All 9 new symbols exported from `public-api.ts`
+- Example pages for both **pk-pipes** and **pk-directives** added to the dev app
+- 58 new Vitest tests (pipes: 28, directives: 20) → **318 / 318** total
+
+---
+
 ## [2.13.1] — 2026-05-19
 
 ### Fixed / Added
@@ -12,7 +56,13 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
-## [2.13.0]\n\n- **pk-context-menu**: new `[pkContextMenu]` directive \u2014 right-click context menu; `PkContextMenuService` creates and appends the panel to `<body>` on first inject (zero template setup); inputs: `pkContextMenu` (items), `pkContextMenuLayout: 'vertical' | 'horizontal'`, `pkContextMenuTheme` (7 themes: light/dark/green/blue/orange/red/magenta), `pkContextMenuDisabled`; outputs: `(pkContextMenuSelected)`, `(pkContextMenuOpen)`; `PkContextMenuItem` supports `title`, `icon` (Material Symbols), `disabled`, `separator`, `fn`, `route` (Angular Router), `href` / `hrefTarget`; keyboard nav (ArrowDown/Up/Enter/Escape); panel auto-adjusts position near viewport edges; 23 Vitest tests\n\n---\n\n## [2.12.0]
+## [2.13.0]
+
+- **pk-context-menu**: new `[pkContextMenu]` directive — right-click context menu; `PkContextMenuService` creates and appends the panel to `<body>` on first inject (zero template setup); inputs: `pkContextMenu` (items), `pkContextMenuLayout: 'vertical' | 'horizontal'`, `pkContextMenuTheme` (7 themes: light/dark/green/blue/orange/red/magenta), `pkContextMenuDisabled`; outputs: `(pkContextMenuSelected)`, `(pkContextMenuOpen)`; `PkContextMenuItem` supports `title`, `icon` (Material Symbols), `disabled`, `separator`, `fn`, `route` (Angular Router), `href` / `hrefTarget`; keyboard nav (ArrowDown/Up/Enter/Escape); panel auto-adjusts position near viewport edges; 23 Vitest tests
+
+---
+
+## [2.12.0]
 
 - **pk-timepicker**: new standalone component — time picker with `ControlValueAccessor` support (`ngModel` / `FormControl`); value stored as 24H `HH:mm`, `HH:mm:ss`, or `HH` string; inputs: `format: 'hms' | 'hm' | 'h'`, `type: '24H' | '12H'`, `inputType: 'spinner' | 'number' | 'dropdown'`, `customClass`, `customStyle`; output: `(onTimeChange)`; default `height: 35px` (overridable via `customStyle`); 39 Vitest tests across 3 spec files
 - **pk-timepicker** `inputType="spinner"`: up/down arrow buttons per field with mouse-wheel support

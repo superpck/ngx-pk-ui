@@ -35,111 +35,209 @@
     </div>
   </div>
 
-  <!-- Usage -->
-  <section class="demo-section">
-    <h2>Usage</h2>
-
-    <h3>1. Install</h3>
-    <pre class="code-block"><code>npm install ngx-pk-ui</code></pre>
-
-    <h3 style="margin-top:20px">2. Add global styles (angular.json)</h3>
-    <pre class="code-block"><code>"styles": ["node_modules/ngx-pk-ui/styles/pk-ui.css"]</code></pre>
-
-    <h3 style="margin-top:20px">3. Import components</h3>
-    <pre class="code-block"><code>import &#123; PkToastr, PkToastrService, PkAlert, PkAlertService, PkTooltip &#125; from 'ngx-pk-ui';
-
-&#64;Component(&#123;
-  imports: [PkToastr, PkAlert, PkTooltip],
-  // ...
-&#125;)
-export class AppComponent &#123; &#125;</code></pre>
-
-    <h3 style="margin-top:20px">4. Inject and use</h3>
-    <pre class="code-block"><code>import &#123; PkToastrService, PkAlertService &#125; from 'ngx-pk-ui';
-
-&#64;Component(&#123; ... &#125;)
-export class MyComponent &#123;
-  toastr = inject(PkToastrService); // toast container auto-mounts
-  alert  = inject(PkAlertService);  // dialog overlay auto-mounts
-&#125;</code></pre>
+  <!-- Stats bar -->
+  <section class="demo-section" style="padding:0;overflow:hidden;">
+    <div class="home-stats">
+      <div class="home-stat">
+        <span class="home-stat-num">29</span>
+        <span class="home-stat-label">Components</span>
+      </div>
+      <div class="home-stat">
+        <span class="home-stat-num">12</span>
+        <span class="home-stat-label">CSS Utilities</span>
+      </div>
+      <div class="home-stat">
+        <span class="home-stat-num">5</span>
+        <span class="home-stat-label">Pipes</span>
+      </div>
+      <div class="home-stat">
+        <span class="home-stat-num">5</span>
+        <span class="home-stat-label">Directives</span>
+      </div>
+      <div class="home-stat">
+        <span class="home-stat-num">17</span>
+        <span class="home-stat-label">Locales</span>
+      </div>
+      <div class="home-stat">
+        <span class="home-stat-num">358</span>
+        <span class="home-stat-label">Tests</span>
+      </div>
+    </div>
   </section>
 
-  <!-- Notes -->
+  <!-- Why ngx-pk-ui -->
   <section class="demo-section">
-    <h2>Notes</h2>
-    <ul style="line-height:2; font-size:14px; color:#555; padding-left:20px;">
-      <li>
-        <strong>Angular {{angularVersion.major}}+ required.</strong>
-        This library uses <code>signal()</code>, <code>input()</code>, <code>contentChildren()</code>,
-        and control-flow blocks (<code>&#64;for</code>, <code>&#64;if</code>).
-        It is not compatible with Angular 16 or earlier.
-      </li>
-      <li>
-        <strong>Angular version compatibility:</strong>
-        <div style="margin-top:8px; overflow: auto;">
-          <table style="font-size:13px; border-collapse:collapse; width:100%;">
-            <thead>
-              <tr style="background:#f5f5f5;">
-                <th style="padding:5px 12px; text-align:left; border:1px solid #ddd;">Angular</th>
-                <th style="padding:5px 12px; text-align:left; border:1px solid #ddd;">Status</th>
-                <th style="padding:5px 12px; text-align:left; border:1px solid #ddd;">Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="padding:5px 12px; border:1px solid #ddd;">21</td>
-                <td style="padding:5px 12px; border:1px solid #ddd;">✅ Fully supported</td>
-                <td style="padding:5px 12px; border:1px solid #ddd;">Target version</td>
-              </tr>
-              <tr>
-                <td style="padding:5px 12px; border:1px solid #ddd;">20</td>
-                <td style="padding:5px 12px; border:1px solid #ddd;">⚠️ Likely works</td>
-                <td style="padding:5px 12px; border:1px solid #ddd;">peerDep warning — use
-                  <code>--legacy-peer-deps</code></td>
-              </tr>
-              <tr>
-                <td style="padding:5px 12px; border:1px solid #ddd;">19</td>
-                <td style="padding:5px 12px; border:1px solid #ddd;">⚠️ Mostly works</td>
-                <td style="padding:5px 12px; border:1px solid #ddd;">peerDep warning;
-                  <code>provideBrowserGlobalErrorListeners</code> may be missing</td>
-              </tr>
-              <tr>
-                <td style="padding:5px 12px; border:1px solid #ddd;">17–18</td>
-                <td style="padding:5px 12px; border:1px solid #ddd;">🚧 Partial</td>
-                <td style="padding:5px 12px; border:1px solid #ddd;"><code>input()</code> /
-                  <code>contentChildren()</code> in developer preview only</td>
-              </tr>
-              <tr>
-                <td style="padding:5px 12px; border:1px solid #ddd;">&lt; 17</td>
-                <td style="padding:5px 12px; border:1px solid #ddd;">❌ Not supported</td>
-                <td style="padding:5px 12px; border:1px solid #ddd;">Signals not available</td>
-              </tr>
-            </tbody>
-          </table>
+    <h2>Why ngx-pk-ui?</h2>
+    <div class="home-features">
+      <div class="home-feature">
+        <div class="home-feature-icon">⚡</div>
+        <div class="home-feature-title">Signal-based</div>
+        <div class="home-feature-desc">Built on Angular 21 signals — <code>input()</code>, <code>contentChildren()</code>, <code>computed()</code>. No <code>&#64;Input</code>/<code>&#64;Output</code> decorators.</div>
+      </div>
+      <div class="home-feature">
+        <div class="home-feature-icon">🎨</div>
+        <div class="home-feature-title">Themeable</div>
+        <div class="home-feature-desc">All colours driven by CSS custom properties. Override <code>--pk-btn-primary</code> and friends in <code>:root</code> to match your brand.</div>
+      </div>
+      <div class="home-feature">
+        <div class="home-feature-icon">📦</div>
+        <div class="home-feature-title">Standalone</div>
+        <div class="home-feature-desc">Every component is standalone — no NgModules required. Add only what you need to each component's <code>imports[]</code>.</div>
+      </div>
+      <div class="home-feature">
+        <div class="home-feature-icon">🌍</div>
+        <div class="home-feature-title">17 Locales</div>
+        <div class="home-feature-desc">Thai, Lao, Arabic (RTL), Japanese, Korean, Chinese and 11 more. Calendar, datepicker, heatmap and pipes all share one locale token.</div>
+      </div>
+      <div class="home-feature">
+        <div class="home-feature-icon">🔒</div>
+        <div class="home-feature-title">XSS-safe</div>
+        <div class="home-feature-desc">HTML output is sanitized before rendering. <code>pkHighlight</code> escapes user input; the Markdown viewer escapes all raw HTML.</div>
+      </div>
+      <div class="home-feature">
+        <div class="home-feature-icon">🧪</div>
+        <div class="home-feature-title">Well-tested</div>
+        <div class="home-feature-desc">358 unit tests written with Vitest (Angular 21 default). Every component has a co-located <code>.spec.ts</code>.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick install -->
+  <section class="demo-section">
+    <h2>Quick Start</h2>
+    <pre class="code-block" style="margin-bottom:12px"><code>npm install ngx-pk-ui</code></pre>
+    <a routerLink="/installation"
+      style="display:inline-flex;align-items:center;gap:6px;font-size:14px;color:#1976d2;text-decoration:none;font-weight:500;">
+      View full installation guide →
+    </a>
+  </section>
+
+  <!-- Component categories -->
+  <section class="demo-section">
+    <h2>Components</h2>
+    <div class="home-categories">
+
+      <div class="home-category">
+        <div class="home-category-title">Layout &amp; Navigation</div>
+        <div class="home-chips">
+          <a class="home-chip" routerLink="/pk-sidenav">sidenav</a>
+          <a class="home-chip" routerLink="/pk-tabs">tabs</a>
+          <a class="home-chip" routerLink="/pk-accordion">accordion</a>
+          <a class="home-chip" routerLink="/pk-split">split pane</a>
+          <a class="home-chip" routerLink="/pk-modal">modal</a>
+          <a class="home-chip home-chip--css" routerLink="/pk-layout">layout</a>
+          <a class="home-chip home-chip--css" routerLink="/pk-grid">grid</a>
+          <a class="home-chip home-chip--css" routerLink="/pk-breadcrumb">breadcrumb</a>
+          <a class="home-chip home-chip--css" routerLink="/pk-divider">divider</a>
         </div>
-      </li>
-      <li>
-        <strong>Standalone only.</strong>
-        There are no NgModules. Every component and directive must be added to
-        the consuming component's <code>imports[]</code> array directly.
-      </li>
-      <li>
-        <strong><code>pk-toastr</code> and <code>pk-alert</code></strong> self-mount automatically
-        when their service is first injected — no template tag required.
-        If you still have <code>&lt;pk-toastr /&gt;</code> or <code>&lt;pk-alert /&gt;</code>
-        in your template, the service detects it and skips the auto-mount to avoid duplication.
-      </li>
-      <li>
-        <strong>CSS is separate from components.</strong>
-        Buttons, badges, cards, spinners, and grid classes are pure CSS and require
-        <code>pk-ui.css</code> (or individual files) to be loaded globally.
-        They do not auto-load by importing an Angular component.
-      </li>
-      <li>
-        <strong>Peer dependency:</strong> <code>&#64;angular/core &#94;{{angularVersion.major}}.0.0</code>.
-        When updating Angular, ensure the library version matches.
-      </li>
-    </ul>
+      </div>
+
+      <div class="home-category">
+        <div class="home-category-title">Forms &amp; Input</div>
+        <div class="home-chips">
+          <a class="home-chip" routerLink="/pk-datepicker">datepicker</a>
+          <a class="home-chip" routerLink="/pk-timepicker">timepicker</a>
+          <a class="home-chip" routerLink="/pk-select">select</a>
+          <a class="home-chip" routerLink="/pk-autocomplete">autocomplete</a>
+          <a class="home-chip" routerLink="/pk-typeahead">typeahead</a>
+          <a class="home-chip" routerLink="/pk-input-password">input password</a>
+          <a class="home-chip" routerLink="/pk-radio-group">radio group</a>
+          <a class="home-chip" routerLink="/pk-textarea">rich textarea</a>
+          <a class="home-chip" routerLink="/pk-file-upload">file upload</a>
+          <a class="home-chip home-chip--css" routerLink="/pk-form">form fields</a>
+          <a class="home-chip home-chip--css" routerLink="/pk-toggle">toggle switch</a>
+        </div>
+      </div>
+
+      <div class="home-category">
+        <div class="home-category-title">Feedback &amp; Overlay</div>
+        <div class="home-chips">
+          <a class="home-chip" routerLink="/pk-toastr">toastr</a>
+          <a class="home-chip" routerLink="/pk-alert">alert dialog</a>
+          <a class="home-chip" routerLink="/pk-tooltip">tooltip</a>
+          <a class="home-chip" routerLink="/pk-context-menu">context menu</a>
+          <a class="home-chip" routerLink="/pk-progress">progress</a>
+          <a class="home-chip home-chip--css" routerLink="/pk-spinner">spinner</a>
+          <a class="home-chip home-chip--css" routerLink="/pk-badge">badge</a>
+        </div>
+      </div>
+
+      <div class="home-category">
+        <div class="home-category-title">Data &amp; Display</div>
+        <div class="home-chips">
+          <a class="home-chip" routerLink="/pk-datagrid">datagrid</a>
+          <a class="home-chip" routerLink="/pk-calendar">calendar</a>
+          <a class="home-chip" routerLink="/pk-heatmap">heatmap</a>
+          <a class="home-chip" routerLink="/pk-treeview">treeview</a>
+          <a class="home-chip" routerLink="/pk-timeline">timeline</a>
+          <a class="home-chip" routerLink="/pk-icon">icon</a>
+          <a class="home-chip" routerLink="/pk-markdown-viewer">markdown viewer</a>
+          <a class="home-chip home-chip--css" routerLink="/pk-table">table</a>
+          <a class="home-chip home-chip--css" routerLink="/pk-card">card</a>
+        </div>
+      </div>
+
+      <div class="home-category">
+        <div class="home-category-title">Barcode &amp; QR</div>
+        <div class="home-chips">
+          <a class="home-chip" routerLink="/pk-barcode">barcode</a>
+          <a class="home-chip" routerLink="/pk-qrcode">qrcode</a>
+          <a class="home-chip" routerLink="/pk-code-reader">code reader</a>
+        </div>
+      </div>
+
+      <div class="home-category">
+        <div class="home-category-title">Utilities</div>
+        <div class="home-chips">
+          <a class="home-chip" routerLink="/pk-pipes">pipes</a>
+          <a class="home-chip" routerLink="/pk-directives">directives</a>
+          <a class="home-chip home-chip--css" routerLink="/pk-btn">buttons</a>
+          <a class="home-chip home-chip--css" routerLink="/pk-font">fonts</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Angular version compatibility -->
+  <section class="demo-section">
+    <h2>Angular Version Compatibility</h2>
+    <table style="width:100%;font-size:13px;border-collapse:collapse;">
+      <thead>
+        <tr style="background:#f5f5f5;">
+          <th style="padding:7px 12px;text-align:left;border:1px solid #e0e0e0;">Angular</th>
+          <th style="padding:7px 12px;text-align:left;border:1px solid #e0e0e0;">Status</th>
+          <th style="padding:7px 12px;text-align:left;border:1px solid #e0e0e0;">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">21</td>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">✅ Fully supported</td>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">Target version</td>
+        </tr>
+        <tr>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">20</td>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">⚠️ Likely works</td>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">peerDep warning — use <code>--legacy-peer-deps</code></td>
+        </tr>
+        <tr>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">19</td>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">⚠️ Mostly works</td>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">peerDep warning; <code>provideBrowserGlobalErrorListeners</code> may be missing</td>
+        </tr>
+        <tr>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">17–18</td>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">🚧 Partial</td>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;"><code>input()</code> / <code>contentChildren()</code> in developer preview only</td>
+        </tr>
+        <tr>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">&lt; 17</td>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">❌ Not supported</td>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">Signals not available</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
   <!-- Credits -->

@@ -1,0 +1,135 @@
+<div class="page">
+  <h1 class="page-title">Utility Directives</h1>
+  <p class="page-desc">Five standalone Angular directives for common DOM interaction patterns.</p>
+
+  <!-- Import -->
+  <section class="section">
+    <h2>Import</h2>
+    <pre class="code-block">{{ code1 }}</pre>
+  </section>
+
+  <!-- pkClickOutside -->
+  <section class="section">
+    <h2>pkClickOutside</h2>
+    <p>Emits <code>(pkClickOutside)</code> when the user clicks anywhere outside the host element. Perfect for closing dropdowns and popovers.</p>
+
+    <div class="demo-card">
+      <div class="demo-row">
+        <button class="pk-btn pk-btn-primary pk-btn-sm" (click)="dropdownOpen.set(true)">Open dropdown</button>
+      </div>
+      @if (dropdownOpen()) {
+        <div class="fake-dropdown" pkClickOutside (pkClickOutside)="dropdownOpen.set(false)">
+          <div class="fake-dropdown__item">Option 1</div>
+          <div class="fake-dropdown__item">Option 2</div>
+          <div class="fake-dropdown__item">Option 3</div>
+          <div class="demo-meta" style="margin-top:8px">Click outside this box to close it</div>
+        </div>
+      }
+    </div>
+
+    <pre class="code-block">{{ codeClickOutside }}</pre>
+  </section>
+
+  <!-- pkCopyToClipboard -->
+  <section class="section">
+    <h2>pkCopyToClipboard</h2>
+    <p>Copies the bound string to the clipboard on click. Emits <code>(pkCopied)</code> with <code>true</code> on success or <code>false</code> on failure.</p>
+
+    <div class="demo-card">
+      <div class="demo-row">
+        <label>Text to copy
+          <input type="text" [ngModel]="copyText()" (ngModelChange)="copyText.set($event)" style="width: 280px" />
+        </label>
+        <button class="pk-btn pk-btn-sm"
+          [class.pk-btn-success]="copyStatus() === 'ok'"
+          [class.pk-btn-error]="copyStatus() === 'fail'"
+          [class.pk-btn-primary]="copyStatus() === 'idle'"
+          [pkCopyToClipboard]="copyText()"
+          (pkCopied)="onCopied($event)">
+          @if (copyStatus() === 'ok') { ✓ Copied! }
+          @else if (copyStatus() === 'fail') { ✗ Failed }
+          @else { Copy }
+        </button>
+      </div>
+    </div>
+
+    <pre class="code-block">{{ codeCopyToClipboard }}</pre>
+  </section>
+
+  <!-- pkAutoFocus -->
+  <section class="section">
+    <h2>pkAutoFocus</h2>
+    <p>Focuses the host element after the view initialises. Set <code>[pkAutoFocus]="false"</code> to disable conditionally.</p>
+
+    <div class="demo-card">
+      <div class="demo-row">
+        <label style="gap:8px;display:flex;align-items:center">
+          <input type="checkbox" [ngModel]="autoFocusEnabled()" (ngModelChange)="autoFocusEnabled.set($event)" />
+          Enable auto-focus
+        </label>
+        <button class="pk-btn pk-btn-secondary pk-btn-sm pk-btn-outline" (click)="remount()">Re-mount input</button>
+      </div>
+      @if (autoFocusKey() >= 0) {
+        <input class="demo-input" placeholder="This input will be focused on mount" [pkAutoFocus]="autoFocusEnabled()" />
+      }
+    </div>
+
+    <pre class="code-block">{{ codeAutoFocus }}</pre>
+  </section>
+
+  <!-- pkDebounceClick -->
+  <section class="section">
+    <h2>pkDebounceClick</h2>
+    <p>Debounces rapid clicks and emits <code>(pkDebounceClicked)</code> only after the configured delay (default 300 ms).</p>
+
+    <div class="demo-card">
+      <div class="demo-row">
+        <label>Delay (ms)
+          <input type="number" [ngModel]="debounceDelay()" (ngModelChange)="debounceDelay.set(+$event)" min="0" max="2000" style="width:90px" />
+        </label>
+        <button class="pk-btn pk-btn-primary pk-btn-sm"
+          [pkDebounceClick]="debounceDelay()"
+          (pkDebounceClicked)="onDebounced()">
+          Click me rapidly!
+        </button>
+        <span class="demo-meta" style="margin:0">Fired: {{ debounceCount() }}×</span>
+      </div>
+      @if (debounceLog.length) {
+        <div class="log-list">
+          @for (entry of debounceLog; track entry) {
+            <div class="log-item">{{ entry }}</div>
+          }
+        </div>
+      }
+    </div>
+
+    <pre class="code-block">{{ codeDebounce }}</pre>
+  </section>
+
+  <!-- pkNumberOnly -->
+  <section class="section">
+    <h2>pkNumberOnly</h2>
+    <p>Restricts an <code>&lt;input&gt;</code> to numeric keys only. Blocks letters, symbols and paste of non-numeric text. Set <code>[pkAllowDecimal]="true"</code> for decimal input.</p>
+
+    <div class="demo-card">
+      <div class="demo-row">
+        <label>Integers only
+          <input type="text" class="demo-input" placeholder="0–9 only" pkNumberOnly
+            [ngModel]="intValue()" (ngModelChange)="intValue.set($event)" />
+        </label>
+        <label>Decimal allowed
+          <input type="text" class="demo-input" placeholder="0–9 and one ." pkNumberOnly [pkAllowDecimal]="true"
+            [ngModel]="decValue()" (ngModelChange)="decValue.set($event)" />
+        </label>
+      </div>
+    </div>
+
+    <pre class="code-block">{{ codeNumberOnly }}</pre>
+  </section>
+
+  <!-- Usage summary -->
+  <section class="section">
+    <h2>Usage</h2>
+    <pre class="code-block">{{ code2 }}</pre>
+  </section>
+</div>

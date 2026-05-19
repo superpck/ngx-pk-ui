@@ -23,6 +23,31 @@
 .home-card-name { font-weight: 700; font-size: 15px; color: #1976d2; margin-bottom: 6px; }
 .home-card-desc { font-size: 13px; color: #666; line-height: 1.5; }
 
+/* stats bar */
+.home-stats { display: flex; flex-wrap: wrap; }
+.home-stat { flex: 1; min-width: 80px; text-align: center; padding: 20px 12px; border-right: 1px solid #e0e0e0; }
+.home-stat:last-child { border-right: none; }
+.home-stat-num { display: block; font-size: 1.75rem; font-weight: 700; color: #1976d2; line-height: 1.1; }
+.home-stat-label { display: block; font-size: 11px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+
+/* feature highlights */
+.home-features { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.home-feature { padding: 20px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; }
+.home-feature-icon { font-size: 22px; margin-bottom: 8px; }
+.home-feature-title { font-weight: 700; font-size: 14px; color: #111827; margin-bottom: 6px; }
+.home-feature-desc { font-size: 13px; color: #6b7280; line-height: 1.6; }
+.home-feature-desc code { background: #f0f0f0; padding: 1px 4px; border-radius: 3px; font-size: 11px; }
+
+/* component categories */
+.home-categories { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.home-category { padding: 16px 20px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; }
+.home-category-title { font-weight: 700; font-size: 11px; color: #6b7280; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.07em; }
+.home-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.home-chip { display: inline-block; padding: 3px 10px; background: #e0e7ff; color: #3730a3; border-radius: 12px; font-size: 12px; font-weight: 500; text-decoration: none; transition: background 0.15s, color 0.15s; }
+.home-chip:hover { background: #c7d2fe; color: #1e1b4b; }
+.home-chip--css { background: #dcfce7; color: #166534; }
+.home-chip--css:hover { background: #bbf7d0; color: #052e16; }
+
 /* ── pk-grid demo ───────────────────────────────────────── */
 .grid-box { background: #e3f2fd; border: 1px solid #90caf9; border-radius: 4px; padding: 10px 8px; text-align: center; font-size: 12px; color: #1565c0; font-weight: 500; }
 
