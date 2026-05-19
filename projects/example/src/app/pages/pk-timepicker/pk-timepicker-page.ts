@@ -53,11 +53,11 @@ import type { PkTimeFormat, PkTimeType } from 'ngx-pk-ui';
 <!-- via FormControl -->
 control.disable();`;
 
-  readonly codeInputType = `<!-- spinner (default) — up/down arrows -->
-<pk-timepicker [(ngModel)]="time" inputType="spinner" />
-
-<!-- number — direct text inputs (invalid values revert to previous) -->
+  readonly codeInputType = `<!-- number — (default) direct text inputs (invalid values revert to previous) -->
 <pk-timepicker [(ngModel)]="time" inputType="number" />
+  
+<!-- spinner — up/down arrows -->
+<pk-timepicker [(ngModel)]="time" inputType="spinner" />
 
 <!-- dropdown — native <select> for each field -->
 <pk-timepicker [(ngModel)]="time" inputType="dropdown" />`;

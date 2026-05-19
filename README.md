@@ -164,11 +164,11 @@ import type { PkTimeFormat, PkTimeType, PkTimeInputType } from 'ngx-pk-ui';
 ```
 
 ```html
-<!-- Basic (24H, hm, spinner) -->
+<!-- Basic (24H, hm, inputs) -->
 <pk-timepicker [(ngModel)]="time" />
 
-<!-- 12H mode, hms format, number inputs -->
-<pk-timepicker [(ngModel)]="time" type="12H" format="hms" inputType="number" />
+<!-- 12H mode, hms format, number spinner -->
+<pk-timepicker [(ngModel)]="time" type="12H" format="hms" inputType="spinner" />
 
 <!-- Dropdown mode, custom height -->
 <pk-timepicker [(ngModel)]="time" inputType="dropdown" [customStyle]="{ height: '42px' }" />
@@ -178,7 +178,7 @@ import type { PkTimeFormat, PkTimeType, PkTimeInputType } from 'ngx-pk-ui';
 |---|---|---|---|
 | `format` | `'hms'\|'hm'\|'h'` | `'hm'` | Fields shown |
 | `type` | `'24H'\|'12H'` | `'24H'` | Clock mode — 12H shows AM/PM toggle |
-| `inputType` | `'spinner'\|'number'\|'dropdown'` | `'spinner'` | UI style |
+| `inputType` | `'spinner'\|'number'\|'dropdown'` | `'number'` | UI style |
 | `customClass` | `string` | `''` | Extra CSS class on container |
 | `customStyle` | `Record<string,string>` | `{}` | Inline styles (e.g. override `height`) |
 | `(onTimeChange)` | `string` | — | Emits 24H time string on every change |

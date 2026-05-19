@@ -590,7 +590,7 @@ import type { PkTimeFormat, PkTimeType, PkTimeInputType } from 'ngx-pk-ui';
 |---|---|---|---|
 | `format` | `'hms'\|'hm'\|'h'` | `'hm'` | Fields shown — hours+minutes+seconds / hours+minutes / hours only |
 | `type` | `'24H'\|'12H'` | `'24H'` | Clock mode — 12H shows AM/PM toggle |
-| `inputType` | `'spinner'\|'number'\|'dropdown'` | `'spinner'` | UI style (see below) |
+| `inputType` | `'spinner'\|'number'\|'dropdown'` | `'number'` | UI style (see below) |
 | `customClass` | `string` | `''` | Extra CSS class on container |
 | `customStyle` | `Record<string,string>` | `{}` | Inline styles — overrides defaults (e.g. `height`) |
 | `(onTimeChange)` | `string` | — | Emits formatted time string on every change |

@@ -11,7 +11,7 @@
 
 <div class="page">
   <h1 class="page-title">pk-timepicker</h1>
-  <p class="page-desc">Spinner-style time picker with 24H / 12H mode, flexible format, and <code>ngModel</code> support.
+  <p class="page-desc">Number-style time picker with 24H / 12H mode, flexible format, and <code>ngModel</code> support.
   </p>
 
   <!-- Basic -->
@@ -85,9 +85,9 @@
   <section class="section">
     <h2>inputType</h2>
     <p class="section-desc">
-      <code>spinner</code> (default) — up/down arrows + mouse wheel.<br />
-      <code>number</code> — plain text inputs; invalid values (e.g. <code>24</code>, <code>61</code>) revert to the
-      previous value on blur.<br />
+      <code>number</code> (default) — plain text inputs; invalid values (e.g. <code>24</code>, <code>61</code>) revert
+      to the previous value on blur.<br />
+      <code>spinner</code> — up/down arrows + mouse wheel.<br />
       <code>dropdown</code> — native <code>&lt;select&gt;</code> for each field; guarantees valid values.
     </p>
     <div class="demo-row demo-col">
@@ -105,7 +105,7 @@
       </div>
       <div class="demo-item">
         <label class="demo-label">dropdown format="hms"</label>
-        <pk-timepicker [(ngModel)]="valueHms" inputType="dropdown" format="hms"/>
+        <pk-timepicker [(ngModel)]="valueHms" inputType="dropdown" format="hms" />
       </div>
       <div class="demo-item">
         <label class="demo-label">dropdown type="12H" ...</label>
