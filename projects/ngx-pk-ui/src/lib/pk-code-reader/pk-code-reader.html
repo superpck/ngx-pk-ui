@@ -27,11 +27,29 @@
       </div>
     }
 
+    @if (_permissionDenied()) {
+      <div class="pk-cr__permission-denied">
+        <span class="material-symbols-outlined">no_photography</span>
+        <p>Camera access was denied.</p>
+        <p class="pk-cr__permission-hint">Grant camera permission, or scan a photo instead.</p>
+        <button class="pk-cr__capture-btn" type="button" (click)="openCaptureInput()">
+          <span class="material-symbols-outlined">camera_alt</span>
+          Scan with camera
+        </button>
+        <input #captureInputEl type="file" accept="image/*" capture="environment" hidden (change)="onCaptureChange($event)" />
+      </div>
+    }
+
     @if (!_supported()) {
       <div class="pk-cr__unsupported">
         <span class="material-symbols-outlined">qr_code_scanner</span>
-        <p>BarcodeDetector API is not supported in this browser.</p>
-        <p class="pk-cr__unsupported-hint">Use Chrome or Edge on desktop / Android.</p>
+        @if (_isIos) {
+          <p>Barcode scanning is not supported on iOS.</p>
+          <p class="pk-cr__unsupported-hint">Safari and Chrome on iOS do not support the BarcodeDetector API.</p>
+        } @else {
+          <p>BarcodeDetector API is not supported in this browser.</p>
+          <p class="pk-cr__unsupported-hint">Use Chrome or Edge on desktop / Android.</p>
+        }
       </div>
     }
   </div>
