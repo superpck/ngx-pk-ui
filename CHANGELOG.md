@@ -6,6 +6,7 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ## [2.11.2]
 
+- **pk-code-reader**: iOS / Firefox fallback — when `BarcodeDetector` is unavailable (iOS Safari, iOS Chrome, Firefox), jsQR v1.4.0 is used as the decode engine (vendored TypeScript source, no npm dependency); camera still works via `getUserMedia()`; upload and clipboard paste also supported; QR-only mode is signalled by a small **"QR only"** pill badge overlaid on the viewport; `_jsqrMode` signal exposes the active mode
 - **pk-code-reader**: iOS detection — `_isIos` flag set once on init via UA string; "not supported on iOS" message replaces the generic hint when `BarcodeDetector` is unavailable on iOS
 - **pk-code-reader**: permission-denied fallback — when `getUserMedia()` throws `NotAllowedError` (e.g. Android LINE WebView), a permission-denied overlay is shown inside the viewport with a **"Scan with camera"** button that triggers `<input type="file" accept="image/*" capture="environment">`; this opens the native camera picker, bypassing `getUserMedia()` entirely; decoded via `BarcodeDetector` as normal; `openCaptureInput()` / `onCaptureChange()` methods added
 - **pk-code-reader**: `_permissionDenied` signal reset to `false` at the start of every `startCamera()` call

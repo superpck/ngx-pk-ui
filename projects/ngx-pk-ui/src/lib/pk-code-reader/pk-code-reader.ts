@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import type { PkCodeFormat, PkCodeReaderError, PkCodeScanResult } from './pk-code-reader.model';
+import jsQR from './vendor/jsqr/index';
 
 @Component({
   selector: 'pk-code-reader',
@@ -78,6 +79,10 @@ export class PkCodeReader implements AfterViewInit {
   private _scanTimer: ReturnType<typeof setInterval> | null = null;
   private _rafId:    number | null          = null;
   private _audioCtx: AudioContext | null   = null;
+  /** jsQR fallback: true when BarcodeDetector is unavailable */
+  readonly _jsqrMode = signal(false);
+  /** Off-screen canvas used for video-frame capture in jsQR mode */
+  private _jsqrCanvas: HTMLCanvasElement | null = null;
 
   /** Highlight data: cornerPoints + expiry timestamp */
   private _highlight: {
@@ -109,8 +114,11 @@ export class PkCodeReader implements AfterViewInit {
       (/Mac/i.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
 
     if (typeof BarcodeDetector === 'undefined') {
-      this._supported.set(false);
-      this.error.emit('not-supported');
+      // No BarcodeDetector — fall back to jsQR (QR-code only)
+      this._jsqrMode.set(true);
+      this.supportedFormats.emit(['qr_code']);
+      this._currentFacing.set(this.facingMode());
+      await this.startCamera();
       return;
     }
 
@@ -207,11 +215,16 @@ export class PkCodeReader implements AfterViewInit {
 
   private async _scanFrame(): Promise<void> {
     const video = this.videoEl()?.nativeElement;
-    if (!video || !this._detector || video.readyState < 2 || this.paused()) return;
-    try {
-      const results = await this._detector.detect(video);
-      if (results.length > 0) this._onDetected(results[0], 'camera');
-    } catch { /* ignore per-frame decode errors */ }
+    if (!video || video.readyState < 2 || this.paused()) return;
+    if (this._detector) {
+      try {
+        const results = await this._detector.detect(video);
+        if (results.length > 0) this._onDetected(results[0], 'camera');
+      } catch { /* ignore per-frame decode errors */ }
+    } else if (this._jsqrMode()) {
+      const imageData = this._captureVideoFrame(video);
+      if (imageData) this._detectWithJsQR(imageData, 'camera');
+    }
   }
 
   // ── Detection result ──────────────────────────────────────────────────────
@@ -262,7 +275,7 @@ export class PkCodeReader implements AfterViewInit {
     const input = event.target as HTMLInputElement;
     const file  = input.files?.[0];
     input.value = '';
-    if (!file || !this._detector) return;
+    if (!file || (!this._detector && !this._jsqrMode())) return;
     await this._scanBlob(file, 'upload');
   }
 
@@ -270,14 +283,14 @@ export class PkCodeReader implements AfterViewInit {
     const input = event.target as HTMLInputElement;
     const file  = input.files?.[0];
     input.value = '';
-    if (!file || !this._detector) return;
+    if (!file || (!this._detector && !this._jsqrMode())) return;
     await this._scanBlob(file, 'upload');
   }
 
   // ── Clipboard paste ───────────────────────────────────────────────────────
   @HostListener('paste', ['$event'])
   async onPaste(event: ClipboardEvent): Promise<void> {
-    if (!this.allowPaste() || !this._detector) return;
+    if (!this.allowPaste() || (!this._detector && !this._jsqrMode())) return;
     const items = event.clipboardData?.items;
     if (!items) return;
     for (const item of Array.from(items)) {
@@ -289,19 +302,69 @@ export class PkCodeReader implements AfterViewInit {
   }
 
   private async _scanBlob(blob: Blob, source: PkCodeScanResult['source']): Promise<void> {
-    if (!this._detector) return;
     try {
-      const bitmap  = await createImageBitmap(blob);
-      const results = await this._detector.detect(bitmap);
-      bitmap.close();
-      if (results.length > 0) {
-        this._onDetected(results[0], source);
-      } else {
-        this.error.emit('decode-error');
+      const bitmap = await createImageBitmap(blob);
+      if (this._detector) {
+        const results = await this._detector.detect(bitmap);
+        bitmap.close();
+        if (results.length > 0) {
+          this._onDetected(results[0], source);
+        } else {
+          this.error.emit('decode-error');
+        }
+      } else if (this._jsqrMode()) {
+        const canvas = document.createElement('canvas');
+        canvas.width  = bitmap.width;
+        canvas.height = bitmap.height;
+        const ctx = canvas.getContext('2d')!;
+        ctx.drawImage(bitmap, 0, 0);
+        bitmap.close();
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        if (!this._detectWithJsQR(imageData, source)) {
+          this.error.emit('decode-error');
+        }
       }
     } catch {
       this.error.emit('decode-error');
     }
+  }
+
+  // ── jsQR helpers (fallback decoder) ──────────────────────────────────────
+  private _captureVideoFrame(video: HTMLVideoElement): ImageData | null {
+    const w = video.videoWidth  || video.clientWidth;
+    const h = video.videoHeight || video.clientHeight;
+    if (!w || !h) return null;
+    if (!this._jsqrCanvas) this._jsqrCanvas = document.createElement('canvas');
+    this._jsqrCanvas.width  = w;
+    this._jsqrCanvas.height = h;
+    const ctx = this._jsqrCanvas.getContext('2d');
+    if (!ctx) return null;
+    ctx.drawImage(video, 0, 0, w, h);
+    return ctx.getImageData(0, 0, w, h);
+  }
+
+  /** Run jsQR on imageData; calls _onDetected on success; returns true if a code was found */
+  private _detectWithJsQR(imageData: ImageData, source: PkCodeScanResult['source']): boolean {
+    const result = jsQR(imageData.data, imageData.width, imageData.height);
+    if (!result) return false;
+    const loc = result.location;
+    this._onDetected({
+      rawValue:    result.data,
+      format:      'qr_code',
+      boundingBox: new DOMRect(
+        loc.topLeftCorner.x,
+        loc.topLeftCorner.y,
+        loc.topRightCorner.x  - loc.topLeftCorner.x,
+        loc.bottomLeftCorner.y - loc.topLeftCorner.y,
+      ) as DOMRectReadOnly,
+      cornerPoints: [
+        loc.topLeftCorner,
+        loc.topRightCorner,
+        loc.bottomRightCorner,
+        loc.bottomLeftCorner,
+      ],
+    } as BarcodeDetectorResult, source);
+    return true;
   }
 
   // ── Reset (public) ────────────────────────────────────────────────────────
@@ -310,7 +373,7 @@ export class PkCodeReader implements AfterViewInit {
     this._lastValue   = '';
     this._lastValueAt = 0;
     this._highlight   = null;
-    if (!this.paused() && this._stream && this._detector) {
+    if (!this.paused() && this._stream && (this._detector || this._jsqrMode())) {
       this._startScanLoop();
     }
   }
@@ -450,5 +513,6 @@ export class PkCodeReader implements AfterViewInit {
   private _teardown(): void {
     this._stopStream();
     this._audioCtx?.close();
+    this._jsqrCanvas = null;
   }
 }

@@ -505,7 +505,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-textarea` | ✅ Built, tested (11 tests) — rich text editor: bold/italic/underline/strike, text colour, **highlight color**, font name (18 Google Fonts via `pk-font-*`), font size (small/normal/large/h1-h3), ordered/unordered lists, **blockquote**, dark theme, 3 view modes (Edit/HTML/Text); standalone, ControlValueAccessor (`PkTextareaValue { html, text }`); `::ng-deep` used for dynamic editor content styles |
 | `pk-barcode` | ✅ Built, tested (15 tests) — inline SVG barcode; Code 128 / Code 39 / EAN-13 / EAN-8; pure TypeScript encoder; inputs: `value`, `format`, `width`, `height`, `showText`, `lineColor`, `backgroundColor`; `downloadSvg()` / `downloadPng()` |
 | `pk-qrcode` | ✅ Built, tested (12 tests) — inline SVG QR code; versions 1–40; EC levels L/M/Q/H; 8 mask patterns with ISO 18004 penalty scoring; center logo (auto-upgrades EC level to Q); inputs: `value`, `ecLevel`, `size`, `darkColor`, `lightColor`, `logo`, `logoSize`, `margin`; `downloadSvg()` / `downloadPng()` |
-| `pk-code-reader` | ✅ Built, tested (17 tests) — QR + barcode scanner; native `BarcodeDetector` API (zero deps); camera / image upload / clipboard paste; canvas RAF overlay (viewfinder + green bbox highlight 800 ms); AudioContext beep 880 Hz; torch toggle; camera switch; `formats` filtered by `getSupportedFormats()`; iOS-aware "not supported" message; **permission-denied fallback**: capture overlay with `<input capture="environment">` (bypasses `getUserMedia()` — works in Android LINE WebView); `reset()`, `startCamera()`, `openCaptureInput()` methods |
+| `pk-code-reader` | ✅ Built, tested (20 tests) — QR + barcode scanner; native `BarcodeDetector` API (zero deps); **jsQR v1.4.0 fallback for iOS/Firefox** (vendored TS source, QR-only when `BarcodeDetector` unavailable; `_jsqrMode` signal; "QR only" badge in viewport); camera / image upload / clipboard paste; canvas RAF overlay (viewfinder + green bbox highlight 800 ms); AudioContext beep 880 Hz; torch toggle; camera switch; `formats` filtered by `getSupportedFormats()`; iOS-aware "not supported" message; **permission-denied fallback**: capture overlay with `<input capture="environment">` (bypasses `getUserMedia()` — works in Android LINE WebView); `reset()`, `startCamera()`, `openCaptureInput()` methods |
 | `pk-grid` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | `pk-btn` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
 | `pk-spinner` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
@@ -521,7 +521,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 
-**Test totals: 173 / 173 passing**
+**Test totals: 176 / 176 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper

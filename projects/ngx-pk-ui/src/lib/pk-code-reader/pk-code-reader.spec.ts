@@ -106,16 +106,19 @@ describe('PkCodeReader', () => {
     expect(reader).toBeTruthy();
   });
 
-  // ── BarcodeDetector not available ─────────────────────────────────────
+  // ── jsQR fallback (BarcodeDetector unavailable) ─────────────────────
 
-  it('marks _supported=false and emits error when BarcodeDetector is unavailable', async () => {
+  it('activates jsQR fallback when BarcodeDetector is unavailable', async () => {
     vi.stubGlobal('BarcodeDetector', undefined);
     const f2 = TestBed.createComponent(TestHost);
     f2.detectChanges();
     await f2.whenStable();
     const r2 = f2.debugElement.children[0].componentInstance as PkCodeReader;
-    expect(r2._supported()).toBe(false);
-    expect(f2.componentInstance.errors).toContain('not-supported');
+    await r2._initPromise;
+    expect(r2['_jsqrMode']()).toBe(true);
+    expect(r2._supported()).toBe(true);
+    expect(f2.componentInstance.errors).not.toContain('not-supported');
+    expect(f2.componentInstance.supported.flat()).toContain('qr_code');
   });
 
   // ── Supported formats ─────────────────────────────────────────────────
@@ -321,5 +324,47 @@ describe('PkCodeReader', () => {
     r2.reset();
     r2['_onDetected'](result, 'camera'); // after reset — should emit again
     expect(f2.componentInstance.scans.length).toBe(2);
+  });
+
+  // ── jsQR helpers ──────────────────────────────────────────────────────
+
+  it('jsQR mode: _scanFrame routes to _detectWithJsQR', async () => {
+    reader['_jsqrMode'].set(true);
+    reader['_detector'] = null;
+    const fakeData = { data: new Uint8ClampedArray(4), width: 1, height: 1 } as ImageData;
+    vi.spyOn(reader as any, '_captureVideoFrame').mockReturnValue(fakeData);
+    const detectSpy = vi.spyOn(reader as any, '_detectWithJsQR').mockReturnValue(false);
+    const video = reader.videoEl()?.nativeElement;
+    if (video) Object.defineProperty(video, 'readyState', { value: 4, configurable: true });
+    await reader['_scanFrame']();
+    expect(detectSpy).toHaveBeenCalledWith(fakeData, 'camera');
+  });
+
+  it('jsQR mode: _scanBlob calls _detectWithJsQR', async () => {
+    reader['_jsqrMode'].set(true);
+    reader['_detector'] = null;
+    vi.stubGlobal('createImageBitmap', vi.fn().mockResolvedValue({ close: vi.fn(), width: 10, height: 10 }));
+    const mockCtx = {
+      drawImage: vi.fn(),
+      getImageData: vi.fn().mockReturnValue({ data: new Uint8ClampedArray(400), width: 10, height: 10 }),
+    };
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext' as any).mockReturnValue(mockCtx);
+    const detectSpy = vi.spyOn(reader as any, '_detectWithJsQR').mockReturnValue(true);
+    await reader['_scanBlob'](new Blob([''], { type: 'image/png' }), 'upload');
+    expect(detectSpy).toHaveBeenCalled();
+  });
+
+  it('jsQR mode: _scanBlob emits decode-error when _detectWithJsQR returns false', async () => {
+    reader['_jsqrMode'].set(true);
+    reader['_detector'] = null;
+    vi.stubGlobal('createImageBitmap', vi.fn().mockResolvedValue({ close: vi.fn(), width: 10, height: 10 }));
+    const mockCtx = {
+      drawImage: vi.fn(),
+      getImageData: vi.fn().mockReturnValue({ data: new Uint8ClampedArray(400), width: 10, height: 10 }),
+    };
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext' as any).mockReturnValue(mockCtx);
+    vi.spyOn(reader as any, '_detectWithJsQR').mockReturnValue(false);
+    await reader['_scanBlob'](new Blob([''], { type: 'image/png' }), 'upload');
+    expect(host.errors).toContain('decode-error');
   });
 });

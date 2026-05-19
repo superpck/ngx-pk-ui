@@ -40,7 +40,11 @@
       </div>
     }
 
-    @if (!_supported()) {
+    @if (_jsqrMode()) {
+      <div class="pk-cr__qr-only-badge">QR only</div>
+    }
+
+    @if (!_supported() && !_jsqrMode()) {
       <div class="pk-cr__unsupported">
         <span class="material-symbols-outlined">qr_code_scanner</span>
         @if (_isIos) {
