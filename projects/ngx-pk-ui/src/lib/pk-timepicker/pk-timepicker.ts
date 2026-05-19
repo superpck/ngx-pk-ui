@@ -24,7 +24,7 @@ function clamp(v: number, min: number, max: number): number {
 export class PkTimepicker implements ControlValueAccessor {
   readonly format     = input<PkTimeFormat>('hm');
   readonly type       = input<PkTimeType>('24H');
-  readonly inputType  = input<PkTimeInputType>('spinner');
+  readonly inputType  = input<PkTimeInputType>('number');
   readonly customClass  = input<string>('');
   readonly customStyle  = input<Record<string, string>>({});
   readonly onTimeChange = output<string>();
