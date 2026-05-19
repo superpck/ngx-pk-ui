@@ -1,5 +1,7 @@
 # ngx-pk-ui: A Modern Angular 21 Component Library Built with Signals
-
+```
+An open-source Angular 21 library with 29 standalone components, 17-locale support, and 358 tests - built entirely on signals.
+```
 > **Draft for Medium.com** — May 2026
 > 📸 = screenshot needed (see inline notes)
 
@@ -13,7 +15,9 @@ If you've been building Angular applications and find yourself re-implementing t
 
 ---
 
-📸 **[SCREENSHOT 1]** — Hero image: the live demo site overview page (https://superpck.github.io/ngx-pk-ui/) showing the stats bar (29 components / 12 CSS / 5 pipes / 5 directives / 17 locales / 358 tests) and the component category chips.
+📸 **[SCREENSHOT 1]** — 
+![alt text](https://github.com/superpck/ngx-pk-ui/tree/master/dev-document/images/1.png)
+Hero image: the live demo site overview page (https://superpck.github.io/ngx-pk-ui/) showing the stats bar (29 components / 12 CSS / 5 pipes / 5 directives / 17 locales / 358 tests) and the component category chips.
 
 ---
 

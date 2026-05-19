@@ -54,7 +54,7 @@ export class LandingExample {
       cta: 'Get started', highlight: false,
     },
     {
-      name: 'Pro', price: '$29', period: '/ month',
+      name: 'Pro', price: '$1.02', period: '/ month',
       desc: 'For teams who need power and flexibility.',
       features: ['Unlimited workflows', '100K runs / month', 'All 500+ integrations', 'Priority support', 'AI suggestions'],
       cta: 'Start free trial', highlight: true,

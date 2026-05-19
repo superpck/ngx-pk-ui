@@ -58,8 +58,8 @@ export class App {
   ];
 
   readonly examplesList = [
-    { label: 'login page', link: '/examples/login' },
     { label: 'landing page', link: '/examples/landing' },
+    { label: 'login page', link: '/examples/login' },
     { label: 'chat app', link: '/examples/chat' },
     { label: 'dashboard template', link: '/examples/dashboard' },
   ];
