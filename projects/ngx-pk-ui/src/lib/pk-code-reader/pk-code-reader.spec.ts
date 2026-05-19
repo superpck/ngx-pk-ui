@@ -142,7 +142,7 @@ describe('PkCodeReader', () => {
 
   // ── Camera permission errors ──────────────────────────────────────────
 
-  it('emits permission-denied on NotAllowedError', async () => {
+  it('emits permission-denied and sets _permissionDenied on NotAllowedError', async () => {
     const err = Object.assign(new Error('denied'), { name: 'NotAllowedError' });
     Object.defineProperty(navigator, 'mediaDevices', {
       value: { getUserMedia: vi.fn().mockRejectedValue(err) },
@@ -155,6 +155,7 @@ describe('PkCodeReader', () => {
     const r2 = f2.debugElement.children[0].componentInstance as PkCodeReader;
     await r2._initPromise;
     expect(f2.componentInstance.errors).toContain('permission-denied');
+    expect(r2._permissionDenied()).toBe(true);
   });
 
   // ── File upload scan ──────────────────────────────────────────────────
@@ -186,6 +187,49 @@ describe('PkCodeReader', () => {
     await reader.onFileChange(event);
 
     expect(host.errors).toContain('decode-error');
+  });
+
+  // ── Capture fallback (permission-denied) ──────────────────────────
+
+  it('onCaptureChange decodes file and emits scan result', async () => {
+    const det = makeMockDetector([{ rawValue: 'CAPTURE_VAL', format: 'qr_code' }]);
+    reader['_detector'] = det as unknown as BarcodeDetector;
+
+    vi.stubGlobal('createImageBitmap', vi.fn().mockResolvedValue({
+      close: vi.fn(),
+      width: 10, height: 10,
+    }));
+
+    const file  = new File([''], 'photo.jpg', { type: 'image/jpeg' });
+    const event = { target: { files: [file], value: '' } } as unknown as Event;
+    await reader.onCaptureChange(event);
+
+    expect(host.scans.length).toBe(1);
+    expect(host.scans[0].value).toBe('CAPTURE_VAL');
+    expect(host.scans[0].source).toBe('upload');
+  });
+
+  it('onCaptureChange emits decode-error when no barcode found in image', async () => {
+    reader['_detector'] = makeMockDetector([]) as unknown as BarcodeDetector;
+    vi.stubGlobal('createImageBitmap', vi.fn().mockResolvedValue({ close: vi.fn() }));
+
+    const event = { target: { files: [new File([''], 'blank.jpg', { type: 'image/jpeg' })], value: '' } } as unknown as Event;
+    await reader.onCaptureChange(event);
+
+    expect(host.errors).toContain('decode-error');
+  });
+
+  it('onCaptureChange does nothing when detector is not initialised', async () => {
+    reader['_detector'] = null;
+    const event = { target: { files: [new File([''], 'x.jpg', { type: 'image/jpeg' })], value: '' } } as unknown as Event;
+    await reader.onCaptureChange(event);
+    expect(host.scans.length).toBe(0);
+  });
+
+  it('startCamera resets _permissionDenied before attempting getUserMedia', async () => {
+    reader['_permissionDenied'].set(true);
+    await reader.startCamera();
+    expect(reader._permissionDenied()).toBe(false);
   });
 
   // ── Clipboard paste ───────────────────────────────────────────────────

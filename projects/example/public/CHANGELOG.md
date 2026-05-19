@@ -4,6 +4,22 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.11.2]
+
+- **pk-code-reader**: iOS detection — `_isIos` flag set once on init via UA string; "not supported on iOS" message replaces the generic hint when `BarcodeDetector` is unavailable on iOS
+- **pk-code-reader**: permission-denied fallback — when `getUserMedia()` throws `NotAllowedError` (e.g. Android LINE WebView), a permission-denied overlay is shown inside the viewport with a **"Scan with camera"** button that triggers `<input type="file" accept="image/*" capture="environment">`; this opens the native camera picker, bypassing `getUserMedia()` entirely; decoded via `BarcodeDetector` as normal; `openCaptureInput()` / `onCaptureChange()` methods added
+- **pk-code-reader**: `_permissionDenied` signal reset to `false` at the start of every `startCamera()` call
+
+## [2.11.1]
+
+- **pk-locale**: add `calendarLabels` field to `PkLocaleData` — provides `year`, `month`, `week`, `day`, `agenda`, `today`, `newEvent` labels for all 17 locales; used by `pk-calendar` toolbar to render fully localized view buttons and action labels
+- **pk-calendar**: toolbar labels (`Year/Month/Week/Day/Agenda`, `Today`, `+ New`) now drawn from `PkLocaleData.calendarLabels`; template simplified from inline `@if`/`@else` chains to a single `_calViews` computed signal
+
+## [2.11.0]
+
+- **pk-code-reader**: new standalone component — scans QR codes and barcodes using the native `BarcodeDetector` API (zero external dependencies); supports live camera stream, image file upload, and clipboard paste (Ctrl+V); inputs: `formats`, `facingMode`, `continuous`, `paused`, `interval`, `showOverlay`, `showHighlight`, `beep`, `showTorch`, `showSwitch`, `allowUpload`, `allowPaste`; outputs: `(scan)`, `(error)`, `(supportedFormats)`; public methods: `reset()`, `startCamera()`; canvas RAF overlay with viewfinder frame and green bounding-box highlight; AudioContext beep (880 Hz, 150 ms); graceful "not supported" fallback for Safari/Firefox
+- **pk-calendar**: `locale` input upgraded from `'TH'|'EN'` to `PkLocale` — now supports all 17 shared locales (en · th · lo · fr · es · pt · it · de · nl · zh · ja · ko · ru · vi · id · ar · hi); month/day labels drawn directly from `PK_LOCALE_DATA`; example page shows full locale dropdown selector
+
 ## [2.10.0]
 
 - **pk-barcode**: new standalone component — generates barcodes as inline SVG; supports **Code 128**, **Code 39**, **EAN-13**, **EAN-8**; pure TypeScript encoder (zero external deps); inputs: `value`, `format`, `width`, `height`, `showText`, `lineColor`, `backgroundColor`; outputs: `downloadSvg()`, `downloadPng()`

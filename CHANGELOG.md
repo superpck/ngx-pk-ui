@@ -4,6 +4,12 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.11.2]
+
+- **pk-code-reader**: iOS detection — `_isIos` flag set once on init via UA string; "not supported on iOS" message replaces the generic hint when `BarcodeDetector` is unavailable on iOS
+- **pk-code-reader**: permission-denied fallback — when `getUserMedia()` throws `NotAllowedError` (e.g. Android LINE WebView), a permission-denied overlay is shown inside the viewport with a **"Scan with camera"** button that triggers `<input type="file" accept="image/*" capture="environment">`; this opens the native camera picker, bypassing `getUserMedia()` entirely; decoded via `BarcodeDetector` as normal; `openCaptureInput()` / `onCaptureChange()` methods added
+- **pk-code-reader**: `_permissionDenied` signal reset to `false` at the start of every `startCamera()` call
+
 ## [2.11.1]
 
 - **pk-locale**: add `calendarLabels` field to `PkLocaleData` — provides `year`, `month`, `week`, `day`, `agenda`, `today`, `newEvent` labels for all 17 locales; used by `pk-calendar` toolbar to render fully localized view buttons and action labels

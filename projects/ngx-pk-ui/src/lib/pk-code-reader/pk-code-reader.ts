@@ -58,15 +58,19 @@ export class PkCodeReader implements AfterViewInit {
   supportedFormats = output<PkCodeFormat[]>();
 
   // ── Internal state ───────────────────────────────────────────────────────
-  readonly _supported      = signal(true);
-  readonly _torchOn        = signal(false);
-  readonly _torchSupported = signal(false);
-  readonly _currentFacing  = signal<'user' | 'environment'>('environment');
+  readonly _supported        = signal(true);
+  readonly _torchOn          = signal(false);
+  readonly _torchSupported   = signal(false);
+  readonly _currentFacing    = signal<'user' | 'environment'>('environment');
+  readonly _permissionDenied = signal(false);
+  /** True when running on iOS (WebKit — BarcodeDetector unavailable) */
+  _isIos = false;
 
   // ── Template refs ────────────────────────────────────────────────────────
-  readonly videoEl     = viewChild<ElementRef<HTMLVideoElement>>('videoEl');
-  readonly overlayEl   = viewChild<ElementRef<HTMLCanvasElement>>('overlayEl');
-  readonly fileInputEl = viewChild<ElementRef<HTMLInputElement>>('fileInputEl');
+  readonly videoEl        = viewChild<ElementRef<HTMLVideoElement>>('videoEl');
+  readonly overlayEl      = viewChild<ElementRef<HTMLCanvasElement>>('overlayEl');
+  readonly fileInputEl    = viewChild<ElementRef<HTMLInputElement>>('fileInputEl');
+  readonly captureInputEl = viewChild<ElementRef<HTMLInputElement>>('captureInputEl');
 
   // ── Private fields ───────────────────────────────────────────────────────
   private _stream:   MediaStream | null     = null;
@@ -101,6 +105,9 @@ export class PkCodeReader implements AfterViewInit {
 
   // ── Initialisation ────────────────────────────────────────────────────────
   private async _init(): Promise<void> {
+    this._isIos = /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+      (/Mac/i.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+
     if (typeof BarcodeDetector === 'undefined') {
       this._supported.set(false);
       this.error.emit('not-supported');
@@ -133,6 +140,7 @@ export class PkCodeReader implements AfterViewInit {
   async startCamera(): Promise<void> {
     if (!isPlatformBrowser(this.platformId)) return;
     this._stopStream();
+    this._permissionDenied.set(false);
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -160,6 +168,7 @@ export class PkCodeReader implements AfterViewInit {
     } catch (e: unknown) {
       const name = (e as DOMException)?.name ?? '';
       if (name === 'NotAllowedError') {
+        this._permissionDenied.set(true);
         this.error.emit('permission-denied');
       } else {
         this.error.emit('no-camera');
@@ -241,6 +250,20 @@ export class PkCodeReader implements AfterViewInit {
   // ── Upload ────────────────────────────────────────────────────────────────
   openFileInput(): void {
     this.fileInputEl()?.nativeElement.click();
+  }
+
+  // ── Capture fallback (for WebView permission-denied) ─────────────────────
+  /** Opens a native camera picker via <input capture> — bypasses getUserMedia() */
+  openCaptureInput(): void {
+    this.captureInputEl()?.nativeElement.click();
+  }
+
+  async onCaptureChange(event: Event): Promise<void> {
+    const input = event.target as HTMLInputElement;
+    const file  = input.files?.[0];
+    input.value = '';
+    if (!file || !this._detector) return;
+    await this._scanBlob(file, 'upload');
   }
 
   async onFileChange(event: Event): Promise<void> {
