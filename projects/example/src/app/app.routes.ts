@@ -34,6 +34,7 @@ export const routes: Routes = [
   { path: 'pk-badge', loadComponent: () => import('./pages/pk-badge/pk-badge-page').then(m => m.PkBadgePage) },
   { path: 'pk-card', loadComponent: () => import('./pages/pk-card/pk-card-page').then(m => m.PkCardPage) },
   { path: 'pk-breadcrumb', loadComponent: () => import('./pages/pk-breadcrumb/pk-breadcrumb-page').then(m => m.PkBreadcrumbPage) },
+  { path: 'pk-divider', loadComponent: () => import('./pages/pk-divider/pk-divider-page').then(m => m.PkDividerPage) },
   { path: 'pk-tooltip', loadComponent: () => import('./pages/pk-tooltip/pk-tooltip-page').then(m => m.PkTooltipPage) },
   { path: 'pk-form', loadComponent: () => import('./pages/pk-form/pk-form-page').then(m => m.PkFormPage) },
   { path: 'pk-layout', loadComponent: () => import('./pages/pk-layout/pk-layout-page').then(m => m.PkLayoutPage) },

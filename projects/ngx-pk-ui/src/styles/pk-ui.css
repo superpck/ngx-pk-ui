@@ -22,6 +22,7 @@
 @import './pk-icon-font.css';
 @import './pk-tooltip.css';
 @import './pk-layout.css';
+@import './pk-divider.css';
 
 /* pk-current-row: Row select color ------------------------------------------------- */
 .pk-current-row {

@@ -4,7 +4,11 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.11.3]
+
 ## [2.11.2]
+
+- **pk-divider** (CSS only): new `pk-divider` class for horizontal and vertical content separators; supports labeled dividers (`<div class="pk-divider">or</div>`), vertical inline separators (`<span class="pk-divider pk-divider--vertical">`) , line styles (`--dashed`, `--dotted`), thickness (`--md`, `--thick`), text alignment (`--left`, `--right`), and color variants (`--primary`, `--secondary`, `--success`, `--error`); included in `pk-ui.css` automatically
 
 - **pk-code-reader**: iOS / Firefox fallback — when `BarcodeDetector` is unavailable (iOS Safari, iOS Chrome, Firefox), jsQR v1.4.0 is used as the decode engine (vendored TypeScript source, no npm dependency); camera still works via `getUserMedia()`; upload and clipboard paste also supported; QR-only mode is signalled by a small **"QR only"** pill badge overlaid on the viewport; `_jsqrMode` signal exposes the active mode
 - **pk-code-reader**: iOS detection — `_isIos` flag set once on init via UA string; "not supported on iOS" message replaces the generic hint when `BarcodeDetector` is unavailable on iOS

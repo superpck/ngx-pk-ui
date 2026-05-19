@@ -1,0 +1,124 @@
+/**
+ * pk-divider — Horizontal & vertical content divider for ngx-pk-ui
+ *
+ * Horizontal (block):
+ *   <div class="pk-divider"></div>
+ *   <div class="pk-divider">or</div>
+ *   <div class="pk-divider pk-divider--dashed">Section</div>
+ *
+ * Vertical (inline):
+ *   <span class="pk-divider pk-divider--vertical"></span>
+ *
+ * Modifiers:
+ *   pk-divider--vertical  — vertical inline separator
+ *   pk-divider--dashed    — dashed line style
+ *   pk-divider--dotted    — dotted line style
+ *   pk-divider--md        — 2 px thickness
+ *   pk-divider--thick     — 3 px thickness
+ *   pk-divider--left      — text flush-left (heavy right side)
+ *   pk-divider--right     — text flush-right (heavy left side)
+ *   pk-divider--primary/secondary/success/error — color variants
+ */
+
+/* ─── Custom properties (override per element) ───────────────────── */
+
+.pk-divider {
+  --pk-divider-color:      #e5e7eb;
+  --pk-divider-text-color: #9ca3af;
+  --pk-divider-thickness:  1px;
+}
+
+/* ─── Horizontal divider ─────────────────────────────────────────── */
+
+.pk-divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 1rem 0;
+  border: 0;
+  color: var(--pk-divider-text-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.pk-divider::before,
+.pk-divider::after {
+  content: '';
+  flex: 1;
+  height: var(--pk-divider-thickness);
+  background-color: var(--pk-divider-color);
+}
+
+/* Add gap only when label text is present */
+.pk-divider:not(:empty)::before { margin-right: 0.75rem; }
+.pk-divider:not(:empty)::after  { margin-left:  0.75rem; }
+
+/* ─── Vertical divider ───────────────────────────────────────────── */
+
+.pk-divider--vertical {
+  display: inline-block;
+  width: var(--pk-divider-thickness);
+  height: 1.2em;
+  background-color: var(--pk-divider-color);
+  margin: 0 0.5rem;
+  vertical-align: middle;
+}
+
+.pk-divider--vertical::before,
+.pk-divider--vertical::after {
+  display: none;
+}
+
+/* ─── Text alignment ─────────────────────────────────────────────── */
+
+/* pk-divider--left: text near the left, long line on the right */
+.pk-divider--left::before { flex: 0 0 1.5rem; }
+.pk-divider--left::after  { flex: 1; }
+
+/* pk-divider--right: text near the right, long line on the left */
+.pk-divider--right::before { flex: 1; }
+.pk-divider--right::after  { flex: 0 0 1.5rem; }
+
+/* ─── Line style ─────────────────────────────────────────────────── */
+
+.pk-divider--dashed::before,
+.pk-divider--dashed::after {
+  background: none;
+  border-top: var(--pk-divider-thickness) dashed var(--pk-divider-color);
+  height: 0;
+}
+
+.pk-divider--dotted::before,
+.pk-divider--dotted::after {
+  background: none;
+  border-top: var(--pk-divider-thickness) dotted var(--pk-divider-color);
+  height: 0;
+}
+
+/* ─── Thickness ──────────────────────────────────────────────────── */
+
+.pk-divider--md    { --pk-divider-thickness: 2px; }
+.pk-divider--thick { --pk-divider-thickness: 3px; }
+
+/* ─── Colors ─────────────────────────────────────────────────────── */
+
+.pk-divider--primary {
+  --pk-divider-color:      var(--pk-btn-primary,   #1976d2);
+  --pk-divider-text-color: var(--pk-btn-primary,   #1976d2);
+}
+
+.pk-divider--secondary {
+  --pk-divider-color:      var(--pk-btn-secondary, #6c757d);
+  --pk-divider-text-color: var(--pk-btn-secondary, #6c757d);
+}
+
+.pk-divider--success {
+  --pk-divider-color:      var(--pk-btn-success,   #388e3c);
+  --pk-divider-text-color: var(--pk-btn-success,   #388e3c);
+}
+
+.pk-divider--error {
+  --pk-divider-color:      var(--pk-btn-error,     #d32f2f);
+  --pk-divider-text-color: var(--pk-btn-error,     #d32f2f);
+}

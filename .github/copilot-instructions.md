@@ -518,6 +518,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-layout` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-layout.css` — included in pk-ui.css |
 | `pk-font` (CSS only, opt-in) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-font.css` — NOT in pk-ui.css |
 | `pk-icon-font` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-icon-font.css` |
+| `pk-divider` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-divider.css` — included in pk-ui.css |
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 

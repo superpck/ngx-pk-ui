@@ -63,6 +63,7 @@ export class App {
     { label: 'badge', link: '/pk-badge' },
     { label: 'breadcrumb', link: '/pk-breadcrumb' },
     { label: 'button', link: '/pk-btn' },
+    { label: 'divider', link: '/pk-divider' },
     { label: 'card', link: '/pk-card' },
     { label: 'font', link: '/pk-font' },
     { label: 'form', link: '/pk-form' },
