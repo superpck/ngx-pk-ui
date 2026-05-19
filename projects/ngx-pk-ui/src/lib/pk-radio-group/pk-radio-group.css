@@ -1,0 +1,101 @@
+/* ─── Container ──────────────────────────────────────────────────── */
+
+:host {
+  display: block;
+}
+
+.pk-rg {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.pk-rg--horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+/* ─── Item ───────────────────────────────────────────────────────── */
+
+.pk-rg__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  cursor: pointer;
+  user-select: none;
+  color: #374151;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  padding: 0.2rem 0;
+}
+
+.pk-rg__item--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.pk-rg--disabled .pk-rg__item {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ─── Hide native input ──────────────────────────────────────────── */
+
+.pk-rg__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* ─── Custom dot ─────────────────────────────────────────────────── */
+
+.pk-rg__dot {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #d1d5db;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.pk-rg__dot::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: transparent;
+  transition: background 0.15s, transform 0.15s;
+  transform: scale(0);
+}
+
+/* Selected */
+
+.pk-rg__item--selected .pk-rg__dot {
+  border-color: var(--pk-btn-primary, #1976d2);
+}
+
+.pk-rg__item--selected .pk-rg__dot::after {
+  background: var(--pk-btn-primary, #1976d2);
+  transform: scale(1);
+}
+
+/* Hover */
+
+.pk-rg__item:not(.pk-rg__item--disabled):hover .pk-rg__dot {
+  border-color: var(--pk-btn-primary, #1976d2);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pk-btn-primary, #1976d2) 12%, transparent);
+}
+
+/* ─── Label ──────────────────────────────────────────────────────── */
+
+.pk-rg__label {
+  line-height: 1.4;
+}

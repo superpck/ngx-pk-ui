@@ -50,3 +50,5 @@
 .icon-size-demo { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 11px; color: #666; }
 .icon-compare-group { display: flex; flex-direction: column; gap: 8px; }
 .icon-compare-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #666; }
+
+.align-center { display: flex; align-items: center; gap: 6px; }

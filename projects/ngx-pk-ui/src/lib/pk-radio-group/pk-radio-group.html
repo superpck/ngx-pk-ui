@@ -1,0 +1,28 @@
+<div
+  class="pk-rg"
+  [class.pk-rg--horizontal]="layout() === 'horizontal'"
+  [class.pk-rg--disabled]="_disabled()"
+  [class]="customClass()"
+  [style]="customStyle()"
+>
+  @for (opt of options(); track opt.value) {
+    <label
+      class="pk-rg__item"
+      [class.pk-rg__item--selected]="isSelected(opt.value)"
+      [class.pk-rg__item--disabled]="_disabled() || !!opt.disabled"
+      (click)="select(opt.value, opt.disabled)"
+    >
+      <input
+        type="radio"
+        class="pk-rg__input"
+        [name]="_groupName"
+        [value]="opt.value"
+        [checked]="isSelected(opt.value)"
+        [disabled]="_disabled() || !!opt.disabled"
+        (change)="select(opt.value, opt.disabled)"
+      />
+      <span class="pk-rg__dot"></span>
+      <span class="pk-rg__label">{{ opt.label }}</span>
+    </label>
+  }
+</div>

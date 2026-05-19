@@ -128,3 +128,10 @@ export * from './lib/pk-qrcode/pk-qrcode';
 // pk-code-reader
 export * from './lib/pk-code-reader/pk-code-reader.model';
 export * from './lib/pk-code-reader/pk-code-reader';
+
+// pk-radio-group
+export * from './lib/pk-radio-group/pk-radio-group';
+
+// pk-timepicker
+export * from './lib/pk-timepicker/pk-timepicker.model';
+export * from './lib/pk-timepicker/pk-timepicker';

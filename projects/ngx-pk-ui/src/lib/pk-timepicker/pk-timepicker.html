@@ -1,0 +1,142 @@
+<div
+  class="pk-tp"
+  [class]="customClass()"
+  [class.pk-tp--disabled]="_disabled()"
+  [ngStyle]="customStyle()"
+  (focusout)="onBlur()"
+>
+  @if (inputType() === 'spinner') {
+
+    <!-- ── Spinner mode ─────────────────────────────── -->
+
+    <!-- Hours -->
+    <div class="pk-tp__col" (wheel)="onWheelH($event)">
+      <button class="pk-tp__arrow" type="button" (click)="incrementH()" [disabled]="_disabled()" tabindex="-1" aria-label="Increase hours">
+        <span class="pk-tp__tri pk-tp__tri--up"></span>
+      </button>
+      <span class="pk-tp__val">{{ _displayH() }}</span>
+      <button class="pk-tp__arrow" type="button" (click)="decrementH()" [disabled]="_disabled()" tabindex="-1" aria-label="Decrease hours">
+        <span class="pk-tp__tri pk-tp__tri--down"></span>
+      </button>
+    </div>
+
+    @if (format() !== 'h') {
+      <span class="pk-tp__sep">:</span>
+
+      <!-- Minutes -->
+      <div class="pk-tp__col" (wheel)="onWheelM($event)">
+        <button class="pk-tp__arrow" type="button" (click)="incrementM()" [disabled]="_disabled()" tabindex="-1" aria-label="Increase minutes">
+          <span class="pk-tp__tri pk-tp__tri--up"></span>
+        </button>
+        <span class="pk-tp__val">{{ _displayM() }}</span>
+        <button class="pk-tp__arrow" type="button" (click)="decrementM()" [disabled]="_disabled()" tabindex="-1" aria-label="Decrease minutes">
+          <span class="pk-tp__tri pk-tp__tri--down"></span>
+        </button>
+      </div>
+    }
+
+    @if (format() === 'hms') {
+      <span class="pk-tp__sep">:</span>
+
+      <!-- Seconds -->
+      <div class="pk-tp__col" (wheel)="onWheelS($event)">
+        <button class="pk-tp__arrow" type="button" (click)="incrementS()" [disabled]="_disabled()" tabindex="-1" aria-label="Increase seconds">
+          <span class="pk-tp__tri pk-tp__tri--up"></span>
+        </button>
+        <span class="pk-tp__val">{{ _displayS() }}</span>
+        <button class="pk-tp__arrow" type="button" (click)="decrementS()" [disabled]="_disabled()" tabindex="-1" aria-label="Decrease seconds">
+          <span class="pk-tp__tri pk-tp__tri--down"></span>
+        </button>
+      </div>
+    }
+
+  } @else if (inputType() === 'dropdown') {
+
+    <!-- ── Dropdown mode ─────────────────────────────── -->
+
+    <select class="pk-tp__select" (change)="onSelectH($event)" [disabled]="_disabled()" aria-label="Hours">
+      @for (opt of _hoursOptions(); track opt) {
+        <option [value]="opt" [selected]="opt === _displayH()">{{ opt }}</option>
+      }
+    </select>
+
+    @if (format() !== 'h') {
+      <span class="pk-tp__sep">:</span>
+      <select class="pk-tp__select" (change)="onSelectM($event)" [disabled]="_disabled()" aria-label="Minutes">
+        @for (opt of _minutesOptions; track opt) {
+          <option [value]="opt" [selected]="opt === _displayM()">{{ opt }}</option>
+        }
+      </select>
+    }
+
+    @if (format() === 'hms') {
+      <span class="pk-tp__sep">:</span>
+      <select class="pk-tp__select" (change)="onSelectS($event)" [disabled]="_disabled()" aria-label="Seconds">
+        @for (opt of _secondsOptions; track opt) {
+          <option [value]="opt" [selected]="opt === _displayS()">{{ opt }}</option>
+        }
+      </select>
+    }
+
+  } @else {
+
+    <!-- ── Number-input mode ─────────────────────────── -->
+
+    <!-- Hours -->
+    <input
+      class="pk-tp__input"
+      type="text"
+      inputmode="numeric"
+      maxlength="2"
+      [value]="_numH()"
+      (input)="onInputH($event)"
+      (blur)="onBlurH()"
+      (focus)="$any($event.target).select()"
+      [disabled]="_disabled()"
+      aria-label="Hours"
+    />
+
+    @if (format() !== 'h') {
+      <span class="pk-tp__sep">:</span>
+      <input
+        class="pk-tp__input"
+        type="text"
+        inputmode="numeric"
+        maxlength="2"
+        [value]="_numM()"
+        (input)="onInputM($event)"
+        (blur)="onBlurM()"
+        (focus)="$any($event.target).select()"
+        [disabled]="_disabled()"
+        aria-label="Minutes"
+      />
+    }
+
+    @if (format() === 'hms') {
+      <span class="pk-tp__sep">:</span>
+      <input
+        class="pk-tp__input"
+        type="text"
+        inputmode="numeric"
+        maxlength="2"
+        [value]="_numS()"
+        (input)="onInputS($event)"
+        (blur)="onBlurS()"
+        (focus)="$any($event.target).select()"
+        [disabled]="_disabled()"
+        aria-label="Seconds"
+      />
+    }
+
+  }
+
+  @if (type() === '12H') {
+    <button
+      class="pk-tp__ampm"
+      [class.pk-tp__ampm--pm]="_ampm() === 'PM'"
+      type="button"
+      (click)="toggleAmPm()"
+      [disabled]="_disabled()"
+    >{{ _ampm() }}</button>
+  }
+</div>

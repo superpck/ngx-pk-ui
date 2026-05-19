@@ -449,6 +449,10 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `PkCodeScanResult` | Interface | `pk-code-reader/pk-code-reader.model` |
 | `PkCodeReaderError` | Type alias | `pk-code-reader/pk-code-reader.model` |
 | `PkCodeReader` | Component | `pk-code-reader/pk-code-reader` |
+| `PkTimeFormat` | Type alias | `pk-timepicker/pk-timepicker.model` |
+| `PkTimeType` | Type alias | `pk-timepicker/pk-timepicker.model` |
+| `PkTimeInputType` | Type alias | `pk-timepicker/pk-timepicker.model` |
+| `PkTimepicker` | Component | `pk-timepicker/pk-timepicker` |
 
 ---
 
@@ -477,7 +481,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.11.2` |
+| Library version | `2.12.0` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -501,6 +505,8 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-locale` | ✅ Built — global shared locale model; 17 locales; `direction: 'ltr'\|'rtl'`; `calendarLabels` (year/month/week/day/agenda/today/newEvent) for all 17 locales |
 | `pk-heatmap` | ✅ Built, tested (16 tests) — full-width layout; 4 color schemes; 17-locale labels; legend 0/max; tooltip |
 | `pk-input-password` | ✅ Built — standalone, ControlValueAccessor, show/hide toggle, 4-level strength meter |
+| `pk-radio-group` | ✅ Built, tested (14 tests) — standalone, ControlValueAccessor (`ngModel`/`FormControl`), `layout: vertical\|horizontal`, per-option disabled, `(onChange)` output |
+| `pk-timepicker` | ✅ Built, tested (39 tests) — standalone, ControlValueAccessor (`ngModel`/`FormControl`); value as 24H string (`HH:mm`, `HH:mm:ss`, `HH`); `format: 'hms'\|'hm'\|'h'`; `type: '24H'\|'12H'`; `inputType: 'spinner'\|'number'\|'dropdown'`; default `height: 35px` (override via `customStyle`); `customClass`/`customStyle`; `(onTimeChange)` output |
 | `pk-split` | ✅ Built, tested (8 tests) — horizontal/vertical resizable split pane; drag divider; touch support; `direction`, `initialSize`, `minSize`, `gutterSize`, `(sizeChange)` |
 | `pk-textarea` | ✅ Built, tested (11 tests) — rich text editor: bold/italic/underline/strike, text colour, **highlight color**, font name (18 Google Fonts via `pk-font-*`), font size (small/normal/large/h1-h3), ordered/unordered lists, **blockquote**, dark theme, 3 view modes (Edit/HTML/Text); standalone, ControlValueAccessor (`PkTextareaValue { html, text }`); `::ng-deep` used for dynamic editor content styles |
 | `pk-barcode` | ✅ Built, tested (15 tests) — inline SVG barcode; Code 128 / Code 39 / EAN-13 / EAN-8; pure TypeScript encoder; inputs: `value`, `format`, `width`, `height`, `showText`, `lineColor`, `backgroundColor`; `downloadSvg()` / `downloadPng()` |
@@ -522,7 +528,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 
-**Test totals: 176 / 176 passing**
+**Test totals: 230 / 230 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper
@@ -531,6 +537,66 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 - `pk-kanban` — drag-and-drop kanban board
 - `pk-image-viewer` — lightbox / image viewer (works with pk-file-upload previews)
 - `pk-command-palette` — keyboard-driven command palette (works with pk-sidenav)
+
+---
+
+## pk-timepicker API reference
+
+Standalone component — time picker with ControlValueAccessor support. Value is always stored/emitted as a **24H string** (`HH:mm`, `HH:mm:ss`, or `HH`).
+
+```ts
+import { PkTimepicker } from 'ngx-pk-ui';
+import type { PkTimeFormat, PkTimeType, PkTimeInputType } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkTimepicker, FormsModule],
+})
+```
+
+```html
+<!-- Basic 24H hm -->
+<pk-timepicker [(ngModel)]="time" />
+
+<!-- 12H mode, hms format, number inputs -->
+<pk-timepicker [(ngModel)]="time" type="12H" format="hms" inputType="number" />
+
+<!-- Dropdown, custom height -->
+<pk-timepicker [(ngModel)]="time" inputType="dropdown" [customStyle]="{ height: '42px' }" />
+```
+
+### PkTimepicker inputs / outputs
+
+| Input/Output | Type | Default | Description |
+|---|---|---|---|
+| `format` | `'hms'\|'hm'\|'h'` | `'hm'` | Fields shown — hours+minutes+seconds / hours+minutes / hours only |
+| `type` | `'24H'\|'12H'` | `'24H'` | Clock mode — 12H shows AM/PM toggle |
+| `inputType` | `'spinner'\|'number'\|'dropdown'` | `'spinner'` | UI style (see below) |
+| `customClass` | `string` | `''` | Extra CSS class on container |
+| `customStyle` | `Record<string,string>` | `{}` | Inline styles — overrides defaults (e.g. `height`) |
+| `(onTimeChange)` | `string` | — | Emits formatted time string on every change |
+
+### inputType modes
+
+| Mode | Description |
+|---|---|
+| `spinner` | Up/down arrow buttons per field + mouse-wheel support |
+| `number` | Plain `<input type="text">` per field — invalid values (out-of-range on blur) revert to the previous valid value |
+| `dropdown` | Native `<select>` per field — always emits a valid value; hours 00–23 (24H) or 01–12 (12H) |
+
+### Value format
+
+| `format` | Value string |
+|---|---|
+| `'hm'` | `"14:30"` |
+| `'hms'` | `"14:30:05"` |
+| `'h'` | `"14"` |
+
+Always 24H internally regardless of `type`. `writeValue('14:30')` sets `_h=14, _m=30`.
+
+### Notes
+- Default `height: 35px` set in CSS; override with `[customStyle]="{ height: '42px' }"`.
+- 12H display: hour 0 → shows as `12` (midnight AM); hour 12 → shows as `12` (noon PM).
+- Separate spec files per `inputType` to avoid TestBed environment conflicts.
 
 ---
 

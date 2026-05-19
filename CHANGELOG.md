@@ -4,7 +4,18 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.12.0]
+
+- **pk-timepicker**: new standalone component — time picker with `ControlValueAccessor` support (`ngModel` / `FormControl`); value stored as 24H `HH:mm`, `HH:mm:ss`, or `HH` string; inputs: `format: 'hms' | 'hm' | 'h'`, `type: '24H' | '12H'`, `inputType: 'spinner' | 'number' | 'dropdown'`, `customClass`, `customStyle`; output: `(onTimeChange)`; default `height: 35px` (overridable via `customStyle`); 39 Vitest tests across 3 spec files
+- **pk-timepicker** `inputType="spinner"`: up/down arrow buttons per field with mouse-wheel support
+- **pk-timepicker** `inputType="number"`: plain text `<input>` per field; invalid values (out-of-range on blur) revert to the previous valid value instead of clamping
+- **pk-timepicker** `inputType="dropdown"`: native `<select>` per field — guarantees valid values; hours 00–23 (24H) or 01–12 (12H)
+
+---
+
 ## [2.11.3]
+
+- **pk-radio-group**: new standalone component — custom-styled radio button group; `ControlValueAccessor` (`ngModel` / `FormControl`); `layout: 'vertical' | 'horizontal'`; per-option `disabled`; `(onChange)` output; `customClass` / `customStyle` inputs; 14 Vitest tests
 
 ## [2.11.2]
 
