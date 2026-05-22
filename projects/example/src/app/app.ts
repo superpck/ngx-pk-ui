@@ -41,6 +41,7 @@ export class App {
     { label: 'markdown viewer', link: '/pk-markdown-viewer' },
     { label: 'split', link: '/pk-split' },
     { label: 'modal', link: '/pk-modal' },
+    { label: 'otp input', link: '/pk-otp' },
     { label: 'pipes', link: '/pk-pipes' },
     { label: 'progress', link: '/pk-progress' },
     { label: 'qrcode', link: '/pk-qrcode' },
@@ -58,8 +59,8 @@ export class App {
   ];
 
   readonly examplesList = [
-    { label: 'login page', link: '/examples/login' },
     { label: 'landing page', link: '/examples/landing' },
+    { label: 'login page', link: '/examples/login' },
     { label: 'chat app', link: '/examples/chat' },
     { label: 'dashboard template', link: '/examples/dashboard' },
   ];

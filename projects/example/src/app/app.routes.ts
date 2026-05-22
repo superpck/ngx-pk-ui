@@ -48,6 +48,7 @@ export const routes: Routes = [
   { path: 'pk-context-menu', loadComponent: () => import('./pages/pk-context-menu/pk-context-menu-page').then(m => m.PkContextMenuPage) },
   { path: 'pk-pipes', loadComponent: () => import('./pages/pk-pipes/pk-pipes-page').then(m => m.PkPipesPage) },
   { path: 'pk-directives', loadComponent: () => import('./pages/pk-directives/pk-directives-page').then(m => m.PkDirectivesPage) },
+  { path: 'pk-otp', loadComponent: () => import('./pages/pk-otp/pk-otp-page').then(m => m.PkOtpPage) },
   // Examples
   { path: 'examples/login', loadComponent: () => import('./pages/examples/login/login-example').then(m => m.LoginExample) },
   { path: 'examples/chat', loadComponent: () => import('./pages/examples/chat/chat-example').then(m => m.ChatExample) },

@@ -154,3 +154,7 @@ export * from './lib/pk-directives/pk-copy-to-clipboard.directive';
 export * from './lib/pk-directives/pk-auto-focus.directive';
 export * from './lib/pk-directives/pk-debounce-click.directive';
 export * from './lib/pk-directives/pk-number-only.directive';
+
+// pk-otp
+export * from './lib/pk-otp/pk-otp.model';
+export * from './lib/pk-otp/pk-otp';

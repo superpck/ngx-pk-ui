@@ -112,6 +112,10 @@ projects/
           pk-code-reader.model.ts  ← PkCodeFormat, PkCodeScanResult, PkCodeReaderError; ambient BarcodeDetector declarations
           pk-code-reader.ts        ← standalone component: camera, upload, paste; BarcodeDetector; canvas overlay; AudioContext beep
           pk-code-reader.html / .css / .spec.ts
+        pk-otp/
+          pk-otp.model.ts       ← PkOtpType, PkOtpSize
+          pk-otp.ts             ← standalone component: OTP/PIN cells, ControlValueAccessor, mask, keyboard nav, paste
+          pk-otp.html / .css / .spec.ts
     src/styles/
       pk-ui.css                   ← single entry point — @imports all modules below
       pk-grid.css                 ← responsive 12-column grid
@@ -466,6 +470,9 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `PkTimepicker` | Component | `pk-timepicker/pk-timepicker` |
 | `PkDatePipe` | Pipe | `pk-pipes/pk-date.pipe` |
 | `parseBEDate` | Function | `pk-pipes/pk-date.pipe` |
+| `PkOtpType` | Type alias | `pk-otp/pk-otp.model` |
+| `PkOtpSize` | Type alias | `pk-otp/pk-otp.model` |
+| `PkOtp` | Component | `pk-otp/pk-otp` |
 
 ---
 
@@ -498,7 +505,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.15.1` |
+| Library version | `2.16.0` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -532,6 +539,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-barcode` | ✅ Built, tested (15 tests) — inline SVG barcode; Code 128 / Code 39 / EAN-13 / EAN-8; pure TypeScript encoder; inputs: `value`, `format`, `width`, `height`, `showText`, `lineColor`, `backgroundColor`; `downloadSvg()` / `downloadPng()` |
 | `pk-qrcode` | ✅ Built, tested (12 tests) — inline SVG QR code; versions 1–40; EC levels L/M/Q/H; 8 mask patterns with ISO 18004 penalty scoring; center logo (auto-upgrades EC level to Q); inputs: `value`, `ecLevel`, `size`, `darkColor`, `lightColor`, `logo`, `logoSize`, `margin`; `downloadSvg()` / `downloadPng()` |
 | `pk-code-reader` | ✅ Built, tested (20 tests) — QR + barcode scanner; native `BarcodeDetector` API (zero deps); **jsQR v1.4.0 fallback for iOS/Firefox** (vendored TS source, QR-only when `BarcodeDetector` unavailable; `_jsqrMode` signal; "QR only" badge in viewport); camera / image upload / clipboard paste; canvas RAF overlay (viewfinder + green bbox highlight 800 ms); AudioContext beep 880 Hz; torch toggle; camera switch; `formats` filtered by `getSupportedFormats()`; iOS-aware "not supported" message; **permission-denied fallback**: capture overlay with `<input capture="environment">` (bypasses `getUserMedia()` — works in Android LINE WebView); `reset()`, `startCamera()`, `openCaptureInput()` methods |
+| `pk-otp` | ✅ Built, tested (23 tests) — OTP/PIN cells (1–16); `type: 'number'\|'char'\|'none'`; `capital`; `size: 'sm'\|'md'\|'lg'`; `title`/`text` labels; `showString`/`showTime` masking; animated pulse/blink border on focus; keyboard nav (←/→/Backspace/Delete); paste; browser OTP autofill; ControlValueAccessor (`ngModel`/`FormControl`); `(onChange)`/`(onComplete)` outputs |
 | `pk-grid` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | `pk-btn` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
 | `pk-spinner` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
@@ -548,7 +556,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 
-**Test totals: 358 / 358 passing**
+**Test totals: 381 / 381 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper
@@ -1767,3 +1775,66 @@ interface PkCodeScanResult {
 - **Format filtering** — `getSupportedFormats()` is called on init; only device-supported formats are enabled. Code 39 and ITF reliability varies by platform
 - **Debounce** — same value is not re-emitted within 2 s in continuous mode; call `reset()` to override
 - **`_initPromise`** — exposed for testing: `await component._initPromise` after `TestBed.flushEffects()` to assert post-init state
+
+---
+
+## pk-otp API reference
+
+Standalone component — OTP / PIN input with ControlValueAccessor support.
+
+```ts
+import { PkOtp } from 'ngx-pk-ui';
+import type { PkOtpType, PkOtpSize } from 'ngx-pk-ui';
+
+@Component({
+  imports: [FormsModule, PkOtp],
+})
+```
+
+```html
+<!-- 6-digit OTP (default) -->
+<pk-otp [(ngModel)]="otp" (onComplete)="submit($event)" />
+
+<!-- 4-char PIN, masked immediately -->
+<pk-otp [length]="4" size="sm" showString="*" [showTime]="0" [(ngModel)]="pin" />
+
+<!-- 8-char alphanumeric, uppercase, large -->
+<pk-otp [length]="8" type="char" [capital]="true" size="lg" [(ngModel)]="code" />
+
+<!-- With title and ref text -->
+<pk-otp title="Verification Code" text="ref: TXN-001" [(ngModel)]="otp" />
+```
+
+### PkOtp inputs / outputs
+
+| Input/Output | Type | Default | Description |
+|---|---|---|---|
+| `length` | `number` | `6` | Number of cells (clamped to 1–16) |
+| `type` | `'number'\|'char'\|'none'` | `'number'` | Accepted character type: digits / a-z letters / any printable |
+| `capital` | `boolean` | `false` | Auto-uppercase input (applies when `type='char'`) |
+| `size` | `'sm'\|'md'\|'lg'` | `'md'` | Cell size preset |
+| `title` | `string` | `''` | Bold label displayed above the cells |
+| `text` | `string` | `''` | Sub-label (e.g. `"ref: TXN-001"`) |
+| `showString` | `string\|null` | `null` | Mask character — `null` shows actual input; e.g. `'*'` or `'•'` |
+| `showTime` | `number` (ms) | `1000` | How long to briefly show the real char before masking. `0` = mask immediately |
+| `disabled` | `boolean` | `false` | Disables all input cells |
+| `customClass` | `string` | `''` | Extra CSS class on host |
+| `customStyle` | `Record<string,string>` | `{}` | Inline styles on host |
+| `(onChange)` | `string` | — | Emits the joined value on every keystroke |
+| `(onComplete)` | `string` | — | Emits when all cells are filled |
+
+### Size presets
+
+| Size | Cell dimensions | Font |
+|---|---|---|
+| `sm` | 36 × 40 px | 16 px |
+| `md` | 48 × 52 px (default) | 22 px |
+| `lg` | 62 × 68 px | 28 px |
+
+### Notes
+- **Focus animation** — pulsing box-shadow (`@keyframes pk-otp-pulse`) with no JS; CSS only.
+- **Keyboard navigation** — ArrowLeft / ArrowRight moves focus; Backspace clears current cell and moves left; Delete clears current cell without moving.
+- **Paste** — fills cells from the pasted string starting at the focused cell; invalid chars (per `type`) are skipped.
+- **Browser OTP autofill** — `autocomplete="one-time-code"` on each input; `inputmode="numeric"` when `type='number'`.
+- **Masking logic** — when `showString` is set: if `showTime > 0` the real char is shown for `showTime` ms then replaced; if `showTime === 0` the mask is applied instantly.
+- **`writeValue`** — supports pre-filled values (e.g. from server); each character is validated against `type` before being accepted.
