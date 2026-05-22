@@ -505,7 +505,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.16.0` |
+| Library version | `2.16.1` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -524,7 +524,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-tooltip` | ✅ Built |
 | `pk-calendar` | ✅ Built — Year/Month/Week/Day/Agenda views, drag & drop, multi-day bars, built-in form, full 17-locale support via `PkLocale`; toolbar labels (`year/month/week/day/agenda/today/newEvent`) from `PkLocaleData.calendarLabels` |
 | `pk-file-upload` | ✅ Built, tested (14 tests) — drag & drop, browser-native preview (image/PDF/text), upload button, maxSize/maxFiles validation |
-| `pk-sidenav` | ✅ Built — left/right, full/icon/auto mode, multi-level, badge, 4 themes, CSS-variable override, content slots |
+| `pk-sidenav` | ✅ Built — left/right, full/icon/auto mode, multi-level, badge, 4 themes, CSS-variable override, content slots; `route` (routerLink) fixed; `href` + `hrefTarget` added |
 | `pk-markdown-viewer` | ✅ Built, tested (18 tests) — `fileName` (fetch) + `content` (raw string); Print, Export .md, Export .html; light/dark theme; zero external deps |
 | `pk-locale` | ✅ Built — global shared locale model; 17 locales; `direction: 'ltr'\|'rtl'`; `calendarLabels` (year/month/week/day/agenda/today/newEvent) for all 17 locales |
 | `pk-heatmap` | ✅ Built, tested (16 tests) — full-width layout; 4 color schemes; 17-locale labels; legend 0/max; tooltip |
@@ -1656,6 +1656,9 @@ import type { PkSidenavGroup } from 'ngx-pk-ui';
 | `key` | `string` | Unique key for active state tracking |
 | `label` | `string` | Display label |
 | `icon` | `string?` | Material Symbols icon name |
+| `route` | `string\|any[]?` | Angular Router commands — renders item as `<a [routerLink]>` with `routerLinkActive` |
+| `href` | `string?` | External/internal URL — renders item as `<a [href]>` |
+| `hrefTarget` | `'_blank'\|'_self'?` | Link target. `'_blank'` = new tab; `'_self'` = same tab (default) |
 | `badge` | `number\|string?` | Badge count shown on item |
 | `disabled` | `boolean?` | Prevent selection |
 | `children` | `PkSidenavItem[]?` | Nested items (multi-level) |

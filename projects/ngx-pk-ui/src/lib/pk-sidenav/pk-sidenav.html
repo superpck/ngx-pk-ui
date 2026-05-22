@@ -59,47 +59,51 @@
 
 <!-- Recursive item template -->
 <ng-template #itemTpl let-item let-depth="depth">
-  <div
-    class="pk-snv-item"
-    [class.pk-snv-item--active]="isActive(item)"
-    [class.pk-snv-item--disabled]="item.disabled"
-    [class.pk-snv-item--has-children]="item.children?.length"
-    [class.pk-snv-item--open]="isOpen(item.key)"
-    [style.padding-left.px]="isIconOnly() ? 0 : 16 + depth * 14"
-    (click)="onItemClick(item)"
-  >
-    <!-- Icon bubble -->
-    <span class="pk-snv-icon">
-      <pk-icon
-        [name]="iconName(item)"
-        iconSet="material-symbols"
-        [size]="18"
-        color="currentColor"
-      />
-    </span>
 
-    @if (!isIconOnly()) {
-      <span class="pk-snv-label">{{ item.label }}</span>
-
-      @if (item.badge !== undefined && item.badge !== null) {
-        <span class="pk-snv-badge">{{ item.badge }}</span>
-      }
-
-      @if (item.children?.length) {
-        <pk-icon
-          class="pk-snv-chevron"
-          [name]="isOpen(item.key) ? 'expand_less' : 'expand_more'"
-          iconSet="material-symbols"
-          [size]="16"
-          color="currentColor"
-        />
-      }
-    } @else {
-      @if (item.badge !== undefined && item.badge !== null) {
-        <span class="pk-snv-badge pk-snv-badge--dot">{{ item.badge }}</span>
-      }
-    }
-  </div>
+  @if (item.route) {
+    <!-- routerLink item -->
+    <a
+      class="pk-snv-item"
+      [class.pk-snv-item--active]="isActive(item)"
+      [class.pk-snv-item--disabled]="item.disabled"
+      [class.pk-snv-item--has-children]="item.children?.length"
+      [class.pk-snv-item--open]="isOpen(item.key)"
+      [routerLink]="item.disabled ? null : item.route"
+      routerLinkActive="pk-snv-item--active"
+      [style.padding-left.px]="isIconOnly() ? 0 : 16 + depth * 14"
+      (click)="onItemClick(item, $event)"
+    >
+      <ng-container *ngTemplateOutlet="itemContentTpl; context: { $implicit: item }" />
+    </a>
+  } @else if (item.href) {
+    <!-- href item -->
+    <a
+      class="pk-snv-item"
+      [class.pk-snv-item--active]="isActive(item)"
+      [class.pk-snv-item--disabled]="item.disabled"
+      [class.pk-snv-item--has-children]="item.children?.length"
+      [class.pk-snv-item--open]="isOpen(item.key)"
+      [href]="item.href"
+      [target]="item.hrefTarget ?? '_self'"
+      [style.padding-left.px]="isIconOnly() ? 0 : 16 + depth * 14"
+      (click)="onItemClick(item, $event)"
+    >
+      <ng-container *ngTemplateOutlet="itemContentTpl; context: { $implicit: item }" />
+    </a>
+  } @else {
+    <!-- Plain item (no navigation) -->
+    <div
+      class="pk-snv-item"
+      [class.pk-snv-item--active]="isActive(item)"
+      [class.pk-snv-item--disabled]="item.disabled"
+      [class.pk-snv-item--has-children]="item.children?.length"
+      [class.pk-snv-item--open]="isOpen(item.key)"
+      [style.padding-left.px]="isIconOnly() ? 0 : 16 + depth * 14"
+      (click)="onItemClick(item, $event)"
+    >
+      <ng-container *ngTemplateOutlet="itemContentTpl; context: { $implicit: item }" />
+    </div>
+  }
 
   <!-- Children (submenu) -->
   @if (item.children?.length && isOpen(item.key) && !isIconOnly()) {
@@ -108,5 +112,40 @@
         <ng-container *ngTemplateOutlet="itemTpl; context: { $implicit: child, depth: depth + 1 }" />
       }
     </div>
+  }
+</ng-template>
+
+<!-- Item inner content (shared across all element types) -->
+<ng-template #itemContentTpl let-item>
+  <!-- Icon bubble -->
+  <span class="pk-snv-icon">
+    <pk-icon
+      [name]="iconName(item)"
+      iconSet="material-symbols"
+      [size]="18"
+      color="currentColor"
+    />
+  </span>
+
+  @if (!isIconOnly()) {
+    <span class="pk-snv-label">{{ item.label }}</span>
+
+    @if (item.badge !== undefined && item.badge !== null) {
+      <span class="pk-snv-badge">{{ item.badge }}</span>
+    }
+
+    @if (item.children?.length) {
+      <pk-icon
+        class="pk-snv-chevron"
+        [name]="isOpen(item.key) ? 'expand_less' : 'expand_more'"
+        iconSet="material-symbols"
+        [size]="16"
+        color="currentColor"
+      />
+    }
+  } @else {
+    @if (item.badge !== undefined && item.badge !== null) {
+      <span class="pk-snv-badge pk-snv-badge--dot">{{ item.badge }}</span>
+    }
   }
 </ng-template>
