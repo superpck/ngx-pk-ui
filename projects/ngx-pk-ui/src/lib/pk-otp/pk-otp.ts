@@ -32,6 +32,8 @@ export class PkOtp implements ControlValueAccessor, OnDestroy {
   readonly showString  = input<string | null>(null);
   /** ms to briefly show the actual char before masking. 0 = mask immediately. */
   readonly showTime    = input<number>(1000);
+  /** Countdown timeout in seconds. 0 = disabled. When expired: cells clear + disabled + onTimeout emits. */
+  readonly timeout     = input<number>(0);
   readonly customClass = input<string>('');
   readonly customStyle = input<Record<string, string>>({});
   readonly disabled    = input<boolean>(false);
@@ -39,13 +41,18 @@ export class PkOtp implements ControlValueAccessor, OnDestroy {
   // ─── Outputs ───────────────────────────────────────────────────────────────
   readonly onComplete = output<string>();
   readonly onChange   = output<string>();
+  /** Emits when the countdown reaches zero */
+  readonly onTimeout  = output<void>();
 
   // ─── Internal state ────────────────────────────────────────────────────────
   readonly _values        = signal<string[]>([]);
   readonly _displayValues = signal<string[]>([]);
   readonly _focused       = signal<number>(-1);
+  readonly _remaining     = signal<number>(0);
+  readonly _expired       = signal<boolean>(false);
 
   private _maskTimers: ReturnType<typeof setTimeout>[] = [];
+  private _countdownTimer?: ReturnType<typeof setInterval>;
   private _cvOnChange: (v: string) => void = () => {};
   private _cvOnTouched: () => void = () => {};
 
@@ -54,6 +61,24 @@ export class PkOtp implements ControlValueAccessor, OnDestroy {
   readonly cells = computed(() => {
     const n = Math.max(1, Math.min(16, this.length()));
     return Array.from({ length: n }, (_, i) => i);
+  });
+
+  readonly _isDisabled = computed(() => this.disabled() || this._expired());
+
+  readonly _remainingPct = computed(() => {
+    const t = this.timeout();
+    if (!t) return 100;
+    return Math.max(0, (this._remaining() / t) * 100);
+  });
+
+  readonly _remainingLabel = computed(() => {
+    const s = this._remaining();
+    if (s >= 60) {
+      const m = Math.floor(s / 60);
+      const sec = s % 60;
+      return `${m}:${sec.toString().padStart(2, '0')}`;
+    }
+    return `${s}s`;
   });
 
   readonly _hostClass = computed(() => {
@@ -70,10 +95,29 @@ export class PkOtp implements ControlValueAccessor, OnDestroy {
       this._values.set(Array(len).fill(''));
       this._displayValues.set(Array(len).fill(''));
     });
+
+    effect(() => {
+      const t = this.timeout();
+      if (t > 0) {
+        this._startCountdown();
+      } else {
+        this._stopCountdown();
+        this._remaining.set(0);
+        this._expired.set(false);
+      }
+    });
   }
 
   ngOnDestroy(): void {
     this._maskTimers.forEach(t => clearTimeout(t));
+    this._stopCountdown();
+  }
+
+  /** Restart the countdown (e.g. after resending OTP) */
+  restartTimeout(): void {
+    if (this.timeout() > 0) {
+      this._startCountdown();
+    }
   }
 
   // ─── ControlValueAccessor ──────────────────────────────────────────────────
@@ -205,6 +249,41 @@ export class PkOtp implements ControlValueAccessor, OnDestroy {
       case 'char':   return /^[a-zA-Z]$/.test(char);
       default:       return true;
     }
+  }
+
+  private _startCountdown(): void {
+    this._stopCountdown();
+    const t = this.timeout();
+    this._remaining.set(t);
+    this._expired.set(false);
+    this._countdownTimer = setInterval(() => {
+      const r = this._remaining() - 1;
+      if (r <= 0) {
+        this._remaining.set(0);
+        this._expired.set(true);
+        this._stopCountdown();
+        this._clearAll();
+        this.onTimeout.emit();
+      } else {
+        this._remaining.set(r);
+      }
+    }, 1000);
+  }
+
+  private _stopCountdown(): void {
+    if (this._countdownTimer !== undefined) {
+      clearInterval(this._countdownTimer);
+      this._countdownTimer = undefined;
+    }
+  }
+
+  private _clearAll(): void {
+    const len = this.cells().length;
+    this._values.set(Array(len).fill(''));
+    this._displayValues.set(Array(len).fill(''));
+    const els = this._inputs();
+    els.forEach(el => { el.nativeElement.value = ''; });
+    this._cvOnChange('');
   }
 
   private _clearDisplay(index: number): void {

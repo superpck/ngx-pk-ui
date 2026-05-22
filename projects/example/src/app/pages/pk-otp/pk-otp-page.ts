@@ -16,11 +16,14 @@ export class PkOtpPage {
   sm4Value      = signal('');
   lg8Value      = signal('');
   noneValue     = signal('');
+  timeoutValue  = signal('');
   lastComplete  = signal('—');
   lastChange    = signal('—');
+  lastTimeout   = signal('—');
 
   onComplete(v: string) { this.lastComplete.set(v); }
   onChangeEvt(v: string) { this.lastChange.set(v); }
+  onTimeoutEvt() { this.lastTimeout.set('Expired at ' + new Date().toLocaleTimeString()); }
 
   readonly codeImport = `import { FormsModule } from '@angular/forms';
 import { PkOtp } from 'ngx-pk-ui';
@@ -51,4 +54,17 @@ export class MyComponent {
   text="ref: TXN-20260522"
   [(ngModel)]="otp"
 />`;
+
+  readonly codeTimeout = `<pk-otp
+  #otpRef
+  [length]="6"
+  title="OTP Code"
+  text="ref: TXN-001"
+  [timeout]="60"
+  [(ngModel)]="otp"
+  (onTimeout)="onExpired()"
+/>
+
+<!-- Restart countdown (e.g. Resend OTP button) -->
+<button (click)="otpRef.restartTimeout()">Resend OTP</button>`;
 }
