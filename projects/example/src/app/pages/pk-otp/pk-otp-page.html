@@ -59,7 +59,7 @@
   <section class="demo-section">
     <h2>showString="•" showTime=700 (brief reveal)</h2>
     <p class="demo-note">The typed character is shown for 700 ms then replaced by the mask.</p>
-    <pk-otp showString="•" [showTime]="700" [(ngModel)]="timedValue" />
+    <pk-otp showString="•" [showTime]="700" [timeout]="60" [(ngModel)]="timedValue" />
     <div style="margin-top:8px; font-size:13px">actual value: <strong>{{ timedValue() || '—' }}</strong></div>
   </section>
 
@@ -80,6 +80,29 @@
         <pk-otp [length]="8" size="lg" type="char" [capital]="true" [(ngModel)]="lg8Value" />
       </div>
     </div>
+  </section>
+
+  <!-- Timeout / Countdown -->
+  <section class="demo-section">
+    <h2>Timeout (countdown + auto-clear)</h2>
+    <p style="font-size:13px;color:#6b7280;margin-bottom:12px">
+      <code>[timeout]="60"</code> — countdown 60 seconds, expired → clears value + disabled + emit <code>(onTimeout)</code>
+    </p>
+    <pk-otp
+      #otpRef
+      [length]="6"
+      title="OTP Code"
+      text="ref: TXN-001"
+      [timeout]="60"
+      [(ngModel)]="timeoutValue"
+      (onTimeout)="onTimeoutEvt()"
+    />
+    <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+      <button class="pk-btn pk-btn-primary pk-btn-sm" (click)="otpRef.restartTimeout()">Resend OTP</button>
+      <span style="font-size:13px;color:#6b7280">{{ lastTimeout() }}</span>
+    </div>
+
+    <pre class="code-block" style="margin: 10px 0px;"><code>{{ codeTimeout }}</code></pre>
   </section>
 
   <!-- Disabled -->
@@ -131,11 +154,28 @@
         <tr><td><code>showString</code></td><td>string | null</td><td>null</td><td>Mask character; null = show actual input</td></tr>
         <tr><td><code>showTime</code></td><td>number (ms)</td><td>1000</td><td>Duration to show actual char before masking. 0 = mask immediately</td></tr>
         <tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disables all cells</td></tr>
+        <tr><td><code>timeout</code></td><td>number (s)</td><td>0</td><td>Countdown in seconds; 0 = disabled. Auto-clears &amp; disables cells when expired</td></tr>
         <tr><td><code>customClass</code></td><td>string</td><td>''</td><td>Extra CSS class on host</td></tr>
         <tr><td><code>customStyle</code></td><td>Record&lt;string,string&gt;</td><td>{{ '{}' }}</td><td>Inline styles on host</td></tr>
         <tr><td><code>(onChange)</code></td><td>string</td><td>—</td><td>Emits joined value on every change</td></tr>
         <tr><td><code>(onComplete)</code></td><td>string</td><td>—</td><td>Emits when all cells are filled</td></tr>
+        <tr><td><code>(onTimeout)</code></td><td>void</td><td>—</td><td>Emits when countdown reaches zero</td></tr>
       </tbody>
     </table>
+
+    <h3 style="margin-top:16px">Public methods</h3>
+    <table class="pk-table pk-table-primary pk-table-striped">
+      <thead>
+        <tr><th>Method</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>restartTimeout()</code></td><td>Restart the countdown from the original <code>timeout</code> value (e.g. after "Resend OTP")</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="demo-section">
+    <h2>Timeout</h2>
+    <pre class="code-block"><code>{{ codeTimeout }}</code></pre>
   </section>
 </div>

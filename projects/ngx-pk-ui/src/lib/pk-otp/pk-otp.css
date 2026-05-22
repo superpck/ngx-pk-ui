@@ -106,3 +106,66 @@
 
 .pk-otp--lg .pk-otp__title { font-size: 16px; }
 .pk-otp--lg .pk-otp__text  { font-size: 13px; }
+
+/* ── Timeout countdown ────────────────────────────────────────────────────── */
+.pk-otp__timeout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  min-width: 0;
+}
+
+.pk-otp__timeout-bar {
+  flex: 1;
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.pk-otp__timeout-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: #1976d2;
+  transition: width 0.9s linear, background 0.4s ease;
+}
+
+.pk-otp__timeout-fill--warn {
+  background: #f59e0b;
+}
+
+.pk-otp__timeout-fill--danger {
+  background: #ef4444;
+  animation: pk-otp-bar-pulse 0.6s ease-in-out infinite;
+}
+
+@keyframes pk-otp-bar-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
+
+.pk-otp__timeout-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  white-space: nowrap;
+  min-width: 28px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease;
+}
+
+.pk-otp__timeout--expired .pk-otp__timeout-label,
+.pk-otp__timeout-label--expired {
+  color: #ef4444;
+}
+
+.pk-otp--sm .pk-otp__timeout { gap: 6px; margin-top: 4px; }
+.pk-otp--sm .pk-otp__timeout-bar  { height: 3px; }
+.pk-otp--sm .pk-otp__timeout-label { font-size: 11px; }
+
+.pk-otp--lg .pk-otp__timeout { gap: 10px; margin-top: 8px; }
+.pk-otp--lg .pk-otp__timeout-bar  { height: 5px; }
+.pk-otp--lg .pk-otp__timeout-label { font-size: 13px; }
+

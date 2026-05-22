@@ -13,7 +13,7 @@
         type="text"
         [attr.inputmode]="type() === 'number' ? 'numeric' : 'text'"
         autocomplete="one-time-code"
-        [disabled]="disabled()"
+        [disabled]="_isDisabled()"
         (focus)="onFocus(i)"
         (blur)="onBlur()"
         (keydown)="onKeyDown($event, i)"
@@ -22,4 +22,22 @@
       />
     }
   </div>
+
+  @if (timeout() > 0) {
+    <div class="pk-otp__timeout" [class.pk-otp__timeout--expired]="_expired()">
+      <div class="pk-otp__timeout-bar">
+        <div
+          class="pk-otp__timeout-fill"
+          [class.pk-otp__timeout-fill--warn]="_remainingPct() < 40"
+          [class.pk-otp__timeout-fill--danger]="_remainingPct() < 15"
+          [style.width.%]="_remainingPct()"
+        ></div>
+      </div>
+      @if (_expired()) {
+        <span class="pk-otp__timeout-label pk-otp__timeout-label--expired">Expired</span>
+      } @else {
+        <span class="pk-otp__timeout-label">{{ _remainingLabel() }}</span>
+      }
+    </div>
+  }
 </div>
