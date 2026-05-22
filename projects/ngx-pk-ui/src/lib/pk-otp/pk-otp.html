@@ -1,0 +1,25 @@
+<div [class]="_hostClass()" [style]="customStyle()">
+  @if (title()) {
+    <div class="pk-otp__title">{{ title() }}</div>
+  }
+  @if (text()) {
+    <div class="pk-otp__text">{{ text() }}</div>
+  }
+  <div class="pk-otp__inputs">
+    @for (i of cells(); track i) {
+      <input
+        #otpInput
+        class="pk-otp__input"
+        type="text"
+        [attr.inputmode]="type() === 'number' ? 'numeric' : 'text'"
+        autocomplete="one-time-code"
+        [disabled]="disabled()"
+        (focus)="onFocus(i)"
+        (blur)="onBlur()"
+        (keydown)="onKeyDown($event, i)"
+        (input)="onInput($event, i)"
+        (paste)="onPaste($event, i)"
+      />
+    }
+  </div>
+</div>

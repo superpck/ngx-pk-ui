@@ -1,0 +1,141 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1 class="demo-page-title">pk-otp</h1>
+    <p class="demo-page-desc">
+      OTP / PIN input component with 1–16 cells, type validation (number / char / any),
+      mask support (<code>showString</code> / <code>showTime</code>), keyboard navigation,
+      paste, and <code>ngModel</code> / <code>FormControl</code> binding.
+    </p>
+  </div>
+
+  <!-- Basic -->
+  <section class="demo-section">
+    <h2>Basic (6-digit, number)</h2>
+    <div class="demo-row" style="align-items:flex-start; gap:2rem; flex-wrap:wrap">
+      <pk-otp [(ngModel)]="basicValue" (onChange)="onChangeEvt($event)" (onComplete)="onComplete($event)" />
+      <div style="display:flex; flex-direction:column; gap:6px; font-size:13px">
+        <span>ngModel: <strong>{{ basicValue() || '—' }}</strong></span>
+        <span>onChange: <strong>{{ lastChange() }}</strong></span>
+        <span>onComplete: <strong>{{ lastComplete() }}</strong></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Char type + capital -->
+  <section class="demo-section">
+    <h2>type="char" + capital</h2>
+    <p class="demo-note">Accepts letters A–Z only (auto-uppercased). Numbers and symbols are rejected.</p>
+    <pk-otp [length]="6" type="char" [capital]="true" [(ngModel)]="charValue" />
+    <div style="margin-top:8px; font-size:13px">value: <strong>{{ charValue() || '—' }}</strong></div>
+  </section>
+
+  <!-- type none -->
+  <section class="demo-section">
+    <h2>type="none" (any character)</h2>
+    <p class="demo-note">Accepts any printable character.</p>
+    <pk-otp [length]="6" type="none" [(ngModel)]="noneValue" />
+    <div style="margin-top:8px; font-size:13px">value: <strong>{{ noneValue() || '—' }}</strong></div>
+  </section>
+
+  <!-- Title + text -->
+  <section class="demo-section">
+    <h2>title + text</h2>
+    <pk-otp
+      title="Verification Code"
+      text="ref: TXN-20260522"
+      [(ngModel)]="basicValue"
+    />
+  </section>
+
+  <!-- Mask: immediate -->
+  <section class="demo-section">
+    <h2>showString="*" showTime=0 (mask immediately)</h2>
+    <p class="demo-note">Characters are hidden as soon as typed — like a password field.</p>
+    <pk-otp showString="*" [showTime]="0" [(ngModel)]="maskValue" />
+    <div style="margin-top:8px; font-size:13px">actual value: <strong>{{ maskValue() || '—' }}</strong></div>
+  </section>
+
+  <!-- Mask: with showTime -->
+  <section class="demo-section">
+    <h2>showString="•" showTime=700 (brief reveal)</h2>
+    <p class="demo-note">The typed character is shown for 700 ms then replaced by the mask.</p>
+    <pk-otp showString="•" [showTime]="700" [(ngModel)]="timedValue" />
+    <div style="margin-top:8px; font-size:13px">actual value: <strong>{{ timedValue() || '—' }}</strong></div>
+  </section>
+
+  <!-- Sizes -->
+  <section class="demo-section">
+    <h2>Sizes</h2>
+    <div style="display:flex; flex-direction:column; gap:20px">
+      <div>
+        <p class="demo-note" style="margin:0 0 8px">size="sm" — 4 cells</p>
+        <pk-otp [length]="4" size="sm" [(ngModel)]="sm4Value" />
+      </div>
+      <div>
+        <p class="demo-note" style="margin:0 0 8px">size="md" — 6 cells (default)</p>
+        <pk-otp [length]="6" size="md" [(ngModel)]="basicValue" />
+      </div>
+      <div>
+        <p class="demo-note" style="margin:0 0 8px">size="lg" — 8 cells</p>
+        <pk-otp [length]="8" size="lg" type="char" [capital]="true" [(ngModel)]="lg8Value" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Disabled -->
+  <section class="demo-section">
+    <h2>Disabled</h2>
+    <pk-otp [length]="6" [disabled]="true" [(ngModel)]="basicValue" />
+  </section>
+
+  <!-- Code -->
+  <section class="demo-section">
+    <h2>Import</h2>
+    <pre class="code-block"><code>{{ codeImport }}</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>Usage</h2>
+    <pre class="code-block"><code>{{ codeBasic }}</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>Masking</h2>
+    <pre class="code-block"><code>{{ codeMask }}</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>Title &amp; text</h2>
+    <pre class="code-block"><code>{{ codeTitleText }}</code></pre>
+  </section>
+
+  <!-- API -->
+  <section class="demo-section">
+    <h2>API</h2>
+    <table class="pk-table pk-table-primary pk-table-striped">
+      <thead>
+        <tr>
+          <th>Input/Output</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>length</code></td><td>number</td><td>6</td><td>Number of cells (1–16)</td></tr>
+        <tr><td><code>type</code></td><td>'number' | 'char' | 'none'</td><td>'number'</td><td>Accepted character type</td></tr>
+        <tr><td><code>capital</code></td><td>boolean</td><td>false</td><td>Uppercase letters (type='char' only)</td></tr>
+        <tr><td><code>size</code></td><td>'sm' | 'md' | 'lg'</td><td>'md'</td><td>Cell size preset</td></tr>
+        <tr><td><code>title</code></td><td>string</td><td>''</td><td>Bold label above the input</td></tr>
+        <tr><td><code>text</code></td><td>string</td><td>''</td><td>Sub-text (e.g. ref number)</td></tr>
+        <tr><td><code>showString</code></td><td>string | null</td><td>null</td><td>Mask character; null = show actual input</td></tr>
+        <tr><td><code>showTime</code></td><td>number (ms)</td><td>1000</td><td>Duration to show actual char before masking. 0 = mask immediately</td></tr>
+        <tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disables all cells</td></tr>
+        <tr><td><code>customClass</code></td><td>string</td><td>''</td><td>Extra CSS class on host</td></tr>
+        <tr><td><code>customStyle</code></td><td>Record&lt;string,string&gt;</td><td>{{ '{}' }}</td><td>Inline styles on host</td></tr>
+        <tr><td><code>(onChange)</code></td><td>string</td><td>—</td><td>Emits joined value on every change</td></tr>
+        <tr><td><code>(onComplete)</code></td><td>string</td><td>—</td><td>Emits when all cells are filled</td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>

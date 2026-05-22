@@ -4,6 +4,29 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.16.0] — 2026-05-22
+
+### Added
+- **pk-otp**: new OTP / PIN input component
+  - 1–16 cells (default 6); `length` input clamped to valid range
+  - `type: 'number' | 'char' | 'none'` — digits only / letters only / any printable character
+  - `capital: boolean` — auto-uppercase input when `type='char'`
+  - `size: 'sm' | 'md' | 'lg'` — three cell size presets
+  - `title` and `text` labels displayed above the cells (e.g. `text="ref: TXN-001"`)
+  - `showString: string | null` — mask character (e.g. `'*'`, `'•'`); `null` shows actual input
+  - `showTime: number (ms)` — brief reveal duration before masking; `0` = mask immediately
+  - Animated pulse/blink border on focus (CSS keyframe, no JS)
+  - `ngModel` / `FormControl` binding via `ControlValueAccessor`
+  - Keyboard navigation: ArrowLeft / ArrowRight / Backspace / Delete
+  - Paste support (fills from pasted string, skips invalid chars per `type`)
+  - Browser OTP autofill (`autocomplete="one-time-code"`, `inputmode` hints)
+  - `(onChange)` — emits joined value on every keystroke
+  - `(onComplete)` — emits when all cells are filled
+  - `customClass` / `customStyle` / `disabled` inputs
+  - 23 Vitest tests (all passing)
+
+---
+
 ## [2.15.1] — 2026-05-19
 
 ### Changed
