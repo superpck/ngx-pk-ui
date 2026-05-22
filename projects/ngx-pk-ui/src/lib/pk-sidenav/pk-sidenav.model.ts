@@ -9,8 +9,12 @@ export interface PkSidenavItem {
   label: string;
   /** Material Symbols icon name */
   icon?: string;
-  /** Route path — used with routerLink */
-  route?: string;
+  /** Angular Router commands — renders item as <a [routerLink]> */
+  route?: string | any[];
+  /** External / internal URL — renders item as <a [href]> */
+  href?: string;
+  /** Link target: '_blank' opens in new tab, '_self' opens in same tab (default) */
+  hrefTarget?: '_blank' | '_self';
   /** Badge count shown on icon / label */
   badge?: number | string;
   /** Disabled state */

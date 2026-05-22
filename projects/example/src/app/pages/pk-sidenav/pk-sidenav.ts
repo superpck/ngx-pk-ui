@@ -28,6 +28,15 @@ const DEMO_GROUPS: PkSidenavGroup[] = [
     ],
   },
   {
+    heading: 'Navigation (route / href)',
+    items: [
+      { key: 'nav-accordion', label: 'Accordion (route)',   icon: 'expand_circle_down', route: '/pk-accordion' },
+      { key: 'nav-tabs',      label: 'Tabs (route array)',  icon: 'tab',                route: ['/pk-tabs'] },
+      { key: 'nav-github',    label: 'GitHub (new tab)',    icon: 'open_in_new',        href: 'https://github.com/superpck/ngx-pk-ui', hrefTarget: '_blank' },
+      { key: 'nav-npm',       label: 'npm (same tab)',      icon: 'inventory_2',        href: 'https://www.npmjs.com/package/ngx-pk-ui', hrefTarget: '_self' },
+    ],
+  },
+  {
     heading: 'Settings',
     items: [
       { key: 'manage-notif', label: 'Manage notifications', icon: 'tune' },

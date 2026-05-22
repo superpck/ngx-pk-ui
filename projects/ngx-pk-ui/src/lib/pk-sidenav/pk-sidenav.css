@@ -173,6 +173,9 @@
     background var(--pk-snv-transition),
     color var(--pk-snv-transition);
   box-sizing: border-box;
+  /* Reset <a> tag browser defaults */
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .pk-snv-item:hover {

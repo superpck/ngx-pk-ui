@@ -4,6 +4,21 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.16.1] — 2026-05-22
+
+### Fixed
+- **pk-sidenav**: `route` field was declared on `PkSidenavItem` but never used in the template — items were always rendered as plain `<div>` elements. Fixed by rendering `<a [routerLink]>` with `routerLinkActive="pk-snv-item--active"` when `route` is set.
+
+### Changed
+- **pk-sidenav `PkSidenavItem`**: `route` type widened from `string` to `string | any[]` to support full Angular `[routerLink]` syntax (e.g. `['/users', id]`).
+
+### Added
+- **pk-sidenav `PkSidenavItem`**: new `href?: string` field — renders item as `<a [href]>` for external/internal URL links.
+- **pk-sidenav `PkSidenavItem`**: new `hrefTarget?: '_blank' | '_self'` field — `'_blank'` opens in a new tab; `'_self'` (default) opens in the same tab.
+- **pk-sidenav**: clicking a `route` or `href` item that has `children` calls `preventDefault()` on the click event — submenu toggles instead of navigating.
+
+---
+
 ## [2.16.0] — 2026-05-22
 
 ### Added

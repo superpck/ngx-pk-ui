@@ -117,8 +117,12 @@ export class PkSidenav implements OnInit {
   }
 
   // ── Item interaction ─────────────────────────────────────────────────
-  onItemClick(item: PkSidenavItem): void {
+  onItemClick(item: PkSidenavItem, event?: Event): void {
     if (item.disabled) return;
+    // Prevent link navigation for parent items (toggle submenu instead)
+    if (item.children?.length && event) {
+      event.preventDefault();
+    }
     // Expand first when in icon-only mode (mode='icon' or auto+collapsed)
     if (this.isIconOnly()) {
       if (this.mode() === 'auto') {
