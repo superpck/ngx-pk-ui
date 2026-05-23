@@ -37,6 +37,10 @@ projects/
           pk-accordion-item.ts  ← child component: one collapsible panel (content projection)
           pk-accordion.ts       ← parent container: single/multi-open mode via signals
           pk-accordion.html / .css / .spec.ts
+        pk-breadcrumb/
+          pk-breadcrumb.model.ts  ← PkBreadcrumbItem, PkBreadcrumbSeparator, PkBreadcrumbSize types
+          pk-breadcrumb.ts        ← standalone component: items input, (itemClick)/(itemDblClick) outputs
+          pk-breadcrumb.html / .css
         pk-tabs/                  ← NgModule-based (not standalone) — import PkTabsModule
           pk-tab/
             pk-tab.component.ts        ← PkTabComponent — one tab pane (standalone: false)
@@ -90,8 +94,8 @@ projects/
           pk-file-upload.ts        ← standalone component: drag & drop, browser-native preview, upload button
           pk-file-upload.html / .css / .spec.ts
         pk-sidenav/
-          pk-sidenav.model.ts   ← PkSidenavGroup, PkSidenavItem, PkSidenavTheme, PkSidenavMode, PkSidenavPosition, PkSidenavThemeConfig
-          pk-sidenav.ts         ← standalone component: left/right, full/icon/auto, multi-level, 4 themes, CSS-variable override
+          pk-sidenav.model.ts   ← PkSidenavGroup, PkSidenavItem (incl. `fn?`), PkSidenavTheme, PkSidenavMode, PkSidenavPosition, PkSidenavThemeConfig
+          pk-sidenav.ts         ← standalone component: left/right, full/icon/auto, multi-level, 4 themes, CSS-variable override; `fn` callback support; body scroll fix
           pk-sidenav.html / .css
         pk-input-password/
           pk-input-password.ts  ← standalone component: show/hide toggle, ControlValueAccessor, optional strength meter
@@ -183,6 +187,68 @@ projects/
 ---
 
 ## Component API reference
+
+### pk-breadcrumb
+
+Standalone component — wraps the `pk-breadcrumb` CSS with Angular event support.
+
+```ts
+import { PkBreadcrumb } from 'ngx-pk-ui';
+import type { PkBreadcrumbItem, PkBreadcrumbSeparator, PkBreadcrumbSize } from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkBreadcrumb],
+})
+```
+
+```html
+<pk-breadcrumb
+  [items]="crumbs"
+  separator="arrow"
+  size="md"
+  [bg]="false"
+  (itemClick)="onItemClick($event)"
+  (itemDblClick)="onItemDblClick($event)"
+/>
+```
+
+**`PkBreadcrumb` inputs / outputs:**
+| Input/Output | Type | Default | Description |
+|---|---|---|---|
+| `items` | `PkBreadcrumbItem[]` | `[]` | Breadcrumb item array |
+| `separator` | `'default'\|'slash'\|'dot'\|'arrow'` | `'default'` | Separator character between items |
+| `size` | `'sm'\|'md'\|'lg'` | `'md'` | Font size preset |
+| `bg` | `boolean` | `false` | Grey pill background with border |
+| `(itemClick)` | `PkBreadcrumbItem` | — | Emits when a non-active, non-disabled item is clicked |
+| `(itemDblClick)` | `PkBreadcrumbItem` | — | Emits on double-click |
+
+**`PkBreadcrumbItem` interface:**
+| Property | Type | Description |
+|---|---|---|
+| `label` | `string` | Display text |
+| `key` | `string?` | Identifier returned in click events |
+| `route` | `string\|any[]?` | Router commands — renders `<a [routerLink]>` |
+| `href` | `string?` | URL — renders `<a [href]>` |
+| `hrefTarget` | `'_blank'\|'_self'?` | Link target. Default `'_self'` |
+| `disabled` | `boolean?` | Prevents click/dblclick |
+
+**Rendering rules:**
+- **Last item** — always rendered as plain text (active state, not clickable)
+- `route` set → `<a [routerLink]>` with `routerLinkActive`
+- `href` set → `<a [href]>`
+- Neither → `<button>` styled as link (click fires without page navigation)
+
+**CSS-only usage** (still supported — no component needed):
+```html
+<nav class="pk-breadcrumb pk-breadcrumb--slash">
+  <ol class="pk-breadcrumb-list">
+    <li class="pk-breadcrumb-item"><a routerLink="/">Home</a></li>
+    <li class="pk-breadcrumb-item pk-breadcrumb-item--active">Current</li>
+  </ol>
+</nav>
+```
+
+---
 
 ### pk-tabs
 
@@ -383,6 +449,10 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 |--------|------|------|
 | `PkAccordionItem` | Component | `pk-accordion/pk-accordion-item` |
 | `PkAccordion` | Component | `pk-accordion/pk-accordion` |
+| `PkBreadcrumbItem` | Interface | `pk-breadcrumb/pk-breadcrumb.model` |
+| `PkBreadcrumbSeparator` | Type alias | `pk-breadcrumb/pk-breadcrumb.model` |
+| `PkBreadcrumbSize` | Type alias | `pk-breadcrumb/pk-breadcrumb.model` |
+| `PkBreadcrumb` | Component | `pk-breadcrumb/pk-breadcrumb` |
 | `PkTimelineItem` | Component | `pk-timeline/pk-timeline-item` |
 | `PkTimeline` | Component | `pk-timeline/pk-timeline` |
 | `PkTabComponent` | Component | `pk-tabs/pk-tab/pk-tab.component` |
@@ -505,7 +575,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.16.1` |
+| Library version | `2.16.2` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -524,7 +594,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-tooltip` | ✅ Built |
 | `pk-calendar` | ✅ Built — Year/Month/Week/Day/Agenda views, drag & drop, multi-day bars, built-in form, full 17-locale support via `PkLocale`; toolbar labels (`year/month/week/day/agenda/today/newEvent`) from `PkLocaleData.calendarLabels` |
 | `pk-file-upload` | ✅ Built, tested (14 tests) — drag & drop, browser-native preview (image/PDF/text), upload button, maxSize/maxFiles validation |
-| `pk-sidenav` | ✅ Built — left/right, full/icon/auto mode, multi-level, badge, 4 themes, CSS-variable override, content slots; `route` (routerLink) fixed; `href` + `hrefTarget` added |
+| `pk-sidenav` | ✅ Built — left/right, full/icon/auto mode, multi-level, badge, 4 themes, CSS-variable override, content slots; `route` (routerLink) fixed; `href` + `hrefTarget` added; `fn` callback added; scroll fix (`height: 100%` on `:host` + `.pk-sidenav`) |
 | `pk-markdown-viewer` | ✅ Built, tested (18 tests) — `fileName` (fetch) + `content` (raw string); Print, Export .md, Export .html; light/dark theme; zero external deps |
 | `pk-locale` | ✅ Built — global shared locale model; 17 locales; `direction: 'ltr'\|'rtl'`; `calendarLabels` (year/month/week/day/agenda/today/newEvent) for all 17 locales |
 | `pk-heatmap` | ✅ Built, tested (16 tests) — full-width layout; 4 color schemes; 17-locale labels; legend 0/max; tooltip |
@@ -547,7 +617,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-card` (CSS only)    | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-card.css` |
 | `pk-table` (CSS only)   | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-table.css` — `pk-table-header-sticky` added |
 | `pk-toggle` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-toggle.css` |
-| `pk-breadcrumb` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-breadcrumb.css` |
+| `pk-breadcrumb` | ✅ CSS shipped as `dist/ngx-pk-ui/styles/pk-breadcrumb.css` + Angular component `PkBreadcrumb` with `(itemClick)` / `(itemDblClick)` outputs; `items`, `separator`, `size`, `bg` inputs |
 | `pk-form` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-form.css` — included in pk-ui.css |
 | `pk-layout` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-layout.css` — included in pk-ui.css |
 | `pk-font` (CSS only, opt-in) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-font.css` — NOT in pk-ui.css |
@@ -1662,6 +1732,7 @@ import type { PkSidenavGroup } from 'ngx-pk-ui';
 | `badge` | `number\|string?` | Badge count shown on item |
 | `disabled` | `boolean?` | Prevent selection |
 | `children` | `PkSidenavItem[]?` | Nested items (multi-level) |
+| `fn` | `() => void?` | Callback executed on selection |
 
 ### PkSidenavThemeConfig interface (for `theme='custom'`)
 

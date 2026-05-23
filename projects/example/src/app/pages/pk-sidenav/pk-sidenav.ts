@@ -1,49 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { PkSidenav, type PkSidenavGroup, type PkSidenavTheme, type PkSidenavThemeConfig } from 'ngx-pk-ui';
-
-const DEMO_GROUPS: PkSidenavGroup[] = [
-  {
-    heading: 'Dashboard',
-    collapsible: true,
-    items: [
-      { key: 'overview',      label: 'Overview',      icon: 'home' },
-      { key: 'notifications', label: 'Notifications', icon: 'notifications', badge: 10 },
-      { key: 'analytics',     label: 'Analytics',     icon: 'bar_chart' },
-    ],
-  },
-  {
-    heading: 'Reports',
-    collapsible: true,
-    items: [
-      {
-        key: 'orders', label: 'Orders', icon: 'shopping_cart',
-        children: [
-          { key: 'orders-all',     label: 'All orders',     icon: 'list' },
-          { key: 'orders-pending', label: 'Pending',        icon: 'pending' },
-          { key: 'orders-paid',    label: 'Paid',           icon: 'check_circle' },
-        ],
-      },
-      { key: 'saved',   label: 'Saved reports', icon: 'bookmark' },
-      { key: 'user-rp', label: 'User reports',  icon: 'person' },
-    ],
-  },
-  {
-    heading: 'Navigation (route / href)',
-    items: [
-      { key: 'nav-accordion', label: 'Accordion (route)',   icon: 'expand_circle_down', route: '/pk-accordion' },
-      { key: 'nav-tabs',      label: 'Tabs (route array)',  icon: 'tab',                route: ['/pk-tabs'] },
-      { key: 'nav-github',    label: 'GitHub (new tab)',    icon: 'open_in_new',        href: 'https://github.com/superpck/ngx-pk-ui', hrefTarget: '_blank' },
-      { key: 'nav-npm',       label: 'npm (same tab)',      icon: 'inventory_2',        href: 'https://www.npmjs.com/package/ngx-pk-ui', hrefTarget: '_self' },
-    ],
-  },
-  {
-    heading: 'Settings',
-    items: [
-      { key: 'manage-notif', label: 'Manage notifications', icon: 'tune' },
-      { key: 'settings',     label: 'Settings',             icon: 'settings' },
-    ],
-  },
-];
+import { Component, inject, signal } from '@angular/core';
+import { PkSidenav, PkToastrService, type PkSidenavGroup, type PkSidenavTheme, type PkSidenavThemeConfig } from 'ngx-pk-ui';
 
 type ModeOption = 'full' | 'icon' | 'auto';
 
@@ -55,7 +11,52 @@ type ModeOption = 'full' | 'icon' | 'auto';
   styleUrl: './pk-sidenav.css',
 })
 export class PkSidenavPage {
-  readonly groups = DEMO_GROUPS;
+  private toastr = inject(PkToastrService);
+
+  readonly groups: PkSidenavGroup[] = [
+    {
+      heading: 'Dashboard',
+      collapsible: true,
+      items: [
+        { key: 'overview',      label: 'Overview',      icon: 'home' },
+        { key: 'notifications', label: 'Notifications', icon: 'notifications', badge: 10 },
+        { key: 'analytics',     label: 'Analytics',     icon: 'bar_chart' },
+      ],
+    },
+    {
+      heading: 'Reports',
+      collapsible: true,
+      items: [
+        {
+          key: 'orders', label: 'Orders', icon: 'shopping_cart',
+          children: [
+            { key: 'orders-all',     label: 'All orders',     icon: 'list' },
+            { key: 'orders-pending', label: 'Pending',        icon: 'pending' },
+            { key: 'orders-paid',    label: 'Paid',           icon: 'check_circle' },
+          ],
+        },
+        { key: 'saved',   label: 'Saved reports', icon: 'bookmark' },
+        { key: 'user-rp', label: 'User reports',  icon: 'person' },
+      ],
+    },
+    {
+      heading: 'Navigation (route / href)',
+      items: [
+        { key: 'nav-accordion', label: 'Accordion (route)',   icon: 'expand_circle_down', route: '/pk-accordion' },
+        { key: 'nav-tabs',      label: 'Tabs (route array)',  icon: 'tab',                route: ['/pk-tabs'] },
+        { key: 'nav-github',    label: 'GitHub (new tab)',    icon: 'open_in_new',        href: 'https://github.com/superpck/ngx-pk-ui', hrefTarget: '_blank' },
+        { key: 'nav-npm',       label: 'npm (same tab)',      icon: 'inventory_2',        href: 'https://www.npmjs.com/package/ngx-pk-ui', hrefTarget: '_self' },
+      ],
+    },
+    {
+      heading: 'Settings',
+      items: [
+        { key: 'manage-notif', label: 'Manage notifications', icon: 'tune' },
+        { key: 'settings',     label: 'Settings',             icon: 'settings' },
+        { key: 'logout',       label: 'Logout',               icon: 'logout',  fn: () => this.toastr.info('logout()') },
+      ],
+    },
+  ];
 
   activeKey  = signal('overview');
   theme      = signal<PkSidenavTheme>('light');
