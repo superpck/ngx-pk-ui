@@ -137,6 +137,7 @@ export class PkSidenav implements OnInit {
       } else {
         this._activeKey.set(item.key);
         this.itemClick.emit(item);
+        item.fn?.();
       }
       return;
     }
@@ -146,6 +147,7 @@ export class PkSidenav implements OnInit {
     }
     this._activeKey.set(item.key);
     this.itemClick.emit(item);
+    item.fn?.();
   }
 
   isOpen(key: string): boolean {

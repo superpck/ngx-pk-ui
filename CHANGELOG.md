@@ -4,6 +4,25 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.16.2] — 2026-05-23
+
+### Added
+- **pk-breadcrumb**: new Angular component `PkBreadcrumb` — wraps the existing CSS with full event support
+  - `items: PkBreadcrumbItem[]` input — each item has `label`, `key?`, `route?`, `href?`, `hrefTarget?`, `disabled?`
+  - `separator: 'default' | 'slash' | 'dot' | 'arrow'` input — maps to the existing CSS variant classes
+  - `size: 'sm' | 'md' | 'lg'` input
+  - `bg: boolean` input — adds `pk-breadcrumb--bg` pill background
+  - `(itemClick)` output — emits `PkBreadcrumbItem` when a non-active, non-disabled item is clicked
+  - `(itemDblClick)` output — emits `PkBreadcrumbItem` on double-click
+  - Items without `route` / `href` render as `<button>` — click events fire without any page navigation
+  - Items with `route` render as `<a [routerLink]>` (with `routerLinkActive`); items with `href` render as `<a [href]>`
+- **pk-sidenav `PkSidenavItem`**: new `fn?: () => void` field — callback executed on item click; called in both full and icon-only modes alongside `(itemClick)` output
+
+### Fixed
+- **pk-sidenav**: body could not scroll when the sidenav height was fixed (e.g. `height: 600px`) — root cause was `:host` and `.pk-sidenav` using only `min-height: 100%` instead of `height: 100%`, preventing the flex container from being constrained. Fixed by adding `height: 100%` to both `:host` and `.pk-sidenav` (keeping `min-height: 100%` as well for cases where the parent is shorter than the content).
+
+---
+
 ## [2.16.1] — 2026-05-22
 
 ### Fixed

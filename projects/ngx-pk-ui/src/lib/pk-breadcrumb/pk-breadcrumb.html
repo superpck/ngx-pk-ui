@@ -1,0 +1,35 @@
+<nav [ngClass]="navClass()">
+  <ol class="pk-breadcrumb-list">
+    @for (item of items(); track item.key ?? $index; let last = $last) {
+      <li
+        class="pk-breadcrumb-item"
+        [class.pk-breadcrumb-item--active]="last"
+        [class.pk-breadcrumb-item--disabled]="item.disabled"
+      >
+        @if (last) {
+          {{ item.label }}
+        } @else if (item.route) {
+          <a
+            [routerLink]="item.disabled ? null : item.route"
+            (click)="onItemClick(item, $event)"
+            (dblclick)="onItemDblClick(item, $event)"
+          >{{ item.label }}</a>
+        } @else if (item.href) {
+          <a
+            [href]="item.href"
+            [target]="item.hrefTarget ?? '_self'"
+            (click)="onItemClick(item, $event)"
+            (dblclick)="onItemDblClick(item, $event)"
+          >{{ item.label }}</a>
+        } @else {
+          <button
+            class="pk-bc-btn"
+            [disabled]="item.disabled || false"
+            (click)="onItemClick(item, $event)"
+            (dblclick)="onItemDblClick(item, $event)"
+          >{{ item.label }}</button>
+        }
+      </li>
+    }
+  </ol>
+</nav>

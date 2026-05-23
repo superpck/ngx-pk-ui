@@ -6,6 +6,10 @@
 export * from './lib/pk-accordion/pk-accordion-item';
 export * from './lib/pk-accordion/pk-accordion';
 
+// pk-breadcrumb
+export * from './lib/pk-breadcrumb/pk-breadcrumb.model';
+export * from './lib/pk-breadcrumb/pk-breadcrumb';
+
 // pk-timeline
 export * from './lib/pk-timeline/pk-timeline-item';
 export * from './lib/pk-timeline/pk-timeline';

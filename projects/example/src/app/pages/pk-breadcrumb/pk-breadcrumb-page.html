@@ -1,7 +1,7 @@
 <div class="demo-page">
   <div class="demo-page-header">
     <h1 class="demo-page-title">pk-breadcrumb</h1>
-    <p class="demo-page-desc">Breadcrumb navigation. Pure CSS — no Angular component needed.</p>
+    <p class="demo-page-desc">Breadcrumb navigation. Use the <code>PkBreadcrumb</code> Angular component for <code>(itemClick)</code> / <code>(itemDblClick)</code> support, or the pure CSS classes for static markup.</p>
   </div>
 
   <section class="demo-section">
@@ -81,6 +81,41 @@
           <li class="pk-breadcrumb-item pk-breadcrumb-item--active">Breadcrumb</li>
         </ol>
       </nav>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Angular Component — (itemClick) / (itemDblClick)</h2>
+    <p class="demo-desc" style="margin-bottom:16px;font-size:14px;opacity:0.7;">
+      Use <code>PkBreadcrumb</code> with an <code>items</code> array for event-driven navigation.
+      Last click: <strong>{{ lastClick() || '—' }}</strong> &nbsp;|&nbsp; Last dblclick: <strong>{{ lastDblClick() || '—' }}</strong>
+    </p>
+
+    <!-- click-only items (no route/href) -->
+    <div class="demo-col">
+      <pk-breadcrumb
+        [items]="clickItems"
+        (itemClick)="onItemClick($event)"
+        (itemDblClick)="onItemDblClick($event)"
+      />
+
+      <!-- with route items -->
+      <pk-breadcrumb
+        separator="arrow"
+        [items]="mixedItems"
+        (itemClick)="onItemClick($event)"
+        (itemDblClick)="onItemDblClick($event)"
+      />
+
+      <!-- size + bg -->
+      <pk-breadcrumb
+        separator="slash"
+        size="lg"
+        [bg]="true"
+        [items]="clickItems"
+        (itemClick)="onItemClick($event)"
+        (itemDblClick)="onItemDblClick($event)"
+      />
     </div>
   </section>
 

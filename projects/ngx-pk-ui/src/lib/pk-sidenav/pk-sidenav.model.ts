@@ -21,6 +21,8 @@ export interface PkSidenavItem {
   disabled?: boolean;
   /** Child items (multi-level) */
   children?: PkSidenavItem[];
+  /** Callback executed on selection */
+  fn?: () => void;
 }
 
 export interface PkSidenavGroup {

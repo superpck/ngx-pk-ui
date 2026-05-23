@@ -1,0 +1,32 @@
+/* Button-style breadcrumb item (no route / href — click-only) */
+:host {
+  display: block;
+}
+
+.pk-bc-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: var(--pk-breadcrumb-color);
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.pk-bc-btn:hover {
+  color: var(--pk-breadcrumb-color-h);
+  text-decoration: underline;
+}
+
+.pk-bc-btn:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: default;
+}
+
+.pk-breadcrumb-item--disabled {
+  pointer-events: none;
+  opacity: 0.45;
+}
