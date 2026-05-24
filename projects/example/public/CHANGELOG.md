@@ -4,6 +4,13 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.16.3] — 2026-05-24
+
+### Added
+- **pk-card**: new color variants `pk-card-warn` (orange, `--pk-btn-warn` / #fb8c00) and `pk-card-info` (teal, `--pk-btn-info` / #00897b) — colored header bg + matching border + tinted footer, consistent with existing primary/secondary/success/error variants
+
+---
+
 ## [2.16.2] — 2026-05-23
 
 ### Added

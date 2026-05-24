@@ -7,7 +7,7 @@
  *     pk-card-body
  *     pk-card-footer
  *
- * Variants: pk-card-primary | pk-card-secondary | pk-card-success | pk-card-error
+ * Variants: pk-card-primary | pk-card-secondary | pk-card-success | pk-card-error | pk-card-warn | pk-card-info
  * Modifiers: pk-card-shadow | pk-card-flat | pk-card-outlined
  *
  * Usage:
@@ -139,6 +139,34 @@
 .pk-card-error > .pk-card-footer {
   background-color: color-mix(in srgb, var(--pk-btn-error, #e53935) 10%, #fff);
   border-top-color: color-mix(in srgb, var(--pk-btn-error, #e53935) 30%, #fff);
+}
+
+/* warn */
+.pk-card-warn {
+  border-color: var(--pk-btn-warn, #fb8c00);
+}
+.pk-card-warn > .pk-card-header {
+  background-color: var(--pk-btn-warn, #fb8c00);
+  border-bottom-color: var(--pk-btn-warn, #fb8c00);
+  color: #fff;
+}
+.pk-card-warn > .pk-card-footer {
+  background-color: color-mix(in srgb, var(--pk-btn-warn, #fb8c00) 10%, #fff);
+  border-top-color: color-mix(in srgb, var(--pk-btn-warn, #fb8c00) 30%, #fff);
+}
+
+/* info */
+.pk-card-info {
+  border-color: var(--pk-btn-info, #00897b);
+}
+.pk-card-info > .pk-card-header {
+  background-color: var(--pk-btn-info, #00897b);
+  border-bottom-color: var(--pk-btn-info, #00897b);
+  color: #fff;
+}
+.pk-card-info > .pk-card-footer {
+  background-color: color-mix(in srgb, var(--pk-btn-info, #00897b) 10%, #fff);
+  border-top-color: color-mix(in srgb, var(--pk-btn-info, #00897b) 30%, #fff);
 }
 
 /* ─── Optional Modifiers ──────────────────────────────────────────── */
