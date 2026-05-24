@@ -575,7 +575,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.16.2` |
+| Library version | `2.16.3` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -1159,6 +1159,8 @@ export class MyComponent {
 <div class="pk-card pk-card-secondary">...</div>
 <div class="pk-card pk-card-success">...</div>
 <div class="pk-card pk-card-error">...</div>
+<div class="pk-card pk-card-warn">...</div>
+<div class="pk-card pk-card-info">...</div>
 ```
 
 ### Modifiers
@@ -1167,6 +1169,8 @@ export class MyComponent {
 | `pk-card-shadow` | Elevated shadow |
 | `pk-card-flat` | No shadow |
 | `pk-card-outlined` | Border only, no shadow |
+
+Color variants: `pk-card-primary` · `pk-card-secondary` · `pk-card-success` · `pk-card-error` · `pk-card-warn` (`--pk-btn-warn` / #fb8c00) · `pk-card-info` (teal, `--pk-btn-info` / #00897b)
 
 Colors are driven by the same CSS custom properties as `pk-btn.css` (`--pk-btn-primary`, etc.).
 
