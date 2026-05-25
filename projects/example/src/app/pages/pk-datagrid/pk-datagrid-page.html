@@ -6,14 +6,13 @@
 
   <section class="demo-section">
     <h2>Demo</h2>
-    <div class="demo-row" style="margin-bottom: 14px;">
-      <button class="pk-btn pk-btn-primary" (click)="fetchUsers()">
-        <pk-icon name="reload" [size]="14"></pk-icon> Reload
-      </button>
-      <span style="font-size:13px; color:#888; margin-left:8px;">{{ users.length }} users from randomuser.me</span>
-    </div>
-
     <pk-datagrid [pkDgLoading]="loading()">
+      <div pkDgToolbar>
+        <button class="pk-btn pk-btn-primary pk-btn-sm" (click)="fetchUsers()">
+          <pk-icon name="reload" [size]="14"></pk-icon> Reload
+        </button>
+        <span style="font-size:13px; color:#888; margin-left:8px;">{{ users.length }} users from randomuser.me</span>
+      </div>
       <pk-dg-header [style.width.px]="60">Photo</pk-dg-header>
       <pk-dg-header [pkDgSort]="'username'" [pkDgFilter]="'username'" [style.width.px]="160">Username</pk-dg-header>
       <pk-dg-header [pkDgSort]="'firstName'" [pkDgFilter]="'firstName'" [style.width.px]="140">First name</pk-dg-header>
@@ -109,10 +108,20 @@
       </pk-dg-rows>
 
       <pk-dg-footer>
-        <pk-dg-pagination #pagination [pkDgPageSize]="10" [rowCount]="users.length">
-          <pk-dg-page-size [pkPageSizeList]="[5, 10, 20, 50]">Rows per page</pk-dg-page-size>
-          {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of {{ users.length }} rows
-        </pk-dg-pagination>
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; padding:4px 8px;">
+          <pk-export-button
+            [data]="users"
+            [formats]="['csv', 'xlsx', 'json']"
+            filename="users"
+            [csvOptions]="{ columns: exportColumns, headers: exportHeaders }"
+            [xlsxOptions]="{ columns: exportColumns, headers: exportHeaders, sheetName: 'Users' }"
+            [jsonOptions]="{ columns: exportColumns }"
+          />
+          <pk-dg-pagination #pagination [pkDgPageSize]="10" [rowCount]="users.length">
+            <pk-dg-page-size [pkPageSizeList]="[5, 10, 20, 50]">Rows per page</pk-dg-page-size>
+            {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of {{ users.length }} rows
+          </pk-dg-pagination>
+        </div>
       </pk-dg-footer>
     </pk-datagrid>
   </section>

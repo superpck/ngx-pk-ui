@@ -3,20 +3,6 @@
   width: 100%;
 }
 
-.pk-dg-toolbar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 10px;
-  border-bottom: 1px solid #cccccc;
-  background: #fff;
-  flex-wrap: wrap;
-
-  &:empty {
-    display: none;
-  }
-}
-
 .pk-datagrid-scroll-area {
   overflow-x: auto;
   overflow-y: auto;

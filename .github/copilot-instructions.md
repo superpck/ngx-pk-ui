@@ -603,7 +603,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.17.0` |
+| Library version | `2.17.1` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -1428,6 +1428,43 @@ import { PkTooltip } from 'ngx-pk-ui';
 | `(pkDgSelectionChange)` | `any[]` | — | Emits array of selected row objects when selection changes |
 | `(pkDgRefresh)` | `void` | — | Emits when the grid requests a data reload |
 | `(filterChange)` | `{ key: string; value: string }` | — | Emits on every filter input change — useful for server-side filtering |
+
+### Content projection slots
+| Slot selector | Description |
+|---|---|
+| `[pkDgToolbar]` | Toolbar bar above the table — use for action buttons, export, custom controls. The slot is rendered as `.pk-dg-toolbar` (flex row, `border-bottom: 1px solid #ccc`). Hidden when empty (`:empty { display: none }`). |
+| `<pk-dg-footer>` | Free-form footer slot below the table — place `<pk-dg-pagination>` and any extra controls (e.g. `<pk-export-button>`) here. Library applies only `border-top` + `background` — all layout is the consumer's responsibility. |
+
+**Both slots in one grid (recommended pattern):**
+```html
+<pk-datagrid [pkDgLoading]="loading()">
+  <!-- toolbar: action buttons + status info -->
+  <div pkDgToolbar>
+    <button class="pk-btn pk-btn-primary pk-btn-sm" (click)="reload()">Reload</button>
+    <span style="font-size:13px;color:#888;">{{ rows.length }} rows</span>
+  </div>
+
+  <pk-dg-header pkDgSort="name">Name</pk-dg-header>
+  ...
+  <pk-dg-rows *pkDgRows="let row of rows" [pkDgRow]="row">...</pk-dg-rows>
+
+  <!-- footer: export button left, pagination right -->
+  <pk-dg-footer>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:4px 8px;">
+      <pk-export-button
+        [data]="rows"
+        [formats]="['csv', 'xlsx', 'json']"
+        filename="report"
+        [csvOptions]="{ columns: exportColumns, headers: exportHeaders }"
+        [xlsxOptions]="{ columns: exportColumns, headers: exportHeaders }"
+      />
+      <pk-dg-pagination #pag [pkDgPageSize]="10" [rowCount]="rows.length">
+        {{ pag.firstItem + 1 }} - {{ pag.lastItem + 1 }} of {{ rows.length }} rows
+      </pk-dg-pagination>
+    </div>
+  </pk-dg-footer>
+</pk-datagrid>
+```
 
 ### `<pk-dg-rows>` inputs
 | Input | Type | Default | Description |

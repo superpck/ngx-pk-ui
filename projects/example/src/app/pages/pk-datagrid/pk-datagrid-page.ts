@@ -1,7 +1,7 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
-import { PkDatagridModule, PkIcon, PkTooltip } from 'ngx-pk-ui';
+import { PkDatagridModule, PkIcon, PkTooltip, PkExportButton } from 'ngx-pk-ui';
 
 interface UserRow {
   username: string;
@@ -23,8 +23,8 @@ interface UserRow {
 @Component({
   selector: 'app-pk-datagrid-page',
   imports: [
-    PkDatagridModule, PkIcon, 
-    PkTooltip, DatePipe
+    PkDatagridModule, PkIcon,
+    PkTooltip, DatePipe, PkExportButton
   ],
   templateUrl: './pk-datagrid-page.html',
 })
@@ -34,6 +34,13 @@ export class PkDatagridPage implements OnInit {
   loading = signal(true);
   users: UserRow[] = [];
   selectedUser: UserRow | null = null;
+
+  readonly exportColumns = ['username', 'firstName', 'lastName', 'email', 'gender', 'age', 'city', 'country', 'nat'];
+  readonly exportHeaders: Record<string, string> = {
+    username: 'Username', firstName: 'First Name', lastName: 'Last Name',
+    email: 'Email', gender: 'Gender', age: 'Age',
+    city: 'City', country: 'Country', nat: 'NAT',
+  };
 
   // row selection demo
   singleSelected: UserRow[] = [];
