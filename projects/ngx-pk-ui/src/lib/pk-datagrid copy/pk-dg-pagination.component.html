@@ -1,0 +1,30 @@
+<div class="pk-dg-pagination">
+  <div class="pagination-info">
+    <ng-content></ng-content>
+  </div>
+  
+  <div class="pagination-controls">
+    <button 
+      class="pk-dg-btn pk-dg-btn-nav"
+      [disabled]="currentPage === 1"
+      (click)="goToPage(currentPage - 1)">
+      ‹
+    </button>
+    
+    @for (page of pages; track page) {
+      <button 
+        class="pk-dg-btn"
+        [class.pk-dg-btn-active]="page === currentPage"
+        (click)="goToPage(page)">
+        {{ page }}
+      </button>
+    }
+    
+    <button 
+      class="pk-dg-btn pk-dg-btn-nav"
+      [disabled]="currentPage === totalPages"
+      (click)="goToPage(currentPage + 1)">
+      ›
+    </button>
+  </div>
+</div>

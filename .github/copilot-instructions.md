@@ -120,6 +120,15 @@ projects/
           pk-otp.model.ts       ← PkOtpType, PkOtpSize
           pk-otp.ts             ← standalone component: OTP/PIN cells, ControlValueAccessor, mask, keyboard nav, paste
           pk-otp.html / .css / .spec.ts
+        pk-export/
+          pk-export.model.ts        ← PkExportFormat, PkCsvOptions, PkTsvOptions, PkJsonOptions, PkXmlOptions, PkHtmlOptions, PkTextOptions, PkXlsxOptions, PkExportButtonItem
+          pk-export-encoders.ts     ← toCsv / toTsv / toJson / toXml / toHtml / toText — pure TS, zero deps
+          pk-export-xlsx.ts         ← toXlsx — ZIP STORE SpreadsheetML encoder (no CompressionStream)
+          pk-export-download.ts     ← downloadFile() — Blob + URL.createObjectURL download
+          pk-export.service.ts      ← PkExportService (providedIn: 'root') — csv/tsv/json/xml/xlsx/html/text methods
+          pk-export-button.ts       ← PkExportButton standalone component (dropdown UI)
+          pk-export-button.html / .css
+          pk-export.service.spec.ts / pk-export-button.spec.ts
     src/styles/
       pk-ui.css                   ← single entry point — @imports all modules below
       pk-grid.css                 ← responsive 12-column grid
@@ -543,6 +552,25 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `PkOtpType` | Type alias | `pk-otp/pk-otp.model` |
 | `PkOtpSize` | Type alias | `pk-otp/pk-otp.model` |
 | `PkOtp` | Component | `pk-otp/pk-otp` |
+| `PkExportFormat` | Type alias | `pk-export/pk-export.model` |
+| `PkCsvOptions` | Interface | `pk-export/pk-export.model` |
+| `PkTsvOptions` | Interface | `pk-export/pk-export.model` |
+| `PkJsonOptions` | Interface | `pk-export/pk-export.model` |
+| `PkXmlOptions` | Interface | `pk-export/pk-export.model` |
+| `PkHtmlOptions` | Interface | `pk-export/pk-export.model` |
+| `PkTextOptions` | Interface | `pk-export/pk-export.model` |
+| `PkXlsxOptions` | Interface | `pk-export/pk-export.model` |
+| `PkExportButtonItem` | Interface | `pk-export/pk-export.model` |
+| `toCsv` | Function | `pk-export/pk-export-encoders` |
+| `toTsv` | Function | `pk-export/pk-export-encoders` |
+| `toJson` | Function | `pk-export/pk-export-encoders` |
+| `toXml` | Function | `pk-export/pk-export-encoders` |
+| `toHtml` | Function | `pk-export/pk-export-encoders` |
+| `toText` | Function | `pk-export/pk-export-encoders` |
+| `toXlsx` | Function | `pk-export/pk-export-xlsx` |
+| `downloadFile` | Function | `pk-export/pk-export-download` |
+| `PkExportService` | Injectable service | `pk-export/pk-export.service` |
+| `PkExportButton` | Component | `pk-export/pk-export-button` |
 
 ---
 
@@ -575,7 +603,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.16.3` |
+| Library version | `2.17.1` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -610,6 +638,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-qrcode` | ✅ Built, tested (12 tests) — inline SVG QR code; versions 1–40; EC levels L/M/Q/H; 8 mask patterns with ISO 18004 penalty scoring; center logo (auto-upgrades EC level to Q); inputs: `value`, `ecLevel`, `size`, `darkColor`, `lightColor`, `logo`, `logoSize`, `margin`; `downloadSvg()` / `downloadPng()` |
 | `pk-code-reader` | ✅ Built, tested (20 tests) — QR + barcode scanner; native `BarcodeDetector` API (zero deps); **jsQR v1.4.0 fallback for iOS/Firefox** (vendored TS source, QR-only when `BarcodeDetector` unavailable; `_jsqrMode` signal; "QR only" badge in viewport); camera / image upload / clipboard paste; canvas RAF overlay (viewfinder + green bbox highlight 800 ms); AudioContext beep 880 Hz; torch toggle; camera switch; `formats` filtered by `getSupportedFormats()`; iOS-aware "not supported" message; **permission-denied fallback**: capture overlay with `<input capture="environment">` (bypasses `getUserMedia()` — works in Android LINE WebView); `reset()`, `startCamera()`, `openCaptureInput()` methods |
 | `pk-otp` | ✅ Built, tested (23 tests) — OTP/PIN cells (1–16); `type: 'number'\|'char'\|'none'`; `capital`; `size: 'sm'\|'md'\|'lg'`; `title`/`text` labels; `showString`/`showTime` masking; animated pulse/blink border on focus; keyboard nav (←/→/Backspace/Delete); paste; browser OTP autofill; ControlValueAccessor (`ngModel`/`FormControl`); `(onChange)`/`(onComplete)` outputs |
+| `pk-export` | ✅ Built, tested (50 tests) — pure TS data-export module; zero external deps; 7 formats: CSV (UTF-8 BOM), TSV, JSON, XML, XLSX (SpreadsheetML / ZIP STORE), HTML, text; `PkExportService` (7 methods); `PkExportButton` (dropdown UI); tree-shakable pure encoder functions |
 | `pk-grid` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-grid.css` |
 | `pk-btn` (CSS only)  | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-btn.css` |
 | `pk-spinner` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-spinner.css` |
@@ -626,7 +655,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 
-**Test totals: 381 / 381 passing**
+**Test totals: 431 / 431 passing**
 
 ### Suggested next components
 - `pk-stepper` — multi-step wizard / stepper
@@ -1400,6 +1429,43 @@ import { PkTooltip } from 'ngx-pk-ui';
 | `(pkDgRefresh)` | `void` | — | Emits when the grid requests a data reload |
 | `(filterChange)` | `{ key: string; value: string }` | — | Emits on every filter input change — useful for server-side filtering |
 
+### Content projection slots
+| Slot selector | Description |
+|---|---|
+| `[pkDgToolbar]` | Toolbar bar above the table — use for action buttons, export, custom controls. The slot is rendered as `.pk-dg-toolbar` (flex row, `border-bottom: 1px solid #ccc`). Hidden when empty (`:empty { display: none }`). |
+| `<pk-dg-footer>` | Free-form footer slot below the table — place `<pk-dg-pagination>` and any extra controls (e.g. `<pk-export-button>`) here. Library applies only `border-top` + `background` — all layout is the consumer's responsibility. |
+
+**Both slots in one grid (recommended pattern):**
+```html
+<pk-datagrid [pkDgLoading]="loading()">
+  <!-- toolbar: action buttons + status info -->
+  <div pkDgToolbar>
+    <button class="pk-btn pk-btn-primary pk-btn-sm" (click)="reload()">Reload</button>
+    <span style="font-size:13px;color:#888;">{{ rows.length }} rows</span>
+  </div>
+
+  <pk-dg-header pkDgSort="name">Name</pk-dg-header>
+  ...
+  <pk-dg-rows *pkDgRows="let row of rows" [pkDgRow]="row">...</pk-dg-rows>
+
+  <!-- footer: export button left, pagination right -->
+  <pk-dg-footer>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:4px 8px;">
+      <pk-export-button
+        [data]="rows"
+        [formats]="['csv', 'xlsx', 'json']"
+        filename="report"
+        [csvOptions]="{ columns: exportColumns, headers: exportHeaders }"
+        [xlsxOptions]="{ columns: exportColumns, headers: exportHeaders }"
+      />
+      <pk-dg-pagination #pag [pkDgPageSize]="10" [rowCount]="rows.length">
+        {{ pag.firstItem + 1 }} - {{ pag.lastItem + 1 }} of {{ rows.length }} rows
+      </pk-dg-pagination>
+    </div>
+  </pk-dg-footer>
+</pk-datagrid>
+```
+
 ### `<pk-dg-rows>` inputs
 | Input | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -1916,3 +1982,112 @@ import type { PkOtpType, PkOtpSize } from 'ngx-pk-ui';
 - **Browser OTP autofill** — `autocomplete="one-time-code"` on each input; `inputmode="numeric"` when `type='number'`.
 - **Masking logic** — when `showString` is set: if `showTime > 0` the real char is shown for `showTime` ms then replaced; if `showTime === 0` the mask is applied instantly.
 - **`writeValue`** — supports pre-filled values (e.g. from server); each character is validated against `type` before being accepted.
+
+---
+
+## pk-export API reference
+
+Pure TypeScript data-export module — zero external dependencies. 7 formats, injectable service, and a standalone dropdown button component.
+
+```ts
+import { PkExportService, PkExportButton } from 'ngx-pk-ui';
+import type {
+  PkExportFormat, PkCsvOptions, PkTsvOptions, PkJsonOptions,
+  PkXmlOptions, PkHtmlOptions, PkTextOptions, PkXlsxOptions
+} from 'ngx-pk-ui';
+
+@Component({
+  imports: [PkExportButton],
+})
+```
+
+### PkExportButton — quick start
+
+```html
+<pk-export-button
+  [data]="rows"
+  [formats]="['csv','xlsx','json','xml','html','tsv','text']"
+  filename="employees"
+  label="Export"
+  [csvOptions]="{ headers: ['ID','Name','Dept'] }"
+  [xlsxOptions]="{ sheetName: 'Employees' }"
+  (beforeExport)="onBefore($event)"
+  (afterExport)="onAfter($event)"
+/>
+```
+
+### PkExportButton inputs / outputs
+
+| Input/Output | Type | Default | Description |
+|---|---|---|---|
+| `data` | `any[]` | required | Array of row objects to export |
+| `formats` | `PkExportFormat[]` | `['csv','xlsx','json']` | Formats shown in the dropdown |
+| `filename` | `string` | `'export'` | Base filename — extension appended automatically |
+| `label` | `string` | `'Export'` | Button label |
+| `disabled` | `boolean` | `false` | Disable the button |
+| `customClass` | `string` | `''` | Extra CSS class on wrapper |
+| `customStyle` | `Record<string,string>` | `{}` | Inline styles on wrapper |
+| `csvOptions` | `PkCsvOptions` | — | Options for CSV encoder |
+| `tsvOptions` | `PkTsvOptions` | — | Options for TSV encoder |
+| `jsonOptions` | `PkJsonOptions` | — | Options for JSON encoder |
+| `xmlOptions` | `PkXmlOptions` | — | Options for XML encoder |
+| `xlsxOptions` | `PkXlsxOptions` | — | Options for XLSX encoder |
+| `htmlOptions` | `PkHtmlOptions` | — | Options for HTML encoder |
+| `textOptions` | `PkTextOptions` | — | Options for Text encoder |
+| `(beforeExport)` | `PkExportFormat` | — | Emits before download triggers |
+| `(afterExport)` | `PkExportFormat` | — | Emits after download triggers |
+
+### PkExportService — direct use
+
+```ts
+export class MyComponent {
+  private svc = inject(PkExportService);
+
+  export() {
+    this.svc.csv(data, 'report.csv', { bom: true, headers: ['Name','Dept'] });
+    this.svc.xlsx(data, 'report.xlsx', { sheetName: 'Sheet1' });
+    this.svc.json(data, 'report.json', { indent: 2 });
+    this.svc.xml(data,  'report.xml',  { rootTag: 'employees', itemTag: 'employee' });
+    this.svc.html(data, 'report.html', { title: 'Report', standalone: true });
+    this.svc.tsv(data,  'report.tsv');
+    this.svc.text(data, 'report.txt', { delimiter: '|' });
+  }
+}
+```
+
+### PkExportFormat values
+
+`'csv'` · `'tsv'` · `'json'` · `'xml'` · `'xlsx'` · `'html'` · `'text'`
+
+### Option interfaces (shared fields)
+
+All option interfaces support `columns?: string[]` (filter which object keys to export) and `headers?: string[]` (override column header labels).
+
+| Interface | Extra fields |
+|---|---|
+| `PkCsvOptions` | `delimiter?` (default `','`), `bom?` (default `true`) |
+| `PkTsvOptions` | — |
+| `PkJsonOptions` | `indent?` (default `2`) |
+| `PkXmlOptions` | `rootTag?` (default `'root'`), `itemTag?` (default `'item'`) |
+| `PkHtmlOptions` | `title?`, `standalone?` (default `true` — full `<!DOCTYPE html>` wrapper) |
+| `PkTextOptions` | `delimiter?` (default `'\t'`) |
+| `PkXlsxOptions` | `sheetName?` (default `'Sheet1'`) |
+
+### Pure encoder functions (tree-shakable)
+
+```ts
+import { toCsv, toXlsx, downloadFile } from 'ngx-pk-ui';
+
+const csv: string = toCsv(data, { bom: true });
+const xlsx: Uint8Array = toXlsx(data, { sheetName: 'Data' });
+
+// download manually
+downloadFile(csv,  'report.csv',  'text/csv;charset=utf-8');
+downloadFile(xlsx, 'report.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+```
+
+### XLSX implementation notes
+- Uses **ZIP STORE** (compression method = 0) — no `CompressionStream` needed, universal browser support
+- SpreadsheetML format (same as `.xlsx`): `[Content_Types].xml`, `xl/workbook.xml`, `xl/worksheets/sheet1.xml`, `xl/sharedStrings.xml`
+- Numbers stored as `<c r="A1"><v>42</v></c>`, strings via shared string index `<c r="A1" t="s"><v>0</v></c>`
+- Pure TypeScript CRC-32 with 256-entry lookup table

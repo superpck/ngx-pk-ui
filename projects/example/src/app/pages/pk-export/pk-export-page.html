@@ -1,0 +1,130 @@
+<div class="demo-page">
+  <div class="demo-page-header">
+    <h1>pk-export</h1>
+    <p>Export data to CSV, TSV, JSON, XML, Excel (XLSX), HTML, and plain text — no external dependencies.</p>
+  </div>
+
+  <!-- ── Demo 1: Export Button ─────────────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2>Export Button</h2>
+    <p>Drop a single <code>&lt;pk-export-button&gt;</code> next to any table. Choose a format from the dropdown to download immediately.</p>
+
+    <div class="demo-toolbar">
+      <pk-export-button
+        [data]="rows"
+        [formats]="allFormats"
+        filename="employees"
+        label="Export"
+        [csvOptions]="{ headers: customHeaders }"
+        [xlsxOptions]="{ headers: customHeaders, sheetName: 'Employees' }"
+        [htmlOptions]="{ title: 'Employee List', headers: customHeaders }"
+        [textOptions]="{ headers: customHeaders }"
+        (beforeExport)="onBeforeExport($event)"
+      />
+      <span class="demo-last-export">Last export: <strong>{{ lastExport() }}</strong></span>
+    </div>
+
+    <table class="pk-table pk-table-primary pk-table-striped pk-table-hover" style="margin-top:12px">
+      <thead>
+        <tr>
+          <th>ID</th><th>Name</th><th>Department</th>
+          <th>Salary (USD)</th><th>Active</th><th>Join Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of rows; track row.id) {
+          <tr>
+            <td>{{ row.id }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.department }}</td>
+            <td>{{ row.salary | number }}</td>
+            <td>
+              <span class="pk-badge" [class.pk-badge-success]="row.active" [class.pk-badge-error]="!row.active">
+                {{ row.active ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td>{{ row.joinDate }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <pre class="code-block"><code>{{ codeButton }}</code></pre>
+  </section>
+
+  <!-- ── Demo 2: PkExportService direct calls ──────────────────────────────── -->
+  <section class="demo-section">
+    <h2>PkExportService — Direct Calls</h2>
+    <p>Inject <code>PkExportService</code> to trigger downloads programmatically from your own buttons or workflows.</p>
+
+    <div class="demo-btn-row" style="margin-bottom:12px">
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="exportCsv()">CSV</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="exportTsv()">TSV</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="exportJson()">JSON</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="exportXml()">XML</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="exportXlsx()">Excel (XLSX)</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="exportHtml()">HTML</button>
+      <button class="pk-btn pk-btn-secondary pk-btn-sm" (click)="exportText()">Text</button>
+    </div>
+
+    <pre class="code-block"><code>{{ codeService }}</code></pre>
+  </section>
+
+  <!-- ── Demo 3: Raw encoder functions ─────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2>Encoder Functions (Advanced)</h2>
+    <p>
+      Use <code>toCsv()</code>, <code>toXlsx()</code>, etc. directly for preview rendering,
+      server uploads, or piping data without triggering a download.
+      <code>downloadFile()</code> is also exported for manual use.
+    </p>
+    <pre class="code-block"><code>{{ codeEncoders }}</code></pre>
+  </section>
+
+  <!-- ── API Tables ─────────────────────────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2>pk-export-button — Inputs / Outputs</h2>
+    <table class="pk-table pk-table-bordered pk-table-hover">
+      <thead><tr><th>Input / Output</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>data</code></td><td>any[]</td><td>required</td><td>Array of row objects to export</td></tr>
+        <tr><td><code>formats</code></td><td>PkExportFormat[]</td><td>['csv','xlsx','json']</td><td>Formats shown in the dropdown</td></tr>
+        <tr><td><code>filename</code></td><td>string</td><td>'export'</td><td>Base filename (extension is added automatically)</td></tr>
+        <tr><td><code>label</code></td><td>string</td><td>'Export'</td><td>Button label</td></tr>
+        <tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disable the button</td></tr>
+        <tr><td><code>customClass</code></td><td>string</td><td>''</td><td>Extra CSS class on the host wrapper</td></tr>
+        <tr><td><code>customStyle</code></td><td>Record&lt;string,string&gt;</td><td>{{ '{}' }}</td><td>Inline styles on the host wrapper</td></tr>
+        <tr><td><code>csvOptions</code></td><td>PkCsvOptions</td><td>—</td><td>Options forwarded to the CSV encoder</td></tr>
+        <tr><td><code>tsvOptions</code></td><td>PkTsvOptions</td><td>—</td><td>Options forwarded to the TSV encoder</td></tr>
+        <tr><td><code>jsonOptions</code></td><td>PkJsonOptions</td><td>—</td><td>Options forwarded to the JSON encoder</td></tr>
+        <tr><td><code>xmlOptions</code></td><td>PkXmlOptions</td><td>—</td><td>Options forwarded to the XML encoder</td></tr>
+        <tr><td><code>xlsxOptions</code></td><td>PkXlsxOptions</td><td>—</td><td>Options forwarded to the XLSX encoder</td></tr>
+        <tr><td><code>htmlOptions</code></td><td>PkHtmlOptions</td><td>—</td><td>Options forwarded to the HTML encoder</td></tr>
+        <tr><td><code>textOptions</code></td><td>PkTextOptions</td><td>—</td><td>Options forwarded to the Text encoder</td></tr>
+        <tr><td><code>(beforeExport)</code></td><td>PkExportFormat</td><td>—</td><td>Emits before download is triggered</td></tr>
+        <tr><td><code>(afterExport)</code></td><td>PkExportFormat</td><td>—</td><td>Emits after download is triggered</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="demo-section">
+    <h2>PkExportService — Methods</h2>
+    <table class="pk-table pk-table-bordered pk-table-hover">
+      <thead><tr><th>Method</th><th>Signature</th><th>Output format</th></tr></thead>
+      <tbody>
+        <tr><td><code>csv()</code></td><td>csv(data, filename?, options?)</td><td>.csv — UTF-8 BOM, comma-separated</td></tr>
+        <tr><td><code>tsv()</code></td><td>tsv(data, filename?, options?)</td><td>.tsv — tab-separated</td></tr>
+        <tr><td><code>json()</code></td><td>json(data, filename?, options?)</td><td>.json — pretty-printed</td></tr>
+        <tr><td><code>xml()</code></td><td>xml(data, filename?, options?)</td><td>.xml — UTF-8, escaped values</td></tr>
+        <tr><td><code>html()</code></td><td>html(data, filename?, options?)</td><td>.html — self-contained styled table</td></tr>
+        <tr><td><code>text()</code></td><td>text(data, filename?, options?)</td><td>.txt — tab or custom delimiter</td></tr>
+        <tr><td><code>xlsx()</code></td><td>xlsx(data, filename?, options?)</td><td>.xlsx — basic Excel (no styling), pure TS</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="demo-section">
+    <h2>PkExportFormat values</h2>
+    <p><code>'csv'</code> &nbsp;·&nbsp; <code>'tsv'</code> &nbsp;·&nbsp; <code>'json'</code> &nbsp;·&nbsp; <code>'xml'</code> &nbsp;·&nbsp; <code>'xlsx'</code> &nbsp;·&nbsp; <code>'html'</code> &nbsp;·&nbsp; <code>'text'</code></p>
+  </section>
+</div>

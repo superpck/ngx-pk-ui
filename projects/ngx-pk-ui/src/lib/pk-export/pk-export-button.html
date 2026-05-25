@@ -1,0 +1,22 @@
+<div class="pk-export-btn" [class]="customClass()" [ngStyle]="customStyle()">
+  <button
+    class="pk-export-btn__trigger"
+    [class.pk-export-btn__trigger--open]="isOpen()"
+    [class.pk-export-btn__trigger--disabled]="disabled()"
+    [disabled]="disabled() || undefined"
+    (click)="toggleDropdown($event)"
+  >
+    <span class="pk-export-btn__label">{{ label() }}</span>
+    <span class="pk-export-btn__arrow" [class.pk-export-btn__arrow--open]="isOpen()">▾</span>
+  </button>
+
+  @if (isOpen()) {
+    <ul class="pk-export-btn__dropdown" (click)="$event.stopPropagation()">
+      @for (fmt of formats(); track fmt) {
+        <li class="pk-export-btn__item" (click)="doExport(fmt)">
+          {{ getFormatLabel(fmt) }}
+        </li>
+      }
+    </ul>
+  }
+</div>

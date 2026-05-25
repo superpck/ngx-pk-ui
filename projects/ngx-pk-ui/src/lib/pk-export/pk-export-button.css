@@ -1,0 +1,92 @@
+:host {
+  display: inline-block;
+}
+
+.pk-export-btn {
+  position: relative;
+  display: inline-block;
+}
+
+/* ── Trigger button ─────────────────────────────────────── */
+.pk-export-btn__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 6px;
+  background: #fff;
+  color: #334155;
+  transition: border-color 0.15s, background 0.15s;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.pk-export-btn__trigger:hover:not(.pk-export-btn__trigger--disabled) {
+  border-color: #94a3b8;
+  background: #f8fafc;
+}
+
+.pk-export-btn__trigger--open {
+  border-color: #1976d2;
+  background: #eff6ff;
+  color: #1976d2;
+}
+
+.pk-export-btn__trigger--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Arrow ──────────────────────────────────────────────── */
+.pk-export-btn__arrow {
+  display: inline-block;
+  font-size: 12px;
+  transition: transform 0.18s ease;
+  line-height: 1;
+}
+
+.pk-export-btn__arrow--open {
+  transform: rotate(180deg);
+}
+
+/* ── Dropdown ───────────────────────────────────────────── */
+.pk-export-btn__dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 200;
+  min-width: 160px;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  background: #fff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  animation: pk-export-dropdown-in 0.12s ease;
+}
+
+@keyframes pk-export-dropdown-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Items ──────────────────────────────────────────────── */
+.pk-export-btn__item {
+  padding: 9px 16px;
+  font-size: 14px;
+  color: #334155;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.pk-export-btn__item:hover {
+  background: #f1f5f9;
+  color: #1976d2;
+}

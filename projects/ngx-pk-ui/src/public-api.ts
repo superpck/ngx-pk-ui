@@ -162,3 +162,10 @@ export * from './lib/pk-directives/pk-number-only.directive';
 // pk-otp
 export * from './lib/pk-otp/pk-otp.model';
 export * from './lib/pk-otp/pk-otp';
+
+// pk-export
+export * from './lib/pk-export/pk-export.model';
+export * from './lib/pk-export/pk-export-encoders';
+export * from './lib/pk-export/pk-export-download';
+export * from './lib/pk-export/pk-export.service';
+export * from './lib/pk-export/pk-export-button';
