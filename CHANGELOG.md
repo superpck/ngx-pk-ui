@@ -4,6 +4,19 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.17.0] — 2026-05-25
+
+### Added
+- **pk-export**: new data-export module — pure TypeScript, zero external dependencies
+  - **`PkExportService`** (`providedIn: 'root'`) — 7 methods: `csv()`, `tsv()`, `json()`, `xml()`, `xlsx()`, `html()`, `text()` — each triggers a browser download
+  - **`PkExportButton`** — standalone component with dropdown; `data`, `formats`, `filename`, `label`, `disabled`, `customClass`, `customStyle`, per-format `*Options` inputs; `(beforeExport)` / `(afterExport)` outputs
+  - **Pure encoder functions** (tree-shakable, exported individually): `toCsv()`, `toTsv()`, `toJson()`, `toXml()`, `toHtml()`, `toText()`, `toXlsx()`, `downloadFile()`
+  - **Formats supported**: `csv` (UTF-8 BOM for Excel Thai support), `tsv`, `json`, `xml`, `xlsx` (SpreadsheetML / ZIP STORE — no `CompressionStream`, universal browser support), `html` (standalone styled table), `text`
+  - All format options: `columns` / `headers` filtering, custom delimiters, `bom`, `indent`, root/item tags, `sheetName`, `standalone` HTML, etc.
+  - 50 new tests (37 encoder + service, 13 component)
+
+---
+
 ## [2.16.3] — 2026-05-24
 
 ### Added

@@ -67,6 +67,7 @@ npm publish dist/ngx-pk-ui
 - Markdown Viewer: `PkMarkdownViewer`, `PkMarkdownTheme`, `parseMarkdown`, `buildHtmlDocument`
 - Locale: `PkLocale`, `PkLocaleData`, `PK_LOCALE_DATA`, `getPkLocaleData`
 - Input Password: `PkInputPassword`
+- Export: `PkExportService`, `PkExportButton`, `PkExportFormat`, `PkCsvOptions`, `PkTsvOptions`, `PkJsonOptions`, `PkXmlOptions`, `PkHtmlOptions`, `PkTextOptions`, `PkXlsxOptions`, `toCsv`, `toTsv`, `toJson`, `toXml`, `toHtml`, `toText`, `toXlsx`, `downloadFile`
 
 ## pk-datepicker quick start
 
@@ -124,6 +125,7 @@ import { PkSidenav } from 'ngx-pk-ui';         // pk-sidenav
 import { PkHeatmap } from 'ngx-pk-ui';          // pk-heatmap
 import { PkMarkdownViewer } from 'ngx-pk-ui';   // pk-markdown-viewer
 import { getPkLocaleData } from 'ngx-pk-ui';    // pk-locale util
+import { PkExportService, PkExportButton } from 'ngx-pk-ui'; // pk-export
 ```
 
 ## pk-calendar quick start

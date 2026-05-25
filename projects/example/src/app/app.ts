@@ -34,6 +34,7 @@ export class App {
     { label: 'datagrid', link: '/pk-datagrid' },
     { label: 'datepicker', link: '/pk-datepicker' },
     { label: 'directives', link: '/pk-directives' },
+    { label: 'export', link: '/pk-export' },
     { label: 'file upload', link: '/pk-file-upload' },
     { label: 'heatmap', link: '/pk-heatmap' },
     { label: 'icon', link: '/pk-icon' },
