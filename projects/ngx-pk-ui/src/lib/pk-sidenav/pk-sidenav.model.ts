@@ -1,6 +1,6 @@
 export type PkSidenavPosition = 'left' | 'right';
 export type PkSidenavMode = 'full' | 'icon' | 'auto';
-export type PkSidenavTheme = 'light' | 'dark' | 'primary' | 'custom';
+export type PkSidenavTheme = 'light' | 'dark' | 'primary' | 'orange' | 'custom';
 
 export interface PkSidenavItem {
   /** Unique key for this item */

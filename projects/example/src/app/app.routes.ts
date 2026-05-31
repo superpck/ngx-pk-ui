@@ -26,6 +26,7 @@ export const routes: Routes = [
   { path: 'pk-split', loadComponent: () => import('./pages/pk-split/pk-split-page').then(m => m.PkSplitPage) },
   { path: 'pk-textarea', loadComponent: () => import('./pages/pk-textarea/pk-textarea-page').then(m => m.PkTextareaPage) },
   { path: 'pk-sidenav', loadComponent: () => import('./pages/pk-sidenav/pk-sidenav').then(m => m.PkSidenavPage) },
+  { path: 'pk-float-btn', loadComponent: () => import('./pages/pk-float-btn/pk-float-btn.component').then(m => m.PkFloatBtnComponent) },
   { path: 'pk-table', loadComponent: () => import('./pages/pk-table/pk-table-page').then(m => m.PkTablePage) },
   { path: 'pk-toggle', loadComponent: () => import('./pages/pk-toggle/pk-toggle-page').then(m => m.PkTogglePage) },
   { path: 'pk-font', loadComponent: () => import('./pages/pk-font/pk-font-page').then(m => m.PkFontPage) },

@@ -1,0 +1,90 @@
+<div
+  [ngClass]="hostClass()"
+  [ngStyle]="hostStyle()"
+>
+  <!-- Main item (route) -->
+  @if (route() && !disabled()) {
+    <a
+      class="pk-snv-item"
+      [ngClass]="itemClass()"
+      [routerLink]="route()"
+      routerLinkActive="pk-snv-item--active"
+      [style.padding-left.px]="paddingLeft()"
+      (click)="onClick($event)"
+    >
+      <ng-container *ngTemplateOutlet="itemContent" />
+    </a>
+  }
+  <!-- Main item (href) -->
+  @else if (href() && !disabled()) {
+    <a
+      class="pk-snv-item"
+      [ngClass]="itemClass()"
+      [href]="href()"
+      [target]="hrefTarget()"
+      [style.padding-left.px]="paddingLeft()"
+      (click)="onClick($event)"
+    >
+      <ng-container *ngTemplateOutlet="itemContent" />
+    </a>
+  }
+  <!-- Main item (button) -->
+  @else {
+    <div
+      class="pk-snv-item"
+      [ngClass]="itemClass()"
+      [style.padding-left.px]="paddingLeft()"
+      (click)="onClick($event)"
+    >
+      <ng-container *ngTemplateOutlet="itemContent" />
+    </div>
+  }
+
+  <!-- Submenu (children) -->
+  @if (hasChildren() && expanded() && !isIconOnly()) {
+    <div class="pk-snv-submenu">
+      <ng-content />
+    </div>
+  }
+</div>
+
+<!-- Item content template -->
+<ng-template #itemContent>
+  <!-- Icon -->
+  @if (icon() || hasChildren()) {
+    <span class="pk-snv-icon">
+      <pk-icon
+        [name]="iconName()"
+        iconSet="material-symbols"
+        [size]="iconSize()"
+        color="currentColor"
+      />
+    </span>
+  }
+
+  <!-- Label -->
+  @if (!isIconOnly()) {
+    <span class="pk-snv-label">{{ label() }}</span>
+
+    <!-- Badge -->
+    @if (badge() !== undefined && badge() !== null) {
+      <span class="pk-snv-badge">{{ badge() }}</span>
+    }
+
+    <!-- Chevron for parent items -->
+    @if (hasChildren()) {
+      <pk-icon
+        class="pk-snv-chevron"
+        [class.pk-snv-chevron--tree]="isTreeType()"
+        [name]="chevronIcon()"
+        iconSet="material-symbols"
+        [size]="16"
+        color="currentColor"
+      />
+    }
+  }
+  <!-- Badge dot in icon-only mode -->
+  @else if (badge() !== undefined && badge() !== null) {
+    <span class="pk-snv-badge pk-snv-badge--dot">{{ badge() }}</span>
+  }
+</ng-template>
