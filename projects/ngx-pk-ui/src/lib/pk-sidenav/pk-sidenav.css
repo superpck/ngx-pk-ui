@@ -92,6 +92,84 @@
   border-color: transparent;
 }
 
+.pk-sidenav--blue {
+  --pk-snv-bg:             #1e40af;
+  --pk-snv-color:          #dbeafe;
+  --pk-snv-active-color:   #ffffff;
+  --pk-snv-active-bg:      rgba(255, 255, 255, 0.15);
+  --pk-snv-active-border:  #ffffff;
+  --pk-snv-hover-bg:       rgba(255, 255, 255, 0.1);
+  --pk-snv-hover-color:    #ffffff;
+  --pk-snv-heading-color:  #93c5fd;
+  --pk-snv-divider-color:  rgba(255, 255, 255, 0.12);
+  border-color: transparent;
+}
+
+.pk-sidenav--teal {
+  --pk-snv-bg:             #0f766e;
+  --pk-snv-color:          #ccfbf1;
+  --pk-snv-active-color:   #ffffff;
+  --pk-snv-active-bg:      rgba(255, 255, 255, 0.15);
+  --pk-snv-active-border:  #ffffff;
+  --pk-snv-hover-bg:       rgba(255, 255, 255, 0.1);
+  --pk-snv-hover-color:    #ffffff;
+  --pk-snv-heading-color:  #5eead4;
+  --pk-snv-divider-color:  rgba(255, 255, 255, 0.12);
+  border-color: transparent;
+}
+
+.pk-sidenav--indigo {
+  --pk-snv-bg:             #4338ca;
+  --pk-snv-color:          #e0e7ff;
+  --pk-snv-active-color:   #ffffff;
+  --pk-snv-active-bg:      rgba(255, 255, 255, 0.15);
+  --pk-snv-active-border:  #ffffff;
+  --pk-snv-hover-bg:       rgba(255, 255, 255, 0.1);
+  --pk-snv-hover-color:    #ffffff;
+  --pk-snv-heading-color:  #a5b4fc;
+  --pk-snv-divider-color:  rgba(255, 255, 255, 0.12);
+  border-color: transparent;
+}
+
+.pk-sidenav--terra-cotta {
+  --pk-snv-bg:             #bd5d38;
+  --pk-snv-color:          #fff7ed;
+  --pk-snv-active-color:   #ffffff;
+  --pk-snv-active-bg:      rgba(255, 255, 255, 0.15);
+  --pk-snv-active-border:  #ffffff;
+  --pk-snv-hover-bg:       rgba(255, 255, 255, 0.1);
+  --pk-snv-hover-color:    #ffffff;
+  --pk-snv-heading-color:  #fed7aa;
+  --pk-snv-divider-color:  rgba(255, 255, 255, 0.12);
+  border-color: transparent;
+}
+
+.pk-sidenav--air-force-blue {
+  --pk-snv-bg:             #5d8aa8;
+  --pk-snv-color:          #f0f9ff;
+  --pk-snv-active-color:   #ffffff;
+  --pk-snv-active-bg:      rgba(255, 255, 255, 0.15);
+  --pk-snv-active-border:  #ffffff;
+  --pk-snv-hover-bg:       rgba(255, 255, 255, 0.1);
+  --pk-snv-hover-color:    #ffffff;
+  --pk-snv-heading-color:  #bae6fd;
+  --pk-snv-divider-color:  rgba(255, 255, 255, 0.12);
+  border-color: transparent;
+}
+
+.pk-sidenav--peacock-blue {
+  --pk-snv-bg:             #005f73;
+  --pk-snv-color:          #cffafe;
+  --pk-snv-active-color:   #ffffff;
+  --pk-snv-active-bg:      rgba(255, 255, 255, 0.15);
+  --pk-snv-active-border:  #ffffff;
+  --pk-snv-hover-bg:       rgba(255, 255, 255, 0.1);
+  --pk-snv-hover-color:    #ffffff;
+  --pk-snv-heading-color:  #67e8f9;
+  --pk-snv-divider-color:  rgba(255, 255, 255, 0.12);
+  border-color: transparent;
+}
+
 /* ─── Header (brand/logo slot) ───────────────────────────────────────── */
 .pk-snv-header {
   display: flex;
