@@ -70,12 +70,18 @@ export class PkSidenavPage {
   ];
 
   readonly themes: { label: string; value: PkSidenavTheme; cfg?: PkSidenavThemeConfig }[] = [
-    { label: 'Light',    value: 'light' },
-    { label: 'Dark',     value: 'dark' },
-    { label: 'Primary (Green)', value: 'primary' },
-    { label: 'Orange',   value: 'orange' },
+    { label: 'Light',              value: 'light' },
+    { label: 'Dark',               value: 'dark' },
+    { label: 'Primary (Green)',    value: 'primary' },
+    { label: 'Orange',             value: 'orange' },
+    { label: 'Blue',               value: 'blue' },
+    { label: 'Teal',               value: 'teal' },
+    { label: 'Indigo',             value: 'indigo' },
+    { label: 'Terra Cotta',        value: 'terra-cotta' },
+    { label: 'Air Force Blue',     value: 'air-force-blue' },
+    { label: 'Peacock Blue',       value: 'peacock-blue' },
     {
-      label: 'Custom (Blue)',
+      label: 'Custom (Purple)',
       value: 'custom',
       cfg: {
         bg: '#3730a3', color: '#c7d2fe',

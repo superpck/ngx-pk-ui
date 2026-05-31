@@ -4,6 +4,14 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.18.1] — 2026-06-01
+
+### Added
+- **pk-sidenav**: 6 new built-in themes — `blue` (#1e40af), `teal` (#0f766e), `indigo` (#4338ca), `terra-cotta` (#bd5d38), `air-force-blue` (#5d8aa8), `peacock-blue` (#005f73); total 10 built-in themes (light, dark, primary, orange + 6 new) + custom theme support
+- **pk-btn example page**: comprehensive API Reference section — base class table, variant classes (primary/secondary/success/warn/error), modifier classes (outline/shadow/sm/lg), button group, disabled attribute, installation guide
+
+---
+
 ## [2.18.0] — 2026-05-31
 
 ### Added

@@ -2,14 +2,14 @@
   <h1 class="demo-title">pk-sidenav</h1>
   <p class="demo-desc">
     Side navigation component — left/right position, full/icon/auto mode,
-    multi-level items, badge support, and 4 built-in themes with full CSS-variable override.
+    multi-level items, badge support, and 10 built-in themes with full CSS-variable override.
   </p>
 
   <!-- Controls -->
   <div class="demo-controls">
     <div class="ctrl-group">
       <span class="ctrl-label">Theme</span>
-      <div class="ctrl-row">
+      <div class="ctrl-row" style="flex-wrap:wrap;gap:6px;">
         @for (t of themes; track t.value) {
           <button
             class="pk-btn pk-btn-sm"
@@ -183,7 +183,7 @@ export class MyComponent &#123;
       <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
       <tbody>
         <tr><td>groups</td><td>PkSidenavGroup[]</td><td>[]</td><td>Navigation groups with items</td></tr>
-        <tr><td>theme</td><td>'light'|'dark'|'primary'|'orange'|'custom'</td><td>'light'</td><td>Built-in color theme</td></tr>
+        <tr><td>theme</td><td>PkSidenavTheme</td><td>'light'</td><td>Built-in color theme — 'light', 'dark', 'primary', 'orange', 'blue', 'teal', 'indigo', 'terra-cotta', 'air-force-blue', 'peacock-blue', 'custom'</td></tr>
         <tr><td>themeConfig</td><td>PkSidenavThemeConfig</td><td>{{ '{' }}{{ '}' }}</td><td>CSS-variable overrides for 'custom' theme</td></tr>
         <tr><td>mode</td><td>'full'|'icon'|'auto'</td><td>'full'</td><td>Display mode — auto collapses below breakpoint</td></tr>
         <tr><td>position</td><td>'left'|'right'</td><td>'left'</td><td>Side of the layout</td></tr>
@@ -192,6 +192,47 @@ export class MyComponent &#123;
         <tr><td>breakpoint</td><td>number</td><td>768</td><td>px — auto-collapse below this (mode='auto')</td></tr>
         <tr><td>activeKey</td><td>string</td><td>''</td><td>Currently active item key</td></tr>
         <tr><td>showUser</td><td>boolean</td><td>true</td><td>Show footer user slot</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="demo-section">
+    <h2 class="demo-subtitle">Built-in Themes</h2>
+    <table class="pk-table pk-table-bordered pk-table-striped">
+      <thead><tr><th style="width:160px">Theme</th><th>Background</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>light</code></td><td style="background:#ffffff;color:#374151">#ffffff</td><td>Default light theme — white background, dark text</td></tr>
+        <tr><td><code>dark</code></td><td style="background:#1e293b;color:#e2e8f0">#1e293b</td><td>Dark slate theme — slate background, light text</td></tr>
+        <tr><td><code>primary</code></td><td style="background:#166534;color:#dcfce7">#166534</td><td>Green theme — forest green background</td></tr>
+        <tr><td><code>orange</code></td><td style="background:#d94d01;color:#ffedd5">#d94d01</td><td>Orange theme — bright orange background</td></tr>
+        <tr><td><code>blue</code></td><td style="background:#1e40af;color:#dbeafe">#1e40af</td><td>Blue theme — bright blue background</td></tr>
+        <tr><td><code>teal</code></td><td style="background:#0f766e;color:#ccfbf1">#0f766e</td><td>Teal theme — dark teal (green-blue) background</td></tr>
+        <tr><td><code>indigo</code></td><td style="background:#4338ca;color:#e0e7ff">#4338ca</td><td>Indigo theme — deep indigo (blue-purple) background</td></tr>
+        <tr><td><code>terra-cotta</code></td><td style="background:#bd5d38;color:#fff7ed">#bd5d38</td><td>Terra cotta theme — earthy clay red-brown background</td></tr>
+        <tr><td><code>air-force-blue</code></td><td style="background:#5d8aa8;color:#f0f9ff">#5d8aa8</td><td>Air Force Blue theme — medium blue-gray background</td></tr>
+        <tr><td><code>peacock-blue</code></td><td style="background:#005f73;color:#cffafe">#005f73</td><td>Peacock Blue theme — deep cyan background</td></tr>
+        <tr><td><code>custom</code></td><td style="background:linear-gradient(90deg,#3730a3,#6366f1);color:#fff">Custom</td><td>Fully customizable via <code>themeConfig</code> input</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="demo-section">
+    <h2 class="demo-subtitle">PkSidenavThemeConfig interface</h2>
+    <p style="font-size:13px;color:#666;margin-bottom:8px">All properties are optional CSS-value strings — used when <code>theme="custom"</code></p>
+    <table class="pk-table pk-table-bordered pk-table-striped">
+      <thead><tr><th style="width:160px">Property</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>bg</code></td><td>Background color (e.g., <code>'#1e1b4b'</code>)</td></tr>
+        <tr><td><code>color</code></td><td>Default text color</td></tr>
+        <tr><td><code>activeColor</code></td><td>Active item text color</td></tr>
+        <tr><td><code>activeBg</code></td><td>Active item background</td></tr>
+        <tr><td><code>activeBorder</code></td><td>Active item left border color</td></tr>
+        <tr><td><code>hoverBg</code></td><td>Hover background color</td></tr>
+        <tr><td><code>hoverColor</code></td><td>Hover text color (defaults to <code>inherit</code>)</td></tr>
+        <tr><td><code>headingColor</code></td><td>Section heading color</td></tr>
+        <tr><td><code>dividerColor</code></td><td>Divider line color</td></tr>
+        <tr><td><code>iconBg</code></td><td>Icon background (defaults to <code>transparent</code>)</td></tr>
+        <tr><td><code>iconColor</code></td><td>Icon color (defaults to <code>inherit</code>)</td></tr>
       </tbody>
     </table>
   </div>

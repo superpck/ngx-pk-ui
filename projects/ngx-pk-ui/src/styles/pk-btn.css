@@ -147,6 +147,7 @@
   background-color: transparent;
   border-color: var(--pk-btn-primary);
   color: var(--pk-btn-primary);
+  border-width: 1px;
 }
 .pk-btn.pk-btn-outline:hover,
 .pk-btn-primary.pk-btn-outline:hover {
