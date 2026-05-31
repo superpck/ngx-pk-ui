@@ -72,6 +72,7 @@ export class App {
     { label: 'button', link: '/pk-btn' },
     { label: 'divider', link: '/pk-divider' },
     { label: 'card', link: '/pk-card' },
+    { label: 'float button', link: '/pk-float-btn' },
     { label: 'font', link: '/pk-font' },
     { label: 'form', link: '/pk-form' },
     { label: 'grid', link: '/pk-grid' },

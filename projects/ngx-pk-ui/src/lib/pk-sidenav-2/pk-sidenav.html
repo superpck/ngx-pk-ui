@@ -1,0 +1,97 @@
+<!-- Mobile backdrop -->
+@if (isMobile() && mobileOpen()) {
+  <div class="pk-snv-backdrop" (click)="onBackdropClick()"></div>
+}
+
+<!-- Sidenav container -->
+<nav
+  class="pk-sidenav"
+  [ngClass]="hostClass()"
+  [ngStyle]="hostStyle()"
+>
+  @if (isDataDriven()) {
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- Data-driven mode (groups input) -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+
+    <!-- Header slot (content projection) -->
+    <ng-content select="[pkSidenavHeader]" />
+
+    <!-- Menu area (data-driven) -->
+    <div class="pk-sidenav__menu">
+      @for (group of groups(); track $index) {
+        <div class="pk-snv-group">
+          @if (group.heading) {
+            <div class="pk-snv-heading">{{ group.heading }}</div>
+          }
+          @for (item of group.items; track item.key) {
+            @if (item.route) {
+              <!-- Route link -->
+              <a
+                class="pk-snv-item"
+                [class.pk-snv-item--active]="item.key === activeKey()"
+                [class.pk-snv-item--disabled]="item.disabled"
+                [routerLink]="item.route"
+                routerLinkActive="pk-snv-item--active"
+                (click)="onItemClick(item)"
+              >
+                @if (item.icon) {
+                  <pk-icon [name]="item.icon" iconSet="material-symbols" [size]="20" />
+                }
+                <span class="pk-snv-label">{{ item.label }}</span>
+                @if (item.badge) {
+                  <span class="pk-snv-badge">{{ item.badge }}</span>
+                }
+              </a>
+            } @else if (item.href) {
+              <!-- External link -->
+              <a
+                class="pk-snv-item"
+                [class.pk-snv-item--disabled]="item.disabled"
+                [href]="item.href"
+                [target]="item.hrefTarget || '_self'"
+                (click)="onItemClick(item)"
+              >
+                @if (item.icon) {
+                  <pk-icon [name]="item.icon" iconSet="material-symbols" [size]="20" />
+                }
+                <span class="pk-snv-label">{{ item.label }}</span>
+                @if (item.badge) {
+                  <span class="pk-snv-badge">{{ item.badge }}</span>
+                }
+              </a>
+            } @else {
+              <!-- Button (callback or itemClick event) -->
+              <button
+                type="button"
+                class="pk-snv-item"
+                [class.pk-snv-item--active]="item.key === activeKey()"
+                [class.pk-snv-item--disabled]="item.disabled"
+                [disabled]="item.disabled"
+                (click)="onItemClick(item)"
+              >
+                @if (item.icon) {
+                  <pk-icon [name]="item.icon" iconSet="material-symbols" [size]="20" />
+                }
+                <span class="pk-snv-label">{{ item.label }}</span>
+                @if (item.badge) {
+                  <span class="pk-snv-badge">{{ item.badge }}</span>
+                }
+              </button>
+            }
+          }
+        </div>
+      }
+    </div>
+
+    <!-- User footer slot (content projection) -->
+    @if (showUser()) {
+      <ng-content select="[pkSidenavUser]" />
+    }
+  } @else {
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- Component-based mode (content projection) -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <ng-content />
+  }
+</nav>

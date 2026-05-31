@@ -4,6 +4,14 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.18.0] — 2026-05-31
+
+### Added
+- **pk-float-btn** (CSS only): floating action button utility — `pk-float-btn` base class with position modifiers (`--top-left`, `--top-center`, `--top-right`, `--bottom-left`, `--bottom-center`, `--bottom-right`) and color variants (`--secondary`, `--success`, `--error`, `--warning`); fixed positioning with smooth scale/shadow transitions; included in `pk-ui.css`
+- **pk-sidenav**: new `orange` theme — orange-600 background (`#ea580c`), orange-50 text, white active/hover overlays, orange-200 headings
+
+---
+
 ## [2.17.1] — 2026-05-25
 
 ### Changed

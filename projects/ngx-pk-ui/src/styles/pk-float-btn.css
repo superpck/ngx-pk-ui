@@ -1,0 +1,197 @@
+/* ================================================================
+   pk-float-btn.css — Floating Action Button Utility
+   ================================================================ */
+
+/* ── Base ────────────────────────────────────────────────────── */
+.pk-float-btn {
+  position: fixed;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 16px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #2563eb;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.pk-float-btn:hover {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  transform: translateY(-1px);
+}
+
+.pk-float-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Positions ───────────────────────────────────────────────── */
+/* Top positions */
+.pk-float-btn--top-left {
+  top: 16px;
+  left: 16px;
+}
+
+.pk-float-btn--top-center {
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.pk-float-btn--top-center:hover {
+  transform: translateX(-50%) translateY(-1px);
+}
+
+.pk-float-btn--top-center:active {
+  transform: translateX(-50%) translateY(0);
+}
+
+.pk-float-btn--top-right {
+  top: 16px;
+  right: 16px;
+}
+
+/* Bottom positions */
+.pk-float-btn--bottom-left {
+  bottom: 16px;
+  left: 16px;
+}
+
+.pk-float-btn--bottom-center {
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.pk-float-btn--bottom-center:hover {
+  transform: translateX(-50%) translateY(-1px);
+}
+
+.pk-float-btn--bottom-center:active {
+  transform: translateX(-50%) translateY(0);
+}
+
+.pk-float-btn--bottom-right {
+  bottom: 16px;
+  right: 16px;
+}
+
+/* ── Color Variants ──────────────────────────────────────────── */
+/* Primary (default — already defined in base) */
+
+/* Secondary */
+.pk-float-btn--secondary {
+  color: #64748b;
+  border-color: rgba(100, 116, 139, 0.25);
+}
+
+/* Success */
+.pk-float-btn--success {
+  color: #10b981;
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.pk-float-btn--success:hover {
+  background: rgba(236, 253, 245, 0.98);
+}
+
+/* Error */
+.pk-float-btn--error {
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+.pk-float-btn--error:hover {
+  background: rgba(254, 242, 242, 0.98);
+}
+
+/* Warning */
+.pk-float-btn--warning {
+  color: #f59e0b;
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+.pk-float-btn--warning:hover {
+  background: rgba(255, 251, 235, 0.98);
+}
+
+/* Info */
+.pk-float-btn--info {
+  color: #06b6d4;
+  border-color: rgba(6, 182, 212, 0.25);
+}
+
+.pk-float-btn--info:hover {
+  background: rgba(236, 254, 255, 0.98);
+}
+
+/* Dark */
+.pk-float-btn--dark {
+  color: #ffffff;
+  background: rgba(30, 41, 59, 0.92);
+  border-color: rgba(71, 85, 105, 0.35);
+}
+
+.pk-float-btn--dark:hover {
+  background: rgba(30, 41, 59, 0.98);
+}
+
+/* ── Size Variants ───────────────────────────────────────────── */
+.pk-float-btn--sm {
+  padding: 6px 12px;
+  font-size: 11px;
+  border-radius: 18px;
+  gap: 4px;
+}
+
+.pk-float-btn--lg {
+  padding: 12px 20px;
+  font-size: 15px;
+  border-radius: 28px;
+  gap: 8px;
+}
+
+/* ── Icon-only (no text) ─────────────────────────────────────── */
+.pk-float-btn--icon {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.pk-float-btn--icon.pk-float-btn--sm {
+  width: 40px;
+  height: 40px;
+}
+
+.pk-float-btn--icon.pk-float-btn--lg {
+  width: 56px;
+  height: 56px;
+}
+
+/* ── Disabled state ──────────────────────────────────────────── */
+.pk-float-btn:disabled,
+.pk-float-btn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── SVG Icon helper ─────────────────────────────────────────── */
+.pk-float-btn svg {
+  flex-shrink: 0;
+}

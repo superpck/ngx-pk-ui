@@ -1,4 +1,4 @@
-# ngx-pk-ui 2.17.0
+# ngx-pk-ui 2.18.0
 
 An Angular 21 component library providing UI components and CSS utilities.
 

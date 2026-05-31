@@ -95,7 +95,7 @@ projects/
           pk-file-upload.html / .css / .spec.ts
         pk-sidenav/
           pk-sidenav.model.ts   ← PkSidenavGroup, PkSidenavItem (incl. `fn?`), PkSidenavTheme, PkSidenavMode, PkSidenavPosition, PkSidenavThemeConfig
-          pk-sidenav.ts         ← standalone component: left/right, full/icon/auto, multi-level, 4 themes, CSS-variable override; `fn` callback support; body scroll fix
+          pk-sidenav.ts         ← standalone component: left/right, full/icon/auto, multi-level, 5 themes, CSS-variable override; `fn` callback support; body scroll fix
           pk-sidenav.html / .css
         pk-input-password/
           pk-input-password.ts  ← standalone component: show/hide toggle, ControlValueAccessor, optional strength meter
@@ -143,6 +143,8 @@ projects/
       pk-tooltip.css              ← tooltip styles
       pk-form.css                 ← floating label fields (input/select/textarea), prefix/suffix, group layout
       pk-layout.css               ← fixed top navbar + sidebar layout shell (CSS variables, responsive)
+      pk-divider.css              ← horizontal/vertical dividers with optional label
+      pk-float-btn.css            ← floating action button utility with position/color variants
       pk-font.css                 ← Thai & Lao Google Fonts helper classes (opt-in — NOT in pk-ui.css)
   example/                 ← local dev/test app (gitignored, never published)
     src/app/
@@ -155,7 +157,7 @@ projects/
                     pk-file-upload/ pk-sidenav/ pk-markdown-viewer/ pk-heatmap/ pk-input-password/
                     pk-split/ pk-textarea/ pk-barcode/ pk-qrcode/ pk-code-reader/
         CSS pages:  pk-grid/ pk-btn/ pk-spinner/ pk-badge/ pk-card/
-                    pk-table/ pk-toggle/ pk-breadcrumb/ pk-font/ pk-form/ pk-layout/
+                    pk-table/ pk-toggle/ pk-breadcrumb/ pk-float-btn/ pk-font/ pk-form/ pk-layout/
         Example pages: examples/login/   ← login-example.ts/html/css — full-bleed card, form, password strength
                        examples/chat/    ← chat-example.ts/html/css — icon sidenav, conversation list, message pane
                        examples/dashboard/ ← dashboard-example.ts/html/css — pk-sidenav + topbar + stat cards + placeholder cards
@@ -603,7 +605,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.17.1` |
+| Library version | `2.18.0` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -622,7 +624,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-tooltip` | ✅ Built |
 | `pk-calendar` | ✅ Built — Year/Month/Week/Day/Agenda views, drag & drop, multi-day bars, built-in form, full 17-locale support via `PkLocale`; toolbar labels (`year/month/week/day/agenda/today/newEvent`) from `PkLocaleData.calendarLabels` |
 | `pk-file-upload` | ✅ Built, tested (14 tests) — drag & drop, browser-native preview (image/PDF/text), upload button, maxSize/maxFiles validation |
-| `pk-sidenav` | ✅ Built — left/right, full/icon/auto mode, multi-level, badge, 4 themes, CSS-variable override, content slots; `route` (routerLink) fixed; `href` + `hrefTarget` added; `fn` callback added; scroll fix (`height: 100%` on `:host` + `.pk-sidenav`) |
+| `pk-sidenav` | ✅ Built — left/right, full/icon/auto mode, multi-level, badge, 5 themes, CSS-variable override, content slots; `route` (routerLink) fixed; `href` + `hrefTarget` added; `fn` callback added; scroll fix (`height: 100%` on `:host` + `.pk-sidenav`) |
 | `pk-markdown-viewer` | ✅ Built, tested (18 tests) — `fileName` (fetch) + `content` (raw string); Print, Export .md, Export .html; light/dark theme; zero external deps |
 | `pk-locale` | ✅ Built — global shared locale model; 17 locales; `direction: 'ltr'\|'rtl'`; `calendarLabels` (year/month/week/day/agenda/today/newEvent) for all 17 locales |
 | `pk-heatmap` | ✅ Built, tested (16 tests) — full-width layout; 4 color schemes; 17-locale labels; legend 0/max; tooltip |
@@ -652,6 +654,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-font` (CSS only, opt-in) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-font.css` — NOT in pk-ui.css |
 | `pk-icon-font` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-icon-font.css` |
 | `pk-divider` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-divider.css` — included in pk-ui.css |
+| `pk-float-btn` (CSS only) | ✅ Shipped as `dist/ngx-pk-ui/styles/pk-float-btn.css` — included in pk-ui.css |
 | Example app (`projects/example/`) | ✅ Sidebar nav + lazy-routed pages for every section; 3 example pages: login, chat, dashboard; CHANGELOG.md asset |
 | npm published | ✅ Published |
 
@@ -1274,6 +1277,57 @@ Colors are driven by the same CSS custom properties as `pk-btn.css` (`--pk-btn-p
 
 ---
 
+## pk-float-btn CSS reference
+
+```html
+<!-- Basic (bottom-right, primary color) -->
+<a href="#top" class="pk-float-btn pk-float-btn--bottom-right">
+  <pk-icon icon="arrow_upward" [size]="16" />
+  Back to top
+</a>
+
+<!-- Position variants -->
+<button class="pk-float-btn pk-float-btn--top-left">Top Left</button>
+<button class="pk-float-btn pk-float-btn--top-center">Top Center</button>
+<button class="pk-float-btn pk-float-btn--top-right">Top Right</button>
+<button class="pk-float-btn pk-float-btn--bottom-left">Bottom Left</button>
+<button class="pk-float-btn pk-float-btn--bottom-center">Bottom Center</button>
+<button class="pk-float-btn pk-float-btn--bottom-right">Bottom Right</button>
+
+<!-- Color variants -->
+<button class="pk-float-btn pk-float-btn--bottom-right pk-float-btn--secondary">Secondary</button>
+<button class="pk-float-btn pk-float-btn--bottom-right pk-float-btn--success">Success</button>
+<button class="pk-float-btn pk-float-btn--bottom-right pk-float-btn--error">Error</button>
+<button class="pk-float-btn pk-float-btn--bottom-right pk-float-btn--warning">Warning</button>
+<button class="pk-float-btn pk-float-btn--bottom-right pk-float-btn--info">Info</button>
+<button class="pk-float-btn pk-float-btn--bottom-right pk-float-btn--dark">Dark</button>
+```
+
+| Class | Description |
+|-------|-------------|
+| `pk-float-btn` | Base class — fixed positioning, rounded, translucent bg, backdrop-filter blur |
+| `pk-float-btn--top-left` | Position top-left (16px inset) |
+| `pk-float-btn--top-center` | Position top-center |
+| `pk-float-btn--top-right` | Position top-right |
+| `pk-float-btn--bottom-left` | Position bottom-left |
+| `pk-float-btn--bottom-center` | Position bottom-center |
+| `pk-float-btn--bottom-right` | Position bottom-right (default placement) |
+| `pk-float-btn--secondary` | Gray color variant |
+| `pk-float-btn--success` | Green color variant |
+| `pk-float-btn--error` | Red color variant |
+| `pk-float-btn--warning` | Orange/amber color variant |
+| `pk-float-btn--info` | Cyan color variant |
+| `pk-float-btn--dark` | Dark slate bg with white text |
+
+**Features:**
+- `position: fixed` with `z-index: 9999`
+- Translucent white background (`rgba(255,255,255,0.92)`) with `backdrop-filter: blur(6px)`
+- Smooth hover transition: shadow lift + 1px up translate
+- Works as `<button>` or `<a>` element
+- Center positions (`--top-center`, `--bottom-center`) use `transform: translateX(-50%)` for perfect centering
+
+---
+
 ## pk-font CSS reference
 
 `pk-font.css` is **opt-in** — it is NOT included in `pk-ui.css`. Import separately.
@@ -1825,7 +1879,7 @@ Internal `::ng-deep` is used — no extra CSS needed in consumer.
 - **Click in icon-only mode (auto)** → auto-expands to full mode, then selects item / opens submenu
 - **Active border** — 3px left bar on active item (right bar when `position='right'`)
 - **Submenu animation** — slide-down on open, `@keyframes pk-snv-slide-down`
-- **Themes**: `light` (white) · `dark` (slate-800) · `primary` (green-800) · `custom` (fully overridable via `themeConfig`)
+- **Themes**: `light` (white) · `dark` (slate-800) · `primary` (green-800) · `orange` (orange-600) · `custom` (fully overridable via `themeConfig`)
 
 ---
 

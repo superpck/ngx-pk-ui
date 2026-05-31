@@ -73,6 +73,7 @@ export class PkSidenavPage {
     { label: 'Light',    value: 'light' },
     { label: 'Dark',     value: 'dark' },
     { label: 'Primary (Green)', value: 'primary' },
+    { label: 'Orange',   value: 'orange' },
     {
       label: 'Custom (Blue)',
       value: 'custom',

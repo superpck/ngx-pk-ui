@@ -1,0 +1,184 @@
+/* ─── pk-sidenav-item ────────────────────────────────────────────────── */
+:host {
+  display: block;
+}
+
+.pk-snv-item-wrapper {
+  display: block;
+}
+
+.pk-snv-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--pk-snv-color, #374151);
+  border-radius: var(--pk-snv-item-radius, 6px);
+  transition: all var(--pk-snv-transition, 0.22s ease);
+  position: relative;
+  user-select: none;
+  box-sizing: border-box;
+  margin-bottom: 2px;
+}
+
+.pk-snv-item:hover:not(.pk-snv-item--disabled) {
+  background: var(--pk-snv-hover-bg, rgba(0, 0, 0, 0.05));
+  color: var(--pk-snv-hover-color, inherit);
+}
+
+/* Active state */
+.pk-snv-item--active {
+  background: var(--pk-snv-active-bg, rgba(29, 78, 216, 0.08));
+  color: var(--pk-snv-active-color, #1d4ed8);
+  font-weight: 500;
+}
+
+.pk-snv-item--active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  background: var(--pk-snv-active-border, #1d4ed8);
+  border-radius: 0 3px 3px 0;
+}
+
+/* Right-aligned sidenav */
+:host-context(.pk-sidenav--right) .pk-snv-item--active::before {
+  left: auto;
+  right: 0;
+  border-radius: 2px 0 0 2px;
+}
+
+/* Disabled state */
+.pk-snv-item--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Icon */
+.pk-snv-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: var(--pk-snv-icon-bg, transparent);
+  color: var(--pk-snv-icon-color, inherit);
+}
+
+/* Label */
+.pk-snv-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* Badge */
+.pk-snv-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 9px;
+  background: var(--pk-snv-badge-bg, #ef4444);
+  color: var(--pk-snv-badge-color, #fff);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.pk-snv-badge--dot {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  min-width: 8px;
+  height: 8px;
+  padding: 0;
+  font-size: 7px;
+}
+
+/* Chevron */
+.pk-snv-chevron {
+  flex-shrink: 0;
+  opacity: 0.6;
+  color: var(--pk-snv-chevron-color, currentColor);
+  transition: transform var(--pk-snv-transition, 0.22s ease), opacity 0.2s ease;
+}
+
+.pk-snv-item:hover .pk-snv-chevron {
+  opacity: 1;
+}
+
+.pk-snv-item--expanded .pk-snv-chevron {
+  transform: rotate(180deg);
+  opacity: 0.85;
+}
+
+/* Tree mode chevron - no rotation, stays on right */
+.pk-snv-chevron--tree {
+  margin-left: auto;
+}
+
+.pk-snv-item--expanded .pk-snv-chevron--tree {
+  transform: none;
+}
+
+/* Submenu */
+.pk-snv-submenu {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  margin-top: 0px;
+  margin-bottom: 4px;
+  animation: pk-snv-slide-down 0.25s ease-out;
+}
+
+@keyframes pk-snv-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Level-based indentation (handled via computed paddingLeft, but CSS classes for reference) */
+.pk-snv-item-wrapper--level-0 .pk-snv-item {
+  font-weight: 500;
+}
+
+.pk-snv-item-wrapper--level-0 .pk-snv-item .pk-snv-label {
+  font-size: 13px;
+}
+
+.pk-snv-item-wrapper--level-1 .pk-snv-label,
+.pk-snv-item-wrapper--level-2 .pk-snv-label {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+/* Icon-only mode adjustments */
+:host-context(.pk-sidenav--icon) .pk-snv-item {
+  justify-content: center;
+  padding: 10px 8px;
+}
+
+:host-context(.pk-sidenav--icon) .pk-snv-label,
+:host-context(.pk-sidenav--icon) .pk-snv-chevron {
+  display: none;
+}
