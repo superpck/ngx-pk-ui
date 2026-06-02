@@ -1,7 +1,7 @@
 <div class="demo-page">
   <div class="demo-page-header">
     <h1 class="demo-page-title">pk-font</h1>
-    <p class="demo-page-desc">Thai &amp; Lao Google Fonts helper classes. All fonts are served from Google Fonts CDN (SIL Open Font License 1.1).</p>
+    <p class="demo-page-desc">Latin, Thai &amp; Lao Google Fonts helper classes. All fonts are served from Google Fonts CDN (SIL Open Font License 1.1).</p>
   </div>
 
   <!-- ── Installation ── -->
@@ -16,6 +16,104 @@
 
 // or CSS / SCSS
 &#64;import 'ngx-pk-ui/styles/pk-font.css';</code></pre>
+  </section>
+
+  <!-- ── Latin / General-purpose fonts (A–Z) ── -->
+  <section class="demo-section">
+    <h2>Latin / General-purpose fonts</h2>
+
+    <!-- Roboto -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-roboto</span>
+        <span class="font-name">Roboto</span>
+      </div>
+      <div>
+        <div class="pk-font-roboto font-sample">{{ latinText }}</div>
+        <div class="pk-font-roboto font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:500">Medium</span>
+          <span style="font-weight:700">Bold</span>
+          <span style="font-weight:900">Black</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Montserrat -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-montserrat</span>
+        <span class="font-name">Montserrat</span>
+      </div>
+      <div>
+        <div class="pk-font-montserrat font-sample">{{ latinText }}</div>
+        <div class="pk-font-montserrat font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:500">Medium</span>
+          <span style="font-weight:600">SemiBold</span>
+          <span style="font-weight:700">Bold</span>
+          <span style="font-weight:900">Black</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Open Sans -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-open-sans</span>
+        <span class="font-name">Open Sans</span>
+      </div>
+      <div>
+        <div class="pk-font-open-sans font-sample">{{ latinText }}</div>
+        <div class="pk-font-open-sans font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:500">Medium</span>
+          <span style="font-weight:600">SemiBold</span>
+          <span style="font-weight:700">Bold</span>
+          <span style="font-weight:800">ExtraBold</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lato -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-lato</span>
+        <span class="font-name">Lato</span>
+      </div>
+      <div>
+        <div class="pk-font-lato font-sample">{{ latinText }}</div>
+        <div class="pk-font-lato font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:700">Bold</span>
+          <span style="font-weight:900">Black</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Poppins -->
+    <div class="font-row">
+      <div class="font-meta">
+        <span class="font-class">.pk-font-poppins</span>
+        <span class="font-name">Poppins</span>
+      </div>
+      <div>
+        <div class="pk-font-poppins font-sample">{{ latinText }}</div>
+        <div class="pk-font-poppins font-weights">
+          <span style="font-weight:300">Light</span>
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:500">Medium</span>
+          <span style="font-weight:600">SemiBold</span>
+          <span style="font-weight:700">Bold</span>
+          <span style="font-weight:800">ExtraBold</span>
+          <span style="font-weight:900">Black</span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ── Thai fonts (A–Z) ── -->
@@ -335,6 +433,11 @@
     <table class="pk-table pk-table-bordered pk-table-sm">
       <thead><tr><th>Class</th><th>Font family</th><th>Script</th><th>Style</th></tr></thead>
       <tbody>
+        <tr><td><code>pk-font-roboto</code></td><td>Roboto</td><td>Latin</td><td>sans-serif</td></tr>
+        <tr><td><code>pk-font-montserrat</code></td><td>Montserrat</td><td>Latin</td><td>sans-serif</td></tr>
+        <tr><td><code>pk-font-open-sans</code></td><td>Open Sans</td><td>Latin</td><td>sans-serif</td></tr>
+        <tr><td><code>pk-font-lato</code></td><td>Lato</td><td>Latin</td><td>sans-serif</td></tr>
+        <tr><td><code>pk-font-poppins</code></td><td>Poppins</td><td>Latin</td><td>sans-serif</td></tr>
         <tr><td><code>pk-font-bai-jamjuree</code></td><td>Bai Jamjuree</td><td>Thai</td><td>sans-serif</td></tr>
         <tr><td><code>pk-font-chakra-petch</code></td><td>Chakra Petch</td><td>Thai</td><td>sans-serif</td></tr>
         <tr><td><code>pk-font-charm</code></td><td>Charm</td><td>Thai</td><td>cursive</td></tr>

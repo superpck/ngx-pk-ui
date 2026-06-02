@@ -145,7 +145,7 @@ projects/
       pk-layout.css               ← fixed top navbar + sidebar layout shell (CSS variables, responsive)
       pk-divider.css              ← horizontal/vertical dividers with optional label
       pk-float-btn.css            ← floating action button utility with position/color variants
-      pk-font.css                 ← Thai & Lao Google Fonts helper classes (opt-in — NOT in pk-ui.css)
+      pk-font.css                 ← Google Fonts helper classes (Latin, Thai, Lao) (opt-in — NOT in pk-ui.css)
   example/                 ← local dev/test app (gitignored, never published)
     src/app/
       app.ts / app.html / app.css  ← shell: dark sidebar nav + RouterOutlet + PkToastr + PkAlert
@@ -605,7 +605,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | Item | State |
 |------|-------|
 | Library package name | `ngx-pk-ui` |
-| Library version | `2.18.1` |
+| Library version | `2.18.2` |
 | Angular version | `^21.0.0` (CLI 21.0.3) |
 | `pk-accordion` | ✅ Built, tested (8 tests) |
 | `pk-tabs` | ✅ Built, tested (4 tests) — NgModule-based (PkTabsModule) |
@@ -635,7 +635,7 @@ Everything in `projects/ngx-pk-ui/src/public-api.ts`:
 | `pk-pipes` | ✅ Built, tested (68 tests) — 5 standalone pipes: `PkTruncatePipe` (pkTruncate), `PkTimeAgoPipe` (pkTimeAgo, pure:false), `PkFileSizePipe` (pkFileSize), `PkHighlightPipe` (pkHighlight, SafeHtml, XSS-safe), `PkDatePipe` (pkDate, locale-aware, BE/CE era) + `parseBEDate()` utility |
 | `pk-directives` | ✅ Built, tested (20 tests) — 5 standalone directives: `PkClickOutsideDirective`, `PkCopyToClipboardDirective`, `PkAutoFocusDirective`, `PkDebounceClickDirective`, `PkNumberOnlyDirective` |
 | `pk-split` | ✅ Built, tested (8 tests) — horizontal/vertical resizable split pane; drag divider; touch support; `direction`, `initialSize`, `minSize`, `gutterSize`, `(sizeChange)` |
-| `pk-textarea` | ✅ Built, tested (11 tests) — rich text editor: bold/italic/underline/strike, text colour, **highlight color**, font name (18 Google Fonts via `pk-font-*`), font size (small/normal/large/h1-h3), ordered/unordered lists, **blockquote**, dark theme, 3 view modes (Edit/HTML/Text); standalone, ControlValueAccessor (`PkTextareaValue { html, text }`); `::ng-deep` used for dynamic editor content styles |
+| `pk-textarea` | ✅ Built, tested (11 tests) — rich text editor: bold/italic/underline/strike, text colour, **highlight color**, font name (23 Google Fonts via `pk-font-*`), font size (small/normal/large/h1-h3), ordered/unordered lists, **blockquote**, dark theme, 3 view modes (Edit/HTML/Text); standalone, ControlValueAccessor (`PkTextareaValue { html, text }`); `::ng-deep` used for dynamic editor content styles |
 | `pk-barcode` | ✅ Built, tested (15 tests) — inline SVG barcode; Code 128 / Code 39 / EAN-13 / EAN-8; pure TypeScript encoder; inputs: `value`, `format`, `width`, `height`, `showText`, `lineColor`, `backgroundColor`; `downloadSvg()` / `downloadPng()` |
 | `pk-qrcode` | ✅ Built, tested (12 tests) — inline SVG QR code; versions 1–40; EC levels L/M/Q/H; 8 mask patterns with ISO 18004 penalty scoring; center logo (auto-upgrades EC level to Q); inputs: `value`, `ecLevel`, `size`, `darkColor`, `lightColor`, `logo`, `logoSize`, `margin`; `downloadSvg()` / `downloadPng()` |
 | `pk-code-reader` | ✅ Built, tested (20 tests) — QR + barcode scanner; native `BarcodeDetector` API (zero deps); **jsQR v1.4.0 fallback for iOS/Firefox** (vendored TS source, QR-only when `BarcodeDetector` unavailable; `_jsqrMode` signal; "QR only" badge in viewport); camera / image upload / clipboard paste; canvas RAF overlay (viewfinder + green bbox highlight 800 ms); AudioContext beep 880 Hz; torch toggle; camera switch; `formats` filtered by `getSupportedFormats()`; iOS-aware "not supported" message; **permission-denied fallback**: capture overlay with `<input capture="environment">` (bypasses `getUserMedia()` — works in Android LINE WebView); `reset()`, `startCamera()`, `openCaptureInput()` methods |
@@ -1341,6 +1341,7 @@ Colors are driven by the same CSS custom properties as `pk-btn.css` (`--pk-btn-p
 ```
 
 ```html
+<p class="pk-font-roboto">Hello World</p>
 <p class="pk-font-sarabun">สวัสดี</p>
 <p class="pk-font-kanit">สวัสดี</p>
 <p class="pk-font-phetsarath">ສະບາຍດີ</p>
@@ -1348,6 +1349,11 @@ Colors are driven by the same CSS custom properties as `pk-btn.css` (`--pk-btn-p
 
 | Class | Font | Script |
 |-------|------|--------|
+| `pk-font-roboto` | Roboto | Latin |
+| `pk-font-montserrat` | Montserrat | Latin |
+| `pk-font-open-sans` | Open Sans | Latin |
+| `pk-font-lato` | Lato | Latin |
+| `pk-font-poppins` | Poppins | Latin |
 | `pk-font-bai-jamjuree` | Bai Jamjuree | Thai |
 | `pk-font-chakra-petch` | Chakra Petch | Thai |
 | `pk-font-charm` | Charm | Thai |

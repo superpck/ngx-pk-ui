@@ -1,8 +1,11 @@
 /**
- * pk-font — Thai & Lao Google Fonts helper classes for ngx-pk-ui
+ * pk-font — Google Fonts helper classes for ngx-pk-ui
  *
  * All fonts are served from Google Fonts CDN (SIL Open Font License 1.1).
  * Note: "Google Sans" is a proprietary Google typeface — not on Google Fonts.
+ *
+ * ── Latin / General-purpose ───────────────────────────────────────────
+ * Roboto · Montserrat · Open Sans · Lato · Poppins
  *
  * ── Thai ──────────────────────────────────────────────────────────────
  * Bai Jamjuree · Chakra Petch · Charm · Charmonman · Kanit · Mitr
@@ -13,12 +16,17 @@
  * Noto Sans Lao · Noto Sans Lao Looped · Noto Serif Lao · Phetsarath
  *
  * Usage:
+ *   <p class="pk-font-roboto">Hello World</p>
  *   <p class="pk-font-sarabun">ข้อความภาษาไทย</p>
  *   <p class="pk-font-noto-sans-lao">ຂໍ້ຄວາມພາສາລາວ</p>
  *
  * Import (opt-in — not included in pk-ui.css by default):
  *   @import 'ngx-pk-ui/styles/pk-font.css';
  */
+
+/* ─── Latin / General-purpose fonts ──────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Montserrat:wght@300;400;500;600;700;900&family=Open+Sans:wght@300;400;500;600;700;800&family=Lato:wght@300;400;700;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 /* ─── Thai fonts ──────────────────────────────────────────────────── */
 
@@ -27,6 +35,14 @@
 /* ─── Lao fonts ───────────────────────────────────────────────────── */
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&family=Noto+Sans+Lao+Looped:wght@300;400;500;600;700&family=Noto+Serif+Lao:wght@300;400;500;600;700&family=Phetsarath:wght@400;700&display=swap');
+
+/* ─── Latin / General-purpose class map ──────────────────────────── */
+
+.pk-font-roboto      { font-family: 'Roboto',      sans-serif; }
+.pk-font-montserrat  { font-family: 'Montserrat',  sans-serif; }
+.pk-font-open-sans   { font-family: 'Open Sans',   sans-serif; }
+.pk-font-lato        { font-family: 'Lato',        sans-serif; }
+.pk-font-poppins     { font-family: 'Poppins',     sans-serif; }
 
 /* ─── Thai class map ──────────────────────────────────────────────── */
 

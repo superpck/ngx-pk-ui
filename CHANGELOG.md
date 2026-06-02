@@ -4,6 +4,13 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.18.2] — 2026-06-02
+
+### Added
+- **pk-font**: 5 new Latin / general-purpose Google Fonts — `Roboto`, `Montserrat`, `Open Sans`, `Lato`, `Poppins` (all under SIL Open Font License 1.1); available as `pk-font-roboto`, `pk-font-montserrat`, `pk-font-open-sans`, `pk-font-lato`, `pk-font-poppins`
+
+---
+
 ## [2.18.1] — 2026-06-01
 
 ### Added

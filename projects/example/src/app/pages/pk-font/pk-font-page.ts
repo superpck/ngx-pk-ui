@@ -24,6 +24,7 @@ import { Component } from '@angular/core';
   `],
 })
 export class PkFontPage {
+  latinText = 'The quick brown fox jumps over the lazy dog 0123456789 ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   thaiText = 'สวัสดีครับ ยินดีต้อนรับ 0123456789 ๑๒๓๔๕๖๗๘๙๐ ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   laoText = 'ສະບາຍດີ ຍິນດີຕ້ອນຮັບ 0123456789 ໐໑໒໓໔໕໖໗໘໙໐ ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 }
