@@ -50,7 +50,7 @@
           {{ localeLabels.today }}
           </button>
           @if (setNull) {
-            <button class="reset-btn" (click)="resetDate()" [disabled]="disabled">
+            <button class="today-btn" (click)="resetDate()" [disabled]="disabled">
               {{ localeLabels.clear }}
             </button>
           }
