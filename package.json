@@ -1,6 +1,6 @@
 {
   "name": "pk-ui-workspace",
-  "version": "2.18.2",
+  "version": "2.18.4",
   "license": "MIT",
   "scripts": {
     "ng": "ng",

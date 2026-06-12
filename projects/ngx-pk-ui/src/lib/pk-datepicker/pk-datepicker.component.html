@@ -1,8 +1,8 @@
-<div class="datepicker-container" [class.datepicker-container--open]="isOpen">
-  <input type="text" [value]="formattedDate" [disabled]="disabled" [style]="style"
+<div class="datepicker-container" [class.datepicker-container--open]="isOpen" [style]="style">
+  <input type="text" [value]="formattedDate" [disabled]="disabled"
     [placeholder]="inputPlaceholder"
     [title]="inputPlaceholder"
-    (click)="togglePicker($event)" class="datepicker-input" [readonly]="!dateInput" (change)="onChangeDate($event)" />
+    (click)="togglePicker($event)" class="datepicker-input" [style]="style" [readonly]="!dateInput" (change)="onChangeDate($event)" />
   @if (isOpen) {
     <div class="datepicker-dropdown" [ngStyle]="dropdownStyles">
       <div class="calendar">
@@ -50,7 +50,7 @@
           {{ localeLabels.today }}
           </button>
           @if (setNull) {
-            <button class="reset-btn" (click)="resetDate()" [disabled]="disabled">
+            <button class="today-btn" (click)="resetDate()" [disabled]="disabled">
               {{ localeLabels.clear }}
             </button>
           }

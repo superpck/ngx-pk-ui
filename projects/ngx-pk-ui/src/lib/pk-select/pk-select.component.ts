@@ -57,7 +57,7 @@ import { SelectOption, SelectMode } from './pk-select.interface';
             @for (option of filteredOptions(); track getOptionValue(option)) {
               <div 
                 class="pk-select-option"
-                [class.pk-select-option-selected]="isSelected(getOptionValue(option))"
+                [class.pk-select-option-selected]="selectedValuesSet().has(getOptionValue(option))"
                 [class.pk-select-option-disabled]="option.disabled"
                 (click)="!option.disabled && selectOption(option)">
                 
@@ -65,10 +65,10 @@ import { SelectOption, SelectMode } from './pk-select.interface';
                   <input 
                     type="checkbox"
                     class="pk-select-checkbox"
-                    [checked]="isSelected(getOptionValue(option))"
+                    [checked]="selectedValuesSet().has(getOptionValue(option))"
                     [disabled]="option.disabled"
-                    (click)="onCheckboxClick(option, $event)"
-                    (change)="$event.stopPropagation()" />
+                    (click)="$event.stopPropagation()"
+                    (change)="!option.disabled && selectOption(option)" />
                 }
                 
                 <span class="pk-select-option-label">{{ option.label }}</span>
@@ -95,6 +95,7 @@ import { SelectOption, SelectMode } from './pk-select.interface';
       background-color: white;
       cursor: pointer;
       transition: all 0.2s;
+      box-sizing: border-box;
     }
 
     .pk-select-trigger:hover:not(.pk-select-trigger-disabled) {
@@ -232,6 +233,7 @@ export class PkSelectComponent implements ControlValueAccessor {
   isOpen = signal<boolean>(false);
   searchQuery = signal<string>('');
   selectedValues = signal<(string | number)[]>([]);
+  selectedValuesSet = computed(() => new Set(this.selectedValues()));
 
   private onChange: (value: any) => void = () => {};
   private onTouched: () => void = () => {};
@@ -311,17 +313,6 @@ export class PkSelectComponent implements ControlValueAccessor {
       this.isOpen.set(false);
       this.searchQuery.set('');
     }
-  }
-
-  onCheckboxClick(option: SelectOption, event: MouseEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    if (option.disabled) {
-      return;
-    }
-
-    this.selectOption(option);
   }
 
   private emitValue(): void {
