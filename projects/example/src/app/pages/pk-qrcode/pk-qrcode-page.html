@@ -8,7 +8,7 @@
     <h3>Example</h3>
     <div class="controls">
       <div class="control-row">
-        <label>Value</label>
+        <label>Value ({{value().length}})</label>
         <div class="pk-field" style="flex:1">
           <textarea class="pk-field__input" placeholder=" " rows="2" [value]="value()"
             (input)="value.set($any($event.target).value)"></textarea>

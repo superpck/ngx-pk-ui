@@ -4,6 +4,13 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.18.3] — 2026-06-12
+
+### Added
+- **pk-datepicker**: add `style` for addjust css e.g., [style]="'width: 100px'"
+
+---
+
 ## [2.18.2] — 2026-06-02
 
 ### Added

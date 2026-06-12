@@ -1,5 +1,5 @@
-<div class="datepicker-container" [class.datepicker-container--open]="isOpen">
-  <input type="text" [value]="formattedDate" [disabled]="disabled" [style]="style"
+<div class="datepicker-container" [class.datepicker-container--open]="isOpen" [style]="style">
+  <input type="text" [value]="formattedDate" [disabled]="disabled"
     [placeholder]="inputPlaceholder"
     [title]="inputPlaceholder"
     (click)="togglePicker($event)" class="datepicker-input" [readonly]="!dateInput" (change)="onChangeDate($event)" />

@@ -8,7 +8,7 @@
     <h2>Basic — with min/max range</h2>
     <div class="demo-row" style="gap: 16px; align-items: center;">
       <pk-datepicker [(ngModel)]="dateValue" locale="en" startOfWeek="sunday" [setNull]="true" [dateInput]="true" [minDate]="minDate"
-        [maxDate]="maxDate" [style]="'width: 200px; height: 35px;'" placeholder="Select Date"
+        [maxDate]="maxDate" [style]="'width: 140px; height: 35px;'" placeholder="Select Date"
         (onDateChange)="onDateChange($event)"></pk-datepicker>
 
       <div class="result-box" style="margin-top:0; min-width: 280px;">
@@ -26,7 +26,7 @@
       @for (item of localeShowcase; track item.locale) {
         <div style="display: flex; flex-direction: column; gap: 6px;">
           <span style="font-size: 13px; color: #6b7280;">{{ item.label }}</span>
-          <pk-datepicker [(ngModel)]="localeDate" [locale]="item.locale" [style]="'width: 190px'"></pk-datepicker>
+          <pk-datepicker [(ngModel)]="localeDate" [locale]="item.locale" [style]="'width: 110px'"></pk-datepicker>
         </div>
       }
     </div>
@@ -37,11 +37,11 @@
     <div class="demo-row" style="gap: 24px; align-items: flex-start;">
       <div style="display: flex; flex-direction: column; gap: 6px;">
         <span style="font-size: 13px; color: #6b7280;">startOfWeek="monday" (default)</span>
-        <pk-datepicker [(ngModel)]="localeDate" locale="en" startOfWeek="monday" [style]="'width: 190px'"></pk-datepicker>
+        <pk-datepicker [(ngModel)]="localeDate" locale="en" startOfWeek="monday" [style]="'width: 140px'"></pk-datepicker>
       </div>
       <div style="display: flex; flex-direction: column; gap: 6px;">
         <span style="font-size: 13px; color: #6b7280;">startOfWeek="sunday"</span>
-        <pk-datepicker [(ngModel)]="localeDate" locale="en" startOfWeek="sunday" [style]="'width: 190px'"></pk-datepicker>
+        <pk-datepicker [(ngModel)]="localeDate" locale="en" startOfWeek="sunday" [style]="'width: 140px'"></pk-datepicker>
       </div>
     </div>
   </section>
@@ -127,7 +127,7 @@
         <td><code>style</code></td>
         <td><code>string | null</code></td>
         <td><code>null</code></td>
-        <td>Inline style string for input width/layout</td>
+        <td>Inline style string for input width/layout, e.g., <code>[style]="'width: 100px'"</code></td>
       </tr>
       <tr>
         <td><code>(onDateChange)</code></td>
