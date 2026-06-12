@@ -4,6 +4,15 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [2.18.4] — 2026-06-12
+
+### Fixed
+- **pk-datepicker**: `[style]` now controls both `width` and `height` — style string is applied to the `<input>` element directly (inline style), overriding the default `height: 35px` in SCSS. e.g. `[style]="'width: 160px; height: 28px'"`
+- **pk-select**: `[customStyle]` now correctly controls `height` — added `box-sizing: border-box` to `.pk-select-trigger` so the specified height is the total height (border + padding included). e.g. `[customStyle]="{ width: '240px', height: '40px' }"`
+- **pk-select**: checkbox in `mode="multi"` not updating visually — changed from `(click)` + `preventDefault()` to `(change)` event, and replaced `isSelected()` method with a `selectedValuesSet = computed(() => new Set(...))` signal for reliable reactivity in all change-detection strategies (including OnPush and zoneless)
+
+---
+
 ## [2.18.3] — 2026-06-12
 
 ### Added

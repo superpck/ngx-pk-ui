@@ -12,7 +12,7 @@ import {
   templateUrl: './pk-select-page.html',
 })
 export class PkSelectPage {
-  mode = signal<SelectMode>('single');
+  mode = signal<SelectMode>('multi');
   searchable = signal(true);
   disabled = signal(false);
 

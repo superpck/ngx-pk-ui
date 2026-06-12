@@ -2,7 +2,7 @@
   <input type="text" [value]="formattedDate" [disabled]="disabled"
     [placeholder]="inputPlaceholder"
     [title]="inputPlaceholder"
-    (click)="togglePicker($event)" class="datepicker-input" [readonly]="!dateInput" (change)="onChangeDate($event)" />
+    (click)="togglePicker($event)" class="datepicker-input" [style]="style" [readonly]="!dateInput" (change)="onChangeDate($event)" />
   @if (isOpen) {
     <div class="datepicker-dropdown" [ngStyle]="dropdownStyles">
       <div class="calendar">

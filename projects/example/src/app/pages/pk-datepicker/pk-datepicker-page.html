@@ -33,6 +33,24 @@
   </section>
 
   <section class="demo-section">
+    <h2>Custom width &amp; height</h2>
+    <div class="demo-row" style="gap: 20px; align-items: center; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: 13px; color: #6b7280;">width: 120px, height: 28px</span>
+        <pk-datepicker [(ngModel)]="localeDate" locale="en" [style]="'width: 120px; height: 28px'"></pk-datepicker>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: 13px; color: #6b7280;">width: 160px, height: 35px (default)</span>
+        <pk-datepicker [(ngModel)]="localeDate" locale="en" [style]="'width: 160px; height: 35px'"></pk-datepicker>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: 13px; color: #6b7280;">width: 200px, height: 44px</span>
+        <pk-datepicker [(ngModel)]="localeDate" locale="en" [style]="'width: 200px; height: 44px'"></pk-datepicker>
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section">
     <h2>Start of week</h2>
     <div class="demo-row" style="gap: 24px; align-items: flex-start;">
       <div style="display: flex; flex-direction: column; gap: 6px;">
@@ -127,7 +145,7 @@
         <td><code>style</code></td>
         <td><code>string | null</code></td>
         <td><code>null</code></td>
-        <td>Inline style string for input width/layout, e.g., <code>[style]="'width: 100px'"</code></td>
+        <td>Inline style string applied to both the container and input — controls width and height, e.g., <code>[style]="'width: 160px; height: 35px'"</code></td>
       </tr>
       <tr>
         <td><code>(onDateChange)</code></td>
