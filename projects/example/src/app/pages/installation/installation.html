@@ -2,7 +2,8 @@
 
   <div class="demo-page-header">
     <h1 class="demo-page-title">Installation</h1>
-    <p class="demo-page-desc">Get started with ngx-pk-ui in your Angular {{angularVersion.major}} project in four steps.</p>
+    <p class="demo-page-desc">Get started with ngx-pk-ui in your Angular {{angularVersion.major}} project in four steps.
+    </p>
   </div>
 
   <!-- Step 1 -->
@@ -15,14 +16,25 @@
   <section class="demo-section">
     <h2>2. Add global styles</h2>
     <p style="margin-bottom:12px;font-size:14px;color:#555;">
-      Add one stylesheet entry to your <code>angular.json</code> to load all components' styles and CSS utilities at once.
+      Add one stylesheet entry to your <code>angular.json</code> to load all components' styles and CSS utilities at
+      once.
     </p>
     <pre class="code-block"><code>"styles": [
+  ...,
   "node_modules/ngx-pk-ui/styles/pk-ui.css"
+]</code></pre>
+    <p style="margin-bottom:12px;font-size:14px;color:#555;">
+      if you need to use the English/Thai/Lao google fonts (pk-font-..), add <code>pk-font.css</code> as well:
+    </p>
+    <pre class="code-block"><code>"styles": [
+  ...,
+  "node_modules/ngx-pk-ui/styles/pk-ui.css",
+  "node_modules/ngx-pk-ui/styles/pk-font.css"
 ]</code></pre>
 
     <p style="margin-top:16px;margin-bottom:8px;font-size:14px;color:#555;">Or import in your global CSS file:</p>
-    <pre class="code-block"><code>@import 'ngx-pk-ui/styles/pk-ui.css';</code></pre>
+    <pre class="code-block"><code>@import 'ngx-pk-ui/styles/pk-ui.css';
+@import 'ngx-pk-ui/styles/pk-font.css';</code></pre>
 
     <p style="margin-top:16px;margin-bottom:8px;font-size:14px;color:#555;">
       You can also import individual modules instead of the full bundle:
@@ -31,7 +43,8 @@
 @import 'ngx-pk-ui/styles/pk-btn.css';
 @import 'ngx-pk-ui/styles/pk-table.css';</code></pre>
 
-    <div style="margin-top:16px;padding:12px 16px;background:#fff8e1;border:1px solid #ffe082;border-radius:6px;font-size:13px;color:#795548;">
+    <div
+      style="margin-top:16px;padding:12px 16px;background:#fff8e1;border:1px solid #ffe082;border-radius:6px;font-size:13px;color:#795548;">
       <strong>Note:</strong> <code>pk-font.css</code> (Thai/Lao Google Fonts) is <strong>not</strong> included in
       <code>pk-ui.css</code> — import it separately if needed:
       <code style="display:block;margin-top:6px;">@import 'ngx-pk-ui/styles/pk-font.css';</code>
@@ -56,7 +69,8 @@
 &#125;)
 export class AppComponent &#123; &#125;</code></pre>
 
-    <div style="margin-top:16px;padding:12px 16px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;font-size:13px;color:#2e7d32;">
+    <div
+      style="margin-top:16px;padding:12px 16px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:6px;font-size:13px;color:#2e7d32;">
       <strong>Tip:</strong> <code>pk-toastr</code> and <code>pk-alert</code> self-mount into
       <code>&lt;body&gt;</code> automatically when their service is first injected — no template tag required.
       Add them to <code>AppComponent</code> once, or skip the tag entirely.
@@ -90,7 +104,8 @@ export class MyComponent &#123;
   <section class="demo-section">
     <h2>NgModule-based components</h2>
     <p style="margin-bottom:12px;font-size:14px;color:#555;">
-      A few components use NgModule pattern for internal complexity. Import their module instead of the component directly.
+      A few components use NgModule pattern for internal complexity. Import their module instead of the component
+      directly.
     </p>
     <table style="width:100%;font-size:13px;border-collapse:collapse;">
       <thead>
@@ -102,19 +117,23 @@ export class MyComponent &#123;
       <tbody>
         <tr>
           <td style="padding:7px 12px;border:1px solid #e0e0e0;"><code>PkTabsModule</code></td>
-          <td style="padding:7px 12px;border:1px solid #e0e0e0;"><code>import &#123; PkTabsModule &#125; from 'ngx-pk-ui'</code></td>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">
+            <code>import &#123; PkTabsModule &#125; from 'ngx-pk-ui'</code></td>
         </tr>
         <tr>
           <td style="padding:7px 12px;border:1px solid #e0e0e0;"><code>PkDatagridModule</code></td>
-          <td style="padding:7px 12px;border:1px solid #e0e0e0;"><code>import &#123; PkDatagridModule &#125; from 'ngx-pk-ui'</code></td>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">
+            <code>import &#123; PkDatagridModule &#125; from 'ngx-pk-ui'</code></td>
         </tr>
         <tr>
           <td style="padding:7px 12px;border:1px solid #e0e0e0;"><code>PkTreeviewModule</code></td>
-          <td style="padding:7px 12px;border:1px solid #e0e0e0;"><code>import &#123; PkTreeviewModule &#125; from 'ngx-pk-ui'</code></td>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">
+            <code>import &#123; PkTreeviewModule &#125; from 'ngx-pk-ui'</code></td>
         </tr>
         <tr>
           <td style="padding:7px 12px;border:1px solid #e0e0e0;"><code>PkModalModule</code></td>
-          <td style="padding:7px 12px;border:1px solid #e0e0e0;"><code>import &#123; PkModalModule &#125; from 'ngx-pk-ui'</code> (or standalone slots)</td>
+          <td style="padding:7px 12px;border:1px solid #e0e0e0;">
+            <code>import &#123; PkModalModule &#125; from 'ngx-pk-ui'</code> (or standalone slots)</td>
         </tr>
       </tbody>
     </table>
