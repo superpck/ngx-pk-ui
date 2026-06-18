@@ -2,26 +2,14 @@
 // Returns a boolean[][] matrix (true = dark module)
 
 import type { PkQrEcLevel, PkQrMode } from './pk-qrcode.model';
-import { QR_BYTE_CAPACITY, QR_ALIGNMENT, QR_REMAINDER, getEcParams } from './pk-qrcode-tables';
+import { QR_ALIGNMENT, QR_REMAINDER, getEcParams } from './pk-qrcode-tables';
 import { rsEncode } from './pk-qrcode-rs';
-
-const EC_IDX = { L: 0, M: 1, Q: 2, H: 3 } as const;
 
 // ─── Mode detection ───────────────────────────────────────────────────────────
 function detectMode(text: string): PkQrMode {
   if (/^\d+$/.test(text)) return 'numeric';
   if (/^[0-9A-Z $%*+\-./:]+$/.test(text)) return 'alphanumeric';
   return 'byte';
-}
-
-// ─── Version selection ────────────────────────────────────────────────────────
-function selectVersion(text: string, ecLevel: PkQrEcLevel): number {
-  const idx = EC_IDX[ecLevel];
-  const byteLen = new TextEncoder().encode(text).length;
-  for (let v = 1; v <= 40; v++) {
-    if (QR_BYTE_CAPACITY[v - 1][idx] >= byteLen) return v;
-  }
-  throw new Error('QR Code: data too long (max 2953 bytes for version 40-L)');
 }
 
 // ─── Bit stream helpers ───────────────────────────────────────────────────────
@@ -56,6 +44,28 @@ const MODE_IND: Record<PkQrMode, number> = { numeric: 1, alphanumeric: 2, byte: 
 function ccLen(mode: PkQrMode, version: number): number {
   const idx = version <= 9 ? 0 : version <= 26 ? 1 : 2;
   return CC_LEN[mode][idx];
+}
+
+// ─── Version selection ────────────────────────────────────────────────────────
+function bitsNeeded(text: string, mode: PkQrMode, version: number): number {
+  const len = text.length;
+  let dataBits = 0;
+  if (mode === 'numeric') {
+    dataBits = Math.floor(len / 3) * 10 + (len % 3 === 2 ? 7 : 0) + (len % 3 === 1 ? 4 : 0);
+  } else if (mode === 'alphanumeric') {
+    dataBits = Math.floor(len / 2) * 11 + (len % 2 ? 6 : 0);
+  } else {
+    dataBits = new TextEncoder().encode(text).length * 8;
+  }
+  return 4 + ccLen(mode, version) + dataBits;
+}
+
+function selectVersion(text: string, mode: PkQrMode, ecLevel: PkQrEcLevel): number {
+  for (let v = 1; v <= 40; v++) {
+    const available = getEcParams(v, ecLevel).total * 8;
+    if (available >= bitsNeeded(text, mode, v)) return v;
+  }
+  throw new Error('QR Code: data too long (max ~7089 numeric / ~4296 alphanumeric / 2953 bytes for version 40-L)');
 }
 
 function encodeData(text: string, mode: PkQrMode, version: number, ecLevel: PkQrEcLevel): number[] {
@@ -354,9 +364,9 @@ function placeVersionInfo(m: boolean[][], size: number, version: number): void {
 
 // ─── Main encode function ─────────────────────────────────────────────────────
 export function encodeQr(text: string, ecLevel: PkQrEcLevel): boolean[][] {
-  const version = selectVersion(text, ecLevel);
-  const size = version * 4 + 17;
   const mode = detectMode(text);
+  const version = selectVersion(text, mode, ecLevel);
+  const size = version * 4 + 17;
 
   // Encode data
   const dataBytes = encodeData(text, mode, version, ecLevel);
