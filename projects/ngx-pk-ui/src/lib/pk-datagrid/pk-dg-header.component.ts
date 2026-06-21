@@ -1,9 +1,10 @@
-import { Component, Input, ElementRef, AfterContentInit } from '@angular/core';
+import { Component, Input, ElementRef, AfterContentInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'pk-dg-header',
   template: '<ng-content></ng-content>',
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     'style': 'display: none'
   }

@@ -1,10 +1,11 @@
-import { Component, TemplateRef, ViewChild, Host, Optional, OnInit } from '@angular/core';
+import { Component, TemplateRef, ViewChild, Host, Optional, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PkDgRowComponent } from './pk-dg-row.component';
 
 @Component({
   selector: 'pk-dg-row-expand',
   template: '<ng-content></ng-content>',
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     'style': 'display: contents'
   }

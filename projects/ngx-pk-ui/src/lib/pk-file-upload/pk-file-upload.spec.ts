@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { PkFileUpload } from './pk-file-upload';
 import type { PkUploadFile } from './pk-file-upload.model';
@@ -30,6 +30,7 @@ function addFiles(component: PkFileUpload, files: File[]): void {
 
 @Component({
   imports: [PkFileUpload],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <pk-file-upload
       #uploader

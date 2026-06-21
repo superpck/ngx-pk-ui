@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   PkClickOutsideDirective,
@@ -20,6 +20,7 @@ import {
     PkNumberOnlyDirective,
   ],
   templateUrl: './pk-directives-page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-directives-page.css',
 })
 export class PkDirectivesPage {

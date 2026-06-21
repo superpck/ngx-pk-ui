@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import {
   PK_ICONS,
@@ -28,6 +28,7 @@ import {
       <span [innerHTML]="svgHtml()"></span>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-icon.css',
 })
 export class PkIcon {

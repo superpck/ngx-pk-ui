@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { Component, computed, inject, input, OnDestroy, PLATFORM_ID, ChangeDetectionStrategy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { PkHeatmapCell, PkHeatmapColorScheme, PkHeatmapDay, PkHeatmapLocale } from './pk-heatmap.model';
 import { getPkLocaleData } from '../pk-locale/pk-locale.model';
@@ -12,6 +12,7 @@ function dateKey(d: Date): string {
   standalone: true,
   imports: [],
   templateUrl: './pk-heatmap.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-heatmap.css',
 })
 export class PkHeatmap implements OnDestroy {

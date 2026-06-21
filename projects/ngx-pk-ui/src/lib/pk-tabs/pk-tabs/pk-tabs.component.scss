@@ -1,3 +1,13 @@
+// ─── CSS Custom Properties (override at host level) ─────────────────────────
+// Consumer can set these on <pk-tabs> element or any ancestor:
+//   --pk-tabs-active-color   : active tab underline + text accent color
+//   --pk-tabs-active-bg      : active tab background tint
+//   --pk-tabs-hover-bg       : tab hover background
+//   --pk-tabs-header-bg      : header bar background
+//   --pk-tabs-header-border  : header bottom border color
+//   --pk-tabs-content-bg     : content area background
+// ─────────────────────────────────────────────────────────────────────────────
+
 .pk-tabs-container {
   display: flex;
   flex-direction: column;
@@ -9,8 +19,8 @@
 
 .pk-tabs-header {
   display: flex;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
+  background-color: var(--pk-tabs-header-bg, #f8f9fa);
+  border-bottom: 1px solid var(--pk-tabs-header-border, #dee2e6);
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   position: relative;
@@ -34,12 +44,12 @@
 }
 
 .pk-tab-caption-wrapper:hover {
-  background-color: rgba(0, 0, 0, 0.063);
+  background-color: var(--pk-tabs-hover-bg, rgba(0, 0, 0, 0.063));
 }
 
 .pk-tab-caption-wrapper.active {
-  background-color: #0066ff1e; /* อัปเดตตามคำขอ */
-  border-bottom: 3px solid #0d6efd; /* อัปเดตตามคำขอ */
+  background-color: var(--pk-tabs-active-bg, #0066ff1e);
+  border-bottom: 3px solid var(--pk-tabs-active-color, #0d6efd);
   font-weight: 500;
 }
 
@@ -50,7 +60,7 @@
 }
 
 .pk-tabs-content {
-  background-color: #ffffff;
+  background-color: var(--pk-tabs-content-bg, #ffffff);
   padding: 8px;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;

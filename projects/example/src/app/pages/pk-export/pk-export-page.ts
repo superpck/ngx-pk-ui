@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import {
   PkExportButton,
@@ -21,6 +21,7 @@ interface DemoRow {
   standalone: true,
   imports: [PkExportButton, DecimalPipe],
   templateUrl: './pk-export-page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-export-page.css',
 })
 export class PkExportPage {

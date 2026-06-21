@@ -10,6 +10,7 @@ import type { PkTimeFormat, PkTimeType } from './pk-timepicker.model';
   template: `
     <pk-timepicker
       [(ngModel)]="value"
+      inputType="spinner"
       [format]="format()"
       [type]="timeType()"
       [customClass]="customClass()"

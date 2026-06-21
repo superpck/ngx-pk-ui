@@ -1,4 +1,4 @@
-import { Component, signal, computed, ElementRef, viewChild, AfterViewChecked } from '@angular/core';
+import { Component, signal, computed, ElementRef, viewChild, AfterViewChecked, ChangeDetectionStrategy } from '@angular/core';
 import { PkSidenav, PkIcon, type PkSidenavGroup } from 'ngx-pk-ui';
 
 // ── Current user ──────────────────────────────────────────────────────────────
@@ -171,6 +171,7 @@ const CHAT_NAV_GROUPS: PkSidenavGroup[] = [
   standalone: true,
   imports: [PkSidenav, PkIcon],
   templateUrl: './chat-example.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './chat-example.css',
 })
 export class ChatExample implements AfterViewChecked {

@@ -1,4 +1,4 @@
-import { Component, signal, effect } from '@angular/core';
+import { Component, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { PkProgressComponent } from '../pk-progress.component';
 import { ProgressConfig } from '../pk-progress.interface';
 
@@ -55,6 +55,7 @@ import { ProgressConfig } from '../pk-progress.interface';
       </div>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
     .example-container {
       padding: 1rem;

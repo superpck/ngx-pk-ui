@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PkSelectComponent, SelectOption } from '../index';
 
 @Component({
   selector: 'pk-select-ngmodel-example',
   imports: [PkSelectComponent, FormsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div style="max-width: 400px;">
       <h4 style="margin-bottom: 12px;">Using ngModel (Single)</h4>

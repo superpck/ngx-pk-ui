@@ -1,10 +1,11 @@
-import { Component, Input, Output, EventEmitter, OnInit, ContentChild, AfterContentInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ContentChild, AfterContentInit, ChangeDetectionStrategy } from '@angular/core';
 import { PkDgPageSizeComponent } from './pk-dg-page-size.component';
 
 @Component({
   selector: 'pk-dg-pagination',
   templateUrl: './pk-dg-pagination.component.html',
   styleUrls: ['./pk-dg-pagination.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class PkDgPaginationComponent implements OnInit, AfterContentInit {

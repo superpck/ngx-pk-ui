@@ -1,5 +1,6 @@
 import {
   Component, computed, input, viewChild, ElementRef, PLATFORM_ID, inject,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import type { PkQrEcLevel } from './pk-qrcode.model';
@@ -10,6 +11,7 @@ import { encodeQr } from './pk-qrcode-encoder';
   standalone: true,
   imports: [],
   templateUrl: './pk-qrcode.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-qrcode.css',
 })
 export class PkQrcode {

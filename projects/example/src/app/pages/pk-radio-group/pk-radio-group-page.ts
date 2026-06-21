@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PkRadioGroup } from 'ngx-pk-ui';
 import type { PkRadioOption } from 'ngx-pk-ui';
@@ -6,6 +6,7 @@ import type { PkRadioOption } from 'ngx-pk-ui';
 @Component({
   selector: 'app-pk-radio-group-page',
   imports: [FormsModule, PkRadioGroup],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-radio-group-page.html',
 })
 export class PkRadioGroupPage {

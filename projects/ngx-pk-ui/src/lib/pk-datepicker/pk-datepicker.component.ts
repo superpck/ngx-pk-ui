@@ -23,7 +23,7 @@
     2. Holidays are displayed using data from mainService.getHoliday.
 */
 
-import { Component, Input, Output, EventEmitter, forwardRef, OnInit, HostListener, ElementRef, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef, OnInit, HostListener, ElementRef, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -80,6 +80,7 @@ interface Holiday {
       multi: true
     }
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
 })
 export class PkDatepickerComponent implements ControlValueAccessor, OnInit, OnDestroy {

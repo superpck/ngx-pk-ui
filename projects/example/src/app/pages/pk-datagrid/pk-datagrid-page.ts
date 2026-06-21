@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { PkDatagridModule, PkIcon, PkTooltip, PkExportButton } from 'ngx-pk-ui';
@@ -26,6 +26,7 @@ interface UserRow {
     PkDatagridModule, PkIcon,
     PkTooltip, DatePipe, PkExportButton
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-datagrid-page.html',
 })
 export class PkDatagridPage implements OnInit {

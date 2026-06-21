@@ -7,6 +7,7 @@ import {
   output,
   signal,
   viewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import type { PkFileUploadPreviewSize, PkUploadFile } from './pk-file-upload.model';
 
@@ -41,6 +42,7 @@ function iconForFile(file: File): string {
   selector: 'pk-file-upload',
   imports: [],
   templateUrl: './pk-file-upload.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-file-upload.css',
 })
 export class PkFileUpload implements OnDestroy {

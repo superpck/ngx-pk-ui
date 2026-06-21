@@ -1,4 +1,4 @@
-import { Component, input, output, signal, computed, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, input, output, signal, computed, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgStyle } from '@angular/common';
 import type { PkCalendarEvent, PkCalendarAttachment, PkEventType, PkEventPriority } from './pk-calendar.model';
@@ -27,6 +27,7 @@ const PRESET_COLORS = [
   standalone: true,
   imports: [FormsModule, NgStyle],
   templateUrl: './pk-calendar-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-calendar-form.css',
 })
 export class PkCalendarForm implements OnChanges {

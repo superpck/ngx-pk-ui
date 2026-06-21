@@ -1,6 +1,7 @@
 import {
   Component, Input, Output, EventEmitter,
-  OnChanges, SimpleChanges
+  OnChanges, SimpleChanges,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
@@ -85,6 +86,7 @@ import { TreeNode, TreeSelectionMode } from './pk-treeview.model';
       }
     </ul>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     styles: [`
     .pk-tree-list { list-style: none; margin: 0; padding: 0; }
     .pk-tree-item { margin: 0; }

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { PkCodeReader } from 'ngx-pk-ui';
 import type { PkCodeFormat, PkCodeScanResult, PkCodeReaderError } from 'ngx-pk-ui';
 
@@ -7,6 +7,7 @@ import type { PkCodeFormat, PkCodeScanResult, PkCodeReaderError } from 'ngx-pk-u
   standalone: true,
   imports: [PkCodeReader],
   templateUrl: './pk-code-reader-page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-code-reader-page.css',
 })
 export class PkCodeReaderPage {

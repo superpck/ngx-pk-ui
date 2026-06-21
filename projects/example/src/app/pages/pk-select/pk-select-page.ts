@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   PkSelectComponent,
@@ -9,6 +9,7 @@ import {
 @Component({
   selector: 'app-pk-select-page',
   imports: [FormsModule, PkSelectComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-select-page.html',
 })
 export class PkSelectPage {

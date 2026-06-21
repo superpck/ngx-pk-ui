@@ -1,10 +1,11 @@
-import { Component, ContentChildren, QueryList, AfterContentInit, Input, ElementRef, Renderer2, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, ContentChildren, QueryList, AfterContentInit, Input, ElementRef, Renderer2, AfterViewInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { PkTabComponent } from '../pk-tab/pk-tab.component';
 
 @Component({
   selector: 'pk-tabs',
   standalone: false,
   templateUrl: './pk-tabs.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./pk-tabs.component.scss']
 })
 export class PkTabsComponent implements AfterContentInit, AfterViewInit {
@@ -13,7 +14,25 @@ export class PkTabsComponent implements AfterContentInit, AfterViewInit {
   @Input() customClass: string = '';
   @Input() style: string = '';
   @Input() overflow: 'scrollx' | 'newline' = 'scrollx';
+  /**
+   * Shortcut to set the active-tab accent color via CSS custom properties.
+   * Accepts any valid CSS color string (e.g. '#e53935', 'rgb(229,57,53)', 'teal').
+   * Setting this automatically derives a 12%-opacity tint for the active background.
+   * For full control, set --pk-tabs-active-color / --pk-tabs-active-bg on the host element instead.
+   */
+  @Input() activeColor: string = '';
   @Output() onSelectTab = new EventEmitter<number>();
+
+  /** Merges activeColor shortcut into customStyle so the CSS variables are injected inline. */
+  get resolvedStyle(): { [key: string]: any } {
+    if (!this.activeColor) return this.customStyle;
+    return {
+      '--pk-tabs-active-color': this.activeColor,
+      '--pk-tabs-active-bg': this.activeColor + '1f', // ~12% opacity hex suffix
+      '--pk-tabs-hover-bg': this.activeColor + '14',  // ~8% opacity hex suffix
+      ...this.customStyle
+    };
+  }
 
   private resizeObserver: ResizeObserver | null = null;
   private debounceResize: any;

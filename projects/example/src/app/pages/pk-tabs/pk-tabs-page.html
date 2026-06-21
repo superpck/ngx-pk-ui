@@ -1,7 +1,9 @@
 <div class="demo-page">
   <div class="demo-page-header">
     <h1 class="demo-page-title">pk-tabs</h1>
-    <p class="demo-page-desc">Tabbed navigation using NgModule with content projection via <code>pk-tab-title</code> and <code>pk-tab-body</code>.</p>
+    <p class="demo-page-desc">Tabbed navigation using NgModule with content projection via <code>pk-tab-title</code> and
+      <code>pk-tab-body</code>.
+    </p>
   </div>
 
   <section class="demo-section">
@@ -39,31 +41,45 @@
     <pk-tabs>
       <pk-tab>
         <pk-tab-title>First</pk-tab-title>
-        <pk-tab-body><p>First tab content.</p></pk-tab-body>
+        <pk-tab-body>
+          <p>First tab content.</p>
+        </pk-tab-body>
       </pk-tab>
       <pk-tab [active]="true">
         <pk-tab-title>Second (active)</pk-tab-title>
-        <pk-tab-body><p>Second tab — opened by default via <code>[active]="true"</code>.</p></pk-tab-body>
+        <pk-tab-body>
+          <p>Second tab — opened by default via <code>[active]="true"</code>.</p>
+        </pk-tab-body>
       </pk-tab>
       <pk-tab>
         <pk-tab-title>Third</pk-tab-title>
-        <pk-tab-body><p>Third tab content.</p></pk-tab-body>
+        <pk-tab-body>
+          <p>Third tab content.</p>
+        </pk-tab-body>
       </pk-tab>
       <pk-tab>
         <pk-tab-title>Fourth</pk-tab-title>
-        <pk-tab-body><p>Fourth tab content.</p></pk-tab-body>
+        <pk-tab-body>
+          <p>Fourth tab content.</p>
+        </pk-tab-body>
       </pk-tab>
       <pk-tab>
         <pk-tab-title>Fifth</pk-tab-title>
-        <pk-tab-body><p>Fifth tab content.</p></pk-tab-body>
+        <pk-tab-body>
+          <p>Fifth tab content.</p>
+        </pk-tab-body>
       </pk-tab>
       <pk-tab>
         <pk-tab-title>Sixth</pk-tab-title>
-        <pk-tab-body><p>Sixth tab content.</p></pk-tab-body>
+        <pk-tab-body>
+          <p>Sixth tab content.</p>
+        </pk-tab-body>
       </pk-tab>
       <pk-tab>
         <pk-tab-title>Seventh</pk-tab-title>
-        <pk-tab-body><p>Seventh tab content.</p></pk-tab-body>
+        <pk-tab-body>
+          <p>Seventh tab content.</p>
+        </pk-tab-body>
       </pk-tab>
     </pk-tabs>
   </section>
@@ -73,39 +89,178 @@
     <pk-tabs overflow="newline">
       <pk-tab [active]="true">
         <pk-tab-title>Tab One</pk-tab-title>
-        <pk-tab-body><p>Content for tab one.</p></pk-tab-body>
+        <pk-tab-body>
+          <p>Content for tab one.</p>
+        </pk-tab-body>
       </pk-tab>
       <pk-tab>
         <pk-tab-title>Tab Two</pk-tab-title>
-        <pk-tab-body><p>Content for tab two.</p></pk-tab-body>
+        <pk-tab-body>
+          <p>Content for tab two.</p>
+        </pk-tab-body>
       </pk-tab>
       <pk-tab>
         <pk-tab-title>Tab Three</pk-tab-title>
-        <pk-tab-body><p>Content for tab three.</p></pk-tab-body>
+        <pk-tab-body>
+          <p>Content for tab three.</p>
+        </pk-tab-body>
       </pk-tab>
       <pk-tab>
         <pk-tab-title>Tab Four</pk-tab-title>
-        <pk-tab-body><p>Content for tab four.</p></pk-tab-body>
+        <pk-tab-body>
+          <p>Content for tab four.</p>
+        </pk-tab-body>
       </pk-tab>
       <pk-tab>
         <pk-tab-title>Tab Five</pk-tab-title>
-        <pk-tab-body><p>Content for tab five.</p></pk-tab-body>
+        <pk-tab-body>
+          <p>Content for tab five.</p>
+        </pk-tab-body>
       </pk-tab>
       <pk-tab>
         <pk-tab-title>Tab Six</pk-tab-title>
-        <pk-tab-body><p>Content for tab six.</p></pk-tab-body>
+        <pk-tab-body>
+          <p>Content for tab six.</p>
+        </pk-tab-body>
       </pk-tab>
     </pk-tabs>
   </section>
 
   <section class="demo-section">
-    <h2>Installation</h2>
-    <pre class="code-block"><code>import {{ '{' }} PkTabsModule {{ '}' }} from 'ngx-pk-ui';
+    <h2>Demo — Color Theming via <code>activeColor</code></h2>
+    <p class="demo-note">Use the <code>activeColor</code> input as the simplest way to apply your app's brand color.</p>
 
-&#64;Component({{ '{' }}
+    <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:16px;">
+
+      <div style="flex:1; min-width:260px;">
+        <p style="margin-bottom:6px; font-size:13px; color:#666;">Green (#16a34a)</p>
+        <pk-tabs activeColor="#16a34a">
+          <pk-tab [active]="true">
+            <pk-tab-title>Dashboard</pk-tab-title>
+            <pk-tab-body>
+              <p>📊 Dashboard content.</p>
+            </pk-tab-body>
+          </pk-tab>
+          <pk-tab>
+            <pk-tab-title>Reports</pk-tab-title>
+            <pk-tab-body>
+              <p>📈 Reports content.</p>
+            </pk-tab-body>
+          </pk-tab>
+          <pk-tab>
+            <pk-tab-title>Settings</pk-tab-title>
+            <pk-tab-body>
+              <p>⚙️ Settings content.</p>
+            </pk-tab-body>
+          </pk-tab>
+        </pk-tabs>
+      </div>
+
+      <div style="flex:1; min-width:260px;">
+        <p style="margin-bottom:6px; font-size:13px; color:#666;">Red (#e53935)</p>
+        <pk-tabs activeColor="#e53935">
+          <pk-tab [active]="true">
+            <pk-tab-title>Alerts</pk-tab-title>
+            <pk-tab-body>
+              <p>🚨 Alerts content.</p>
+            </pk-tab-body>
+          </pk-tab>
+          <pk-tab>
+            <pk-tab-title>Logs</pk-tab-title>
+            <pk-tab-body>
+              <p>📋 Logs content.</p>
+            </pk-tab-body>
+          </pk-tab>
+          <pk-tab>
+            <pk-tab-title>History</pk-tab-title>
+            <pk-tab-body>
+              <p>🕑 History content.</p>
+            </pk-tab-body>
+          </pk-tab>
+        </pk-tabs>
+      </div>
+
+      <div style="flex:1; min-width:260px;">
+        <p style="margin-bottom:6px; font-size:13px; color:#666;">Purple (#7c3aed)</p>
+        <pk-tabs activeColor="#7c3aed">
+          <pk-tab [active]="true">
+            <pk-tab-title>Overview</pk-tab-title>
+            <pk-tab-body>
+              <p>🔮 Overview content.</p>
+            </pk-tab-body>
+          </pk-tab>
+          <pk-tab>
+            <pk-tab-title>Details</pk-tab-title>
+            <pk-tab-body>
+              <p>📝 Details content.</p>
+            </pk-tab-body>
+          </pk-tab>
+          <pk-tab>
+            <pk-tab-title>Export</pk-tab-title>
+            <pk-tab-body>
+              <p>⬇️ Export content.</p>
+            </pk-tab-body>
+          </pk-tab>
+        </pk-tabs>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>Demo — Color Theming via CSS Variables</h2>
+    <p class="demo-note">For full control set <code>--pk-tabs-*</code> CSS variables on the element, a parent, or in
+      your global stylesheet. CSS variables pierce Angular's view encapsulation.</p>
+
+    <pk-tabs
+      [customStyle]="{'--pk-tabs-active-color': '#0f766e', '--pk-tabs-active-bg': '#ccfbf1', '--pk-tabs-header-bg': '#f0fdfa', '--pk-tabs-content-bg': '#f8fffd'}">
+      <pk-tab [active]="true">
+        <pk-tab-title>Teal Theme</pk-tab-title>
+        <pk-tab-body>
+          <p>💎 Full CSS-variable control: header bg, active color, content bg.</p>
+        </pk-tab-body>
+      </pk-tab>
+      <pk-tab>
+        <pk-tab-title>Second</pk-tab-title>
+        <pk-tab-body>
+          <p>Content B.</p>
+        </pk-tab-body>
+      </pk-tab>
+      <pk-tab>
+        <pk-tab-title>Third</pk-tab-title>
+        <pk-tab-body>
+          <p>Content C.</p>
+        </pk-tab-body>
+      </pk-tab>
+    </pk-tabs>
+
+    <pre class="code-block"><code>&lt;!-- Method 1: inline style attribute --&gt;
+&lt;pk-tabs style="--pk-tabs-active-color: #0f766e; --pk-tabs-active-bg: #ccfbf1;"&gt; ... &lt;/pk-tabs&gt;
+
+&lt;!-- Method 2: [customStyle] object binding --&gt;
+&lt;pk-tabs [customStyle]="&#123; '--pk-tabs-active-color': '#0f766e', '--pk-tabs-active-bg': '#ccfbf1' &#125;"&gt;
+ ... 
+&lt;/pk-tabs&gt;
+
+&lt;!-- Method 3: global CSS / :root --&gt;
+pk-tabs &#123;
+  --pk-tabs-active-color: #0f766e;
+  --pk-tabs-active-bg: #ccfbf1;
+  --pk-tabs-hover-bg: #e0fdf4;
+  --pk-tabs-header-bg: #f0fdfa;
+  --pk-tabs-header-border: #99f6e4;
+  --pk-tabs-content-bg: #f8fffd;
+&#125;</code></pre>
+  </section>
+
+  <section class="demo-section">
+    <h2>Installation</h2>
+    <pre class="code-block"><code>import &#123; PkTabsModule &#125; from 'ngx-pk-ui';
+
+&#64;Component(&#123;
   imports: [PkTabsModule],
   // ...
-{{ '}' }})</code></pre>
+&#125;)</code></pre>
   </section>
 
   <section class="demo-section">
@@ -136,16 +291,94 @@
     <h2>API — <code>pk-tabs</code> (PkTabsComponent)</h2>
     <h3>Inputs</h3>
     <table class="api-table">
-      <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
-      <tr><td><code>overflow</code></td><td><code>'scrollx' | 'newline'</code></td><td><code>'scrollx'</code></td><td>Tab header overflow behavior — horizontal scroll or wrap to new line</td></tr>
-      <tr><td><code>customClass</code></td><td><code>string</code></td><td><code>''</code></td><td>Extra CSS class on the container element</td></tr>
-      <tr><td><code>customStyle</code></td><td><code>{{ '{' }} [key: string]: any {{ '}' }}</code></td><td><code>{{ '{' }}{{ '}' }}</code></td><td>Inline styles on the container element</td></tr>
-      <tr><td><code>style</code></td><td><code>string</code></td><td><code>''</code></td><td>Raw style string on the container and header</td></tr>
+      <tr>
+        <th>Input</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>overflow</code></td>
+        <td><code>'scrollx' | 'newline'</code></td>
+        <td><code>'scrollx'</code></td>
+        <td>Tab header overflow behavior — horizontal scroll or wrap to new line</td>
+      </tr>
+      <tr>
+        <td><code>activeColor</code></td>
+        <td><code>string</code></td>
+        <td><code>''</code></td>
+        <td>Shortcut to set active-tab accent color (any CSS color). Auto-derives hover and active-bg tints.</td>
+      </tr>
+      <tr>
+        <td><code>customClass</code></td>
+        <td><code>string</code></td>
+        <td><code>''</code></td>
+        <td>Extra CSS class on the container element</td>
+      </tr>
+      <tr>
+        <td><code>customStyle</code></td>
+        <td><code>&#123; [key: string]: any &#125;</code></td>
+        <td><code>&#123;&#125;</code></td>
+        <td>Inline styles on the container — also accepts <code>--pk-tabs-*</code> CSS variables for full color control
+        </td>
+      </tr>
+      <tr>
+        <td><code>style</code></td>
+        <td><code>string</code></td>
+        <td><code>''</code></td>
+        <td>Raw style string on the container and header</td>
+      </tr>
     </table>
     <h3>Outputs</h3>
     <table class="api-table">
-      <tr><th>Output</th><th>Emits</th><th>Description</th></tr>
-      <tr><td><code>(onSelectTab)</code></td><td><code>number</code></td><td>Emits the zero-based index of the newly selected tab</td></tr>
+      <tr>
+        <th>Output</th>
+        <th>Emits</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>(onSelectTab)</code></td>
+        <td><code>number</code></td>
+        <td>Emits the zero-based index of the newly selected tab</td>
+      </tr>
+    </table>
+    <h3>CSS Custom Properties</h3>
+    <table class="api-table">
+      <tr>
+        <th>Variable</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>--pk-tabs-active-color</code></td>
+        <td><code>#0d6efd</code></td>
+        <td>Active tab underline color</td>
+      </tr>
+      <tr>
+        <td><code>--pk-tabs-active-bg</code></td>
+        <td><code>#0066ff1e</code></td>
+        <td>Active tab background tint</td>
+      </tr>
+      <tr>
+        <td><code>--pk-tabs-hover-bg</code></td>
+        <td><code>rgba(0,0,0,0.063)</code></td>
+        <td>Tab hover background</td>
+      </tr>
+      <tr>
+        <td><code>--pk-tabs-header-bg</code></td>
+        <td><code>#f8f9fa</code></td>
+        <td>Tab header bar background</td>
+      </tr>
+      <tr>
+        <td><code>--pk-tabs-header-border</code></td>
+        <td><code>#dee2e6</code></td>
+        <td>Header bottom border color</td>
+      </tr>
+      <tr>
+        <td><code>--pk-tabs-content-bg</code></td>
+        <td><code>#ffffff</code></td>
+        <td>Content area background</td>
+      </tr>
     </table>
   </section>
 
@@ -153,29 +386,89 @@
     <h2>API — <code>pk-tab</code> (PkTabComponent)</h2>
     <h3>Inputs</h3>
     <table class="api-table">
-      <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
-      <tr><td><code>active</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Set this tab as the initially active tab</td></tr>
-      <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Prevent the tab from being selected</td></tr>
-      <tr><td><code>customClass</code></td><td><code>string</code></td><td><code>''</code></td><td>Extra CSS class on the tab panel</td></tr>
-      <tr><td><code>customStyle</code></td><td><code>{{ '{' }} [key: string]: any {{ '}' }}</code></td><td><code>{{ '{' }}{{ '}' }}</code></td><td>Inline styles on the tab panel</td></tr>
-      <tr><td><code>style</code></td><td><code>string</code></td><td><code>''</code></td><td>Raw style string on the tab panel</td></tr>
+      <tr>
+        <th>Input</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>active</code></td>
+        <td><code>boolean</code></td>
+        <td><code>false</code></td>
+        <td>Set this tab as the initially active tab</td>
+      </tr>
+      <tr>
+        <td><code>disabled</code></td>
+        <td><code>boolean</code></td>
+        <td><code>false</code></td>
+        <td>Prevent the tab from being selected</td>
+      </tr>
+      <tr>
+        <td><code>customClass</code></td>
+        <td><code>string</code></td>
+        <td><code>''</code></td>
+        <td>Extra CSS class on the tab panel</td>
+      </tr>
+      <tr>
+        <td><code>customStyle</code></td>
+        <td><code>&#123; [key: string]: any &#125;</code></td>
+        <td><code>&#123;&#125;</code></td>
+        <td>Inline styles on the tab panel</td>
+      </tr>
+      <tr>
+        <td><code>style</code></td>
+        <td><code>string</code></td>
+        <td><code>''</code></td>
+        <td>Raw style string on the tab panel</td>
+      </tr>
     </table>
-    <p class="demo-note">Content projection: place <code>&lt;pk-tab-title&gt;</code> and <code>&lt;pk-tab-body&gt;</code> inside <code>&lt;pk-tab&gt;</code>.</p>
+    <p class="demo-note">Content projection: place <code>&lt;pk-tab-title&gt;</code> and
+      <code>&lt;pk-tab-body&gt;</code> inside <code>&lt;pk-tab&gt;</code>.
+    </p>
   </section>
 
   <section class="demo-section">
     <h2>API — <code>pk-tab-title</code> (PkTabTitleComponent)</h2>
     <h3>Inputs</h3>
     <table class="api-table">
-      <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
-      <tr><td><code>customClass</code></td><td><code>string</code></td><td><code>''</code></td><td>Extra CSS class on the title element</td></tr>
-      <tr><td><code>customStyle</code></td><td><code>{{ '{' }} [key: string]: string {{ '}' }}</code></td><td><code>{{ '{' }}{{ '}' }}</code></td><td>Inline styles on the title element</td></tr>
-      <tr><td><code>style</code></td><td><code>string</code></td><td><code>''</code></td><td>Raw style string on the title element</td></tr>
+      <tr>
+        <th>Input</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>customClass</code></td>
+        <td><code>string</code></td>
+        <td><code>''</code></td>
+        <td>Extra CSS class on the title element</td>
+      </tr>
+      <tr>
+        <td><code>customStyle</code></td>
+        <td><code>&#123; [key: string]: string &#125;</code></td>
+        <td><code>&#123;&#125;</code></td>
+        <td>Inline styles on the title element</td>
+      </tr>
+      <tr>
+        <td><code>style</code></td>
+        <td><code>string</code></td>
+        <td><code>''</code></td>
+        <td>Raw style string on the title element</td>
+      </tr>
     </table>
     <h3>Outputs</h3>
     <table class="api-table">
-      <tr><th>Output</th><th>Emits</th><th>Description</th></tr>
-      <tr><td><code>(tabClick)</code></td><td><code>void</code></td><td>Emits when the title is clicked</td></tr>
+      <tr>
+        <th>Output</th>
+        <th>Emits</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>(tabClick)</code></td>
+        <td><code>void</code></td>
+        <td>Emits when the title is clicked</td>
+      </tr>
     </table>
   </section>
 
@@ -183,9 +476,24 @@
     <h2>API — <code>pk-tab-body</code> (PkTabBodyComponent)</h2>
     <h3>Inputs</h3>
     <table class="api-table">
-      <tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr>
-      <tr><td><code>customClass</code></td><td><code>string</code></td><td><code>''</code></td><td>Extra CSS class on the body element</td></tr>
-      <tr><td><code>customStyle</code></td><td><code>{{ '{' }} [key: string]: any {{ '}' }}</code></td><td><code>{{ '{' }}{{ '}' }}</code></td><td>Inline styles on the body element</td></tr>
+      <tr>
+        <th>Input</th>
+        <th>Type</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><code>customClass</code></td>
+        <td><code>string</code></td>
+        <td><code>''</code></td>
+        <td>Extra CSS class on the body element</td>
+      </tr>
+      <tr>
+        <td><code>customStyle</code></td>
+        <td><code>&#123; [key: string]: any &#125;</code></td>
+        <td><code>&#123;&#125;</code></td>
+        <td>Inline styles on the body element</td>
+      </tr>
     </table>
   </section>
 </div>

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PkTextarea } from './pk-textarea';
 import type { PkTextareaValue } from './pk-textarea.model';
@@ -7,6 +7,7 @@ import type { PkTextareaValue } from './pk-textarea.model';
 @Component({
   template: `<pk-textarea [(ngModel)]="value" />`,
   imports: [PkTextarea, FormsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 class TestHost {

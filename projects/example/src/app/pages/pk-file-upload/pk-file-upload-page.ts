@@ -1,9 +1,10 @@
-import { Component, signal, viewChild } from '@angular/core';
+import { Component, signal, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { PkFileUpload, type PkUploadFile } from 'ngx-pk-ui';
 
 @Component({
   selector: 'app-pk-file-upload-page',
   imports: [PkFileUpload],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-file-upload-page.html',
 })
 export class PkFileUploadPage {

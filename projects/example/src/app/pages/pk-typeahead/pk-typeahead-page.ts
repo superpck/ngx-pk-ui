@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PkTypeaheadComponent } from 'ngx-pk-ui';
 
 @Component({
   selector: 'app-pk-typeahead-page',
   imports: [FormsModule, PkTypeaheadComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-typeahead-page.html',
 })
 export class PkTypeaheadPage {

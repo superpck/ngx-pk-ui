@@ -1,9 +1,10 @@
-import { Component, signal, effect } from '@angular/core';
+import { Component, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { PkSelectComponent, SelectOption } from '../index';
 
 @Component({
   selector: 'pk-select-data-example',
   imports: [PkSelectComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div style="max-width: 600px;">
       <h4 style="margin-bottom: 12px;">Loading Data from Table/API</h4>

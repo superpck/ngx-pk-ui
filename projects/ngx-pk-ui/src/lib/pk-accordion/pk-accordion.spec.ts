@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { PkAccordion } from './pk-accordion';
 import { PkAccordionItem } from './pk-accordion-item';
 
@@ -11,6 +11,7 @@ import { PkAccordionItem } from './pk-accordion-item';
       <pk-accordion-item label="Item 3" [disabled]="true">Content 3</pk-accordion-item>
     </pk-accordion>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [PkAccordion, PkAccordionItem],
 })
 class TestHostComponent {}
@@ -22,6 +23,7 @@ class TestHostComponent {}
       <pk-accordion-item label="B">Content B</pk-accordion-item>
     </pk-accordion>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [PkAccordion, PkAccordionItem],
 })
 class MultiHostComponent {}
@@ -33,6 +35,7 @@ class MultiHostComponent {}
       <pk-accordion-item label="Closed">World</pk-accordion-item>
     </pk-accordion>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [PkAccordion, PkAccordionItem],
 })
 class OpenHostComponent {}

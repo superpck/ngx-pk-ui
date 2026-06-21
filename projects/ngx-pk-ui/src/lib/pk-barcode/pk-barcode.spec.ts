@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { PkBarcode } from './pk-barcode';
 import type { PkBarcodeFormat } from './pk-barcode.model';
@@ -8,6 +8,7 @@ import { encodeBarcode } from './pk-barcode-encoder';
 
 @Component({
   template: `<pk-barcode [value]="value()" [format]="format()" [showText]="showText()" />`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [PkBarcode],
 })
 class TestHost {

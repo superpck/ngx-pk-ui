@@ -1,5 +1,6 @@
 import {
   Component, input, output, signal, computed, effect, OnChanges, SimpleChanges,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { PkCalendarForm } from './pk-calendar-form';
@@ -53,6 +54,7 @@ function diffDays(a: Date, b: Date): number {
   standalone: true,
   imports: [NgStyle, PkCalendarForm],
   templateUrl: './pk-calendar.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-calendar.css',
 })
 export class PkCalendar implements OnChanges {

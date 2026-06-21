@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { PkCalendar } from 'ngx-pk-ui';
 import type { PkCalendarEvent, PkCalendarView, PkEventMoveResult } from 'ngx-pk-ui';
 import type { PkLocale } from 'ngx-pk-ui';
@@ -113,6 +113,7 @@ const SAMPLE_EVENTS: PkCalendarEvent[] = [
   selector: 'pk-calendar-page',
   standalone: true,
   imports: [PkCalendar],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-calendar-page.html',
 })
 export class PkCalendarPage {

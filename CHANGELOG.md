@@ -4,6 +4,18 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [3.0.0] — 2026-06-21
+
+### Changed
+- **Angular 22**: migrated from Angular 21 to Angular 22 (major version bump)
+  - Updated all `@angular/*` dependencies to `^22.0.0`
+  - `peerDependencies` updated to `@angular/common ^22.0.0` / `@angular/core ^22.0.0`
+  - Applied `ChangeDetectionStrategy.Eager` across all library components via `ng update` schematics
+  - All 433 Vitest unit tests passing under the new engine
+- **Security**: resolved all `npm audit` vulnerabilities via `overrides` for `esbuild`, `piscina`, and `@babel/core`
+
+---
+
 ## [2.18.4] — 2026-06-12
 
 ### Fixed

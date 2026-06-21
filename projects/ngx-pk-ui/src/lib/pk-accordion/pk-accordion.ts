@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, contentChildren, input } from '@angular/core';
+import { AfterContentInit, Component, contentChildren, input, ChangeDetectionStrategy } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { PkAccordionItem } from './pk-accordion-item';
 
@@ -6,6 +6,7 @@ import { PkAccordionItem } from './pk-accordion-item';
   selector: 'pk-accordion',
   imports: [NgTemplateOutlet],
   templateUrl: './pk-accordion.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-accordion.css',
 })
 export class PkAccordion implements AfterContentInit {

@@ -1,5 +1,6 @@
 import {
   Component, computed, input, viewChild, ElementRef, PLATFORM_ID, inject,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import type { PkBarcodeFormat } from './pk-barcode.model';
@@ -12,6 +13,7 @@ interface Rect { x: number; y: number; w: number; h: number; }
   standalone: true,
   imports: [],
   templateUrl: './pk-barcode.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-barcode.css',
 })
 export class PkBarcode {

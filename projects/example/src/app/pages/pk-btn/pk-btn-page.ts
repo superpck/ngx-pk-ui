@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-pk-btn-page',
   imports: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-btn-page.html',
 })
 export class PkBtnPage {

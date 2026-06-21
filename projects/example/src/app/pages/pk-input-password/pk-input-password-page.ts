@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PkInputPassword } from 'ngx-pk-ui';
 
 @Component({
   selector: 'app-pk-input-password-page',
   imports: [FormsModule, PkInputPassword],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-input-password-page.html',
 })
 export class PkInputPasswordPage {

@@ -10,6 +10,7 @@ import {
   output,
   signal,
   viewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import type { PkCodeFormat, PkCodeReaderError, PkCodeScanResult } from './pk-code-reader.model';
@@ -20,6 +21,7 @@ import jsQR from './vendor/jsqr/index';
   standalone: true,
   imports: [],
   templateUrl: './pk-code-reader.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-code-reader.css',
 })
 export class PkCodeReader implements AfterViewInit {

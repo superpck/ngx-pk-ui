@@ -1,6 +1,7 @@
 import {
   Component, input, output, signal, computed,
   viewChildren, ElementRef, effect, OnDestroy, forwardRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { PkOtpType, PkOtpSize } from './pk-otp.model';
@@ -11,6 +12,7 @@ import type { PkOtpType, PkOtpSize } from './pk-otp.model';
   imports: [],
   templateUrl: './pk-otp.html',
   styleUrl: './pk-otp.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => PkOtp),

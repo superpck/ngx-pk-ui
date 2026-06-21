@@ -5,6 +5,7 @@ import {
   input,
   output,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { PkExportFormat, PkCsvOptions, PkJsonOptions, PkXlsxOptions, PkXmlOptions, PkTextOptions, PkHtmlOptions, PkTsvOptions } from './pk-export.model';
@@ -15,6 +16,7 @@ import { PkExportService } from './pk-export.service';
   standalone: true,
   imports: [NgStyle],
   templateUrl: './pk-export-button.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-export-button.css',
 })
 export class PkExportButton {

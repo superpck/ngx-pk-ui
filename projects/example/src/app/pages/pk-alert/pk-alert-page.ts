@@ -1,9 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { PkAlertService } from 'ngx-pk-ui';
 
 @Component({
   selector: 'app-pk-alert-page',
   imports: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-alert-page.html',
 })
 export class PkAlertPage {

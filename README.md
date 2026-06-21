@@ -1,7 +1,7 @@
-# ngx-pk-ui 2.18.4
-An Angular 21 component library providing UI components and CSS utilities.
+# ngx-pk-ui 3.0.0
+An Angular 22 component library providing UI components and CSS utilities.
 
-- **Angular**: `^21.0.0`
+- **Angular**: `^22.0.0`
 - **Standalone components** · **Signals** · **Vitest**
 - **License**: MIT
 
@@ -11,13 +11,13 @@ See [CHANGELOG.md](CHANGELOG.md) for full version history.
 
 ## Angular Version Compatibility
 
-| Angular | Status | Notes |
-|---------|--------|-------|
-| 21 | ✅ Fully supported | Target version |
-| 20 | ⚠️ Likely works | peerDep warning — use `--legacy-peer-deps` |
-| 19 | ⚠️ Mostly works | peerDep warning; `provideBrowserGlobalErrorListeners` may be missing |
-| 17–18 | 🚧 Partial | `input()` / `contentChildren()` in developer preview only |
-| < 17 | ❌ Not supported | Signals not available |
+| ngx-pk-ui version | Angular version | Notes |
+|-------------------|-----------------|-------|
+| **v3.x**          | 22              | Fully supported |
+| **v2.x**          | 21              | Fully supported |
+| v2.x              | 20              | _Likely works (use `--legacy-peer-deps`)_ |
+| v2.x              | 19              | _Mostly works_ |
+| v2.x              | 17–18           | _Partial support_ |
 
 ## Demo & Usage
 

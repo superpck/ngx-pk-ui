@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   PK_ICONS,
   PkIcon,
@@ -62,6 +62,7 @@ const MATERIAL_ICON_GROUPS: MaterialIconGroup[] = [
 @Component({
   selector: 'app-pk-icon-page',
   imports: [PkIcon],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-icon-page.html',
 })
 export class PkIconPage {

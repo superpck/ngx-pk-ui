@@ -1,4 +1,4 @@
-import { Component, signal, viewChild } from '@angular/core';
+import { Component, signal, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { PkQrcode } from 'ngx-pk-ui';
 import type { PkQrEcLevel } from 'ngx-pk-ui';
 
@@ -7,6 +7,7 @@ import type { PkQrEcLevel } from 'ngx-pk-ui';
   standalone: true,
   imports: [PkQrcode],
   templateUrl: './pk-qrcode-page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-qrcode-page.css',
 })
 export class PkQrcodePage {

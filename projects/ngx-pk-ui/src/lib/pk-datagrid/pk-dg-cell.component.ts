@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'pk-dg-column',
   template: '<td [class.wrap]="!_nowrap" [ngStyle]="tdStyle"><ng-content></ng-content></td>',
   styleUrls: ['./pk-dg-cell.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     'style': 'display: contents'
   }

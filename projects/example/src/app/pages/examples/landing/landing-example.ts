@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   PkIcon,
   PkAccordion,
@@ -30,6 +30,7 @@ export interface LpPlan {
   selector: 'app-landing-example',
   imports: [PkIcon, PkAccordion, PkAccordionItem, PkTimeline, PkTimelineItem, PkTabsModule],
   templateUrl: './landing-example.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './landing-example.css',
 })
 export class LandingExample {

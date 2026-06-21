@@ -1,9 +1,10 @@
-import { Component, TemplateRef, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { Component, TemplateRef, ViewChild, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'pk-tab-title',
   standalone: false,
   templateUrl: './pk-tab-title.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
     .pk-tab-title {
       font-size: 14px;

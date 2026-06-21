@@ -1,7 +1,8 @@
-import { Component, input, signal, TemplateRef, viewChild } from '@angular/core';
+import { Component, input, signal, TemplateRef, viewChild, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'pk-accordion-item',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<ng-template #content><ng-content /></ng-template>`,
 })
 export class PkAccordionItem {

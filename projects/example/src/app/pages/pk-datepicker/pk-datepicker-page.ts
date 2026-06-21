@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PkDatepickerComponent } from 'ngx-pk-ui';
@@ -7,6 +7,7 @@ import type { PkLocale } from 'ngx-pk-ui';
 @Component({
   selector: 'app-pk-datepicker-page',
   imports: [FormsModule, DatePipe, PkDatepickerComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-datepicker-page.html',
 })
 export class PkDatepickerPage {

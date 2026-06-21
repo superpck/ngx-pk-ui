@@ -1,4 +1,4 @@
-import { Component, forwardRef, input, output, signal } from '@angular/core';
+import { Component, forwardRef, input, output, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 let _pkRadioCounter = 0;
@@ -17,6 +17,7 @@ export type PkRadioLayout = 'vertical' | 'horizontal';
   imports: [],
   templateUrl: './pk-radio-group.html',
   styleUrl: './pk-radio-group.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

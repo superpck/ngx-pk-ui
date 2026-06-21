@@ -5,6 +5,7 @@ import {
   HostListener,
   inject,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { Router } from '@angular/router';
 import type {
@@ -22,6 +23,7 @@ import type {
   selector: 'pk-ctx-panel',
   standalone: true,
   templateUrl: './pk-context-menu-panel.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-context-menu-panel.css',
 })
 export class PkContextMenuPanel {
