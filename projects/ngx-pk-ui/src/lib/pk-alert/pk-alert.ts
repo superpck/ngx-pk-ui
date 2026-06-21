@@ -1,4 +1,4 @@
-import { Component, inject, signal, effect } from '@angular/core';
+import { Component, inject, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PkAlertService } from './pk-alert.service';
 import { AlertInputType } from './pk-alert.model';
@@ -7,6 +7,7 @@ import { AlertInputType } from './pk-alert.model';
   selector: 'pk-alert',
   imports: [FormsModule],
   templateUrl: './pk-alert.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-alert.css',
 })
 export class PkAlert {

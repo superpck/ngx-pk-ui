@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { PkTimepicker } from 'ngx-pk-ui';
 import type { PkTimeFormat, PkTimeType, PkTimeInputType } from 'ngx-pk-ui';
@@ -7,6 +7,7 @@ import type { PkTimeFormat, PkTimeType, PkTimeInputType } from 'ngx-pk-ui';
   selector: 'app-pk-timepicker-page',
   standalone: true,
   imports: [PkTimepicker, FormsModule, ReactiveFormsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-timepicker-page.html',
 })
 export class PkTimepickerPage {

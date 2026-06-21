@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { PkHeatmap } from './pk-heatmap';
@@ -21,6 +21,7 @@ import { PkHeatmapCell, PkHeatmapColorScheme, PkHeatmapDay } from './pk-heatmap.
       [tooltipFormat]="fmtFn()"
     />
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [PkHeatmap],
 })
 class TestHost {

@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { PkModalModule } from 'ngx-pk-ui';
 import type { PkModalSize, PkModalTheme } from 'ngx-pk-ui';
 
 @Component({
   selector: 'app-pk-modal-page',
   imports: [PkModalModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-modal-page.html',
 })
 export class PkModalPage {

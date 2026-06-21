@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { PkSidenav, PkToastrService, type PkSidenavGroup, type PkSidenavTheme, type PkSidenavThemeConfig } from 'ngx-pk-ui';
 
 type ModeOption = 'full' | 'icon' | 'auto';
@@ -8,6 +8,7 @@ type ModeOption = 'full' | 'icon' | 'auto';
   standalone: true,
   imports: [PkSidenav],
   templateUrl: './pk-sidenav.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-sidenav.css',
 })
 export class PkSidenavPage {

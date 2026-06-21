@@ -1,4 +1,4 @@
-import { Component, signal, viewChild } from '@angular/core';
+import { Component, signal, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PkBarcode } from 'ngx-pk-ui';
 import type { PkBarcodeFormat } from 'ngx-pk-ui';
@@ -8,6 +8,7 @@ import type { PkBarcodeFormat } from 'ngx-pk-ui';
   standalone: true,
   imports: [PkBarcode, FormsModule],
   templateUrl: './pk-barcode-page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-barcode-page.css',
 })
 export class PkBarcodePage {

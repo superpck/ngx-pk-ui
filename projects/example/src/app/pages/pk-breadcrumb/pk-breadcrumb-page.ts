@@ -1,9 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { PkBreadcrumb, PkToastrService, type PkBreadcrumbItem } from 'ngx-pk-ui';
 
 @Component({
   selector: 'app-pk-breadcrumb-page',
   imports: [PkBreadcrumb],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-breadcrumb-page.html',
 })
 export class PkBreadcrumbPage {

@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'pk-tab-body',
   standalone: false,
   templateUrl: './pk-tab-body.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
     .pk-tab-body {
       padding: 1px;

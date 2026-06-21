@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PkOtp } from 'ngx-pk-ui';
 
@@ -6,6 +6,7 @@ import { PkOtp } from 'ngx-pk-ui';
   selector: 'app-pk-otp-page',
   standalone: true,
   imports: [FormsModule, PkOtp],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-otp-page.html',
 })
 export class PkOtpPage {

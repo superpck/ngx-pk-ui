@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { PkHeatmap } from 'ngx-pk-ui';
 import type { PkHeatmapColorScheme, PkHeatmapDay, PkHeatmapLocale } from 'ngx-pk-ui';
 
@@ -43,6 +43,7 @@ function makeData(): PkHeatmapDay[] {
   selector: 'app-pk-heatmap-page',
   standalone: true,
   imports: [PkHeatmap],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-heatmap-page.html',
 })
 export class PkHeatmapPage {

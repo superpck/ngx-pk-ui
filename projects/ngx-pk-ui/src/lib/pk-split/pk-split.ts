@@ -8,6 +8,7 @@ import {
   OnDestroy,
   output,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { PkSplitPanel } from './pk-split-panel';
@@ -17,6 +18,7 @@ import type { PkSplitDirection } from './pk-split.model';
   selector: 'pk-split',
   imports: [NgTemplateOutlet],
   templateUrl: './pk-split.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-split.css',
 })
 export class PkSplit implements AfterContentInit, OnDestroy {

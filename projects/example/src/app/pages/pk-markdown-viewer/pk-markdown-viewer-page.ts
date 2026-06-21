@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PkMarkdownViewer } from 'ngx-pk-ui';
 import type { PkMarkdownTheme } from 'ngx-pk-ui';
@@ -50,6 +50,7 @@ export class AppComponent {}
 @Component({
   selector: 'app-pk-markdown-viewer-page',
   imports: [PkMarkdownViewer, FormsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-markdown-viewer-page.html',
 })
 export class PkMarkdownViewerPage {

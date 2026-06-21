@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { PkCodeReader } from './pk-code-reader';
 import type { PkCodeScanResult, PkCodeReaderError } from './pk-code-reader.model';
@@ -40,6 +40,7 @@ function makeMockDetector(results: Partial<BarcodeDetectorResult>[] = []) {
 @Component({
   standalone: true,
   imports: [PkCodeReader],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<pk-code-reader
     [formats]="formats"
     [continuous]="continuous"

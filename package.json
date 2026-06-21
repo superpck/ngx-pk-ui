@@ -1,6 +1,6 @@
 {
   "name": "pk-ui-workspace",
-  "version": "2.18.4",
+  "version": "3.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -45,5 +45,10 @@
     "ng-packagr": "^22.0.0",
     "typescript": "~6.0.3",
     "vitest": "^4.0.8"
+  },
+  "overrides": {
+    "esbuild": "^0.28.1",
+    "piscina": "^5.2.0",
+    "@babel/core": "^7.29.6"
   }
 }

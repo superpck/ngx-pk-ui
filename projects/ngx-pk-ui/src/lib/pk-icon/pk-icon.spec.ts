@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { PkIcon } from './pk-icon';
 import { PK_ICONS, PkIconName, PkIconSet } from './pk-icon.model';
 
@@ -15,6 +15,7 @@ import { PK_ICONS, PkIconName, PkIconSet } from './pk-icon.model';
       [strokeWidth]="strokeWidth()"
     />
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [PkIcon],
 })
 class TestHostComponent {

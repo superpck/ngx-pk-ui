@@ -7,6 +7,7 @@ import {
   OnDestroy,
   PLATFORM_ID,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -17,6 +18,7 @@ import { buildHtmlDocument, parseMarkdown } from './pk-markdown-parser';
   selector: 'pk-markdown-viewer',
   imports: [],
   templateUrl: './pk-markdown-viewer.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-markdown-viewer.css',
 })
 export class PkMarkdownViewer implements OnDestroy {

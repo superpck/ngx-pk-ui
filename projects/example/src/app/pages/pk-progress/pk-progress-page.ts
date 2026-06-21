@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PkProgressComponent } from 'ngx-pk-ui';
 import type { ProgressConfig, ProgressStatus } from 'ngx-pk-ui';
@@ -6,6 +6,7 @@ import type { ProgressConfig, ProgressStatus } from 'ngx-pk-ui';
 @Component({
   selector: 'app-pk-progress-page',
   imports: [FormsModule, PkProgressComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-progress-page.html',
 })
 export class PkProgressPage {

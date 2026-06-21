@@ -1,4 +1,4 @@
-import { Component, input, output, signal, computed, forwardRef, ElementRef, inject } from '@angular/core';
+import { Component, input, output, signal, computed, forwardRef, ElementRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgStyle } from '@angular/common';
 import { SelectOption, SelectMode } from './pk-select.interface';
@@ -79,6 +79,7 @@ import { SelectOption, SelectMode } from './pk-select.interface';
       }
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: `
     .pk-select-container {
       position: relative;

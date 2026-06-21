@@ -1,4 +1,4 @@
-import { Component, Input, TemplateRef, ContentChild, Optional, Inject, forwardRef } from '@angular/core';
+import { Component, Input, TemplateRef, ContentChild, Optional, Inject, forwardRef, ChangeDetectionStrategy } from '@angular/core';
 import { PkDatagridComponent } from './pk-datagrid.component';
 
 @Component({
@@ -6,6 +6,7 @@ import { PkDatagridComponent } from './pk-datagrid.component';
   templateUrl: './pk-dg-row.component.html',
   styleUrls: ['./pk-dg-row.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     'style': 'display: contents'
   }

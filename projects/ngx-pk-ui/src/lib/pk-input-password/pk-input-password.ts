@@ -1,4 +1,4 @@
-import { Component, computed, forwardRef, input, signal } from '@angular/core';
+import { Component, computed, forwardRef, input, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PkIcon } from '../pk-icon/pk-icon';
 import { PkProgressComponent } from '../pk-progress/pk-progress.component';
@@ -12,6 +12,7 @@ let _pkPwdCounter = 0;
   imports: [PkIcon, PkProgressComponent],
   templateUrl: './pk-input-password.html',
   styleUrl: './pk-input-password.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

@@ -1,5 +1,5 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PkOtp } from './pk-otp';
 
@@ -8,6 +8,7 @@ import { PkOtp } from './pk-otp';
 @Component({
   standalone: true,
   imports: [PkOtp, FormsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <pk-otp
       [length]="length()"

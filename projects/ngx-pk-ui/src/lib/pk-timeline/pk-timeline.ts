@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, contentChildren, effect, input } from '@angular/core';
+import { AfterContentInit, Component, contentChildren, effect, input, ChangeDetectionStrategy } from '@angular/core';
 import { PkTimelineItem } from './pk-timeline-item';
 
 @Component({
@@ -11,6 +11,7 @@ import { PkTimelineItem } from './pk-timeline-item';
     '[class.pk-timeline--horizontal]': 'direction() === "horizontal"',
     '[class.pk-timeline--vertical]': 'direction() === "vertical"',
   },
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<ng-content />`,
 })
 export class PkTimeline implements AfterContentInit {

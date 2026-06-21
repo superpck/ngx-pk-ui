@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { PkExportButton } from './pk-export-button';
 import { PkExportService } from './pk-export.service';
 import { PkExportFormat } from './pk-export.model';
@@ -10,6 +10,7 @@ import { PkExportFormat } from './pk-export.model';
 @Component({
   standalone: true,
   imports: [PkExportButton],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <pk-export-button
       [data]="data"

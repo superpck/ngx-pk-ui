@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { PkToastrService } from './pk-toastr.service';
 import { ToastPosition } from './pk-toastr.model';
 
 @Component({
   selector: 'pk-toastr',
   templateUrl: './pk-toastr.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-toastr.css',
 })
 export class PkToastr {

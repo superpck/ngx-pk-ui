@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   PkAutocompleteComponent,
@@ -9,6 +9,7 @@ import {
 @Component({
   selector: 'app-pk-autocomplete-page',
   imports: [FormsModule, PkAutocompleteComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-autocomplete-page.html',
 })
 export class PkAutocompletePage {

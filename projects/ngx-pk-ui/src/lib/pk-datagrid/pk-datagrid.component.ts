@@ -1,4 +1,4 @@
-import { Component, ContentChildren, ContentChild, QueryList, AfterContentInit, AfterViewInit, OnChanges, SimpleChanges, Input, Output, EventEmitter, ChangeDetectorRef, HostListener, OnDestroy } from '@angular/core';
+import { Component, ContentChildren, ContentChild, QueryList, AfterContentInit, AfterViewInit, OnChanges, SimpleChanges, Input, Output, EventEmitter, ChangeDetectorRef, HostListener, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { PkDgHeaderComponent } from './pk-dg-header.component';
 import { PkDgPaginationComponent } from './pk-dg-pagination.component';
 import { PkDgRowExpandComponent } from './pk-dg-row-expand.component';
@@ -9,6 +9,7 @@ import { PkDgActionComponent } from './pk-dg-action.component';
   selector: 'pk-datagrid',
   templateUrl: './pk-datagrid.component.html',
   styleUrls: ['./pk-datagrid.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class PkDatagridComponent implements AfterContentInit, AfterViewInit, OnChanges, OnDestroy {

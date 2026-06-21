@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { PkRadioGroup } from './pk-radio-group';
 import type { PkRadioOption, PkRadioLayout } from './pk-radio-group';
@@ -20,6 +20,7 @@ const OPTIONS: PkRadioOption[] = [
       (onChange)="last = $event"
     />
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [PkRadioGroup],
 })
 class TestHost {

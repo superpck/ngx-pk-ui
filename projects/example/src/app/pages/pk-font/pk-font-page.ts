@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-pk-font-page',
   imports: [],
   templateUrl: './pk-font-page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
     .font-row {
       display: grid;

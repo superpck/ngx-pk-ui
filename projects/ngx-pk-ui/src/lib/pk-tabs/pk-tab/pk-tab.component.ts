@@ -1,4 +1,4 @@
-import { Component, Input, ContentChild, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, ContentChild, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { PkTabBodyComponent } from './pk-tab-body.component';
 import { PkTabTitleComponent } from './pk-tab-title.component';
 
@@ -6,6 +6,7 @@ import { PkTabTitleComponent } from './pk-tab-title.component';
   selector: 'pk-tab',
   standalone: false,
   templateUrl: './pk-tab.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
     .pk-tab {
       width: 100%;

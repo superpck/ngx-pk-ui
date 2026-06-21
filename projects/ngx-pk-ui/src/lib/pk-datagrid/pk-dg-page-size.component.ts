@@ -1,10 +1,11 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { PkDgPaginationComponent } from './pk-dg-pagination.component';
 
 @Component({
   selector: 'pk-dg-page-size',
   templateUrl: './pk-dg-page-size.component.html',
   styleUrls: ['./pk-dg-page-size.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class PkDgPageSizeComponent {

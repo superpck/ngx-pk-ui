@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PkTruncatePipe, PkTimeAgoPipe, PkFileSizePipe, PkHighlightPipe, PkDatePipe, parseBEDate } from 'ngx-pk-ui';
 
@@ -7,6 +7,7 @@ import { PkTruncatePipe, PkTimeAgoPipe, PkFileSizePipe, PkHighlightPipe, PkDateP
   standalone: true,
   imports: [FormsModule, PkTruncatePipe, PkTimeAgoPipe, PkFileSizePipe, PkHighlightPipe, PkDatePipe],
   templateUrl: './pk-pipes-page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-pipes-page.css',
 })
 export class PkPipesPage {

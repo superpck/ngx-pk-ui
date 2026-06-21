@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { PkSidenav, type PkSidenavGroup, type PkSidenavItem } from 'ngx-pk-ui';
 
 @Component({
   selector: 'app-dashboard-example',
   imports: [PkSidenav],
   templateUrl: './dashboard-example.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dashboard-example.css',
 })
 export class DashboardExample {

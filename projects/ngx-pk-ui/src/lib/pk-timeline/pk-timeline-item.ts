@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input, signal, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'pk-timeline-item',
@@ -9,6 +9,7 @@ import { Component, input, signal } from '@angular/core';
     '[class.pk-timeline__item--last]': '_isLast()',
     '[class.pk-timeline__item--active]': 'active()',
   },
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div class="pk-timeline__label-col">
       <span class="pk-timeline__label">{{ label() }}</span>

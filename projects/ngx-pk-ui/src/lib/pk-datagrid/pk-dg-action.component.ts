@@ -1,10 +1,11 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'pk-dg-action',
   templateUrl: './pk-dg-action.component.html',
   styleUrls: ['./pk-dg-action.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     'style': 'display: contents'
   }

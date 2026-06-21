@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { By } from '@angular/platform-browser';
@@ -12,6 +12,7 @@ import type { PkModalSize } from './pk-modal.model';
 @Component({
   selector: 'test-host',
   imports: [PkModal, PkModalHeader, PkModalBody, PkModalFooter],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <pk-modal
       [openModal]="open()"

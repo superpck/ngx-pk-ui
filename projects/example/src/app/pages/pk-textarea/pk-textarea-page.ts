@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PkTextarea } from 'ngx-pk-ui';
 import type { PkTextareaValue } from 'ngx-pk-ui';
@@ -7,6 +7,7 @@ import type { PkTextareaValue } from 'ngx-pk-ui';
   selector: 'app-pk-textarea-page',
   imports: [PkTextarea, FormsModule],
   templateUrl: './pk-textarea-page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-textarea-page.css',
 })
 export class PkTextareaPage {

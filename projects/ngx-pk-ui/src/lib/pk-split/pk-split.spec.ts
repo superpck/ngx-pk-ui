@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { PkSplit } from './pk-split';
 import { PkSplitPanel } from './pk-split-panel';
 
@@ -10,6 +10,7 @@ import { PkSplitPanel } from './pk-split-panel';
       <pk-split-panel><div class="panel-b">Panel B</div></pk-split-panel>
     </pk-split>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [PkSplit, PkSplitPanel],
 })
 class TestHostComponent {}
@@ -21,6 +22,7 @@ class TestHostComponent {}
       <pk-split-panel><div class="bottom">Bottom</div></pk-split-panel>
     </pk-split>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [PkSplit, PkSplitPanel],
 })
 class VerticalHostComponent {}
@@ -32,6 +34,7 @@ class VerticalHostComponent {}
       <pk-split-panel><div class="panel-b">B</div></pk-split-panel>
     </pk-split>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [PkSplit, PkSplitPanel],
 })
 class CustomSizeHostComponent {}

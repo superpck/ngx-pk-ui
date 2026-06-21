@@ -1,7 +1,8 @@
-import { Component, TemplateRef, viewChild } from '@angular/core';
+import { Component, TemplateRef, viewChild, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'pk-split-panel',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<ng-template #content><ng-content /></ng-template>`,
 })
 export class PkSplitPanel {

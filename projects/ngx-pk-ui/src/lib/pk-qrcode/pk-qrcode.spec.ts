@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { PkQrcode } from './pk-qrcode';
 import type { PkQrEcLevel } from './pk-qrcode.model';
@@ -8,6 +8,7 @@ import { encodeQr } from './pk-qrcode-encoder';
 
 @Component({
   template: `<pk-qrcode [value]="value()" [ecLevel]="ecLevel()" [logo]="logo()" [size]="200" />`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [PkQrcode],
 })
 class TestHost {

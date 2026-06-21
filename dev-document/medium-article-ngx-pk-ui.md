@@ -1,6 +1,6 @@
-# ngx-pk-ui: A Modern Angular 21 Component Library Built with Signals
+# ngx-pk-ui: A Modern Angular 22 Component Library Built with Signals
 ```
-An open-source Angular 21 library with 29 standalone components, 17-locale support, and 358 tests - built entirely on signals.
+An open-source Angular 22 library with 29 standalone components, 17-locale support, and 358 tests - built entirely on signals.
 ```
 > **Draft for Medium.com** — May 2026
 > 📸 = screenshot needed (see inline notes)
@@ -11,7 +11,7 @@ An open-source Angular 21 library with 29 standalone components, 17-locale suppo
 
 If you've been building Angular applications and find yourself re-implementing the same UI pieces — toasts, modals, datepickers, data grids — over and over again, you're not alone. That's exactly why **ngx-pk-ui** was created.
 
-`ngx-pk-ui` is an open-source Angular 21 component library that packages 29 components, 12 CSS utilities, 5 pipes, and 5 directives into a single, well-tested package. It's built from the ground up using Angular's latest signal-based APIs, so everything feels native to modern Angular development.
+`ngx-pk-ui` is an open-source Angular 22 component library that packages 29 components, 12 CSS utilities, 5 pipes, and 5 directives into a single, well-tested package. It's built from the ground up using Angular's latest signal-based APIs, so everything feels native to modern Angular development.
 
 ---
 
@@ -27,7 +27,7 @@ There are already many Angular UI libraries out there — PrimeNG, Angular Mater
 
 ### 1. Signal-First, No Decorators
 
-Every component is built using Angular 21's signal APIs. You won't find a single `@Input()` or `@Output()` decorator in the source code. Instead, it uses:
+Every component is built using Angular 22's signal APIs. You won't find a single `@Input()` or `@Output()` decorator in the source code. Instead, it uses:
 
 ```ts
 // Inputs are declared as signals
@@ -248,7 +248,7 @@ The repository ships with three example pages built entirely from ngx-pk-ui comp
 
 ## Testing Philosophy
 
-The library ships with **358 unit tests** across all components, written with **Vitest** (Angular 21's default test runner). Key conventions:
+The library ships with **358 unit tests** across all components, written with **Vitest** (Angular 22's default test runner). Key conventions:
 
 - No `fakeAsync`/`tick` — replaced with `vi.useFakeTimers()` / `vi.advanceTimersByTime()`
 - Every component has a co-located `.spec.ts`

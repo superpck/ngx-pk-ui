@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
@@ -6,6 +6,7 @@ import { PkTooltip } from './pk-tooltip.directive';
 
 @Component({
   imports: [PkTooltip],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <button pkTooltip="Hello world" pkTooltipPosition="top" pkTooltipType="primary">Hover me</button>
   `,
@@ -14,12 +15,14 @@ class TestHost {}
 
 @Component({
   imports: [PkTooltip],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<span pkTooltip="Bottom tip" pkTooltipPosition="bottom" pkTooltipType="success">text</span>`,
 })
 class TestHostBottom {}
 
 @Component({
   imports: [PkTooltip],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<span pkTooltip="Danger!" pkTooltipPosition="right" pkTooltipType="danger">text</span>`,
 })
 class TestHostRight {}

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { PkContextMenuDirective, PkToastrService } from 'ngx-pk-ui';
 import type {
   PkContextMenuItem,
@@ -18,6 +18,7 @@ interface TableRow {
   selector: 'app-pk-context-menu-page',
   standalone: true,
   imports: [PkContextMenuDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-context-menu-page.html',
 })
 export class PkContextMenuPage {

@@ -1,9 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { PkSelectComponent, SelectOption } from '../index';
 
 @Component({
   selector: 'pk-select-search-example',
   imports: [PkSelectComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div style="max-width: 400px;">
       <h4 style="margin-bottom: 12px;">Select with Search</h4>

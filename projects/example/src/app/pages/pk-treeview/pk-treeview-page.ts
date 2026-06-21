@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   PkTreeviewModule,
   TreeNode,
@@ -8,6 +8,7 @@ import {
 @Component({
   selector: 'app-pk-treeview-page',
   imports: [PkTreeviewModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './pk-treeview-page.html',
 })
 export class PkTreeviewPage {

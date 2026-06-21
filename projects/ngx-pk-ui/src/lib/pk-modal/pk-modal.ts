@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, OnDestroy, output, PLATFORM_ID } from '@angular/core';
+import { Component, computed, effect, inject, input, OnDestroy, output, PLATFORM_ID, ChangeDetectionStrategy } from '@angular/core';
 import { isPlatformBrowser, NgStyle, DOCUMENT } from '@angular/common';
 import type { PkModalSize, PkModalTheme } from './pk-modal.model';
 
@@ -31,6 +31,7 @@ function unlockBody(doc: Document): void {
   selector: 'pk-modal',
   imports: [NgStyle],
   templateUrl: './pk-modal.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-modal.css',
 })
 export class PkModal implements OnDestroy {

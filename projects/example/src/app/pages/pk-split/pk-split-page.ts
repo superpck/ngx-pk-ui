@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { PkSplit, PkSplitPanel } from 'ngx-pk-ui';
 
 @Component({
   selector: 'app-pk-split-page',
   imports: [PkSplit, PkSplitPanel],
   templateUrl: './pk-split-page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-split-page.css',
 })
 export class PkSplitPage {

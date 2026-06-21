@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   PkAlertService,
   PkIcon,
@@ -11,6 +11,7 @@ import {
   selector: 'app-login-example',
   imports: [PkIcon, PkProgressComponent],
   templateUrl: './login-example.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './login-example.css',
 })
 export class LoginExample {

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -38,6 +38,7 @@ function rightClick(el: HTMLElement, x = 100, y = 200): MouseEvent {
       (pkContextMenuOpen)="openCount = openCount + 1"
     >Right-click me</div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [PkContextMenuDirective],
 })
 class DirectiveHost {

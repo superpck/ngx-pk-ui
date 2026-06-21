@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { PkMarkdownViewer } from './pk-markdown-viewer';
 import { parseMarkdown } from './pk-markdown-parser';
@@ -95,6 +95,7 @@ describe('parseMarkdown', () => {
 // ── Component tests ────────────────────────────────────────────────────────────
 @Component({
   imports: [PkMarkdownViewer],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<pk-markdown-viewer [content]="md" />`,
 })
 class TestHost {
