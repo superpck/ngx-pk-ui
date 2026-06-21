@@ -57,6 +57,23 @@ describe('encodeQr — matrix structure', () => {
     const huge = 'A'.repeat(3000);
     expect(() => encodeQr(huge, 'H')).toThrow();
   });
+
+  it('EC=L v6 (byte mode, >108 bytes): produces correct matrix size', () => {
+    // 110 lowercase bytes forces byte mode → needs version 6 with EC=L (previously buggy)
+    const text = 'a'.repeat(110);
+    const m = encodeQr(text, 'L');
+    expect(m.length).toBe(41); // version 6 → 6*4+17 = 41
+    expect(m.every(row => row.length === 41)).toBe(true);
+  });
+
+  it('EC=L v9 (byte mode, >136 bytes): all modules are boolean', () => {
+    // 200 lowercase bytes forces byte mode → needs version 9 with EC=L (previously buggy)
+    const text = 'a'.repeat(200);
+    const m = encodeQr(text, 'L');
+    expect(m.length).toBe(53); // version 9 → 9*4+17 = 53
+    // All modules must be true/false (no nulls left from truncated interleave)
+    expect(m.every(row => row.every(cell => typeof cell === 'boolean'))).toBe(true);
+  });
 });
 
 describe('PkQrcode — component', () => {

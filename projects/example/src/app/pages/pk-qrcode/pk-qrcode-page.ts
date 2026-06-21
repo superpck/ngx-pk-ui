@@ -14,6 +14,10 @@ export class PkQrcodePage {
 
   value      = signal('https://github.com/superpck/ngx-pk-ui');
   ecLevel    = signal<PkQrEcLevel>('M');
+
+  byteLength(): number {
+    return new TextEncoder().encode(this.value()).length;
+  }
   size       = signal(220);
   darkColor  = signal('#000000');
   lightColor = signal('#ffffff');

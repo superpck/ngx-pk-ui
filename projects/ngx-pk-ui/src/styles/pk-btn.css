@@ -2,6 +2,10 @@
  * pk-btn — Button CSS for ngx-pk-ui
  *
  * Variants:  pk-btn-primary (default) | pk-btn-secondary | pk-btn-success | pk-btn-warn | pk-btn-error
+ *            pk-btn-amber | pk-btn-yellow | pk-btn-lime | pk-btn-emerald | pk-btn-teal | pk-btn-cyan
+ *            pk-btn-sky | pk-btn-blue | pk-btn-indigo | pk-btn-violet | pk-btn-purple | pk-btn-fuchsia
+ *            pk-btn-pink | pk-btn-rose | pk-btn-slate | pk-btn-gray | pk-btn-zinc | pk-btn-neutral
+ *            pk-btn-stone | pk-btn-taupe | pk-btn-mauve | pk-btn-mist | pk-btn-olive
  * Modifiers: pk-btn-outline | pk-btn-shadow | pk-btn-sm | pk-btn-lg
  * Group:     pk-btn-group (wraps multiple pk-btn, joined borders)
  *
@@ -12,6 +16,8 @@
  *     <button class="pk-btn pk-btn-secondary">Left</button>
  *     <button class="pk-btn pk-btn-secondary">Right</button>
  *   </div>
+ *
+ * Note: pk-btn-amber, pk-btn-yellow, pk-btn-lime use dark text (#1f2937) for accessibility.
  */
 
 /* ─── CSS custom properties ───────────────────────────────────────── */
@@ -36,6 +42,99 @@
   --pk-btn-warn:   #fb8c00;
   --pk-btn-warn-h: #ef6c00;
   --pk-btn-warn-a: #e65100;
+
+  /* Extended palette */
+  --pk-btn-amber:   #f59e0b;
+  --pk-btn-amber-h: #d97706;
+  --pk-btn-amber-a: #b45309;
+
+  --pk-btn-yellow:   #eab308;
+  --pk-btn-yellow-h: #ca8a04;
+  --pk-btn-yellow-a: #a16207;
+
+  --pk-btn-lime:   #84cc16;
+  --pk-btn-lime-h: #65a30d;
+  --pk-btn-lime-a: #4d7c0f;
+
+  --pk-btn-emerald:   #10b981;
+  --pk-btn-emerald-h: #059669;
+  --pk-btn-emerald-a: #047857;
+
+  --pk-btn-teal:   #14b8a6;
+  --pk-btn-teal-h: #0d9488;
+  --pk-btn-teal-a: #0f766e;
+
+  --pk-btn-cyan:   #06b6d4;
+  --pk-btn-cyan-h: #0891b2;
+  --pk-btn-cyan-a: #0e7490;
+
+  --pk-btn-sky:   #0ea5e9;
+  --pk-btn-sky-h: #0284c7;
+  --pk-btn-sky-a: #0369a1;
+
+  --pk-btn-blue:   #3b82f6;
+  --pk-btn-blue-h: #2563eb;
+  --pk-btn-blue-a: #1d4ed8;
+
+  --pk-btn-indigo:   #6366f1;
+  --pk-btn-indigo-h: #4f46e5;
+  --pk-btn-indigo-a: #4338ca;
+
+  --pk-btn-violet:   #8b5cf6;
+  --pk-btn-violet-h: #7c3aed;
+  --pk-btn-violet-a: #6d28d9;
+
+  --pk-btn-purple:   #a855f7;
+  --pk-btn-purple-h: #9333ea;
+  --pk-btn-purple-a: #7e22ce;
+
+  --pk-btn-fuchsia:   #d946ef;
+  --pk-btn-fuchsia-h: #c026d3;
+  --pk-btn-fuchsia-a: #a21caf;
+
+  --pk-btn-pink:   #ec4899;
+  --pk-btn-pink-h: #db2777;
+  --pk-btn-pink-a: #be185d;
+
+  --pk-btn-rose:   #f43f5e;
+  --pk-btn-rose-h: #e11d48;
+  --pk-btn-rose-a: #be123c;
+
+  --pk-btn-slate:   #64748b;
+  --pk-btn-slate-h: #475569;
+  --pk-btn-slate-a: #334155;
+
+  --pk-btn-gray:   #6b7280;
+  --pk-btn-gray-h: #4b5563;
+  --pk-btn-gray-a: #374151;
+
+  --pk-btn-zinc:   #71717a;
+  --pk-btn-zinc-h: #52525b;
+  --pk-btn-zinc-a: #3f3f46;
+
+  --pk-btn-neutral:   #737373;
+  --pk-btn-neutral-h: #525252;
+  --pk-btn-neutral-a: #404040;
+
+  --pk-btn-stone:   #78716c;
+  --pk-btn-stone-h: #57534e;
+  --pk-btn-stone-a: #44403c;
+
+  --pk-btn-taupe:   #8b7355;
+  --pk-btn-taupe-h: #7a6248;
+  --pk-btn-taupe-a: #6b5540;
+
+  --pk-btn-mauve:   #9c8aa5;
+  --pk-btn-mauve-h: #8a7592;
+  --pk-btn-mauve-a: #7a6782;
+
+  --pk-btn-mist:   #7fa8b8;
+  --pk-btn-mist-h: #6897aa;
+  --pk-btn-mist-a: #56849a;
+
+  --pk-btn-olive:   #8b9a2e;
+  --pk-btn-olive-h: #7a8828;
+  --pk-btn-olive-a: #6b7722;
 
   --pk-btn-radius: 6px;
   --pk-btn-font:   -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -140,6 +239,216 @@
 .pk-btn-error:active { background-color: var(--pk-btn-error-a); }
 .pk-btn-error:focus-visible { outline-color: rgba(229, 57, 53, 0.45); }
 
+/* ─── Extended palette variants ──────────────────────────────────── */
+/* amber / yellow / lime use dark text for accessibility */
+
+.pk-btn-amber {
+  background-color: var(--pk-btn-amber);
+  border-color: transparent;
+  color: #1f2937;
+}
+.pk-btn-amber:hover  { background-color: var(--pk-btn-amber-h); color: #1f2937; }
+.pk-btn-amber:active { background-color: var(--pk-btn-amber-a); color: #1f2937; }
+.pk-btn-amber:focus-visible { outline-color: rgba(245, 158, 11, 0.45); }
+
+.pk-btn-yellow {
+  background-color: var(--pk-btn-yellow);
+  border-color: transparent;
+  color: #1f2937;
+}
+.pk-btn-yellow:hover  { background-color: var(--pk-btn-yellow-h); color: #1f2937; }
+.pk-btn-yellow:active { background-color: var(--pk-btn-yellow-a); color: #1f2937; }
+.pk-btn-yellow:focus-visible { outline-color: rgba(234, 179, 8, 0.45); }
+
+.pk-btn-lime {
+  background-color: var(--pk-btn-lime);
+  border-color: transparent;
+  color: #1f2937;
+}
+.pk-btn-lime:hover  { background-color: var(--pk-btn-lime-h); color: #1f2937; }
+.pk-btn-lime:active { background-color: var(--pk-btn-lime-a); color: #fff; }
+.pk-btn-lime:focus-visible { outline-color: rgba(132, 204, 22, 0.45); }
+
+.pk-btn-emerald {
+  background-color: var(--pk-btn-emerald);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-emerald:hover  { background-color: var(--pk-btn-emerald-h); }
+.pk-btn-emerald:active { background-color: var(--pk-btn-emerald-a); }
+.pk-btn-emerald:focus-visible { outline-color: rgba(16, 185, 129, 0.45); }
+
+.pk-btn-teal {
+  background-color: var(--pk-btn-teal);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-teal:hover  { background-color: var(--pk-btn-teal-h); }
+.pk-btn-teal:active { background-color: var(--pk-btn-teal-a); }
+.pk-btn-teal:focus-visible { outline-color: rgba(20, 184, 166, 0.45); }
+
+.pk-btn-cyan {
+  background-color: var(--pk-btn-cyan);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-cyan:hover  { background-color: var(--pk-btn-cyan-h); }
+.pk-btn-cyan:active { background-color: var(--pk-btn-cyan-a); }
+.pk-btn-cyan:focus-visible { outline-color: rgba(6, 182, 212, 0.45); }
+
+.pk-btn-sky {
+  background-color: var(--pk-btn-sky);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-sky:hover  { background-color: var(--pk-btn-sky-h); }
+.pk-btn-sky:active { background-color: var(--pk-btn-sky-a); }
+.pk-btn-sky:focus-visible { outline-color: rgba(14, 165, 233, 0.45); }
+
+.pk-btn-blue {
+  background-color: var(--pk-btn-blue);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-blue:hover  { background-color: var(--pk-btn-blue-h); }
+.pk-btn-blue:active { background-color: var(--pk-btn-blue-a); }
+.pk-btn-blue:focus-visible { outline-color: rgba(59, 130, 246, 0.45); }
+
+.pk-btn-indigo {
+  background-color: var(--pk-btn-indigo);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-indigo:hover  { background-color: var(--pk-btn-indigo-h); }
+.pk-btn-indigo:active { background-color: var(--pk-btn-indigo-a); }
+.pk-btn-indigo:focus-visible { outline-color: rgba(99, 102, 241, 0.45); }
+
+.pk-btn-violet {
+  background-color: var(--pk-btn-violet);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-violet:hover  { background-color: var(--pk-btn-violet-h); }
+.pk-btn-violet:active { background-color: var(--pk-btn-violet-a); }
+.pk-btn-violet:focus-visible { outline-color: rgba(139, 92, 246, 0.45); }
+
+.pk-btn-purple {
+  background-color: var(--pk-btn-purple);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-purple:hover  { background-color: var(--pk-btn-purple-h); }
+.pk-btn-purple:active { background-color: var(--pk-btn-purple-a); }
+.pk-btn-purple:focus-visible { outline-color: rgba(168, 85, 247, 0.45); }
+
+.pk-btn-fuchsia {
+  background-color: var(--pk-btn-fuchsia);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-fuchsia:hover  { background-color: var(--pk-btn-fuchsia-h); }
+.pk-btn-fuchsia:active { background-color: var(--pk-btn-fuchsia-a); }
+.pk-btn-fuchsia:focus-visible { outline-color: rgba(217, 70, 239, 0.45); }
+
+.pk-btn-pink {
+  background-color: var(--pk-btn-pink);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-pink:hover  { background-color: var(--pk-btn-pink-h); }
+.pk-btn-pink:active { background-color: var(--pk-btn-pink-a); }
+.pk-btn-pink:focus-visible { outline-color: rgba(236, 72, 153, 0.45); }
+
+.pk-btn-rose {
+  background-color: var(--pk-btn-rose);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-rose:hover  { background-color: var(--pk-btn-rose-h); }
+.pk-btn-rose:active { background-color: var(--pk-btn-rose-a); }
+.pk-btn-rose:focus-visible { outline-color: rgba(244, 63, 94, 0.45); }
+
+.pk-btn-slate {
+  background-color: var(--pk-btn-slate);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-slate:hover  { background-color: var(--pk-btn-slate-h); }
+.pk-btn-slate:active { background-color: var(--pk-btn-slate-a); }
+.pk-btn-slate:focus-visible { outline-color: rgba(100, 116, 139, 0.45); }
+
+.pk-btn-gray {
+  background-color: var(--pk-btn-gray);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-gray:hover  { background-color: var(--pk-btn-gray-h); }
+.pk-btn-gray:active { background-color: var(--pk-btn-gray-a); }
+.pk-btn-gray:focus-visible { outline-color: rgba(107, 114, 128, 0.45); }
+
+.pk-btn-zinc {
+  background-color: var(--pk-btn-zinc);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-zinc:hover  { background-color: var(--pk-btn-zinc-h); }
+.pk-btn-zinc:active { background-color: var(--pk-btn-zinc-a); }
+.pk-btn-zinc:focus-visible { outline-color: rgba(113, 113, 122, 0.45); }
+
+.pk-btn-neutral {
+  background-color: var(--pk-btn-neutral);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-neutral:hover  { background-color: var(--pk-btn-neutral-h); }
+.pk-btn-neutral:active { background-color: var(--pk-btn-neutral-a); }
+.pk-btn-neutral:focus-visible { outline-color: rgba(115, 115, 115, 0.45); }
+
+.pk-btn-stone {
+  background-color: var(--pk-btn-stone);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-stone:hover  { background-color: var(--pk-btn-stone-h); }
+.pk-btn-stone:active { background-color: var(--pk-btn-stone-a); }
+.pk-btn-stone:focus-visible { outline-color: rgba(120, 113, 108, 0.45); }
+
+.pk-btn-taupe {
+  background-color: var(--pk-btn-taupe);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-taupe:hover  { background-color: var(--pk-btn-taupe-h); }
+.pk-btn-taupe:active { background-color: var(--pk-btn-taupe-a); }
+.pk-btn-taupe:focus-visible { outline-color: rgba(139, 115, 85, 0.45); }
+
+.pk-btn-mauve {
+  background-color: var(--pk-btn-mauve);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-mauve:hover  { background-color: var(--pk-btn-mauve-h); }
+.pk-btn-mauve:active { background-color: var(--pk-btn-mauve-a); }
+.pk-btn-mauve:focus-visible { outline-color: rgba(156, 138, 165, 0.45); }
+
+.pk-btn-mist {
+  background-color: var(--pk-btn-mist);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-mist:hover  { background-color: var(--pk-btn-mist-h); }
+.pk-btn-mist:active { background-color: var(--pk-btn-mist-a); }
+.pk-btn-mist:focus-visible { outline-color: rgba(127, 168, 184, 0.45); }
+
+.pk-btn-olive {
+  background-color: var(--pk-btn-olive);
+  border-color: transparent;
+  color: #fff;
+}
+.pk-btn-olive:hover  { background-color: var(--pk-btn-olive-h); }
+.pk-btn-olive:active { background-color: var(--pk-btn-olive-a); }
+.pk-btn-olive:focus-visible { outline-color: rgba(139, 154, 46, 0.45); }
+
 /* ─── Outline modifier ────────────────────────────────────────────── */
 
 .pk-btn.pk-btn-outline,
@@ -220,6 +529,193 @@
   border-color: var(--pk-btn-error-h);
   color: #fff;
 }
+
+/* Extended palette — outline variants */
+/* amber / yellow use dark text on fill; lime active is dark enough for white */
+
+.pk-btn-amber.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-amber);
+  color: var(--pk-btn-amber);
+}
+.pk-btn-amber.pk-btn-outline:hover  { background-color: var(--pk-btn-amber);   border-color: var(--pk-btn-amber);   color: #1f2937; }
+.pk-btn-amber.pk-btn-outline:active { background-color: var(--pk-btn-amber-h); border-color: var(--pk-btn-amber-h); color: #1f2937; }
+
+.pk-btn-yellow.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-yellow);
+  color: var(--pk-btn-yellow);
+}
+.pk-btn-yellow.pk-btn-outline:hover  { background-color: var(--pk-btn-yellow);   border-color: var(--pk-btn-yellow);   color: #1f2937; }
+.pk-btn-yellow.pk-btn-outline:active { background-color: var(--pk-btn-yellow-h); border-color: var(--pk-btn-yellow-h); color: #1f2937; }
+
+.pk-btn-lime.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-lime);
+  color: var(--pk-btn-lime);
+}
+.pk-btn-lime.pk-btn-outline:hover  { background-color: var(--pk-btn-lime);   border-color: var(--pk-btn-lime);   color: #1f2937; }
+.pk-btn-lime.pk-btn-outline:active { background-color: var(--pk-btn-lime-h); border-color: var(--pk-btn-lime-h); color: #fff; }
+
+.pk-btn-emerald.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-emerald);
+  color: var(--pk-btn-emerald);
+}
+.pk-btn-emerald.pk-btn-outline:hover  { background-color: var(--pk-btn-emerald);   border-color: var(--pk-btn-emerald);   color: #fff; }
+.pk-btn-emerald.pk-btn-outline:active { background-color: var(--pk-btn-emerald-h); border-color: var(--pk-btn-emerald-h); color: #fff; }
+
+.pk-btn-teal.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-teal);
+  color: var(--pk-btn-teal);
+}
+.pk-btn-teal.pk-btn-outline:hover  { background-color: var(--pk-btn-teal);   border-color: var(--pk-btn-teal);   color: #fff; }
+.pk-btn-teal.pk-btn-outline:active { background-color: var(--pk-btn-teal-h); border-color: var(--pk-btn-teal-h); color: #fff; }
+
+.pk-btn-cyan.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-cyan);
+  color: var(--pk-btn-cyan);
+}
+.pk-btn-cyan.pk-btn-outline:hover  { background-color: var(--pk-btn-cyan);   border-color: var(--pk-btn-cyan);   color: #fff; }
+.pk-btn-cyan.pk-btn-outline:active { background-color: var(--pk-btn-cyan-h); border-color: var(--pk-btn-cyan-h); color: #fff; }
+
+.pk-btn-sky.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-sky);
+  color: var(--pk-btn-sky);
+}
+.pk-btn-sky.pk-btn-outline:hover  { background-color: var(--pk-btn-sky);   border-color: var(--pk-btn-sky);   color: #fff; }
+.pk-btn-sky.pk-btn-outline:active { background-color: var(--pk-btn-sky-h); border-color: var(--pk-btn-sky-h); color: #fff; }
+
+.pk-btn-blue.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-blue);
+  color: var(--pk-btn-blue);
+}
+.pk-btn-blue.pk-btn-outline:hover  { background-color: var(--pk-btn-blue);   border-color: var(--pk-btn-blue);   color: #fff; }
+.pk-btn-blue.pk-btn-outline:active { background-color: var(--pk-btn-blue-h); border-color: var(--pk-btn-blue-h); color: #fff; }
+
+.pk-btn-indigo.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-indigo);
+  color: var(--pk-btn-indigo);
+}
+.pk-btn-indigo.pk-btn-outline:hover  { background-color: var(--pk-btn-indigo);   border-color: var(--pk-btn-indigo);   color: #fff; }
+.pk-btn-indigo.pk-btn-outline:active { background-color: var(--pk-btn-indigo-h); border-color: var(--pk-btn-indigo-h); color: #fff; }
+
+.pk-btn-violet.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-violet);
+  color: var(--pk-btn-violet);
+}
+.pk-btn-violet.pk-btn-outline:hover  { background-color: var(--pk-btn-violet);   border-color: var(--pk-btn-violet);   color: #fff; }
+.pk-btn-violet.pk-btn-outline:active { background-color: var(--pk-btn-violet-h); border-color: var(--pk-btn-violet-h); color: #fff; }
+
+.pk-btn-purple.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-purple);
+  color: var(--pk-btn-purple);
+}
+.pk-btn-purple.pk-btn-outline:hover  { background-color: var(--pk-btn-purple);   border-color: var(--pk-btn-purple);   color: #fff; }
+.pk-btn-purple.pk-btn-outline:active { background-color: var(--pk-btn-purple-h); border-color: var(--pk-btn-purple-h); color: #fff; }
+
+.pk-btn-fuchsia.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-fuchsia);
+  color: var(--pk-btn-fuchsia);
+}
+.pk-btn-fuchsia.pk-btn-outline:hover  { background-color: var(--pk-btn-fuchsia);   border-color: var(--pk-btn-fuchsia);   color: #fff; }
+.pk-btn-fuchsia.pk-btn-outline:active { background-color: var(--pk-btn-fuchsia-h); border-color: var(--pk-btn-fuchsia-h); color: #fff; }
+
+.pk-btn-pink.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-pink);
+  color: var(--pk-btn-pink);
+}
+.pk-btn-pink.pk-btn-outline:hover  { background-color: var(--pk-btn-pink);   border-color: var(--pk-btn-pink);   color: #fff; }
+.pk-btn-pink.pk-btn-outline:active { background-color: var(--pk-btn-pink-h); border-color: var(--pk-btn-pink-h); color: #fff; }
+
+.pk-btn-rose.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-rose);
+  color: var(--pk-btn-rose);
+}
+.pk-btn-rose.pk-btn-outline:hover  { background-color: var(--pk-btn-rose);   border-color: var(--pk-btn-rose);   color: #fff; }
+.pk-btn-rose.pk-btn-outline:active { background-color: var(--pk-btn-rose-h); border-color: var(--pk-btn-rose-h); color: #fff; }
+
+.pk-btn-slate.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-slate);
+  color: var(--pk-btn-slate);
+}
+.pk-btn-slate.pk-btn-outline:hover  { background-color: var(--pk-btn-slate);   border-color: var(--pk-btn-slate);   color: #fff; }
+.pk-btn-slate.pk-btn-outline:active { background-color: var(--pk-btn-slate-h); border-color: var(--pk-btn-slate-h); color: #fff; }
+
+.pk-btn-gray.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-gray);
+  color: var(--pk-btn-gray);
+}
+.pk-btn-gray.pk-btn-outline:hover  { background-color: var(--pk-btn-gray);   border-color: var(--pk-btn-gray);   color: #fff; }
+.pk-btn-gray.pk-btn-outline:active { background-color: var(--pk-btn-gray-h); border-color: var(--pk-btn-gray-h); color: #fff; }
+
+.pk-btn-zinc.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-zinc);
+  color: var(--pk-btn-zinc);
+}
+.pk-btn-zinc.pk-btn-outline:hover  { background-color: var(--pk-btn-zinc);   border-color: var(--pk-btn-zinc);   color: #fff; }
+.pk-btn-zinc.pk-btn-outline:active { background-color: var(--pk-btn-zinc-h); border-color: var(--pk-btn-zinc-h); color: #fff; }
+
+.pk-btn-neutral.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-neutral);
+  color: var(--pk-btn-neutral);
+}
+.pk-btn-neutral.pk-btn-outline:hover  { background-color: var(--pk-btn-neutral);   border-color: var(--pk-btn-neutral);   color: #fff; }
+.pk-btn-neutral.pk-btn-outline:active { background-color: var(--pk-btn-neutral-h); border-color: var(--pk-btn-neutral-h); color: #fff; }
+
+.pk-btn-stone.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-stone);
+  color: var(--pk-btn-stone);
+}
+.pk-btn-stone.pk-btn-outline:hover  { background-color: var(--pk-btn-stone);   border-color: var(--pk-btn-stone);   color: #fff; }
+.pk-btn-stone.pk-btn-outline:active { background-color: var(--pk-btn-stone-h); border-color: var(--pk-btn-stone-h); color: #fff; }
+
+.pk-btn-taupe.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-taupe);
+  color: var(--pk-btn-taupe);
+}
+.pk-btn-taupe.pk-btn-outline:hover  { background-color: var(--pk-btn-taupe);   border-color: var(--pk-btn-taupe);   color: #fff; }
+.pk-btn-taupe.pk-btn-outline:active { background-color: var(--pk-btn-taupe-h); border-color: var(--pk-btn-taupe-h); color: #fff; }
+
+.pk-btn-mauve.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-mauve);
+  color: var(--pk-btn-mauve);
+}
+.pk-btn-mauve.pk-btn-outline:hover  { background-color: var(--pk-btn-mauve);   border-color: var(--pk-btn-mauve);   color: #fff; }
+.pk-btn-mauve.pk-btn-outline:active { background-color: var(--pk-btn-mauve-h); border-color: var(--pk-btn-mauve-h); color: #fff; }
+
+.pk-btn-mist.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-mist);
+  color: var(--pk-btn-mist);
+}
+.pk-btn-mist.pk-btn-outline:hover  { background-color: var(--pk-btn-mist);   border-color: var(--pk-btn-mist);   color: #fff; }
+.pk-btn-mist.pk-btn-outline:active { background-color: var(--pk-btn-mist-h); border-color: var(--pk-btn-mist-h); color: #fff; }
+
+.pk-btn-olive.pk-btn-outline {
+  background-color: transparent;
+  border-color: var(--pk-btn-olive);
+  color: var(--pk-btn-olive);
+}
+.pk-btn-olive.pk-btn-outline:hover  { background-color: var(--pk-btn-olive);   border-color: var(--pk-btn-olive);   color: #fff; }
+.pk-btn-olive.pk-btn-outline:active { background-color: var(--pk-btn-olive-h); border-color: var(--pk-btn-olive-h); color: #fff; }
 
 /* ─── Shadow modifier ─────────────────────────────────────────────── */
 
