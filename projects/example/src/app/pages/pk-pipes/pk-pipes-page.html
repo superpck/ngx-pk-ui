@@ -59,6 +59,30 @@
     <pre class="code-block">{{ codeTimeAgo }}</pre>
   </section>
 
+  <!-- pkNumber -->
+  <section class="section">
+    <h2>pkNumber</h2>
+    <p>Formats a number with optional decimal places and thousand separators.</p>
+
+    <div class="demo-card">
+      <div class="demo-row">
+        <label>Number
+          <input type="number" [ngModel]="numberValue()" (ngModelChange)="numberValue.set(+$event)" min="0"
+            style="width:140px" />
+        </label>
+        <label>Decimals
+          <input type="number" [ngModel]="numberDecimals()" (ngModelChange)="numberDecimals.set(+$event)" min="0"
+            max="6" style="width:60px" />
+        </label>
+      </div>
+      <div class="demo-output">
+        {{ numberValue() | pkNumber: numberDecimals() }}
+      </div>
+    </div>
+
+    <pre class="code-block">{{ codeNumber }}</pre>
+  </section>
+
   <!-- pkFileSize -->
   <section class="section">
     <h2>pkFileSize</h2>

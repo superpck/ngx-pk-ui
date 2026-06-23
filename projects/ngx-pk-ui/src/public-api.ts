@@ -149,6 +149,7 @@ export * from './lib/pk-context-menu/pk-context-menu.directive';
 export * from './lib/pk-pipes/pk-truncate.pipe';
 export * from './lib/pk-pipes/pk-time-ago.pipe';
 export * from './lib/pk-pipes/pk-file-size.pipe';
+export * from './lib/pk-pipes/pk-number.pipe';
 export * from './lib/pk-pipes/pk-highlight.pipe';
 export * from './lib/pk-pipes/pk-date.pipe';
 

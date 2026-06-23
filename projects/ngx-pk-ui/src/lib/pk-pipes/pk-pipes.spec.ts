@@ -5,6 +5,7 @@ import { describe, expect, it, beforeEach } from 'vitest';
 import { PkTruncatePipe } from './pk-truncate.pipe';
 import { PkTimeAgoPipe } from './pk-time-ago.pipe';
 import { PkFileSizePipe } from './pk-file-size.pipe';
+import { PkNumberPipe } from './pk-number.pipe';
 import { PkHighlightPipe } from './pk-highlight.pipe';
 
 // ---------------------------------------------------------------------------
@@ -157,6 +158,49 @@ describe('PkFileSizePipe', () => {
 
   it('formats terabytes', () => {
     expect(pipe.transform(1024 ** 4)).toBe('1 TB');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// PkNumberPipe
+// ---------------------------------------------------------------------------
+describe('PkNumberPipe', () => {
+  const pipe = new PkNumberPipe();
+
+  it('returns empty string for null', () => {
+    expect(pipe.transform(null)).toBe('');
+  });
+
+  it('returns empty string for undefined', () => {
+    expect(pipe.transform(undefined)).toBe('');
+  });
+
+  it('returns empty string for NaN', () => {
+    expect(pipe.transform(NaN)).toBe('');
+  });
+
+  it('returns "0" for 0', () => {
+    expect(pipe.transform(0)).toBe('0');
+  });
+
+  it('formats kilobytes', () => {
+    expect(pipe.transform(1000)).toBe('1 K');
+  });
+
+  it('formats megabytes with default 1 decimal', () => {
+    expect(pipe.transform(1_500_000)).toMatch(/^1\.\dM$/);
+  });
+
+  it('formats with custom decimal places', () => {
+    expect(pipe.transform(1000 * 1000, 2)).toBe('1M');
+  });
+
+  it('formats gigabytes', () => {
+    expect(pipe.transform(1000 ** 3)).toBe('1G');
+  });
+
+  it('formats terabytes', () => {
+    expect(pipe.transform(1000 ** 4)).toBe('1T');
   });
 });
 
