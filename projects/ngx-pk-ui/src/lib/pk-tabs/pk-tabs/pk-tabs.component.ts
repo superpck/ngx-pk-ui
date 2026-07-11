@@ -1,11 +1,10 @@
-import { Component, ContentChildren, QueryList, AfterContentInit, Input, ElementRef, Renderer2, AfterViewInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ContentChildren, QueryList, AfterContentInit, Input, ElementRef, Renderer2, AfterViewInit, Output, EventEmitter, inject, ChangeDetectorRef } from '@angular/core';
 import { PkTabComponent } from '../pk-tab/pk-tab.component';
 
 @Component({
   selector: 'pk-tabs',
   standalone: false,
   templateUrl: './pk-tabs.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./pk-tabs.component.scss']
 })
 export class PkTabsComponent implements AfterContentInit, AfterViewInit {
@@ -37,7 +36,11 @@ export class PkTabsComponent implements AfterContentInit, AfterViewInit {
   private resizeObserver: ResizeObserver | null = null;
   private debounceResize: any;
 
-  constructor(private el: ElementRef, private renderer: Renderer2) { }
+  private el = inject(ElementRef);
+  private renderer = inject(Renderer2);
+  private cdr = inject(ChangeDetectorRef);
+
+  constructor() { }
 
   ngAfterContentInit() {
     // ห่อด้วย setTimeout เพื่อเลื่อนการเรียก selectTab ไปรันหลัง change detection
@@ -102,8 +105,10 @@ export class PkTabsComponent implements AfterContentInit, AfterViewInit {
     this.tabs.forEach((tab, i) => {
       const isSelected = tab === selectedTab;
       tab.active = isSelected;
+      tab.cdr.detectChanges(); // สั่งให้ PkTabComponent คลี่เปลี่ยนสถานะตัวเองด้วย
       if (isSelected) index = i;
     });
+    this.cdr.detectChanges();
     this.onSelectTab.emit(index);
   }
 }
