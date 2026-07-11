@@ -4,6 +4,14 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [3.0.2] — 2026-07-11
+
+### Fixed
+- **`pk-tabs`**: Fixed CSS styles that were incorrectly commented out, causing visual issues with background, text colors, margins, and borders.
+- **`pk-tabs`**: Fixed ChangeDetectionStrategy error by removing the static `ChangeDetectionStrategy.Eager` enum value and manually triggering `ChangeDetectorRef` detection in the `selectTab` event to ensure tab click updates correctly function under Angular 22.
+
+---
+
 ## [3.0.0] — 2026-06-21
 
 ### Changed

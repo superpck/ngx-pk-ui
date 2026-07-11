@@ -1,11 +1,18 @@
 import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PkTruncatePipe, PkTimeAgoPipe, PkFileSizePipe, PkHighlightPipe, PkDatePipe, parseBEDate } from 'ngx-pk-ui';
+import {
+  PkTruncatePipe, PkTimeAgoPipe, PkFileSizePipe,
+  PkHighlightPipe, PkDatePipe, parseBEDate,
+  PkNumberPipe
+} from 'ngx-pk-ui';
 
 @Component({
   selector: 'pk-pipes-page',
   standalone: true,
-  imports: [FormsModule, PkTruncatePipe, PkTimeAgoPipe, PkFileSizePipe, PkHighlightPipe, PkDatePipe],
+  imports: [
+    FormsModule, PkTruncatePipe, PkTimeAgoPipe,
+    PkFileSizePipe, PkHighlightPipe, PkDatePipe, PkNumberPipe
+  ],
   templateUrl: './pk-pipes-page.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pk-pipes-page.css',
@@ -18,18 +25,22 @@ export class PkPipesPage {
   // pkTimeAgo
   timeAgoDate = signal(new Date(Date.now() - 3 * 60 * 1000)); // 3 min ago
   readonly timePresets: { label: string; ms: number }[] = [
-    { label: '2 seconds ago',  ms: 2_000 },
+    { label: '2 seconds ago', ms: 2_000 },
     { label: '30 seconds ago', ms: 30_000 },
-    { label: '3 minutes ago',  ms: 3 * 60_000 },
-    { label: '2 hours ago',    ms: 2 * 3600_000 },
-    { label: '1 day ago',      ms: 86_400_000 },
-    { label: '2 weeks ago',    ms: 14 * 86_400_000 },
-    { label: '3 months ago',   ms: 90 * 86_400_000 },
-    { label: '2 years ago',    ms: 730 * 86_400_000 },
+    { label: '3 minutes ago', ms: 3 * 60_000 },
+    { label: '2 hours ago', ms: 2 * 3600_000 },
+    { label: '1 day ago', ms: 86_400_000 },
+    { label: '2 weeks ago', ms: 14 * 86_400_000 },
+    { label: '3 months ago', ms: 90 * 86_400_000 },
+    { label: '2 years ago', ms: 730 * 86_400_000 },
   ];
   setTimeAgo(ms: number): void {
     this.timeAgoDate.set(new Date(Date.now() - ms));
   }
+
+  // pkNumber
+  numberValue = signal(1_500_000);
+  numberDecimals = signal(1);
 
   // pkFileSize
   fileSizeBytes = signal(1_500_000);
@@ -39,10 +50,10 @@ export class PkPipesPage {
   highlightText = signal('The quick brown fox jumps over the lazy dog');
   highlightQuery = signal('fox');
 
-  readonly code1 = `import { PkTruncatePipe, PkTimeAgoPipe, PkFileSizePipe, PkHighlightPipe } from 'ngx-pk-ui';
+  readonly code1 = `import { PkTruncatePipe, PkTimeAgoPipe, PkFileSizePipe, PkNumberPipe, PkHighlightPipe } from 'ngx-pk-ui';
 
 @Component({
-  imports: [PkTruncatePipe, PkTimeAgoPipe, PkFileSizePipe, PkHighlightPipe],
+  imports: [PkTruncatePipe, PkTimeAgoPipe, PkFileSizePipe, PkNumberPipe, PkHighlightPipe],
 })`;
 
   readonly code2 = `<!-- Truncate to 40 chars (default ellipsis '…') -->
@@ -61,6 +72,10 @@ export class PkPipesPage {
 <!-- Highlight — use [innerHTML] binding -->
 <span [innerHTML]="item.name | pkHighlight: searchQuery"></span>`;
 
+  readonly codeNumber = `<!-- Number formatting -->
+{{ numberValue | pkNumber }}          <!-- "1.5M" -->
+{{ numberValue | pkNumber: 2 }}       <!-- "1.50M" -->`;
+
   readonly codeTruncate = `{{ longText | pkTruncate: 40 }}\n{{ longText | pkTruncate: 40 : ' ...' }}`;
   readonly codeTimeAgo = `{{ createdAt | pkTimeAgo }}`;
   readonly codeFileSize = `{{ file.size | pkFileSize }}       // "1.4 MB"\n{{ file.size | pkFileSize: 2 }}   // "1.44 MB"`;
@@ -72,8 +87,8 @@ export class PkPipesPage {
   readonly demoDateBE = parseBEDate('31/01/2568');
   dateLocale = signal<'en' | 'th' | 'es' | 'it' | 'fr' | 'de' | 'ja' | 'ar'>('th');
   dateFormat = signal('d m yyyy');
-  dateStyle  = signal<'numeric' | 'abbr' | 'full'>('abbr');
-  dateEra    = signal<'CE' | 'BE'>('BE');
+  dateStyle = signal<'numeric' | 'abbr' | 'full'>('abbr');
+  dateEra = signal<'CE' | 'BE'>('BE');
 
   readonly codeDateImport = `import { PkDatePipe, parseBEDate } from 'ngx-pk-ui';
 
