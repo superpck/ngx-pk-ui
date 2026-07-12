@@ -4,6 +4,13 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## [3.0.3] — 2026-07-12
+
+### Fixed
+- **`pk-tabs`**: Fixed `ChangeDetectorRef` implementation. Switched to `markForCheck()` and implemented proper `ngOnChanges()` to ensure state is correctly synced when properties like `[active]` are updated dynamically.
+
+---
+
 ## [3.0.2] — 2026-07-11
 
 ### Fixed

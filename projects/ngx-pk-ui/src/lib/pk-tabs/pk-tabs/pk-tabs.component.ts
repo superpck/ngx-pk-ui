@@ -45,11 +45,30 @@ export class PkTabsComponent implements AfterContentInit, AfterViewInit {
   ngAfterContentInit() {
     // ห่อด้วย setTimeout เพื่อเลื่อนการเรียก selectTab ไปรันหลัง change detection
     setTimeout(() => {
+      this.syncActiveTab();
+    }, 0);
+
+    this.tabs.changes.subscribe(() => {
+      this.syncActiveTab();
+    });
+  }
+
+  private syncActiveTab() {
       const activeTabs = this.tabs.filter(tab => !tab.disabled && tab.active);
       if (activeTabs.length === 0 && this.tabs.first && !this.tabs.first.disabled) {
         this.selectTab(this.tabs.first);
+      } else if (activeTabs.length > 0) {
+        // If there's an active tab set from outside (e.g. [active]="xxx" changed), 
+        // emit it and make sure internal state matches
+        const activeTab = activeTabs[0];
+        let index = -1;
+        this.tabs.forEach((tab, i) => {
+          if (tab === activeTab) index = i;
+        });
+        if (index > -1) {
+            this.onSelectTab.emit(index);
+        }
       }
-    }, 0);
   }
 
   ngAfterViewInit() {
@@ -98,17 +117,36 @@ export class PkTabsComponent implements AfterContentInit, AfterViewInit {
     }, retryCount * 100);
   }
 
+  syncFromChild(activeTab: PkTabComponent) {
+    if (activeTab.disabled) return;
+    
+    let index = -1;
+    this.tabs.forEach((tab, i) => {
+      const isSelected = tab === activeTab;
+      if (tab.active !== isSelected) {
+        tab.active = isSelected;
+        tab.cdr.markForCheck(); // notify Angular that the internal state changed
+      }
+      if (isSelected) index = i;
+    });
+    this.cdr.markForCheck();
+    // Do not emit here, as the parent is the one that triggered the change. 
+    // Emitting could cause infinite loops or duplicate updates back to parent state
+  }
+
   selectTab(selectedTab: PkTabComponent) {
     if (selectedTab.disabled) return;
     
     let index = -1;
     this.tabs.forEach((tab, i) => {
       const isSelected = tab === selectedTab;
-      tab.active = isSelected;
-      tab.cdr.detectChanges(); // สั่งให้ PkTabComponent คลี่เปลี่ยนสถานะตัวเองด้วย
+      if (tab.active !== isSelected) {
+        tab.active = isSelected;
+        tab.cdr.markForCheck(); // notify Angular that the internal state changed
+      }
       if (isSelected) index = i;
     });
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
     this.onSelectTab.emit(index);
   }
 }
