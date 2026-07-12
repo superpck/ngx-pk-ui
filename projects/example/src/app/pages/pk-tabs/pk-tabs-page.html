@@ -7,16 +7,26 @@
   </div>
 
   <section class="demo-section">
-    <h2>Demo — Basic</h2>
+    <h2>
+      Demo — Basic
+      <span style="margin-left: 20px; font-size: 13px; color: #666;">
+        tab selection:
+        <select name="activeTab" [ngModel]="activeTab()" (ngModelChange)="activeTab.set($event)" style="font-size: 13px; padding: 2px 6px; border-radius: 4px; border: 1px solid #ccc;">
+          <option value="profile">Profile</option>
+          <option value="settings">Settings</option>
+          <option value="billing">Billing</option>
+        </select>
+      </span>
+    </h2>
     <pk-tabs>
-      <pk-tab [active]="true">
-        <pk-tab-title>Profile</pk-tab-title>
+      <pk-tab [active]="activeTab() === 'profile'">
+        <pk-tab-title (tabClick)="activeTab.set('profile')">Profile</pk-tab-title>
         <pk-tab-body>
           <p>👤 Profile content — name, avatar, bio.</p>
         </pk-tab-body>
       </pk-tab>
-      <pk-tab>
-        <pk-tab-title>Settings</pk-tab-title>
+      <pk-tab [active]="activeTab() === 'settings'">
+        <pk-tab-title (tabClick)="activeTab.set('settings')">Settings</pk-tab-title>
         <pk-tab-body>
           <p>⚙️ Settings content — preferences, notifications.</p>
         </pk-tab-body>
@@ -27,8 +37,8 @@
           <p>This content is never shown.</p>
         </pk-tab-body>
       </pk-tab>
-      <pk-tab>
-        <pk-tab-title>Billing</pk-tab-title>
+      <pk-tab [active]="activeTab() === 'billing'">
+        <pk-tab-title (tabClick)="activeTab.set('billing')">Billing</pk-tab-title>
         <pk-tab-body>
           <p>💳 Billing content — plan, invoices.</p>
         </pk-tab-body>
