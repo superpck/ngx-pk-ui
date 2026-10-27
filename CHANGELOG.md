@@ -4,6 +4,13 @@ All notable changes to **ngx-pk-ui** are documented here.
 
 ---
 
+## Unreleased
+
+### Security
+- Updated vulnerable development dependencies. Vite is temporarily overridden to a patched 8.3.x release because Angular's build package pins an older version.
+
+---
+
 ## [3.0.3] — 2026-07-12
 
 ### Fixed
